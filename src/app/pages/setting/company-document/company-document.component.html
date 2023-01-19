@@ -5,13 +5,14 @@
 
     <ngx-base-table [title]="title"
                     [subtitle]="subtitle" [settings]="settings"
-                    entity="company_document/?pagination=true"
+                    [entity]="entity"
                     customData='company_document'
                     [messageToltip]="messageToltip"
                     >
       <div actions>
         <div class="actions">
-          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewCompanyDocument()">Crear</button>
+          <button nbButton (click)="back()" >Volver</button>
+          <button nbButton status="danger" (click)="NewCompanyDocument()">Crear</button>
         </div>
       </div>
     </ngx-base-table>

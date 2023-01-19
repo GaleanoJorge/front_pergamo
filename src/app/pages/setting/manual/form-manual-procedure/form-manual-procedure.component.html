@@ -1,0 +1,111 @@
+<form [formGroup]="form" (ngSubmit)="save()" style="width: 97%;height: 90%;">
+  <nb-card style="width: 100%;height: 600px;overflow: auto; margin-left: 1.5%">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body style="height: fit-content;overflow: auto;">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="manual_procedure_type_id" class="form-text text-muted font-weight-bold">Tipo de
+            procedimiento:</label>
+          <nb-select [selected]="this.data.manual_procedure_type_id" (selectedChange)="onChange($event)"
+            formControlName="manual_procedure_type_id" id="manual_procedure_type_id" fullWidth
+            status="{{ isSubmitted && form.controls.manual_procedure_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.manual_procedure_type_id }}" *ngFor="let item of procedure_type"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="own_code" class="form-text text-muted font-weight-bold">Codigo propio:</label>
+          <input (change)="cups()" nbInput fullWidth id="own_code" formControlName="own_code" own_code
+            status="{{ isSubmitted && form.controls.own_code.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+        <div *ngIf="showSelect" class="col-12 col-sm-12 col-md-4">
+          <label class="form-text text-muted font-weight-bold">Seleccione cups:</label>
+          <input (focusout)="checkCups($event, this.form.controls.cups_id.value)" nbInput type="text" list="codes" class="data-list" (change)="saveCode($event)" formControlName="cups_id" cups_id
+          status="{{ isSubmitted && form.controls.cups_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" >
+          <datalist id="codes">
+            <option class="cupsAutocompleteOption" *ngFor="let item of procedure_cups" [value]="item.code">{{item.code}}-{{item.name}}</option>
+          </datalist>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="homologous_id" class="form-text text-muted font-weight-bold">Homologo:</label>
+          <input nbInput fullWidth id="homologous_id" formControlName="homologous_id" homologous_id
+            status="{{ isSubmitted && form.controls.homologous_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="name" class="form-text text-muted font-weight-bold">Nombre propio del procedimiento:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="value" class="form-text text-muted font-weight-bold">Precio:</label>
+          <input nbInput type="number" fullWidth id="value" formControlName="value" value
+            status="{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-4">
+          <label class="form-text text-muted font-weight-bold">Tipo de precio:</label>
+          <nb-select placeholder="Asignar un tipo de precio" formControlName="price_type_id"
+            status="{{ isSubmitted && form.controls.price_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option *ngFor="let item of price_type" [value]="item.id">{{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div *ngIf="showSelect3" class="col-12 col-sm-12 col-md-4">
+          <label class="form-text text-muted font-weight-bold">Paciente:</label>
+          <input type="text" list="codes2" class="data-list" (change)="saveCode2($event)" formControlName="patient_id">
+          <datalist id="codes2">
+            <option *ngFor="let item of patient" [value]="item.identification">{{item.identification}}-{{item.nombre_completo}}</option>
+          </datalist>
+        </div>
+        
+
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <label class="form-text text-muted font-weight-bold">Descripción:</label>
+          <textarea id="description" nbInput fullWidth formControlName="description" description
+            rows="4" cols="50"
+            status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+        </div>
+      </div>
+      <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable">
+        <nb-tabset class="tabset" (changeTab)="tablock($event)" fullWidth>
+          <nb-tab tabTitle="PROCEDIMIENTOS" style="padding: initial;">
+            <div>
+              <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable"
+                style="margin-top: 10px;">
+                <ngx-procedure-package (messageEvent)="receiveMessage($event,1)" [type]="1" [parentData]="parentData"
+                  [show]="showSelect"></ngx-procedure-package>
+              </div>
+            </div>
+          </nb-tab>
+
+          <nb-tab tabTitle="MEDICAMENTOS" style="padding: initial;">
+            <div>
+              <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable"
+                style="margin-top: 10px;">
+                <ngx-procedure-package (messageEvent)="receiveMessage($event,2)" [type]="2"
+                  [parentData]="parentDataProduct" [show]="showSelect"></ngx-procedure-package>
+              </div>
+            </div>
+          </nb-tab>
+
+          <nb-tab tabTitle="INSUMOS" style="padding: initial;">
+            <div>
+              <div *ngIf="(this.data.id ? this.manual_procedure_type : true) && this.showTable"
+                style="margin-top: 10px;">
+                <ngx-procedure-package (messageEvent)="receiveMessage($event,3)" [type]="3"
+                  [parentData]="parentDataInsume" [show]="showSelect"></ngx-procedure-package>
+              </div>
+            </div>
+          </nb-tab>
+        </nb-tabset>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

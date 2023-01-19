@@ -31,9 +31,9 @@ export class PavilionService {
       });
   }
 
-  GetPavilionByFlat(flat_id): Promise<Pavilion[]> {
+  GetPavilionByFlat(flat_id, params = {}): Promise<Pavilion[]> {
     let servObj = new ServiceObject('pavilion/byFlat',flat_id);
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
@@ -41,6 +41,22 @@ export class PavilionService {
 
         this.pavilion = <Pavilion[]>servObj.data.pavilion;
         return Promise.resolve(this.pavilion);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetPavilionByBed(bed_id, params = {}): Promise<Pavilion> {
+    let servObj = new ServiceObject('get_pavilion_by_bed',bed_id);
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        let pavilion = <Pavilion>servObj.data.pavilion;
+        return Promise.resolve(pavilion);
       })
       .catch(x => {
         throw x.message;

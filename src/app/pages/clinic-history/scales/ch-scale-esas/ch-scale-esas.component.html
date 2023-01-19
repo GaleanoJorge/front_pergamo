@@ -1,0 +1,12 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table pager="false"  class="table" [title]="title" [subtitle]="subtitle" customData="ch_scale_esas" 
+    [settings]="settings" entity="ch_scale_esas?ch_record_id={{ch_record_id}}&latest=true">
+      <div actions>
+        <div class=" actions">
+        <button nbButton status="danger" (click)="Historic()">Historico</button>
+      </div>
+    </div>
+  </ngx-base-table>
+  </div>
+  </ngx-base-list>

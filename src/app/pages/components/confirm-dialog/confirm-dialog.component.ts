@@ -13,7 +13,12 @@ export class ConfirmDialogComponent implements OnInit {
   @Input() delete: any = null;
   @Input() data: any = null;
   @Input() textConfirm = 'Eliminar';
+  @Input() signature: boolean = false;
+  // @Input() save: any = null;
+  @Input() showImage: any = null;
   loading: boolean = false;
+
+  public signatureImage: string;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,

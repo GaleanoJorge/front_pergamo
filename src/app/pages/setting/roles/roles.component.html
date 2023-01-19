@@ -29,8 +29,9 @@
                     <div class="row">
                         <div class="col-6">
                             <small class="form-text text-muted">Nombre del rol:</small>
-                            <input type="text" nbInput fullWidth fieldSize="medium"
-                                status="{{ isSubmitted && roleForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                            <input type="text" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth fieldSize="medium"
+                                status="{{ isSubmitted && roleForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                                
                                 placeholder="Nombre" formControlName="name" required name minlength="5">
                             <div *ngIf="roleForm.controls.name.errors && isSubmitted ">
                                 <small *ngIf="roleForm.controls.name.errors.required">Ingrese el nombre del rol</small>
@@ -40,13 +41,25 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Estado del rol:</small>
                             <nb-select placeholder="Estado" size="medium" fullWidth formControlName="status"
-                                status="{{ isSubmitted && roleForm.controls.status.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && roleForm.controls.status.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 required status>
                                 <nb-option *ngFor="let status of statusBS.status" [value]="status.id">{{status.name}}
                                 </nb-option>
                             </nb-select>
                             <div *ngIf="roleForm.controls.status.errors && isSubmitted ">
                                 <small *ngIf="roleForm.controls.status.errors.required">Seleccione un estado</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <small class="form-text text-muted">Tipo de rol:</small>
+                            <nb-select placeholder="Tipo" size="medium" fullWidth formControlName="role_type"
+                                status="{{ isSubmitted && roleForm.controls.role_type.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                                required role_type>
+                                <nb-option *ngFor="let role_type of RoleTypeS.role_type" [value]="role_type.id">{{role_type.name}}
+                                </nb-option>
+                            </nb-select>
+                            <div *ngIf="roleForm.controls.role_type.errors && isSubmitted ">
+                                <small *ngIf="roleForm.controls.role_type.errors.required">Seleccione un estado</small>
                             </div>
                         </div>
                     </div>

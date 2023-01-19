@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="medium" style="max-width: 600px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      
+      <div class="row">
+        <div class ="col-md-12">
+          <label for="name" class="form-text text-muted font-weight-bold">NOMBRE:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+        
+        <div class="col-md-12">
+          <label for="diet_supply_type" class="form-text text-muted font-weight-bold">TIPO DE INSUMO:</label>
+          <nb-select [selected]="this.data.diet_supply_type_id" formControlName="diet_supply_type_id"
+            id="diet_supply_type_id" fullWidth
+            status="{{ isSubmitted && form.controls.diet_supply_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.diet_supply_type_id }}" *ngFor="let item of diet_supply_type"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+  
+        <div class="col-md-12">
+          <label for="measurement_units" class="form-text text-muted font-weight-bold">UNIDAD DE MEDIDA:</label>
+          <nb-select [selected]="this.data.measurement_units_id" formControlName="measurement_units_id"
+            id="measurement_units_id" fullWidth
+            status="{{ isSubmitted && form.controls.measurement_units_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.measurement_units_id }}" *ngFor="let item of measurement_units"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

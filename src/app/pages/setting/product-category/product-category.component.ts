@@ -16,7 +16,7 @@ export class ProductCategoryComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Categoria del producto';
+  public title: string = 'Categoría del Producto  / Clasificación de riesgo';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -31,7 +31,7 @@ export class ProductCategoryComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -79,6 +79,7 @@ export class ProductCategoryComponent implements OnInit {
 
   NewProductCategory() {
     this.dialogFormService.open(FormProductCategoryComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nueva Categoria del producto',
         saved: this.RefreshData.bind(this),
@@ -88,6 +89,7 @@ export class ProductCategoryComponent implements OnInit {
 
   EditProductCategory(data) {
     this.dialogFormService.open(FormProductCategoryComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar Categoria del producto',
         data,

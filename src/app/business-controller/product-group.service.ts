@@ -16,7 +16,7 @@ export class ProductGroupService {
   GetCollection(params = {}): Promise<ProductGroup[]> {
     let servObj = new ServiceObject(params ? 'product_group?pagination=false' : 'product_group');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

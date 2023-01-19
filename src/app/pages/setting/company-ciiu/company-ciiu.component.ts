@@ -16,7 +16,7 @@ export class CompanyCiiuComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Actividades económicas';
+  public title: string = 'Actividades Económicas';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Compañia'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -31,7 +31,7 @@ export class CompanyCiiuComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent

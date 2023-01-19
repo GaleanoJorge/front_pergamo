@@ -1,0 +1,68 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="max-width: 1400px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="company" class="form-text text-muted font-weight-bold">PROVEEDOR:</label>
+          <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
+            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="pharmacy_stock" class="form-text text-muted font-weight-bold">ENVIAR A ALMACEN:</label>
+          <nb-select [selected]="this.data.pharmacy_stock_id" formControlName="pharmacy_stock_id" id="pharmacy_stock_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.pharmacy_stock_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.pharmacy_stock_id}}" *ngFor="let item of pharmacy_stock"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label class="form-text text-muted font-weight-bold">TIPO DE DOCUMENTO SOPORTE:</label>
+          <nb-select [selected]="this.data.type_billing_evidence_id" formControlName="type_billing_evidence_id"
+            id="type_billing_evidence_id" fullWidth
+            status="{{ isSubmitted && form.controls.type_billing_evidence_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.type_billing_evidence_id }}"
+              *ngFor="let item of type_billing_evidence" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <ngx-prod-billing-package (messageEvent)="receiveMessage($event)" [parentData]="parentData">
+          </ngx-prod-billing-package>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <ngx-prod-supplies-package (messageEvent)="receiveMessage1($event)" [parentData]="parentData1">
+          </ngx-prod-supplies-package>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <label></label>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

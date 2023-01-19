@@ -1,0 +1,74 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <div class="row" *ngIf="user">
+      <div class="col-md-6" title *ngIf="user">
+        <p class="parrafo" *ngIf="user">CÉDULA: {{user.identification}} </p>
+        <p class="parrafo" *ngIf="user">NOMBRE: {{this.user.firstname + ' ' + this.user.lastname}}</p>
+        <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{this.datePipe.transform3(user.birthday)}} </p>
+        <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>
+      </div>
+      <div class="col-md-6 position">
+        <a nbButton (click)="back()">Volver</a>
+      </div>
+    </div>
+    <nb-tabset *ngIf="user" class="tabset" (changeTab)="tablock($event)">
+      <nb-tab tabTitle="INGRESO">
+        <div *ngIf="this.show == 1">
+          <ngx-entry-clinic-history (messageEvent)="inputMessage($event)" [has_input]="has_input" [user]="user" [admission]="admission" [type_record_id]="1">
+          </ngx-entry-clinic-history>
+        </div>
+      </nb-tab>      
+      <nb-tab tabTitle="EVOLUCIÓN">
+        <div *ngIf="this.show == 2">
+          <ngx-evolution-list [user]="user" [admission]="admission" [type_record_id]="3"></ngx-evolution-list>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="ESCALAS">
+        <div *ngIf="this.show == 3 && this.user">
+          <ngx-form-ch-scales [medical]="true" [record_id]="record_id" [age]="user">
+          </ngx-form-ch-scales>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="FORMULACIÓN">
+        <div *ngIf="this.show == 4">
+          <ngx-formulation [record_id]="record_id" [user]="user_id" [admission]="admission"></ngx-formulation>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="ORDENES MEDICAS">
+        <div *ngIf="this.show == 5">
+          <ngx-orders-medical  [record_id]="record_id" [admission]="admission"></ngx-orders-medical>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="INCAPACIDAD">
+        <div *ngIf="this.show == 6">
+          <ngx-ch-inability [record_id]="record_id"></ngx-ch-inability>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="CERTIFICADO MEDICO">
+        <div *ngIf="this.show == 7">
+          <ngx-ch-medical-certificate  [record_id]="record_id"></ngx-ch-medical-certificate>
+        </div>
+      </nb-tab>
+
+      <nb-tab *ngIf="this.show_failed" tabTitle="FALLIDA">
+        <div *ngIf="this.show == 8">
+          <ngx-failed (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-failed>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="SALIDA">
+        <div *ngIf="this.show == 9">
+          <ngx-form-patient-exit [record_id]="record_id" [admission]="admission"></ngx-form-patient-exit>
+        </div>
+      </nb-tab>
+
+    </nb-tabset>
+    <div style="text-align: center;">
+      <a (click)="close()" nbButton>Finalizar registro</a>
+    </div>
+  </div>
+
+</ngx-base-list>

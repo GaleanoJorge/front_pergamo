@@ -1,0 +1,50 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="width: 100%;height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6">
+          <label class="form-text text-muted font-weight-bold">Tipo:</label>
+          <nb-select [selected]="this.data.fixed_type_id" formControlName="fixed_type_id"
+            id="fixed_type_id" fullWidth>
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.fixed_type_id }}"
+              *ngFor="let item of fixed_type_id" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="name" class="form-text text-muted font-weight-bold">Descripción:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="amount_total" class="form-text text-muted font-weight-bold">Cantidad:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="amount_total" formControlName="amount_total"
+            amount_total
+            status="{{ isSubmitted && form.controls.amount_total.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="campus_id" class="form-text text-muted font-weight-bold">Enviar a la sede:</label>
+          <nb-select [selected]="this.data.campus_id" formControlName="campus_id"
+            id="campus_id" fullWidth
+            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.campus_id }}"
+              *ngFor="let item of campus_id" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

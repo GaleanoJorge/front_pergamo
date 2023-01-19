@@ -9,18 +9,24 @@ import { UserCampusBusinessService } from '../../../business-controller/user-cam
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <a ngxCheckPerms="update" nbButton ghost (click)="open(dialog)">
-        <nb-icon icon="edit-outline"></nb-icon>
+      <a  nbTooltip="Editar" nbTooltipPlacement="top" nbTooltipStatus="primary"  ngxCheckPerms="update" nbButton ghost (click)="open(dialog)">
+      <nb-icon icon="edit-outline"></nb-icon>
       </a>
       <!--<button ngxCheckPerms="delete" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>-->
-      <button ngxCheckPerms="update" nbButton ghost (click)="value.reset_password(value.data)" title="Forzar cambio de contraseña">
+      <button  nbTooltip="Restablecer Contraseña" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost (click)="value.reset_password(value.data)" >
         <nb-icon [icon]="(value.data.force_reset_password ? 'shield-outline' : 'shield-off-outline')"></nb-icon>
       </button>
-      <a ngxCheckPerms="update" nbButton ghost (click)="open(dialog2)" title="Agregar sede a usuario">
-      <nb-icon icon="plus-circle"></nb-icon>
-    </a>
+      <button  nbTooltip="Información Financiera" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost (click)="value.financialdata(value.data)"  >
+        <nb-icon icon="inbox-outline"></nb-icon>
+      </button>
+      <a nbTooltip="Agregar Sede a usuario" nbTooltipPlacement="top" nbTooltipStatus="primary" ngxCheckPerms="update" nbButton ghost (click)="open(dialog2)" >
+        <nb-icon icon="plus-circle"></nb-icon>
+      </a>
+      <button nbTooltip="Agregar rol" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ngxCheckPerms="update" ghost (click)="value.role(value.data)">
+        <nb-icon icon="people-outline"></nb-icon>
+      </button>
     </div>
     <ng-template #dialog let-data let-ref="dialogRef">
       <nb-card>
@@ -74,7 +80,7 @@ export class ActionsUsersComponent implements ViewCell, OnInit {
       this.value.data.user_role.forEach(element => {
         this.roles.push(element.role);
       });
-      this.campus= await this.campusBS.GetCollection();
+      this.campus= await this.campusBS.GetCollection({status_id: 1,});
   }
 
   ChangeCampus(value){

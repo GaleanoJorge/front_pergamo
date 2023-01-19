@@ -1,15 +1,19 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {NbDialogRef, NbToastrService} from '@nebular/theme';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-// import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-import {FixedAssetsService} from '../../../../business-controller/fixed-assets.service';
-import { ProductPresentationService} from '../../../../business-controller/product-presentation.service';
-import {ProductGroupService} from '../../../../business-controller/product-group.service';
-import {ProductCategoryService} from '../../../../business-controller/product-category.service';
-import {ProductSubcategoryService} from '../../../../business-controller/product-subcategory.service';
-import {ConsumptionUnitService} from '../../../../business-controller/consumption-unit.service';
-import {FactoryService} from '../../../../business-controller/factory.service';
-import {TypeAssetsService} from '../../../../business-controller/type-assets.service';
+import { NbDialogRef, NbToastrService } from '@nebular/theme';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FixedAssetsService } from '../../../../business-controller/fixed-assets.service';
+import { FixedPropertyService } from '../../../../business-controller/fixed-property.service';
+import { FixedTypeService } from '../../../../business-controller/fixed-type.service';
+import { FixedClasificationService } from '../../../../business-controller/fixed-clasification.service';
+import { FixedConditionService } from '../../../../business-controller/fixed-condition.service';
+import { CompanyCategoryService } from '../../../../business-controller/company-category.service';
+import { CampusService } from '../../../../business-controller/campus.service';
+import { FixedNomProductService } from '../../../../business-controller/fixed-nom-product.service';
+import { FrequencyService } from '../../../../business-controller/frequency.service';
+import { RiskService } from '../../../../business-controller/risk.service';
+import { BiomedicalClassificationService } from '../../../../business-controller/biomedical-classification.service';
+import { FixedStockService } from '../../../../business-controller/fixed-stock.service';
+import { PeriodicityFrequencyService } from '../../../../business-controller/periodicity-frequency.service';
 
 
 @Component({
@@ -23,85 +27,205 @@ export class FormFixedAssetsComponent implements OnInit {
   @Input() data: any = null;
 
   public form: FormGroup;
-  public region_id: number;
-  // public status: Status[];
   public isSubmitted: boolean = false;
   public saved: any = null;
   public loading: boolean = false;
-  public product_presentation: any [];
-  public product_subcategory: any [];
-  public product_group: any [];
-  public product_category: any [];
-  public consumption_unit: any [];
-  public factory: any [];
-  public type_assets: any [];
-
-
-
+  public fixed_clasification: any[];
+  public fixed_property: any[];
+  public fixed_condition: any[];
+  public fixed_nom_product: any[];
+  public company: any[];
+  public fixed_stock: any[];
+  public fixed_type: any[];
+  public showProv: boolean = false;
+  public showCondi: boolean = false;
+  public showBiomed: boolean = false;
+  public clasification_risk_id: any[];
+  public biomedical_classification_id: any[];
+  public periodicity_frequency_id: any[];
+  public calibration_frequency_id: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
-    // private statusBS: StatusBusinessService,
     private FixedAssetsS: FixedAssetsService,
     private toastService: NbToastrService,
-    private ProductPresentationS: ProductPresentationService,
-    private ProductGroupS: ProductGroupService,
-    private ConsumptionUnitS: ConsumptionUnitService,
-    private FactoryS: FactoryService,
-    private TypeAssetsS: TypeAssetsService,
-    private ProductCategoryS: ProductCategoryService,
-    private ProductSubcategoryS: ProductSubcategoryService,
+    private FixedPropertyS: FixedPropertyService,
+    private FixedTypeS: FixedTypeService,
+    private CompanyCategoryS: CompanyCategoryService,
+    private FixedConditionS: FixedConditionService,
+    private FixedStockS: FixedStockService,
+    private FixedNomProductS: FixedNomProductService,
+    private FixedClasificationS: FixedClasificationService,
+    private FrequencyS: PeriodicityFrequencyService,
+    private RiskS: RiskService,
+    private BiomedicalClassificationS: BiomedicalClassificationService,
   ) {
   }
 
   async ngOnInit() {
     if (!this.data) {
       this.data = {
-        name: '',
-        product_presentation_id: '',
-        product_subcategory_id: '',
-        consumption_unit_id: '',
-        factory_id:'',
-        type_assets_id:'',
-        plate_number:'',
-      };   
+        fixed_property_id: '',
+        obs_property: '',
+        plaque: '',
+        model: '',
+        mark: '',
+        serial: '',
+        fixed_nom_product_id: '',
+        detail_description: '',
+        color: '',
+        fixed_condition_id: '',
+        fixed_stock_id: '',
+
+        calibration_certificate: '',
+        health_register: '',
+        warranty: '',
+        cv: '',
+        last_maintenance: '',
+        last_pame: '',
+        interventions_carriet: '',
+        type: '',
+        mobile_fixed: '',
+        clasification_risk_id: '',
+        biomedical_classification_id: '',
+        code_ecri: '',
+        form_acquisition: '',
+        date_adquisicion: '',
+        date_warranty: '',
+        useful_life: '',
+        cost: '',
+        maker: '',
+        phone_maker: '',
+        email_maker: '',
+        power_supply: '',
+        predominant_technology: '',
+        volt: '',
+        stream: '',
+        power: '',
+        frequency_rank: '',
+        temperature_rank: '',
+        humidity_rank: '',
+        manuals: '',
+        guide: '',
+        periodicity_frequency_id: '',
+        calibration_frequency_id: '',
+        accessories: '',
+      };
+    } else if (this.data.fixed_type_id == 2) {
+      this.showBiomed = true;
     }
 
-    // this.statusBS.GetCollection().then(x => {
-    //   this.status = x;
-    // });
-    
-    
-    this.form = this.formBuilder.group({      
-      name: [this.data.name, Validators.compose([Validators.required])],
-      product_presentation_id: [this.data.product_presentation_id, Validators.compose([Validators.required])],
-      product_subcategory_id: [this.data.product_subcategory_id, Validators.compose([Validators.required])],
-      consumption_unit_id: [this.data.consumption_unit_id, Validators.compose([Validators.required])],
-      factory_id: [this.data.factory_id, Validators.compose([Validators.required])],
-      type_assets_id: [this.data.type_assets_id, Validators.compose([Validators.required])],
-      plate_number: [this.data.plate_number, Validators.compose([Validators.required])],
-      product_group_id:[],
-      product_category_id:[],
+    this.form = this.formBuilder.group({
+      fixed_clasification_id: [this.data.fixed_clasification_id],
+      fixed_nom_product_id: [this.data.fixed_nom_product_id],
+      fixed_type_id: [this.data.fixed_type_id],
+      accessories: [this.data.accessories],
+      fixed_property_id: [this.data.fixed_property_id, Validators.compose([Validators.required])],
+      obs_property: [this.data.obs_property],
+      plaque: [this.data.plaque],
+      company_id: [this.data.company_id],
+      model: [this.data.model],
+      mark: [this.data.mark, Validators.compose([Validators.required])],
+      serial: [this.data.serial],
+      detail_description: [this.data.detail_description, Validators.compose([Validators.required])],
+      color: [this.data.color, Validators.compose([Validators.required])],
+      fixed_condition_id: [this.data.fixed_condition_id, Validators.compose([Validators.required])],
+      fixed_stock_id: [this.data.fixed_stock_id, Validators.compose([Validators.required])],
+      calibration_certificate: [this.data.calibration_certificate],
+      health_register: [this.data.health_register],
+      warranty: [this.data.warranty],
+      cv: [this.data.cv],
+      last_maintenance: [this.data.last_maintenance],
+      last_pame: [this.data.last_pame],
+      interventions_carriet: [this.data.interventions_carriet],
+      type: [this.data.type],
+      mobile_fixed: [this.data.mobile_fixed],
+      clasification_risk_id: [this.data.clasification_risk_id],
+      biomedical_classification_id: [this.data.biomedical_classification_id],
+      code_ecri: [this.data.code_ecri],
+      form_acquisition: [this.data.form_acquisition],
+      date_adquisicion: [this.data.date_adquisicion],
+      date_warranty: [this.data.date_warranty],
+      useful_life: [this.data.useful_life],
+      cost: [this.data.cost],
+      maker: [this.data.maker],
+      phone_maker: [this.data.phone_maker],
+      email_maker: [this.data.email_maker],
+      power_supply: [this.data.power_supply],
+      predominant_technology: [this.data.predominant_technology],
+      volt: [this.data.volt],
+      stream: [this.data.stream],
+      power: [this.data.power],
+      frequency_rank: [this.data.frequency_rank],
+      temperature_rank: [this.data.temperature_rank],
+      humidity_rank: [this.data.humidity_rank],
+      manuals: [this.data.manuals],
+      guide: [this.data.guide],
+      periodicity_frequency_id: [this.data.periodicity_frequency_id],
+      calibration_frequency_id: [this.data.calibration_frequency_id],
     });
 
-    await this.ProductPresentationS.GetCollection().then(x => {
-      this.product_presentation=x;
+    this.FixedPropertyS.GetCollection().then(x => {
+      this.fixed_property = x;
     });
-    await this.ProductGroupS.GetCollection().then(x => {
-      this.product_group=x;
+    this.FixedConditionS.GetCollection().then(x => {
+      this.fixed_condition = x;
     });
-    await this.ConsumptionUnitS.GetCollection().then(x => {
-      this.consumption_unit=x;
+    this.CompanyCategoryS.GetCollection().then(x => {
+      this.company = x;
+    });
+    this.FixedTypeS.GetCollection().then(x => {
+      this.fixed_type = x;
     });
 
-    await this.FactoryS.GetCollection().then(x => {
-      this.factory=x;
+    this.RiskS.GetCollection().then(x => {
+      this.clasification_risk_id = x;
     });
-    await this.TypeAssetsS.GetCollection().then(x => {
-      this.type_assets=x;
+
+    this.FrequencyS.GetCollection().then(x => {
+      this.periodicity_frequency_id = x;
     });
+
+    this.FrequencyS.GetCollection().then(x => {
+      this.calibration_frequency_id = x;
+    });
+
+    this.FixedStockS.GetCollection().then(x => {
+      this.fixed_stock = x;
+    });
+
+    this.BiomedicalClassificationS.GetCollection().then(x => {
+      this.biomedical_classification_id = x;
+    });
+
+
     this.onChanges();
+    this.onChanges1();
+    this.onChanges2();
+  }
+  onChange(tipoId) {
+    if (tipoId == 2) {
+      this.showBiomed = true;
+    } else {
+      this.showBiomed = false;
+    }
+  }
+
+  onChange1(tipoId) {
+    if (tipoId == 3) {
+      this.showProv = true;
+    } else {
+      this.showProv = false;
+    }
+  }
+
+  onChange2(tipoId) {
+    if (tipoId == 3) {
+      this.showCondi = true;
+    } else {
+      this.showCondi = false;
+    }
   }
 
   close() {
@@ -109,22 +233,61 @@ export class FormFixedAssetsComponent implements OnInit {
   }
 
   save() {
-
     this.isSubmitted = true;
-
     if (!this.form.invalid) {
       this.loading = true;
-
       if (this.data.id) {
         this.FixedAssetsS.Update({
           id: this.data.id,
-          name: this.form.controls.name.value,
-          product_presentation_id: this.form.controls.product_presentation_id.value,
-          product_subcategory_id: this.form.controls.product_subcategory_id.value,
-          consumption_unit_id: this.form.controls.consumption_unit_id.value,
-          factory_id: this.form.controls.factory_id.value,
-          type_assets_id: this.form.controls.type_assets_id.value,
-          plate_number: this.form.controls.plate_number.value,
+          fixed_clasification_id: this.form.controls.fixed_clasification_id.value,
+          fixed_property_id: this.form.controls.fixed_property_id.value,
+          obs_property: this.form.controls.obs_property.value,
+          plaque: this.form.controls.plaque.value,
+          model: this.form.controls.model.value,
+          mark: this.form.controls.mark.value,
+          serial: this.form.controls.serial.value,
+          fixed_nom_product_id: this.form.controls.fixed_nom_product_id.value,
+          accessories: this.form.controls.accessories.value,
+          detail_description: this.form.controls.detail_description.value,
+          color: this.form.controls.color.value,
+          company_id: this.form.controls.company_id.value,
+          fixed_condition_id: this.form.controls.fixed_condition_id.value,
+          status_prod: 'STOCK',
+          fixed_type_id: this.form.controls.fixed_type_id.value,
+          fixed_stock_id: this.form.controls.fixed_stock_id.value,
+          calibration_certificate: this.form.controls.calibration_certificate.value,
+          health_register: this.form.controls.health_register.value,
+          warranty: this.form.controls.warranty.value,
+          cv: this.form.controls.cv.value,
+          last_maintenance: this.form.controls.last_maintenance.value,
+          last_pame: this.form.controls.last_pame.value,
+          interventions_carriet: this.form.controls.interventions_carriet.value,
+          type: this.form.controls.type.value,
+          mobile_fixed: this.form.controls.mobile_fixed.value,
+          clasification_risk_id: this.form.controls.clasification_risk_id.value,
+          biomedical_classification_id: this.form.controls.biomedical_classification_id.value,
+          code_ecri: this.form.controls.code_ecri.value,
+          form_acquisition: this.form.controls.form_acquisition.value,
+          date_adquisicion: this.form.controls.date_adquisicion.value,
+          date_warranty: this.form.controls.date_warranty.value,
+          useful_life: this.form.controls.useful_life.value,
+          cost: this.form.controls.cost.value,
+          maker: this.form.controls.maker.value,
+          phone_maker: this.form.controls.phone_maker.value,
+          email_maker: this.form.controls.email_maker.value,
+          power_supply: this.form.controls.power_supply.value,
+          predominant_technology: this.form.controls.predominant_technology.value,
+          volt: this.form.controls.volt.value,
+          stream: this.form.controls.stream.value,
+          power: this.form.controls.power.value,
+          frequency_rank: this.form.controls.frequency_rank.value,
+          temperature_rank: this.form.controls.temperature_rank.value,
+          humidity_rank: this.form.controls.humidity_rank.value,
+          manuals: this.form.controls.manuals.value,
+          guide: this.form.controls.guide.value,
+          periodicity_frequency_id: this.form.controls.periodicity_frequency_id.value,
+          calibration_frequency_id: this.form.controls.calibration_frequency_id.value,
+
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -136,15 +299,58 @@ export class FormFixedAssetsComponent implements OnInit {
           this.loading = false;
         });
       } else {
-        
+
         this.FixedAssetsS.Save({
-          name: this.form.controls.name.value,
-          product_presentation_id: this.form.controls.product_presentation_id.value,
-          product_subcategory_id: this.form.controls.product_subcategory_id.value,
-          consumption_unit_id: this.form.controls.consumption_unit_id.value,
-          factory_id: this.form.controls.factory_id.value,
-          type_assets_id: this.form.controls.type_assets_id.value,
-          plate_number: this.form.controls.plate_number.value,  
+          fixed_clasification_id: this.form.controls.fixed_clasification_id.value,
+          fixed_property_id: this.form.controls.fixed_property_id.value,
+          obs_property: this.form.controls.obs_property.value,
+          plaque: this.form.controls.plaque.value,
+          model: this.form.controls.model.value,
+          mark: this.form.controls.mark.value,
+          serial: this.form.controls.serial.value,
+          fixed_nom_product_id: this.form.controls.fixed_nom_product_id.value,
+          detail_description: this.form.controls.detail_description.value,
+          color: this.form.controls.color.value,
+          company_id: this.form.controls.company_id.value,
+          accessories: this.form.controls.accessories.value,
+          fixed_condition_id: this.form.controls.fixed_condition_id.value,
+          status_prod: 'STOCK',
+          fixed_type_id: this.form.controls.fixed_type_id.value,
+          fixed_stock_id: this.form.controls.fixed_stock_id.value,
+
+          calibration_certificate: this.form.controls.calibration_certificate.value,
+          health_register: this.form.controls.health_register.value,
+          warranty: this.form.controls.warranty.value,
+          cv: this.form.controls.cv.value,
+          last_maintenance: this.form.controls.last_maintenance.value,
+          last_pame: this.form.controls.last_pame.value,
+          interventions_carriet: this.form.controls.interventions_carriet.value,
+          type: this.form.controls.type.value,
+          mobile_fixed: this.form.controls.mobile_fixed.value,
+          clasification_risk_id: this.form.controls.clasification_risk_id.value,
+          biomedical_classification_id: this.form.controls.biomedical_classification_id.value,
+          code_ecri: this.form.controls.code_ecri.value,
+          form_acquisition: this.form.controls.form_acquisition.value,
+          date_adquisicion: this.form.controls.date_adquisicion.value,
+          date_warranty: this.form.controls.date_warranty.value,
+          useful_life: this.form.controls.useful_life.value,
+          cost: this.form.controls.cost.value,
+          maker: this.form.controls.maker.value,
+          phone_maker: this.form.controls.phone_maker.value,
+          email_maker: this.form.controls.email_maker.value,
+          power_supply: this.form.controls.power_supply.value,
+          predominant_technology: this.form.controls.predominant_technology.value,
+          volt: this.form.controls.volt.value,
+          stream: this.form.controls.stream.value,
+          power: this.form.controls.power.value,
+          frequency_rank: this.form.controls.frequency_rank.value,
+          temperature_rank: this.form.controls.temperature_rank.value,
+          humidity_rank: this.form.controls.humidity_rank.value,
+          manuals: this.form.controls.manuals.value,
+          guide: this.form.controls.guide.value,
+          periodicity_frequency_id: this.form.controls.periodicity_frequency_id.value,
+          calibration_frequency_id: this.form.controls.calibration_frequency_id.value,
+
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
@@ -161,48 +367,59 @@ export class FormFixedAssetsComponent implements OnInit {
   }
 
   onChanges() {
-    this.form.get('product_group_id').valueChanges.subscribe(val => {
+    this.form.get('fixed_type_id').valueChanges.subscribe(val => {
       console.log(val);
       if (val === '') {
-        this.product_category = [];
+        this.fixed_clasification = [];
       } else {
         this.GetCategories(val).then();
       }
       this.form.patchValue({
-        product_subcategory_id: '',
+        fixed_nom_product_id: '',
       });
     });
 
-    this.form.get('product_category_id').valueChanges.subscribe(val => {
+    this.form.get('fixed_clasification_id').valueChanges.subscribe(val => {
       if (val === '') {
-        this.product_subcategory = [];
+        this.fixed_nom_product = [];
       } else {
         this.GetSubcategory(val).then();
       }
-      this.form.patchValue({
-        product_subcategory_id: '',
-      });
     });
   }
 
-  GetCategories(product_group_id, job = false) {
-    if (!product_group_id || product_group_id === '') return Promise.resolve(false);
 
-    return this.ProductCategoryS.GetProductCategoryByGroup(product_group_id).then(x => {
+  onChanges1() {
+    this.form.get('fixed_property_id').valueChanges.subscribe(val => {
+      console.log(val);
+      if (val === '') {
+        this.fixed_property = [];
+      }
+    });
+  }
 
-        this.product_category = x;
+  onChanges2() {
+    this.form.get('fixed_condition_id').valueChanges.subscribe(val => {
+      console.log(val);
+      if (val === '') {
+        this.fixed_condition = [];
+      }
+    });
+  }
 
+  GetCategories(fixed_type_id, job = false) {
+    if (!fixed_type_id || fixed_type_id === '') return Promise.resolve(false);
+    return this.FixedClasificationS.GetProductCategoryByGroup(fixed_type_id).then(x => {
+      this.fixed_clasification = x;
       return Promise.resolve(true);
     });
   }
 
-  GetSubcategory(product_category_id, job = false) {
-    if (!product_category_id || product_category_id === '') return Promise.resolve(false);
-    return this.ProductSubcategoryS.GetProductSubcategoryByCategory(product_category_id).then(x => {
-        this.product_subcategory = x;
-
+  GetSubcategory(fixed_clasification_id, job = false) {
+    if (!fixed_clasification_id || fixed_clasification_id === '') return Promise.resolve(false);
+    return this.FixedNomProductS.GetProductSubcategoryByCategory(fixed_clasification_id).then(x => {
+      this.fixed_nom_product = x;
       return Promise.resolve(true);
     });
   }
-
 }

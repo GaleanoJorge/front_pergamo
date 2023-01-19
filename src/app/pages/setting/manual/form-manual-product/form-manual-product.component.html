@@ -1,0 +1,69 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="width: 100%;height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        
+        <div class="col-12 col-sm-12 col-md-4">
+          <!-- <label class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
+          <input type="text" list="codes" class="data-list" (change)="saveCode($event)">
+          <datalist id="codes">
+            <option *ngFor="let item of product_gen" [value]="item.id">{{item.description}}</option>
+          </datalist> -->
+
+          <!-- acá cambia -->
+
+          <label for="product_id" class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
+          <input (focusout)="checkProduct($event, this.form.controls.product_id.value)" fullWidth formControlName="product_id" nbInput type="text" placeholder="Seleccionar CUPS"
+            status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+            [nbAutocomplete]="autoControl" />
+
+          <nb-autocomplete #autoControl (selectedChange)="this.fillGenericName($event)">
+            <nb-option class="productAutocompleteOption" value="">Seleccione...</nb-option>
+            <nb-option class="productAutocompleteOption" *ngFor="let item of filteredProductOptions$ | async" [value]="item.description">
+              {{item.description}}
+            </nb-option>
+          </nb-autocomplete>
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-4">
+          <label for="name" class="form-text text-muted font-weight-bold">Nombre producto generico:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+          <div class="col-12 col-sm-12 col-md-4">
+            <label for="value" class="form-text text-muted font-weight-bold">Precio:</label>
+            <input type="number" nbInput fullWidth id="value" formControlName="value" value
+              status="{{ isSubmitted && form.controls.value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          </div>
+          <div class="col-12 col-sm-12 col-md-4">
+            <label class="form-text text-muted font-weight-bold">Tipo de precio:</label>
+            <nb-select placeholder="Asignar un tipo de precio" formControlName="price_type_id"
+            status="{{ isSubmitted && form.controls.price_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" >
+              <nb-option *ngFor="let item of price_type" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-12">
+            <label class="form-text text-muted font-weight-bold">Descripción:</label>
+            <textarea id="description" nbInput fullWidth formControlName="description" description
+              rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+          <div class="col-12 col-sm-12 col-md-4">
+            <label class="form-text text-muted font-weight-bold">Paciente:</label>
+            <input (focusout)="checkPatient($event, this.form.controls.patient_id.value)" type="text" list="codes2" class="data-list" (focusout)="saveCode2($event)" formControlName="patient_id">
+            <datalist id="codes2">
+              <option class="patientDatalistOption" *ngFor="let item of patient" [value]="item.identification">{{item.identification}}-{{item.nombre_completo}}</option>
+            </datalist>
+          </div>
+
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

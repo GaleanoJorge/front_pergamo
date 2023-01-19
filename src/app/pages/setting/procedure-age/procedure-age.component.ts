@@ -16,7 +16,7 @@ export class ProcedureAgeComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Edad del procedimiento';
+  public title: string = 'Edad del Procedimiento';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre', 'Edad Inicial', 'Edad final'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]}`;
@@ -31,7 +31,7 @@ export class ProcedureAgeComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent

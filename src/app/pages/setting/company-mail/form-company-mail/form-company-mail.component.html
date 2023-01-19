@@ -1,26 +1,26 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card size="small" style="max-width: 400px">
+  <nb-card size="medium" style="max-width: 600px">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <label for="company_id" class="form-text text-muted font-weight-bold">Empresa:</label>
           <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
-            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
         <div class="col-md-12">
           <label for="mail" class="form-text text-muted font-weight-bold">Correo:</label>
-          <input nbInput fullWidth id="mail" formControlName="mail" mail
-            status="{{ isSubmitted && form.controls.mail.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input type="email" nbInput fullWidth id="mail" formControlName="mail" mail
+            status="{{ isSubmitted && form.controls.mail.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-md-12">
-          <label for="city_id" class="form-text text-muted font-weight-bold">Ciudad:</label>
+          <label for="city_id" class="form-text text-muted font-weight-bold">Providencia, Vereda o Municipio:</label>
           <nb-select [selected]="this.data.city_id" formControlName="city_id" id="city_id" fullWidth
-            status="{{ isSubmitted && form.controls.city_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.city_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.city_id }}" *ngFor="let item of city" [value]="item.id">
               {{ item.name }}</nb-option>
@@ -29,7 +29,7 @@
         <div class="col-md-12">
           <label for="document_id" class="form-text text-muted font-weight-bold">Documentos contables:</label>
           <nb-select [selected]="this.data.document_id" formControlName="document_id" id="document_id" fullWidth
-            status="{{ isSubmitted && form.controls.document_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.document_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.document_id }}" *ngFor="let item of document" [value]="item.id">
               {{ item.name }}</nb-option>

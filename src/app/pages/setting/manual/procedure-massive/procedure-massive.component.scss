@@ -1,3 +1,38 @@
+// @import "../../../@theme/styles/themes";
+
+// @include nb-install-component() {
+//     nb-card {
+//         overflow: hidden;
+//     }
+
+//     nb-tabset {
+//         display: flex;
+//         flex-direction: column;
+
+//         ::ng-deep ul {
+//             // make same size as card header
+//             padding-bottom: 1px;
+//             ::ng-deep .tab-link {
+//                 padding: 1.25rem 2rem;
+//             }
+//         }
+//     }
+
+//     nb-tab {
+//         padding: 0;
+//     }
+
+//     .contact {
+//         display: flex;
+//         align-items: center;
+//         justify-content: space-between;
+
+//         &:first-child {
+//             border-top: none;
+//         }
+//     }
+// }
+
 .div-send {
   padding-top: 30px;
 }
@@ -52,4 +87,63 @@
 :host ::ng-deep .ng2-smart-action-multiple-select > input.checked {
   background-color: #002775;
   border-color: #002775;
+}
+
+.file-select {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.file-select::before {
+  background-color: #54bcc1;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  content: 'CARGA MASIVA'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select input[type="file"] {
+  opacity: 0;
+  width: 150px;
+  margin-right: 5px;
+  height: 40px;
+  display: inline-block;
+}
+
+.file-select-evicencias {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.file-select-evicencias::before {
+  background-color: #54bcc1;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15px;
+  border-radius: 3px;
+  content: 'AGREGAR ARCHIVO'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select-evicencias input[type="file"] {
+  opacity: 0;
+  height: 40px;
+  display: inline-block;
 }

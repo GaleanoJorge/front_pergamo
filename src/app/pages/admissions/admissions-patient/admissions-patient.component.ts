@@ -7,6 +7,10 @@ import { FormAdmissionsPatientComponent } from './form-admissions-patient/form-a
 import {ActivatedRoute, Router} from '@angular/router';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
+import { FormPatientDataComponent } from '../patient-data/form-admissions-patient/form-patient-data.component';
+import { Patient } from '../../../models/patient';
+import { PatientService } from '../../../business-controller/patient.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -18,13 +22,14 @@ export class AdmissionsPatientComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public messageError = null;
   public title;
-  public subtitle = 'por usuario';
-  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ruta','Ambito','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Fecha Ingreso','Fecha Egreso','Salida Medica'];
+  public subtitle = 'Por usuario';
+  public headerFields: any[] =  ['Consecutivo de ingreso', 'Ambito','Ruta','Programa','Sede', 'Piso','Pabellón','Cama/Consultorio','Contrato','Portafolio','Regimen','Fecha Ingreso','Fecha Egreso','Salida Medica', 'Diagnóstico principal'];
   public routes = [];
   public course;
   public data= [];
   public user_id;
-  public date_end:boolean=true;
+  public patient_id;
+  public date_end:boolean = true;
   public cont=0;
   public ambit;
   public program;
@@ -32,6 +37,9 @@ export class AdmissionsPatientComponent implements OnInit {
   public bed;
   public bed_id;
   public pavilion;
+  public patient;
+  public admission_route_id;
+  public admission_id;
 
 
 
@@ -39,7 +47,7 @@ export class AdmissionsPatientComponent implements OnInit {
   public settings = {
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -60,12 +68,20 @@ export class AdmissionsPatientComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
+          this.admission_id=value[value.length - 1].id;
+          this.admission_route_id=value[value.length - 1].admission_route_id;
           this.ambit=value[value.length - 1].scope_of_attention.name;
           this.program=value[value.length - 1].program.name;
+          if(value[value.length - 1].pavilion){
           this.flat=value[value.length - 1].flat.name;
           this.pavilion=value[value.length - 1].pavilion.name;
           this.bed=value[value.length - 1].bed.name;
           this.bed_id=value[value.length - 1].bed.id;
+          }else{
+            this.flat='';
+            this.pavilion='';
+            this.bed='';
+          }
           return value[value.length - 1].admission_route.name;
         },
       },
@@ -81,6 +97,13 @@ export class AdmissionsPatientComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return this.program;
+        },
+      },
+      diagnosis: {
+        title: this.headerFields[14],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.code + ' - ' + value.name;
         },
       },
       campus: {
@@ -118,27 +141,42 @@ export class AdmissionsPatientComponent implements OnInit {
           return value.name;
         },
       },
-      entry_date: {
+      briefcase: {
         title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value.name;
+        },
+      },
+      regime: {
+        title: this.headerFields[10],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value?.name;
+        },
+      },
+      entry_date: {
+        title: this.headerFields[11],
         type: 'date',
       },      
+      medical_date: {
+        title: this.headerFields[13],
+        type: 'date',
+      },     
       discharge_date: {
-        title: this.headerFields[10],
+        title: this.headerFields[12],
         type: 'date',
         valuePrepareFunction: (value, row) => {
           if(value=='0000-00-00 00:00:00' && this.cont!=1){
-            this.date_end=false;
-            this.cont=+1;
+            this.date_end = false;
+            this.cont = + 1;
           }else if(this.cont==0){
-            this.date_end=true;
+            this.date_end = true;
           }
           return value;
         },
       },
-      medical_date: {
-        title: this.headerFields[11],
-        type: 'date',
-      },     
+
     },
   };
 
@@ -148,34 +186,43 @@ export class AdmissionsPatientComponent implements OnInit {
     private router: Router,
     private dialogFormService: NbDialogService,
     private UserBS: UserBusinessService,
+    private PatientBS: PatientService,
     private deleteConfirmService: NbDialogService,
+    private location: Location,
   ) {
     this.routes = [
       {
         name: 'Pacientes',
-        route: '../../../../admissions/list',
+        route: '/pages/pad/list',
       },
       {
         name: 'Admisiones del paciente',
-        route: '../../../../admissions/admissions-patient/' + this.route.snapshot.params.user_id,
+        route: '../../admissions-patient/' + this.route.snapshot.params.user_id,
       },
     ];
     
   }
+  
+ back() {
+  this.location.back();
+
+}
 
   GetParams() {
     return {
-      user_id: this.route.snapshot.params.user_id,
+      patient_id: this.route.snapshot.params.patient_id,
     };
   }
 
-  ngOnInit(): void {
-    this.user_id= this.route.snapshot.params.user_id;
+   ngOnInit(): void {
+    this.patient_id= this.route.snapshot.params.patient_id;
 
 
-    this.UserBS.GetUserById(this.user_id).then(x => {
-      var user = x;
-      this.title= 'Admisiones de paciente: '+ user.firstname  + ' ' + user.lastname ;
+    this.PatientBS.GetUserById(this.patient_id).then(x => {
+      if(x){
+        this.patient = x;
+        this.title= 'Admisiones de paciente: '+ this.patient.firstname  + ' ' + this.patient.lastname ;
+      }
     });
   }
 
@@ -185,10 +232,13 @@ export class AdmissionsPatientComponent implements OnInit {
   }
 
   NewAdmissions() {
-    this.dialogFormService.open(FormAdmissionsPatientComponent, {
+    this.dialogFormService.open(FormPatientDataComponent, {
+      closeOnBackdropClick: false,
+      closeOnEsc: false,
       context: {
-        title: 'Crear nuevo tipo de afiliado',
-        user_id:this.user_id,
+        title: 'Crear nuevo ingreso',
+        user_id: this.patient_id,
+        admission_id:this.admission_id,
         saved: this.RefreshData.bind(this),
       },
     });
@@ -197,7 +247,7 @@ export class AdmissionsPatientComponent implements OnInit {
   EditAdmissions(data) {
     this.dialogFormService.open(FormAdmissionsPatientComponent, {
       context: {
-        title: 'Editar tipo de afiliado',
+        title: 'Editar tipo de ingreso',
         data,
         saved: this.RefreshData.bind(this),
       },

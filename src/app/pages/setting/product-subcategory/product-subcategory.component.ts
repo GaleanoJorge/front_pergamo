@@ -16,9 +16,9 @@ export class ProductSubcategoryComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Subcategoria del producto';
+  public title: string = 'Subcategoría del Producto';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID','Nombre'];
+  public headerFields: any[] = ['ID', 'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -31,7 +31,7 @@ export class ProductSubcategoryComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -79,6 +79,7 @@ export class ProductSubcategoryComponent implements OnInit {
 
   NewProductSubcategory() {
     this.dialogFormService.open(FormProductSubcategoryComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nueva Subcategoria del producto',
         saved: this.RefreshData.bind(this),
@@ -88,6 +89,7 @@ export class ProductSubcategoryComponent implements OnInit {
 
   EditProductSubcategory(data) {
     this.dialogFormService.open(FormProductSubcategoryComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar Subcategoria del producto',
         data,

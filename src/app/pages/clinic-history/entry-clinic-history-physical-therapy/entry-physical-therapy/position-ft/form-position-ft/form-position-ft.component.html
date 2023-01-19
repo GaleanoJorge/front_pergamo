@@ -1,0 +1,38 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+    <div class="row justify-content-center">   
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">VISTA FRONTAL:</label>
+        <textarea id="front_view" nbInput fullWidth formControlName="front_view" current_illness rows="1" onpaste="return false"
+          cols="50"
+          status="{{ isSubmitted && form.controls.front_view.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">VISTA LATERAL DERECHA:</label>
+        <textarea id="right_view" nbInput fullWidth formControlName="right_view" current_illness rows="1" onpaste="return false"
+          cols="50"
+          status="{{ isSubmitted && form.controls.right_view.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">VISTA LATERAL IZQUIERDA:</label>
+        <textarea id="left_view" nbInput fullWidth formControlName="left_view" current_illness rows="1" onpaste="return false"
+          cols="50"
+          status="{{ isSubmitted && form.controls.left_view.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">VISTA POSTERIOR:</label>
+        <textarea id="rear_view" nbInput fullWidth formControlName="rear_view" current_illness rows="1" onpaste="return false"
+          cols="50"
+          status="{{ isSubmitted && form.controls.rear_view.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+    </div>
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+</form>

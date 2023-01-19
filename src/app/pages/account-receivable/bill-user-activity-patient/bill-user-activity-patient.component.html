@@ -1,0 +1,28 @@
+<ngx-base-list
+  [messageError]="messageError">
+  <div content>
+    <ngx-base-table 
+                    [title]="title"
+                    [settings]="settings"
+                    entity="bill_user_activity/getByPatient/{{patient_id}}"
+                    customData="bill_user_activity">
+                    <div title *ngIf="patient">
+                      <p class="parrafo" *ngIf="patient"><b>CÉDULA:</b> {{patient.identification}}</p>
+                      <!-- <p class="parrafo" *ngIf="user"><b>NOMBRE:</b> {{user.nombre_completo}}</p> -->
+                      <p class="parrafo" *ngIf="patient"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(patient.birthday)}}</p>
+                      <p class="parrafo" *ngIf="patient"><b>EDAD:</b> {{patient.age}}</p>
+                      <p class="parrafo" *ngIf="patient"><b>GÉNERO:</b> {{patient.gender.name}}</p>
+                      <p class="parrafo" *ngIf="patient"><b>ASEGURADOR:</b> {{patient.admissions[0].contract.company.name}}</p>
+                      <p class="parrafo" *ngIf="patient"><b>CONTRATO:</b> {{patient.admissions[0].contract.name}}</p>
+                      <p class="parrafo" *ngIf="patient"><b>PORTAFOLIO:</b> {{patient.admissions[0].briefcase.name}}</p>
+                      <p class="parrafo" *ngIf="patient.inability"><b>DISCAPACIDAD:</b> {{patient.inability.name}}</p>
+                      <p class="parrafo" *ngIf="!patient.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES</p>
+                    </div>
+      <div actions>
+        <div class="actions">    
+          <button nbButton (click)="back()" >Volver</button>
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

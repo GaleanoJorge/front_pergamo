@@ -1,0 +1,85 @@
+<ngx-base-list [messageError]="messageError" >
+  <div content *ngIf="settings && this.entity">
+
+
+
+    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+      customData="ch_interconsultation" [messageToltip]="messageToltip">
+      <div title *ngIf="user">
+        <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}} </p>
+        <p class="parrafo" *ngIf="user"><b>NOMBRE:</b> {{(user.firstname ? user.firstname : '') + ' ' + (middlefirstname ? user.middlefirstname + ' ' : '') + (user.lastname ? user.lastname + ' ' : '') + (user.middlelastname ? user.middlelastname : '')}}</p>
+        <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}} </p>
+        <p class="parrafo" *ngIf="user"><b>EDAD:</b> {{user.age}} </p>
+        <p class="parrafo" *ngIf="user"><b>GÉNERO:</b> {{user.gender.name}} </p>
+        <p class="parrafo" *ngIf="user"><b>ASEGURADOR:</b> {{user.admissions[0].contract.company.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>CONTRATO:</b> {{user.admissions[0].contract.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>PORTAFOLIO:</b> {{user.admissions[0].briefcase.name}}</p>
+        <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability.name}} </p>
+        <p class="parrafo" *ngIf="!user.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES </p>
+        <p class="parrafo" *ngIf="user"><b>PISO:</b> {{this.actual_location.flat.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>PABELLÓN:</b> {{this.actual_location.pavilion.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>CAMA:</b> {{this.actual_location.bed.name}}</p>
+        <!-- <p class="parrafo" *ngIf="user.gender.name">GÉNERO:</b> {{user.gender.name}} </p> -->
+
+        <!-- <p class="parrafo" *ngIf="management"><b>TIPO DE ATENCIÓN:</b> {{management[0].type_of_attention.name}} </p>
+        <p class="parrafo" *ngIf="management[0].procedure!=null"><b>PROCEDIMIENTO:</b>
+          {{management[0].procedure.manual_price.name}}
+        </p>
+        <hr width=400>
+        <p class="parrafo" *ngIf="management[0].service_briefcase!=null"><b>MEDICAMENTO:</b>
+          <b> {{management[0].service_briefcase.manual_price.name}}</b>
+        </p>
+        <p class="parrafo" *ngIf="management[0].quantity!=null && management[0].type_of_attention_id!=17">
+          <b>CANTIDAD:</b> {{management[0].quantity}}
+        </p>
+
+        <p class="parrafo" *ngIf="management[0].dosage_administer!=null"><b>DOSIS A ADMINISTRAR:</b>
+          {{management[0].dosage_administer}}
+          {{management[0].service_briefcase.manual_price.product.measurement_units.name}}
+        </p>
+        <p class="parrafo" *ngIf="management[0].type_of_attention_id==17"><b>FRECUENCIA HORARIA:</b> CADA
+          {{management[0].quantity}} HORAS
+        </p>
+
+        <p class="parrafo" *ngIf="management[0].route_of_administration!=null"><b>VIA DE ADMINISTRACIÓN:</b>
+          {{management[0].route_administration.name}} </p>
+
+        <p class="parrafo" *ngIf="management[0].number_doses!=null"><b>DOSIS TOTALES DEL TRATAMIENTO:</b>
+          {{management[0].number_doses}} APLICACIONES
+        </p>
+        <p class="parrafo" *ngIf="management[0].administration_time!=null"><b>TIEMPO DE ADMINISTRACIÓN:</b>
+          {{management[0].administration_time}} MINUTOS</p>
+        <p class="parrafo" *ngIf="management[0].preparation!=null"><b>PREPARACIÓN:</b> {{management[0].preparation}}
+        </p>
+
+        <p class="parrafo" *ngIf="management[0].blend!=null"><b>MEZCLA:</b> {{management[0].blend}} </p>
+
+        <p class="parrafo" *ngIf="management[0].observation!=null"><b>OBSERVACIÓN:</b>
+          {{management[0].observation}} </p>
+
+        <div *ngIf="show_labs">
+          <p class="parrafo" *ngIf="show_labs"><b>LABORATORIO:</b>
+          </p>
+          <div *ngFor="let item of management[0].management_procedure">
+            <p class="parrafo">
+              {{item.services_briefcase.manual_price.name}} </p>
+          </div>
+        </div> -->
+
+
+
+
+      </div>
+      <div actions>
+        <button nbButton (click)="back()">Volver</button>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+
+
+
+
+
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

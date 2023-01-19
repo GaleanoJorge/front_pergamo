@@ -1,0 +1,27 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode">
+          <nb-step [stepControl]="nameForm" label="Antecedentes">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-background [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" [type_record_id]="type_record_id"></ngx-background>
+              </div>
+            </div>
+          </nb-step>
+
+
+          <nb-step *ngIf= "this.user.gender_id==1" [stepControl]="nameForm" label="Ginecoobstreticos">
+            <div class="row">
+              <div class="col-md-12">
+                <ngx-back-gyneco [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" [type_record_id]="type_record_id"></ngx-back-gyneco>
+              </div>
+            </div>
+          </nb-step>
+
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>

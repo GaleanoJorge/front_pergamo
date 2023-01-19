@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NbDialogRef } from '@nebular/theme';
 import { RoleBusinessService } from '../../../../business-controller/role-business.service';
 
 @Component({
@@ -10,18 +11,33 @@ import { RoleBusinessService } from '../../../../business-controller/role-busine
 export class FormUserComponent implements OnInit {
 
   public role = 0;
+  @Input() role2;
+  @Input() isTH;
+  @Input() saved;
+  @Input() dat;
+  @Input() data = null;
+
 
   public routes = [];
 
   public title = 'Crear usuario';
+  public routeBack ;
+
+  
 
   constructor(
+    @Optional() protected dialogRef: NbDialogRef<any>,
     private route: ActivatedRoute,
     private roleS: RoleBusinessService) {
   }
 
   ngOnInit(): void {
-    this.role = this.route.snapshot.params.id;
+    this.role = this.route.snapshot.params.id==undefined ? this.role2:this.route.snapshot.params.id;
+    if(this.role2){
+      this.routes=null;
+      this.routeBack=null;
+    }else{
+      this.routeBack='/pages/setting/users';
     this.routes = [
       {
         name: 'Usuarios',
@@ -32,10 +48,25 @@ export class FormUserComponent implements OnInit {
         route: '../../../../setting/users/create/' + this.role,
       }
     ];
+  }
     this.roleS.GetSingle(this.role).then(x => {
       this.title = 'Crear usuario "' + x[0].name + '"';
     }).catch(x => {
       throw new Error('Method not implemented.');
     });
+  }
+
+  close() {
+    this.dialogRef.close();
+  }
+
+  receiveMessage($event) {
+    if($event==true){
+      this.close();
+      this.saved();
+    } else if($event.id){
+      this.close();
+      this.saved($event, this.dat);
+    }
   }
 }

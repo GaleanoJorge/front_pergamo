@@ -1,0 +1,89 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+
+    <label class="form-text text-muted font-weight-bold align"></label>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="center">
+          <fieldset class="field_set">
+            <legend class="prue1">ORDENES MEDICAS</legend>
+            <nb-checkbox formControlName="ambulatory_medical_order" revision id="ambulatory_medical_order"
+              class="d-flex text" name="ambulatory_medical_order">¿Orden Medica Ambulatoria?</nb-checkbox>
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12">
+                  <hr />
+                </div>
+              </div>
+            </div>
+            <div class="row" style="justify-content: space-around ;">
+              <div class="col-md-12">
+                <label class="form-text text-muted font-weight-bold">Procedimiento</label>
+
+                <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="procedure_id"
+                formControlName="procedure_id" procedure_id type="text" required
+                status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <datalist id="codes" *ngIf="procedure">
+                <option *ngFor="let item of procedure" [value]="this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name">{{ this.form.controls.ambulatory_medical_order.value==true? item.code : item.manual_price.procedure.code }} -
+                  {{this.form.controls.ambulatory_medical_order.value==true? item.name : item.manual_price.procedure.name}} </option>
+              </datalist>
+              <datalist id="codes" *ngIf="procedure && this.form.controls.ambulatory_medical_order.value != true">
+                <option *ngFor="let item of procedure" [value]="item.manual_price.procedure.name">{{ item.manual_price.procedure.code }} -
+                  {{item.manual_price.procedure.name}} </option>
+              </datalist>
+
+
+                <!-- <nb-select [selected]="this.data.procedure_id" fullWidth formControlName="procedure_id"
+                  id="procedure_id"
+                  status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option value="">SELECCIONE...</nb-option>
+                  <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedure_id"
+                    [value]="item.id">
+                    {{ item.name }}</nb-option>
+                </nb-select> -->
+              </div>
+
+
+
+              <div class="col col-lg-6">
+                <label class="form-text text-muted font-weight-bold">Cantidad</label>
+                <input type="number" class="Box" id="amount" fullWidth formControlName="amount" required nbInput
+                  status="{{ isSubmitted && form.controls.amount.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              </div>
+
+
+              <div class="col col-lg-6">
+                <label class="form-text text-muted font-weight-bold">Frecuencia Horaria</label>
+                <nb-select [selected]="this.data.frequency_id" fullWidth formControlName="frequency_id"
+                  id="frequency_id"
+                  status="{{ isSubmitted && form.controls.frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option value="">SELECCIONE...</nb-option>
+                  <nb-option selected="{{ item.id == this.data.frequency_id }}" *ngFor="let item of frequency_id"
+                    [value]="item.id">
+                    {{ item.name }}</nb-option>
+                </nb-select>
+              </div>
+
+              <div class="col-md-12" style="margin-top:5px;">
+                <label class="form-text text-muted font-weight-bold">Observación</label>
+                <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+                  onpaste="return false" rows="4" cols="50"
+                  status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+
+              </div>
+
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+
+  </div>
+</form>

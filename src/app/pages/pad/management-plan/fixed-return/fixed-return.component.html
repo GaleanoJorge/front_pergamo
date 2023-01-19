@@ -1,0 +1,34 @@
+<!-- <nb-card>
+  <nb-card-body>
+    <div class="col-12 col-sm-12 col-md-12">
+      <ngx-form-fixed-plan (messageEvent)="receiveMessage($event)" [admissions_id]="admissions_id">
+      </ngx-form-fixed-plan>
+    </div>
+    <ngx-base-list [messageError]="messageError">
+      <div content>
+        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+          entity="fixed_add/?pagination=true&status=PATIENT" customData='fixed_add' [messageToltip]="messageToltip">
+        </ngx-base-table>
+
+      </div>
+    </ngx-base-list>
+  </nb-card-body>
+</nb-card> -->
+
+
+
+<ngx-base-list>
+  <div content>
+    <ngx-base-table [title]="title" pager="false" [subtitle]="subtitle" [settings]="settings" [entity]="entity" customData='fixed_add' [messageToltip]="messageToltip">
+      <div title *ngIf="user">
+        <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}}</p>
+        <p class="parrafo" *ngIf="user"><b>NOMBRE:</b> {{user.nombre_completo}}</p>
+      </div>
+      <div actions>
+        <div class="actions">
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

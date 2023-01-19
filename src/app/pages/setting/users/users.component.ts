@@ -2,9 +2,13 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { RoleBusinessService } from '../../../business-controller/role-business.service';
 import { UserBusinessService } from '../../../business-controller/user-business.service';
+import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { StatusFieldComponent } from '../../components/status-field/status-field.component';
 import { ActionsUsersComponent } from './actions-users.component';
+import { FormConfirmDisabledComponent } from './form-confirm-disabled/form-confirm-disabled.component';
+import { FormFinancialDataComponent } from './form-financial-data/form-financial-data.component';
+import { RolePackageComponent } from './role-package/role-package.component';
 
 
 @Component({
@@ -24,6 +28,7 @@ export class UsersComponent implements OnInit {
     public headerFields: any[] = ['Tipo identificación', 'Identificación', 'Nombres', 'Correo', 'Estado'];
     public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
     public subtitle = 'Directorio';
+    public own_user: any = null;
 
     @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
@@ -38,13 +43,15 @@ export class UsersComponent implements OnInit {
 
         columns: {
             actions: {
-                title: '',
+                title: 'Acciones',
                 type: 'custom',
                 valuePrepareFunction: (value, row) => {
                     // DATA FROM HERE GOES TO renderComponent
                     return {
                         'data': row,
                         'reset_password': this.UpdateResetPassword.bind(this),
+                        'financialdata': this.NewFinancialData.bind(this),
+                        'role': this.AssingRole.bind(this),
                     };
                 },
                 renderComponent: ActionsUsersComponent,
@@ -75,7 +82,7 @@ export class UsersComponent implements OnInit {
                 valuePrepareFunction: (value, row) => {
                     return {
                         'data': row,
-                        'changeState': this.ChangeState.bind(this),
+                        'changeState': this.ConfirmDisabled.bind(this),
                     };
                 },
                 renderComponent: StatusFieldComponent,
@@ -87,7 +94,8 @@ export class UsersComponent implements OnInit {
         private userS: UserBusinessService,
         private roleS: RoleBusinessService,
         private toastrService: NbToastrService,
-        private dialogService: NbDialogService
+        private dialogService: NbDialogService,
+        private authService: AuthService,
     ) {
 
     }
@@ -97,6 +105,7 @@ export class UsersComponent implements OnInit {
         }).catch((x) => {
             this.toastrService.danger(x.message);
         });
+        this.own_user = this.authService.GetUser();
     }
 
     RefreshData() {
@@ -104,17 +113,27 @@ export class UsersComponent implements OnInit {
     }
 
     ChangeState(data) {
-        this.userS.ChangeStatus(data.id).then((x) => {
+        this.userS.ChangeStatus(data.id, this.own_user.id).then((x) => {
             this.toastrService.success('', x.message);
+            if (x.data.user.status_id == 2) {
+                this.showToast(10000);
+            }
             this.RefreshData();
         }).catch((x) => {
             // this.toastrService.danger(x.message);
         });
     }
 
+    showToast(duration) {
+        this.toastrService.warning(
+            'Los trabajadores que se retiran de la empresa deben ser retirados de la ARL',
+            'AVISO',
+            { duration });
+    }
+
     ChangeRole(role) {
         this.role = role;
-        this.table.changeEntity(`user/all/${this.role}`);
+        this.table.changeEntity(`user/all/${this.role}`, 'users');
         // this.RefreshData();
     }
 
@@ -129,6 +148,35 @@ export class UsersComponent implements OnInit {
 
     open(dialog: TemplateRef<any>) {
         this.dialogService.open(dialog);
+    }
+
+    ConfirmDisabled(dataUser) {
+        this.dialogService.open(FormConfirmDisabledComponent, {
+            context: {
+                data: dataUser,
+                desable: this.ChangeState.bind(this),
+            },
+        });
+    }
+
+    NewFinancialData(dataUser) {
+        this.dialogService.open(FormFinancialDataComponent, {
+            context: {
+                title: 'Información Financiera',
+                dataUser,
+                saved: this.RefreshData.bind(this),
+            },
+        });
+    }
+
+    AssingRole(dataUser) {
+        this.dialogService.open(RolePackageComponent, {
+            context: {
+                title: 'Asociar roles a: ' + dataUser.nombre_completo,
+                data: dataUser,
+                saved: this.RefreshData.bind(this),
+            },
+        });
     }
 
 }

@@ -1,0 +1,116 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Funciones Intelectivas</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="ch_ps_attention_id" class="form-text text-muted font-weight-bold">Atención</label>
+        <nb-select formControlName="ch_ps_attention_id" id="ch_ps_attention_id" fullWidth
+          status="{{ isSubmitted && form.controls.ch_ps_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option *ngFor="let item of attention" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+     <div class="form-group">
+       <label class="form-text text-muted font-weight-bold text ">Observaciones de Atención</label>
+       <textarea id="att_observations" nbInput fullWidth formControlName="att_observations" att_observations
+         onpaste="return false"
+         status="{{ isSubmitted && form.controls.att_observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+     </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="memory" class="form-text text-muted font-weight-bold">Memoria</label>
+        <nb-select multiple formControlName="memory" id="memory" fullWidth
+          status="{{ isSubmitted && form.controls.memory.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option *ngFor="let item of memory" [value]="item.name">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+     <div class="form-group">
+       <label class="form-text text-muted font-weight-bold text ">Observaciones de Memoria</label>
+       <textarea id="me_observations" nbInput fullWidth formControlName="me_observations" me_observations
+         onpaste="return false"
+         status="{{ isSubmitted && form.controls.me_observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+     </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="perception" class="form-text text-muted font-weight-bold">Sensopercepción</label>
+        <nb-select multiple formControlName="perception" id="perception" fullWidth
+          status="{{ isSubmitted && form.controls.perception.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option *ngFor="let item of perception" [value]="item.name">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+     <div class="form-group">
+       <label class="form-text text-muted font-weight-bold text ">Observaciones de Sensopercepción</label>
+       <textarea id="per_observations" nbInput fullWidth formControlName="per_observations" per_observations
+         onpaste="return false"
+         status="{{ isSubmitted && form.controls.per_observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+     </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Orientación</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-4 col-lg-4">
+       <div class="form-group">
+        <label class="form-text font-weight-bold">Desorientación autopsíquica o de persona</label>
+        <nb-select class="form-text" id="autopsychic" formControlName="autopsychic" fullWidth
+         status="{{ isSubmitted && form.controls.autopsychic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-4">
+       <div class="form-group">
+        <label class="form-text font-weight-bold">Desorientación alopsíquica o temporal</label>
+        <nb-select class="form-text" id="allopsychic" formControlName="allopsychic" fullWidth
+         status="{{ isSubmitted && form.controls.allopsychic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-4 col-lg-4">
+       <div class="form-group">
+        <label class="form-text font-weight-bold">Desorientación Espacial</label>
+        <nb-select class="form-text" id="space" formControlName="space" fullWidth
+         status="{{ isSubmitted && form.controls.space.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

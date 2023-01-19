@@ -1,0 +1,173 @@
+<form [formGroup]="form">
+  <nb-card style="width: 100%;height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+
+      <!-- ngIf="this.form.controls.confirmation.value=='Paciente'
+        ngIf="this.form.controls.confirmation.value=='Responsable/Cuidador'
+        show2 Muestra Campos Basicos 
+        show4 Muestra Campo de Observaciones
+        show5 Disentimiento -->
+
+
+      <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-12 mt-3" *ngIf="assigned!=false">
+          <label for="type_consents_id" class="form-text text-muted font-weight-bold">Concentimiento Informado:</label>
+          <nb-select [selected]="this.data.type_consents_id" formControlName="type_consents_id" id="type_consents_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.type_consents_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.type_consents_id }}" *ngFor="let item of type_consents"
+              [value]="item.id">
+              {{ item.name}}</nb-option>
+          </nb-select>
+        </div>
+
+        <embed *ngIf="service" [src]="service" type="application/pdf" width="100%" height="600px" />
+
+        <div class=" row justify-content-center col-12 col-sm-12 col-md-12 mt-3">
+          <nb-radio-group formControlName="confirmation" confirmation id="confirmation" class="d-flex text center"
+            name="confirmation"
+            status="{{ isSubmitted && form.controls.confirmation.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio value="Paciente">Paciente</nb-radio>
+            <nb-radio value="Responsable/Cuidador">Responsable/Cuidador</nb-radio>
+          </nb-radio-group>
+        </div>
+
+        <!-- <ejs-pdfviewer id="pdfViewer" [serviceUrl]='service' [documentPath]='document' style="width: 100%;height:640px;display:block"></ejs-pdfviewer> -->
+
+
+          <!-- <div class="row justify-content-md-center col-12 col-sm-12 col-md-12 mt-3 "
+            *ngIf="this.form.controls.confirmation.value=='Paciente' && show3">
+
+            <label class="form-text text-muted font-weight-bold">¿Autorización del Paciente?</label>
+
+            <nb-radio-group formControlName="because_patient" because_patient id="because_patient"
+              class="d-flex text ml-3" name="because_patient"
+              status="{{ isSubmitted && form.controls.because_patient.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+              <nb-radio value="SI">SI</nb-radio>
+              <nb-radio value="NO">NO</nb-radio>
+            </nb-radio-group>
+
+          </div> -->
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="this.form.controls.confirmation.value=='Paciente' && show2">
+          <label for="firm_patient" class="form-text text-muted font-weight-bold center">Firma del
+            Paciente:</label>
+          <ng-signature-pad [emitOnDragEnd]="true" [showDoneButton]="false" clearButtonText="Borrar" format="base64"
+            (done)="showImage($event,1)">
+          </ng-signature-pad>
+          <img [src]="currentImgPatiend" *ngIf="currentImgPatiend" />
+
+        </div>
+
+
+
+
+        <div class="col-md-12" *ngIf="this.form.controls.confirmation.value=='Responsable/Cuidador' && show2">
+          <div class="col-12 col-sm-12 col-md-12">
+            <label for="name_responsible" class="form-text text-muted font-weight-bold">Nombre de responsable:</label>
+            <input nbInput fullWidth id="name_responsible" formControlName="name_responsible" name_responsible
+              status="{{ isSubmitted && form.controls.name_responsible.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-12">
+
+
+            
+             
+                <label for="relationship_id" class="form-text text-muted font-weight-bold">
+                  Parentesco:
+                </label>
+                <nb-select formControlName="relationship_id" id="relationship_id" fullWidth
+                  status="{{ isSubmitted && form.controls.relationship_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option *ngFor="let item of realtionships" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+      
+           
+          </div>
+
+
+          <div class="col-12 col-sm-12 col-md-12">
+            <label for="identification_responsible" class="form-text text-muted font-weight-bold">Identificación de
+              responsable:</label>
+            <input nbInput fullWidth id="identification_responsible" formControlName="identification_responsible"
+              identification_responsible
+              status="{{ isSubmitted && form.controls.identification_responsible.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          </div>
+
+         
+
+
+          <div class="col-12 col-sm-12 col-md-12">
+            <label for="identification_responsible" class="form-text text-muted font-weight-bold">Firma de
+              responsable:</label>
+            <ng-signature-pad [emitOnDragEnd]="true" [showDoneButton]="false" clearButtonText="Borrar" format="base64"
+              (done)="showImage($event,2)">
+            </ng-signature-pad>
+            <img [src]="currentImgResponsible" *ngIf="currentImgResponsible" />
+          </div>
+        </div>
+
+        <div class="row justify-content-md-center col-12 col-sm-12 col-md-12"
+          *ngIf="this.form.controls.confirmation.value=='Paciente' && show5">
+
+          <label class="form-text text-muted font-weight-bold">Disentimiento</label>
+
+          <nb-radio-group formControlName="dissent" dissent id="dissent" class="d-flex text ml-3" name="dissent"
+            status="{{ isSubmitted && form.controls.dissent.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio value="SI">SI</nb-radio>
+            <nb-radio value="NO">NO</nb-radio>
+          </nb-radio-group>
+
+        </div>
+
+
+        <div class="row justify-content-md-center col-12 col-sm-12 col-md-12  "
+          *ngIf="this.form.controls.confirmation.value=='Responsable/Cuidador' && show5">
+
+
+          <label class="form-text text-muted font-weight-bold">Disentimiento</label>
+
+          <nb-radio-group formControlName="dissent" dissent id="dissent" class="d-flex text ml-3" name="dissent"
+            status="{{ isSubmitted && form.controls.dissent.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            <nb-radio value="SI">SI</nb-radio>
+            <nb-radio value="NO">NO</nb-radio>
+          </nb-radio-group>
+
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="this.form.controls.confirmation.value=='Paciente' && show4">
+          <div class="col-md-12 center">
+            <label class="form-text text-muted font-weight-bold center">Observaciones</label>
+            <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+              onpaste="return false" rows="4" cols="40"
+              status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12"
+          *ngIf="this.form.controls.confirmation.value=='Responsable/Cuidador' && show4">
+          <div class="col-md-12 center">
+
+            <label class="form-text text-muted font-weight-bold center">Observaciones</label>
+            <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+              onpaste="return false" rows="4" cols="40"
+              status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : '' }}"> </textarea>
+          </div>
+        </div>
+
+      </div>
+
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button *ngIf="showUser!=false" nbButton  (click)="save()" status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+      <button *ngIf="showUser==false" nbButton status="danger" class="ml-1" disabled="{{ loading }}">Solicitar personal
+        a Recursos Humanos y guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

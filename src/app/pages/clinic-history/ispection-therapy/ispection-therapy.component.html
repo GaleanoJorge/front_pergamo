@@ -1,0 +1,15 @@
+<div *ngIf="has_input == false || type_record_id != 1">
+  <ngx-form-ispection-therapy (messageEvent)="receiveMessage($event)" [record_id]="record_id"   [type_record_id]="type_record_id" [user]="data">
+  </ngx-form-ispection-therapy>
+</div>
+
+<div class="center">
+  <label class="form-text text-muted font-weight-bold align center">Registro de Inspección</label>
+  <ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+      <ngx-base-table pager="false" class="table" [title]="title" [subtitle]="subtitle" customData="ch_rt_inspection"
+        [settings]="settings" entity="ch_rt_inspection/by_record/{{record_id}}/{{type_record_id}}?&has_input={{has_input}}">
+      </ngx-base-table>
+    </div>
+  </ngx-base-list>
+</div> 

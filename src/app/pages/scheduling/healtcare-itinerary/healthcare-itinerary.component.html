@@ -1,0 +1,231 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+
+    <!-- <div>
+      <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" entity="all_patients?pagination=true"
+        customData='patients' [messageToltip]="messageToltip">
+        <div actions>
+          <div class="actions">
+            <button nbButton status="danger" ngxCheckPerms="create" (click)="NewPatient()">Crear</button>
+          </div>
+        </div>
+      </ngx-base-table>
+    </div> -->
+
+    <nb-tabset fullWidth class="tabset" (changeTab)="tablock($event)">
+
+      <nb-tab tabTitle="AGENDAMIENTOS">
+        <div *ngIf="this.show == 1">
+          <form style="margin-bottom: 15px;" [formGroup]="form">
+            <div class="row">
+              <div class="col-md-4">
+                <label for="campus_id" class="form-text text-muted font-weight-bold">Sede:</label>
+                <nb-select formControlName="campus_id" id="campus_id" fullWidth placeholder="Seleccione..."
+                  status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option>Seleccione...</nb-option>
+                  <nb-option *ngFor="let item of campus" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+              </div>
+
+              <div class="col-md-4">
+              </div>
+
+              <div class="col-md-4">
+              </div>
+
+              <div class="col-md-4">
+                <label for="status_id" class="form-text text-muted font-weight-bold">Estado:</label>
+                <nb-select [disabled]="isRescheduling" formControlName="status_id" id="status_id" fullWidth placeholder="{{!isRescheduling ? 'TODOS LOS REGISTROS':'LIBRES'}}"
+                  status="{{ isSubmitted && form.controls.status_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option>Seleccione...</nb-option>
+                  <nb-option value="1">LIBRES</nb-option>
+                  <nb-option value="2">RESERVADAS</nb-option>
+                  <nb-option value="3">CONFIRMADAS</nb-option>
+                  <nb-option value="4">FACTURADAS</nb-option>
+                </nb-select>
+              </div>
+
+              <div class="col-md-4 ">
+                <label for="start_date" class="form-text text-muted font-weight-bold">Desde:</label>
+                <input class="inputdate" (focusout)="validateStartDate()" [min]="this.today" [max]="this.max_day" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
+                  formControlName="start_date" start_date
+                  pattern="^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$" />
+              </div>
+              <div class="col-md-4">
+                <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta:</label>
+                <input class="inputdate" (focusout)="validateFinishDate()" [min]="this.today" [max]="this.max_day" type="date" nbInput fieldSize="medium" fullWidth
+                  id="finish_date" formControlName="finish_date" finish_date
+                  pattern="^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$" />
+              </div>
+              <div class="col-md-6" *ngIf="!isRescheduling">
+                <label for="procedure_id" class="form-text text-muted font-weight-bold">Código Cups:</label>
+                <input (focusout)="checkProcedure($event, this.form.controls.procedure_id.value)" id="inputProcedure" [readonly]="isRescheduling" [disabled]="isRescheduling" fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
+                  status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  [nbAutocomplete]="!isRescheduling ? autoControl:false" />
+
+                <nb-autocomplete #autoControl (change)="checkProcedure()" (selectedChange)="onSelectionChange($event, 1)">
+                  <nb-option class="procedureAutocompleteOption" value="">Seleccione...</nb-option>
+                  <nb-option class="procedureAutocompleteOption" *ngFor="let item of filteredProcedureOptions$ | async" [value]="item.id + ' - ' + item.name">
+                    {{ item.code }} - {{item.equivalent}} - {{item.name}}
+                  </nb-option>
+
+                </nb-autocomplete>
+              </div>
+              <div class="col-md-6" *ngIf="isRescheduling">
+                <label for="procedure_id" class="form-text text-muted font-weight-bold">Código Cups:</label>
+                <input [readonly]="isRescheduling" [disabled]="isRescheduling" fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
+                  status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+ />
+              </div>
+              <div class="col-md-6">
+                <label for="assistance_id" class="form-text text-muted font-weight-bold">Asistencial:</label>
+                <input id="assistance_input" (focusout)="checkAssistance($event, this.form.controls.assistance_id.value)" fullWidth formControlName="assistance_id" nbInput type="text"
+                  placeholder="Selecciona asistencial"
+                  status="{{ isSubmitted && form.controls.assistance_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  [nbAutocomplete]="profControl" />
+
+                <nb-autocomplete #profControl (selectedChange)="onSelectionChange($event, 2)">
+                  <nb-option class="assistanceAutocompleteOption" value="">Seleccione...</nb-option>
+                  <nb-option class="assistanceAutocompleteOption" *ngFor="let item of filteredAssistanceOptions$ | async" [value]="item.nombre_completo">
+                    {{ item.nombre_completo }} - {{item.assistance.user.identification}}
+                  </nb-option>
+
+                </nb-autocomplete>
+              </div>
+            </div>
+          </form>
+
+          <div *ngIf="eventSettings">
+            <ejs-schedule width='100%' height='700px' #scheduleObj [showHeaderBar]="true" [selectedDate]="schedulerDate"
+              (actionComplete)='onActionComplete($event)' [timeScale]="timeScale" (popupOpen)='onPopupOpen($event)'
+              (eventRendered)="onEventRendered($event)" [currentView]="currentView" [eventSettings]="eventSettings"
+              [rowAutoHeight]="rowAutoHeight" [showQuickInfo]="false" (cellDoubleClick)='onCellDoubleClick($event)'>
+
+              <e-views>
+                <e-view option="Day"></e-view>
+                <e-view option="Week"></e-view>
+                <e-view option="Month"></e-view>
+                <e-view option="Agenda"></e-view>
+                <e-view option="Month agenda"></e-view>
+              </e-views>
+
+              <!-- <e-views>
+                <e-view option="Day"></e-view>
+                <e-view option="Week"></e-view>
+                <e-view option="Month"></e-view>
+                <e-view option="Month"></e-view>
+                <e-view option="Agenda"></e-view>
+              </e-views> -->
+
+              <!-- <e-resources>
+                <e-resource field="crews" title="Crew" [dataSource]="crews" [allowMultiple]="true"  name="Crews" textField="name"
+                  idField="id">
+                </e-resource>
+              </e-resources> -->
+              <!-- <ejs-schedule #scheduleObj width='100%' height='550px' [selectedDate]="selectedDate"
+                [eventSettings]="eventSettings" [showQuickInfo]="showQuickInfo" (cellClick)="onCellClick($event)"
+                (eventClick)="onEventClick($event)">
+                <e-views>
+                  <e-view option="Week"></e-view>
+                  <e-view option="WorkWeek"></e-view>
+                  <e-view option="Month"></e-view>
+                  <e-view option="Day"></e-view>
+                </e-views>
+              </ejs-schedule> -->
+
+              <!-- <ng-template #editorTemplate let-data>
+                <div class="container-fluid">
+                  <nb-card>
+                    <nb-card-header>Agendar paciente</nb-card-header>
+                    <nb-card-body>
+                      <form [formGroup]="ResponseConciliationsForm" (ngSubmit)="saveGroup()">
+                        <div>
+                          <div class="col-md-12">
+                            <label for="justification_status" class="form-text text-muted font-weight-bold">Motivo de la
+                              glosa:</label>
+                            <nb-select fullWidth placeholder="Seleccione..." formControlName="justification_status">
+                              <nb-option value="">Seleccione...</nb-option>
+                              <nb-option value="0">JUSTIFICADA</nb-option>
+                              <nb-option value="1">INJUSTIFICADA</nb-option>
+                            </nb-select>
+                          </div>
+                          <div class="col-md-12">
+                            <label for="response" class="form-text text-muted font-weight-bold">Respuesta:</label>
+                            <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth id="response"
+                              formControlName="response" response
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.response.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                          </div>
+                          <div class="col-md-12">
+                            <label for="accepted_value" class="form-text text-muted font-weight-bold">Valor aceptado:</label>
+                            <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth id="accepted_value"
+                              formControlName="accepted_value" accepted_value
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.accepted_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                          </div>
+                          <div class="col-md-12">
+                            <label for="value_not_accepted" class="form-text text-muted font-weight-bold">Valor No aceptado:</label>
+                            <input oninput="this.value = this.value.slice(0,15)" type="number" nbInput fullWidth
+                              id="value_not_accepted" formControlName="value_not_accepted" value_not_accepted
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.value_not_accepted.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                          </div>
+                          <div class="col-md-12">
+                            <label for="objetion_code_response" class="form-text text-muted font-weight-bold">Descripción
+                              Respuesta:</label>
+                            <nb-select fullWidth placeholder="Seleccione..." formControlName="objetion_code_response_id">
+                              <nb-option value="">Seleccione...</nb-option>
+                              <nb-option *ngFor="let item of objetion_code_response" [value]="item.id">{{ item.code }} - {{ item.name
+                                }}
+                              </nb-option>
+                            </nb-select>
+                          </div>
+                          <div class="col-md-12">
+                            <label for="objetion_response" class="form-text text-muted font-weight-bold">Tipo de objeción:</label>
+                            <nb-select fullWidth placeholder="Seleccione..." formControlName="objetion_response_id">
+                              <nb-option value="">Seleccione...</nb-option>
+                              <nb-option *ngFor="let item of objetion_response" [value]="item.id">{{ item.name }}
+                              </nb-option>
+                            </nb-select>
+                          </div>
+                          <div class="col-md-12">
+                            <label for="file" class="form-text text-muted font-weight-bold">Agregar Evicencias:</label>
+                            <input oninput="this.value = this.value.toUpperCase()" minlength="3" nbInput fullWidth id="file"
+                              formControlName="file" file
+                              status="{{ isSubmitted && ResponseConciliationsForm.controls.file.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                          </div>
+                         <div class="file-select-evicencias" id="src-file1">
+                            <input [nbSpinner]="loading" class="file" accept="image/*,.pdf" type="file" id="file" file fullWidth
+                              (change)="changeFile($event,2)" />
+                          </div> 
+                        </div>
+                      </form>
+                      <div class="div-send">
+                        <button type="button" class="e-event-cancel" nbButton status="success">Agregar</button>
+                      </div>
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </ng-template> -->
+
+            </ejs-schedule>
+          </div>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="FACTURACIÓN" *ngIf="!isRescheduling">
+        <div *ngIf="this.show == 2">
+          <ngx-scheduling-table>
+          </ngx-scheduling-table>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="ADMITIDOS" *ngIf="!isRescheduling">
+        <div *ngIf="this.show == 3">
+          <ngx-admissions-list>
+          </ngx-admissions-list>
+        </div>
+      </nb-tab>
+
+    </nb-tabset>
+
+
+  </div>
+</ngx-base-list>

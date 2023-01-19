@@ -1,0 +1,60 @@
+<div content>
+  <form style="margin-bottom: 15px;" [formGroup]="form">
+    <div class="row">
+
+      <div class="col-md-4">
+        <label for="status_id" class="form-text text-muted font-weight-bold">Estado:</label>
+        <nb-select formControlName="status_id" id="status_id" fullWidth placeholder="TODOS LOS REGISTROS">
+          <nb-option>Seleccione...</nb-option>
+          <!-- <nb-option value="1">LIBRES</nb-option> -->
+          <nb-option value="2">RESERVADAS</nb-option>
+          <nb-option value="3">CONFIRMADAS</nb-option>
+          <nb-option value="4">FACTURADAS</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-md-4">
+        <label for="start_date" class="form-text text-muted font-weight-bold">Desde:</label>
+        <input class="inputdate" [max]="today" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
+          formControlName="start_date" start_date />
+      </div>
+      <div class="col-md-4">
+        <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta:</label>
+        <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth id="finish_date"
+          formControlName="finish_date" finish_date />
+      </div>
+      <div class="col-md-6">
+        <label for="procedure_id" class="form-text text-muted font-weight-bold">Código Cups:</label>
+        <input fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Seleccionar CUPS"
+          [nbAutocomplete]="autoControl" />
+
+        <nb-autocomplete #autoControl (selectedChange)="onSelectionChange($event, 1)">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of filteredProcedureOptions$ | async" [value]="item.name">
+            {{ item.code }} - {{item.equivalent}} - {{item.name}}
+          </nb-option>
+
+        </nb-autocomplete>
+      </div>
+      <div class="col-md-6">
+        <label for="assistance_id" class="form-text text-muted font-weight-bold">Asistencial:</label>
+        <input fullWidth formControlName="assistance_id" nbInput type="text" placeholder="Selecciona asistencial"
+          [nbAutocomplete]="profControl" />
+
+        <nb-autocomplete #profControl (selectedChange)="onSelectionChange($event, 2)">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of filteredAssistanceOptions$ | async" [value]="item.nombre_completo">
+            {{ item.nombre_completo }} - {{item.assistance.user.identification}}
+          </nb-option>
+
+        </nb-autocomplete>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-md-12">
+      <ngx-base-table [settings]="settings" entity="medical_diary_days?scheduling=true&pagination=true" customData='medical_diary_days'>
+      </ngx-base-table>
+    </div>
+  </div>
+</div>

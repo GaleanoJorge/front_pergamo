@@ -1,0 +1,40 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="large" style="max-width: 600px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <div *ngIf="this.currentRole.role_type_id == 1 && this.procedence == 1" style="margin-right: 10px; width: 250px">
+            <nb-select formControlName="month" fullWidth
+            status="{{ isSubmitted && form.controls.month.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">SELECCIONE MES</nb-option>
+              <nb-option *ngFor="let item of months" [value]="item.id">
+                {{ item.name }}
+              </nb-option>
+            </nb-select>
+          </div>
+          <div *ngIf="this.currentRole.role_type_id == 2 && this.procedence == 2" style="margin-right: 10px; width: 250px">
+            <nb-select formControlName="month" fullWidth
+            status="{{ isSubmitted && form.controls.month.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">SELECCIONE MES</nb-option>
+              <nb-option *ngFor="let item of months2" [value]="item.id">
+                {{ item.name }}
+              </nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 col-lg-12" *ngIf="this.show">
+        <div style="margin-top: 10px;">
+          <ngx-work-location-package (messageEvent)="receiveMessage($event)" [parentData]="parentData"></ngx-work-location-package>
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

@@ -4,7 +4,7 @@
     <ngx-base-table [title]="title" [subtitle]="subtitle" customData="contract" [settings]="settings" entity="contract" [messageToltip]="messageToltip">
       <div actions>
         <div class="actions">
-          <button nbButton status="danger" (click)="NewContract()">Crear</button>
+          <button nbButton status="danger" ngxCheckPerms="create" (click)="NewContract()">Crear</button>
         </div>
         <div class="actions" style="margin-top:1em;">
           </div>

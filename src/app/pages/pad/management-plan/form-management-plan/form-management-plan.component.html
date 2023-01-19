@@ -1,0 +1,303 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="width: 100%;height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <!-- <div class="col-12 col-sm-12 col-md-6" *ngIf="assigned!=false">
+          <label for="admissions_id" class="form-text text-muted font-weight-bold">Admisiónes del paciente:</label>
+          <nb-select [selected]="this.data.admissions_id" formControlName="admissions_id" id="admissions_id" fullWidth
+            status="{{ isSubmitted && form.controls.admissions_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.admissions_id }}" *ngFor="let item of admissions" [value]="item.id">
+              {{ item.consecutive}} - {{item.location[0].scope_of_attention.name}} - {{item.location[0].program.name }}
+            </nb-option>
+          </nb-select>
+        </div> -->
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false">
+          <label for="type_of_attention" class="form-text text-muted font-weight-bold">Tipo de Atención:</label>
+          <nb-select [selected]="this.data.type_of_attention_id" formControlName="type_of_attention_id"
+            id="type_of_attention_id" fullWidth
+            status="{{ isSubmitted && form.controls.type_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.type_of_attention_id }}" *ngFor="let item of type_of_attention"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div *ngIf="this.form.controls.type_of_attention_id.value==2" class="col-12 col-sm-12 col-md-12">
+          <label for="specialty" class="form-text text-muted font-weight-bold">Especialidad:</label>
+          <nb-select [selected]="this.data.specialty_id" formControlName="specialty_id" id="specialty_id" fullWidth
+            status="{{ isSubmitted && form.controls.specialty_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.specialty_id }}" *ngFor="let item of specialty" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false">
+          <div class="col-12 col-sm-12 col-md-12" *ngIf="form.controls.type_of_attention_id.value !=20">
+            <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimiento:</label>
+            <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="procedure_id"
+              formControlName="procedure_id" procedure_id type="text" required
+              status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <datalist id="codes" *ngIf="procedure">
+              <option *ngFor="let item of procedure" [value]="item.manual_price.name">{{ item.manual_price.own_code }} -
+                {{item.manual_price.homologous_id}} </option>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="assigned!=false && this.show_proc">
+          <label for="laboratories" class="form-text text-muted font-weight-bold">Laboratorios:</label>
+          <nb-select multiple [selected]="this.data.laboratories" formControlName="laboratories" id="laboratories"
+            fullWidth
+            status="{{ isSubmitted && form.controls.laboratories.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option>Seleccione...</nb-option>
+            <nb-option *ngFor="let item of laboratories" [value]="item.id">{{ item.manual_price.own_code }} -
+              {{item.manual_price.homologous_id}} - {{item.manual_price.name}}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="show && assigned!=false">
+          <label class="form-text text-muted font-weight-bold">Seleccione producto generico:</label>
+          <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value)" id="product_gen"
+            formControlName="product_gen" product_gen required fullWidth nbInput
+            status="{{ isSubmitted && form.controls.product_gen.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+            multiple>
+          <datalist id="codes1">
+            <option *ngFor="let item of product_gen" [value]="item.manual_price.name">{{item.manual_price.name}}
+            </option>
+          </datalist>
+        </div>
+
+
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false && !show && !showTemp && !frec">
+          <div class="col-12 col-sm-12 col-md-12" *ngIf="form.controls.type_of_attention_id.value !=20">
+            <label for="frequency" class="form-text text-muted font-weight-bold">Frecuencia:</label>
+            <nb-select [selected]="this.data.frequency_id" formControlName="frequency_id" id="frequency_id" fullWidth
+              status="{{ isSubmitted && form.controls.frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == data.frequency_id }}" *ngFor="let item of frequency" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false">
+          <label *ngIf="show" for="quantity" class="form-text text-muted font-weight-bold">Frecuencia Horaria
+            (Horas):</label>
+          <label *ngIf="showTemp" for="quantity" class="form-text text-muted font-weight-bold">Turno:</label>
+          <label
+            *ngIf="!show && !showTemp && this.form.controls.type_of_attention_id.value != 12  || form.controls.type_of_attention_id.value !=20"
+            for="quantity" class="form-text text-muted font-weight-bold">Cantidad
+            proyectada:</label>
+          <label *ngIf="!show && !showTemp && this.form.controls.type_of_attention_id.value == 12" for="quantity"
+            class="form-text text-muted font-weight-bold">Cantidad asistenciales:</label>
+          <input *ngIf="!show && !showTemp" nbInput fullWidth id="quantity" formControlName="quantity" quantity
+            status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          <nb-select *ngIf="show || showTemp" [selected]="this.data.quantity" formControlName="quantity" id="quantity"
+            fullWidth
+            status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ 1 == data.quantity }}" value="1">
+              CADA 1 HORA</nb-option>
+            <nb-option selected="{{ 2 == data.quantity }}" value="2">
+              CADA 2 HORAS</nb-option>
+            <nb-option selected="{{ 3 == data.quantity }}" value="3">
+              CADA 3 HORAS</nb-option>
+            <nb-option selected="{{ 4 == data.quantity }}" value="4">
+              CADA 4 HORAS</nb-option>
+            <nb-option selected="{{ 6 == data.quantity }}" value="6">
+              CADA 6 HORAS</nb-option>
+            <nb-option selected="{{ 8 == data.quantity }}" value="8">
+              CADA 8 HORAS</nb-option>
+            <nb-option selected="{{ 12 == data.quantity }}" value="12">
+              CADA 12 HORAS</nb-option>
+            <nb-option selected="{{ 24 == data.quantity }}" value="24">
+              CADA 24 HORAS</nb-option>
+            <nb-option selected="{{ 48 == data.quantity }}" value="48">
+              CADA 48 HORAS</nb-option>
+            <nb-option selected="{{ 72 == data.quantity }}" value="72">
+              CADA 72 HORAS</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="assigned!=false && this.temp">
+          <label *ngIf="temp" for="hours" class="form-text text-muted font-weight-bold">Turno:</label>
+          <nb-select *ngIf="temp" [selected]="this.data.hours" formControlName="hours" id="hours" fullWidth
+            status="{{ isSubmitted && form.controls.hours.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ 1 == data.hours }}" value="1">
+              CADA 1 HORA</nb-option>
+            <nb-option selected="{{ 2 == data.hours }}" value="2">
+              CADA 2 HORAS</nb-option>
+            <nb-option selected="{{ 3 == data.hours }}" value="3">
+              CADA 3 HORAS</nb-option>
+            <nb-option selected="{{ 4 == data.hours }}" value="4">
+              CADA 4 HORAS</nb-option>
+            <nb-option selected="{{ 6 == data.hours }}" value="6">
+              CADA 6 HORAS</nb-option>
+            <nb-option selected="{{ 8 == data.hours }}" value="8">
+              CADA 8 HORAS</nb-option>
+            <nb-option selected="{{ 12 == data.hours }}" value="12">
+              CADA 12 HORAS</nb-option>
+            <nb-option selected="{{ 24 == data.hours }}" value="24">
+              CADA 24 HORAS</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-3" *ngIf="medical==0">
+          <label for="start_date" class="form-text text-muted font-weight-bold">Fecha de inicio:</label>
+          <input type="date" nbInput fullWidth id="start_date" formControlName="start_date" start_date
+            status="{{ isSubmitted && form.controls.start_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && show">
+          <label for="start_hours" class="form-text text-muted font-weight-bold">Hora de inicio:</label>
+          <!-- <input type="time" nbInput fullWidth id="start_hours" formControlName="start_hours" start_hours
+            status="{{ isSubmitted && form.controls.start_hours.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" /> -->
+          <div class="row">
+            <div class="col-md-4" *ngIf="medical==0 && show">
+              <nb-select [selected]="militat_hour_id" id="militat_hour_id" fullWidth
+                (selectedChange)="ChangeHour($event, 1)"
+                status="{{ isSubmitted && form.controls.start_hours.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option selected="{{ item.id == data.militat_hour_id }}" *ngFor="let item of militat_hour"
+                  [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </div>
+            :
+            <div class="col-md-4" *ngIf="medical==0 && show">
+              <nb-select [selected]="militat_minut_id" id="militat_minut_id" fullWidth
+                (selectedChange)="ChangeHour($event, 2)"
+                status="{{ isSubmitted && form.controls.start_hours.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option selected="{{ item.id == data.militat_minut_id }}" *ngFor="let item of militat_minut"
+                  [value]="item.id">
+                  {{ item.name }}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && !show">
+          <label for="finish_date" class="form-text text-muted font-weight-bold">Fecha de fin:</label>
+          <input type="date" nbInput fullWidth id="finish_date" formControlName="finish_date" start_date
+            status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="show">
+          <label for="number_doses" class="form-text text-muted font-weight-bold">Cantidad de dosis totales para el
+            tratamiento:</label>
+          <input type="number" nbInput fullWidth id="number_doses" formControlName="number_doses" number_doses
+            status="{{ isSubmitted && form.controls.number_doses.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="show && assigned!=false">
+          <label *ngIf="localidentify" for="dosage_administer" class="form-text text-muted font-weight-bold">Dosis a
+            administrar:</label>
+
+          <div class="row  ">
+            <div class="col-12 col-sm-12 col-md-8 asd">
+              <input *ngIf="localidentify" placeholder="{{this.localidentify.manual_price.product.product_dose_id == 2 ? this.numerador_measurement_units(this.localidentify.manual_price.product.multidose_concentration.name) :
+              this.numerador_measurement_units(this.localidentify.manual_price.product.measurement_units.name)}}"
+                type="number" nbInput fullWidth id="dosage_administer" formControlName="dosage_administer"
+                dosage_administer
+                status="{{ isSubmitted && form.controls.dosage_administer.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-2 aaa" *ngIf="this.localidentify">
+              {{this.localidentify.manual_price.product.product_dose_id == 2 ?
+              this.numerador_measurement_units(this.localidentify.manual_price.product.multidose_concentration.name) :
+              this.numerador_measurement_units(this.localidentify.manual_price.product.measurement_units.name)}}
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-2" *ngIf="medical==0 && !show">
+          <div class="col-12 col-sm-12 col-md-12" *ngIf="form.controls.type_of_attention_id.value !=20">
+            <label for="quantity" class="form-text text-muted font-weight-bold">Teleconsulta:</label>
+            <nb-toggle labelPosition="left" [checked]="phone_consult" (change)="phoneConsultChange($event)">
+            </nb-toggle>
+          </div>
+        </div>
+
+        <div class="assigned ? col-12 col-sm-12 col-md-4: col-12 col-sm-12 col-md-12"
+          *ngIf="medical==0 && showUser!=false">
+          <label for="assigned_user_id" class="form-text text-muted font-weight-bold">Personal asistencial:</label>
+          <nb-select [selected]="this.data.assigned_user_id" formControlName="assigned_user_id" id="assigned_user_id"
+            fullWidth
+            status="{{ isSubmitted && form.controls.assigned_user_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.assigned_user_id }}" *ngFor="let item of assigned_user"
+              [value]="item.id">
+              {{ item.firstname }} {{ item.middlefirstname }} {{item.lastname}} {{item.middlelastname}} - {{
+              item.identification }}</nb-option>
+          </nb-select>
+        </div>
+
+
+
+
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="medical==0 && assigned!=false && show">
+          <h6 style="margin-top: 10px;text-align: center;" for="preparation"
+            class="form-text text-muted font-weight-bold">Recomendaciones para la aplicación de medicamentos:</h6>
+        </div>
+        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==0 && assigned!=false && show">
+          <label for="preparation" class="form-text text-muted font-weight-bold">Preparación:</label>
+          <input nbInput fullWidth id="preparation" formControlName="preparation" preparation
+            status="{{ isSubmitted && form.controls.preparation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && assigned!=false && show">
+          <label for="administration_route" class="form-text text-muted font-weight-bold">Via de administración:</label>
+          <nb-select [selected]="this.data.route_of_administration" formControlName="route_of_administration"
+            id="route_of_administration" fullWidth
+            status="{{ isSubmitted && form.controls.route_of_administration.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.route_of_administration }}"
+              *ngFor="let item of route_of_administration" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf=" medical==0 && assigned!=false && show">
+          <label for="blend" class="form-text text-muted font-weight-bold">Mezcla:</label>
+          <input nbInput fullWidth id="blend" formControlName="blend" blend
+            status="{{ isSubmitted && form.controls.blend.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4" *ngIf="medical==0 && assigned!=false && show">
+          <label for="administration_time" class="form-text text-muted font-weight-bold">Tiempo de
+            administración (minutos):</label>
+          <input nbInput fullWidth id="administration_time" formControlName="administration_time" administration_time
+            status="{{ isSubmitted && form.controls.administration_time.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-12">
+          <label for="observation" class="form-text text-muted font-weight-bold">Observaciones:</label>
+          <textarea nbInput fullWidth id="observation" formControlName="observation" observation
+            status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"></textarea>
+        </div>
+
+
+      </div>
+
+
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button *ngIf="showUser!=false" nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+      <button *ngIf="showUser==false" nbButton status="danger" class="ml-1" disabled="{{ loading }}">Solicitar personal
+        a Recursos Humanos y guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

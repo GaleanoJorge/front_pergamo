@@ -1,0 +1,198 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div *ngIf="show_all">
+
+    <label class="form-text text-muted font-weight-bold align"></label>
+    <div class="row">
+      <div class="col-md-12">
+        <nb-card *ngIf="loading_screen" [nbSpinner]="true" nbSpinnerStatus="basic">
+          <nb-card-body></nb-card-body>
+        </nb-card>
+        <div class="center" *ngIf="!loading_screen">
+          <fieldset class="field_set">
+            <legend class="prue1">FORMULA MÉDICA</legend>
+
+            <div class="row justify-content-md-center">
+              <div class="col-md-auto">
+                <nb-radio-group formControlName="required" required id="required" class="d-flex text center">
+                  <nb-radio value="medicine">Medicamento</nb-radio>
+                  <nb-radio value="supplies">Insumo</nb-radio>
+                </nb-radio-group>
+              </div>
+              <div class="col col-lg-12">
+                <hr />
+              </div>
+            </div>
+
+            <div class="row" style="justify-content: space-evenly;" *ngIf="form.controls.required.value == 'medicine'">
+              <nb-checkbox formControlName="medical_formula" medical_formula id="medical_formula"
+                (checkedChange)="eventSelections($event)">¿Formula Ambulatoria?</nb-checkbox>
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-12">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row justify-content-md-center"> -->
+                <div class="row" style="justify-content: space-evenly;">
+                  <div class="col-md-11" *ngIf="show==true && product_gen">
+                    <label class="form-text text-muted font-weight-bold">Medicamento</label>
+                    <input type="text" list="codes1" class="data-list" (change)="saveCode1($event.target.value, 1)"
+                      id="product_gen" formControlName="product_gen" fullWidth product_gen fullWidth nbInput
+                      status="{{ isSubmitted && form.controls.product_gen.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    <datalist id="codes1">
+                      <option *ngFor="let item of product_gen" [value]="item.manual_price.product.description">{{item.manual_price.product.description}}
+                      </option>
+                    </datalist>
+                  </div>
+    
+                  <div class="col-md-11" *ngIf="show==false">
+                    <label class="form-text text-muted font-weight-bold">Medicamento</label>
+                    <input type="text" list="codes2" class="data-list" (change)="saveCode1($event.target.value, 2)"
+                      id="product_id" formControlName="product_id" fullWidth prduct_oid fullWidth nbInput
+                      status="{{ isSubmitted && form.controls.product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    <datalist id="codes2">
+                      <option *ngFor="let item of product_gen" [value]="item.description">{{item.description}}
+                      </option>
+                    </datalist>
+                  </div>
+
+                  <div class="col col-lg-6">
+                    <label class="form-text text-muted font-weight-bold">{{this.product != null ?
+                      this.product.product_dose_id == 2 ? "Presentación" : "Concentración" : ""}}</label>
+                    <div class="row justify-content-center" style="margin-top: 25px;">
+                      <div class="asd" *ngIf="this.product">
+                        {{ this.valor}}
+                      </div>
+                      <div *ngIf="this.product">
+                        {{ this.unidad}}
+                      </div>
+                    </div>
+    
+                  </div>
+                  <div class="col col-lg-6">
+                    <label class="form-text text-muted font-weight-bold">Dosis por aplicación</label>
+                    <div class="row" style="justify-content: center;">
+                      <div class="asd">
+                        <input type="number" min="0" pattern="^[0-9]+" placeholder="DOSIS" class="Box" id="dose" formControlName="dose" dose nbInput
+                          (change)="onChangesFormulation($event, 3)"
+                          status="{{ isSubmitted && form.controls.dose.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                      </div>
+                      <div class="aaa" *ngIf="this.product">
+                        {{ this.product.product_dose_id == 2 ? this.numerador_measurement_units(this.show ? this.product.manual_price.product.multidose_concentration.name : this.product.multidose_concentration.name) :
+                        this.numerador_measurement_units(this.show ? this.product.manual_price.product.measurement_units.code : this.product.measurement_units.code)}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" style="justify-content: center;">
+                    <div class="col-md-6">
+                      <label class="form-text text-muted font-weight-bold">Vía de Admin.</label>
+                      <nb-select [selected]="this.data.administration_route_id" formControlName="administration_route_id"
+                        id="administration_route_id" fullWidth (change)="onChangesFormulation($event, 3)"
+                        status="{{ isSubmitted && form.controls.administration_route_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                        <nb-option value="">SELECCIONE...</nb-option>
+                        <nb-option selected="{{ item.id == this.data.administration_route_id }}"
+                          *ngFor="let item of administration_route_id" [value]="item.id">
+                          {{ item.name }}</nb-option>
+                      </nb-select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-text text-muted font-weight-bold">Frecuencia Horaria</label>
+                      <nb-select [selected]="this.data.hourly_frequency_id" formControlName="hourly_frequency_id"
+                        id="hourly_frequency_id"  fullWidth (selectedChange)="onChangesFormulation($event, 2)"
+                        status="{{ isSubmitted && form.controls.hourly_frequency_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                        <nb-option value="">SELECCIONE...</nb-option>
+                        <nb-option selected="{{ item.id == this.data.hourly_frequency_id }}"
+                          *ngFor="let item of hourly_frequency_id" [value]="item.id">
+                          CADA {{ item.value }} - {{ item.name }}</nb-option>
+                      </nb-select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-text text-muted font-weight-bold">Días de Tratamiento</label>
+                      <input type="number"  min="0" pattern="^[0-9]+" style="width: max-content;" class="Box" id="treatment_days" formControlName="treatment_days" required nbInput
+                        (change)="onChangesFormulation($event, 3)"
+                        status="{{ isSubmitted && form.controls.treatment_days.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-text text-muted font-weight-bold">Cant. Solic.</label>
+                      <div style="margin-top: 25px; text-align: center;">
+                        {{this.form.controls.outpatient_formulation.value}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-lg-12">
+                    <hr />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" style="justify-content: space-around;">
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-info"><a class="btn" href="https://mipres.sispro.gov.co/"
+                      target="_blank">Crear MIPRES</a></button>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-text text-muted font-weight-bold">N° de Mipres</label>
+                  <input type="number" min="0" pattern="^[0-9]+" id="number_mipres" formControlName="number_mipres"
+                    nbInput>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row" style="justify-content: space-evenly;"  *ngIf="form.controls.required.value == 'supplies'">
+              <div class="col-md-8">
+                <label class="form-text text-muted font-weight-bold">Insumo</label>
+                <input type="text" list="codes2" class="data-list" (change)="saveCodeR($event.target.value)"
+                  id="product_supplies_id" formControlName="product_supplies_id" fullWidth product_supplies_id fullWidth nbInput
+                  status="{{ isSubmitted && form.controls.product_supplies_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <datalist id="codes2">
+                  <option *ngFor="let item of product_supplies" [value]="item.description">{{item.name}}
+                  </option>
+                </datalist>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-text text-muted font-weight-bold">Cant. Solic.</label>
+                <input type="number" class="data-list" id="num_supplies" formControlName="num_supplies" fullWidth
+                  num_supplies fullWidth nbInput
+                  status="{{ isSubmitted && form.controls.num_supplies.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              </div>
+            </div>
+
+            <div class="row" style="justify-content: center;">
+              <div class="col-md-12">
+                <label class="form-text text-muted font-weight-bold">Observaciones</label>
+                <textarea id="observation" nbInput fullWidth formControlName="observation" observation
+                  onpaste="return false" rows="3" cols="40"
+                  status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="row" *ngIf="!loading_screen">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+
+  </div>
+</form>

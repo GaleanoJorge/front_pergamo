@@ -1,0 +1,290 @@
+
+  <ngx-form-admissions-patient *ngIf="savedUser" [campus_id]="campus_id" [data]="admission_data" [user_id]="user_id" [admission_id]="admission_id" [stored]="this.saved" (messageEvent)="receiveMessage($event)"></ngx-form-admissions-patient>
+
+<div *ngIf="showTable"  style="margin-top: 15px;">
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="margin: 30px; max-width: 1400px; overflow-y: auto; height: 600px;" >
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body style="border: 20px;">
+
+      <div class="row">
+        <div class="col-md-12" >
+          <div class="form-group">
+            <label for="patient_data_type" class="form-text text-muted font-weight-bold">Tipo de acompañante: </label>
+            <nb-select formControlName="patient_data_type" id="patient_data_type" fullWidth
+              status="{{ isSubmitted && form.controls.patient_data_type.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value=" ">Seleccione...</nb-option>
+              <nb-option value="ACOMPAÑANTE">ACOMPAÑANTE</nb-option>
+              <nb-option value="RESPONSABLE">RESPONSABLE</nb-option>
+              <nb-option value="CUIDADOR">CUIDADOR</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="form.controls.patient_data_type.value === 'ACOMPAÑANTE'" >
+        <div class="col-12">
+          <p class="text-muted">Información de acompañante</p>
+        </div>
+      </div>
+      <div class="row" *ngIf="form.controls.patient_data_type.value === 'RESPONSABLE'">
+        <div class="col-12">
+          <p class="text-muted">Información de responsable</p>
+        </div>
+      </div>
+      <div style="margin: 0px;" class="row">
+        <div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="identification_type_id" class="form-text text-muted font-weight-bold">
+                  Tipo de identificación:
+                </label>
+                <nb-select formControlName="identification_type_id" id="identification_type_id" fullWidth
+                  status="{{ isSubmitted && form.controls.identification_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option *ngFor="let item of identification_types" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="identification" class="form-text text-muted font-weight-bold">Número de
+                  documento:</label>
+                <input nbInput maxlength="15" type="text" fullWidth id="identification"
+                  formControlName="identification" identification
+                  status="{{ isSubmitted && form.controls.identification.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+                <ng-container
+                  *ngIf="form.controls.identification.errors && form.controls.identification.touched">
+                  <p class="caption status-danger" *ngIf="form.controls.identification.errors?.minlength">
+                    El número de documento debe tener un mínimo de 6 caracteres
+                  </p>
+                  <p class="caption status-danger" *ngIf="form.controls.identification.errors?.maxlenth">
+                    El número de documento debe tener un máximo de 15 caracteres
+                  </p>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="firstname" class="form-text text-muted font-weight-bold">Primer nombre:</label>
+                <input oninput="this.value = this.value.toUpperCase().trim()" minlength="3" maxlength="20" nbInput
+                  fullWidth id="firstname" formControlName="firstname" firstname
+                  status="{{ isSubmitted && form.controls.firstname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="middlefirstname" class="form-text text-muted font-weight-bold">Segundo
+                  nombre:</label>
+                <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="20" nbInput fullWidth
+                  id="middlefirstname" formControlName="middlefirstname"
+                  middlefirstname
+                  status="{{ isSubmitted && form.controls.middlefirstname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lastname" class="form-text text-muted font-weight-bold">Primer
+                  apellido:</label>
+                <input oninput="this.value = this.value.toUpperCase().trim()" minlength="3" maxlength="20" nbInput
+                  fullWidth id="lastname" formControlName="lastname" lastname
+                  status="{{ isSubmitted && form.controls.lastname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="middlelastname" class="form-text text-muted font-weight-bold">Segundo
+                  apellido:</label>
+                <input oninput="this.value = this.value.toUpperCase()" minlength="3" maxlength="20" nbInput fullWidth
+                  id="middlelastname" formControlName="middlelastname"
+                  middlelastname
+                  status="{{ isSubmitted && form.controls.middlelastname.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  onkeypress="return /^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/i.test(event.key)" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-lg-3">
+              <div class="form-group">
+                <label for="phone" class="form-text text-muted font-weight-bold">Celular:</label>
+                <input oninput="this.value = this.value.slice(0,15)" nbInput min="10" max="15" type="number" fullWidth
+                  id="phone" formControlName="phone" phone
+                  status="{{ isSubmitted && form.controls.phone.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" />
+                <ng-container *ngIf="form.controls.phone.errors && form.controls.phone.touched">
+                  <p class="caption status-danger" *ngIf="form.controls.phone.errors?.minlength">
+                    El celular debe tener un mínimo de 10 caracteres
+                  </p>
+                  <p class="caption status-danger" *ngIf="form.controls.phone.errors?.maxlength">
+                    El celular debe tener un máximo de 20 caracteres
+                  </p>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+              <div class="form-group">
+                <label for="landline" class="form-text text-muted font-weight-bold">Teléfono Fijo:</label>
+                <input oninput="this.value = this.value.slice(0,15)" nbInput type="number" min="8" max="15" fullWidth
+                  id="landline" formControlName="landline" landline
+                  status="{{ isSubmitted && form.controls.landline.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  onkeypress="return /[0-9\+\-\ ]/i.test(event.key)" />
+                <ng-container *ngIf="form.controls.landline.errors && form.controls.landline.touched">
+                  <p class="caption status-danger" *ngIf="form.controls.landline.errors?.minlength">
+                    El teléfono fijo debe tener un mínimo de 10 caracteres
+                  </p>
+                  <p class="caption status-danger" *ngIf="form.controls.landline.errors?.maxlength">
+                    El teléfono fijo debe tener un máximo de 20 caracteres
+                  </p>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-5">
+              <div class="form-group">
+                <label for="email" class="form-text text-muted font-weight-bold">Correo electrónico:</label>
+                <input nbInput fullWidth id="email" formControlName="email" email
+                  status="{{ isSubmitted && form.controls.email.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="residence_address" class="form-text text-muted font-weight-bold">Tipo de Via</label>
+                <nb-select id="residence_address" formControlName="residence_address" fullWidth
+                  title="Tipo de Via (Ej.Calle)"
+                  status="{{ isSubmitted && form.controls.residence_address.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  >
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option value="Avenida">Avenida</nb-option>
+                  <nb-option value="Av.Calle">Avenida Calle </nb-option>
+                  <nb-option value="Av.Carrera">Avenida Carrera</nb-option>
+                  <nb-option value="Calle">Calle</nb-option>
+                  <nb-option value="Carrera">Carrera</nb-option>
+                  <nb-option value="Circular">Circular</nb-option>
+                  <nb-option value="Circunvalar">Circunvalar</nb-option>
+                  <nb-option value="Diagonal">Diagonal</nb-option>
+                  <nb-option value="Manzana">Manzana</nb-option>
+                  <nb-option value="Transversal">Transversal</nb-option>
+                  <nb-option value="Vía">Vía</nb-option>
+                  <nb-option value="Vereda">Vereda</nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="street" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">
+                </label>
+                <input nbInput fullWidth id="street" formControlName="street" street placeholder="Ej: 22 Sur"
+                  maxlength="10" status="{{ isSubmitted && form.controls.street.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+              </div>
+            </div>
+            <label for="residence_address" style="margin-top: 40px;"
+              class="form-text text-muted font-weight-bold">#</label>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="num1" class="form-text text-muted font-weight-bold">Número</label>
+                <input nbInput fullWidth id="num1" formControlName="num1" num1 placeholder="Ej: 45 B" maxlength="10"
+                status="{{ isSubmitted && form.controls.num1.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+              </div>
+            </div>
+            <label for="residence_address" style="margin-top: 40px;"
+              class="form-text text-muted font-weight-bold">-</label>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="num2" style="margin-top: 30px;" class="form-text text-muted font-weight-bold">
+                </label>
+                <input nbInput fullWidth id="num2" formControlName="num2" num2 placeholder="Ej: 45 B" maxlength="10"
+                status="{{ isSubmitted && form.controls.num2.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"/>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="residence_address_cardinality" class="form-text text-muted font-weight-bold">Puntos Cardinales</label>
+                <nb-select select="option, optgroup" id="residence_address_cardinality" formControlName="residence_address_cardinality"
+                   fullWidth title="Seleccione..."
+                  status="{{ isSubmitted && form.controls.residence_address_cardinality.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+                  >
+                  <!-- status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" -->
+                  <nb-option value=" ">Seleccione...</nb-option>
+                  <nb-option value="Noreste">Noreste</nb-option>
+                  <nb-option value="Noroeste">Noroeste</nb-option>
+                  <nb-option value="Sureste">Sureste</nb-option>
+                  <nb-option value="Suroeste">Suroeste</nb-option>
+                  <nb-option value="Norte">Norte</nb-option>
+                  <nb-option value="Este">Este</nb-option>
+                  <nb-option value="Sur">Sur</nb-option>
+                  <nb-option value="Oeste">Oeste</nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="reference" style="font-size: 0.8rem !important;"
+                  class="form-text text-muted font-weight-bold">Referencias Adicionales (Apartamento, Torre,
+                  Multifamiliar)</label>
+                <input nbInput fullWidth id="reference" formControlName="reference" reference
+                  placeholder="Ej: Torre 4 Apto 302" status="{{ isSubmitted && form.controls.reference.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+              </div>
+            </div>
+            <!-- <div class="col-md-4">
+              <div class="form-group">
+                <label for="affiliate_type_id" class="form-text text-muted font-weight-bold">
+                  Tipo de afiliación:
+                </label>
+                <nb-select formControlName="affiliate_type_id" id="affiliate_type_id" fullWidth
+                  status="{{ isSubmitted && form.controls.affiliate_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option *ngFor="let item of affiliate_type" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+              </div>
+            </div> -->
+            <!-- <div class="col-md-4">
+              <div class="form-group">
+                <label for="special_attention_id" class="form-text text-muted font-weight-bold">
+                  Tipo de atención:
+                </label>
+                <nb-select formControlName="special_attention_id" id="special_attention_id" fullWidth
+                  status="{{ isSubmitted && form.controls.special_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option *ngFor="let item of special_attention" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+              </div>
+            </div> -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="relationship_id" class="form-text text-muted font-weight-bold">
+                  Parentesco:
+                </label>
+                <nb-select formControlName="relationship_id" id="relationship_id" fullWidth
+                  status="{{ isSubmitted && form.controls.relationship_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                  <nb-option value="">Seleccione...</nb-option>
+                  <nb-option *ngFor="let item of realtionships" [value]="item.id">{{ item.name }}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end" style=" max-height: 300px; overflow: auto;">
+      <button nbButton *ngIf="!this.showCancel" (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>
+</div>

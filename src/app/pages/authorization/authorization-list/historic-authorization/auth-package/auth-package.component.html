@@ -1,0 +1,35 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="max-width: 1400px;max-height: 800px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-md-12">
+          <label for="package_id" class="form-text text-muted font-weight-bold">Paquetes disponibles:</label>
+          <nb-select [selected]="this.data.package_id" formControlName="package_id" id="package_id" fullWidth 
+            status="{{ isSubmitted && form.controls.package_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.package_id }}" *ngFor="let item of packages"
+              [value]="item.manual_price_id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-12">
+          <label for="package_id" class="form-text text-muted font-weight-bold">Tiempo de facturación:</label>
+          <input type="number" nbInput fullWidth id="quantity" formControlName="quantity" quantity
+            status="{{ isSubmitted && form.controls.quantity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+
+        <div *ngIf="this.form.controls.package_id.value" class="col-md-4">
+          <button nbButton status="primary" type="button" size="large" (click)="openInfo()">Información del paquete<nb-icon icon="message-square-outline"></nb-icon></button>
+        </div>
+
+      </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close(1)" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

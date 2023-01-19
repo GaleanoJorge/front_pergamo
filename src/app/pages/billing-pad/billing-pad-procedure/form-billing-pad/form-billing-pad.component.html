@@ -1,0 +1,22 @@
+<nb-card size="medium" style="max-width: 600px">
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+    <div content>
+
+      <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" pager="false"
+        entity="billing_pad/getProceduresByAuthPackage/{{auth_package_id}}?route={{this.route}}&billing_id={{this.billing_id}}" customData='billing_pad'
+        [messageToltip]="messageToltip">
+        <!-- <div actions>
+            <div class="actions">
+              <button nbButton status="danger" ngxCheckPerms="create" (click)="NewBillingAdmission()">Crear</button>
+            </div>
+          </div> -->
+      </ngx-base-table>
+
+    </div>
+  </nb-card-body>
+  <nb-card-footer class="d-flex justify-content-end">
+    <button nbButton (click)="close()" type="button">Cerrar</button>
+    <!-- <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button> -->
+  </nb-card-footer>
+</nb-card>

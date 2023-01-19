@@ -18,6 +18,16 @@
 @import "./layout";
 @import "./overrides";
 
+@import '../../../../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../../../../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../../../../node_modules/@syncfusion/ej2-calendars/styles/material.css';
+@import '../../../../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import '../../../../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../../../../node_modules/@syncfusion/ej2-lists/styles/material.css';
+@import '../../../../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../../../../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+@import '../../../../node_modules/@syncfusion/ej2-angular-schedule/styles/material.css';
+
 // install the framework and custom global styles
 @include nb-install() {
   // framework global styles
@@ -40,3 +50,66 @@
 @import "../../../../node_modules/@syncfusion/ej2-layouts/styles/material.css";
 @import "../../../../node_modules/@syncfusion/ej2-grids/styles/material.css";
 @import "../../../../node_modules/@syncfusion/ej2-angular-filemanager/styles/material.css";
+
+
+.scroll {
+  nb-dialog-container {
+    overflow: auto !important;
+  }
+}
+.nb-theme-corporate nb-layout .scrollable-container::-webkit-scrollbar-thumb {
+  background: #54bcc1;
+  cursor: pointer;
+  border-radius: 0.15625rem;
+}
+
+.nb-theme-corporate nb-layout .scrollable-container::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.4rem;
+}
+
+.nb-theme-corporate nb-sidebar .scrollable::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.nb-theme-corporate nb-sidebar .scrollable::-webkit-scrollbar-thumb {
+  background: #54bcc1;
+  cursor: pointer;
+  border-radius: 0.15625rem;
+}
+
+.nb-theme-corporate nb-sidebar .scrollable::-webkit-scrollbar-track {
+  background: #e4e9f2;
+}
+
+.nb-theme-corporate nb-card-body::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.nb-theme-corporate nb-card-body::-webkit-scrollbar-thumb {
+  background: #54bcc1;
+  cursor: pointer;
+  border-radius: 0.15625rem;
+}
+
+.nb-theme-corporate nb-card-body::-webkit-scrollbar-track {
+  background: #e4e9f2;
+}
+
+.nb-theme-corporate nb-dialog-container{
+  width: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  .nb-theme-corporate nb-card-body{
+    padding: 1rem .3rem !important;
+  }
+  .nb-theme-corporate nb-tabset nb-tab{
+    padding: 1rem .3rem !important;
+  }
+  .nb-theme-corporate nb-stepper .step-content{
+    padding: .5rem !important;
+  }
+    }

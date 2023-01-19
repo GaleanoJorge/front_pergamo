@@ -1,0 +1,19 @@
+<ngx-base-list
+  [messageError]="messageError">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="billing_stock_request/?pagination=true"
+                    customData='billing_stock_request'
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        <div class="actions">
+          <!-- <button nbButton status="danger" ngxCheckPerms="create" (click)="NewBilling()">Crear</button> -->
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

@@ -1,0 +1,29 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+
+    <ngx-base-table *ngIf="entity" [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+      customData='account_receivable' [messageToltip]="messageToltip">
+      <div actions>
+        <form [formGroup]="form">
+          <div class="actions">
+            <div class="col-md-12">
+              <button *ngIf="this.show_back" nbButton (click)="back()">Volver</button>
+            </div>
+            <div *ngIf="!this.show_back" class="col-md-12">
+              <label for="contract_type" class="form-text text-muted font-weight-bold">Tipo de contrato:</label>
+              <nb-select [selected]="this.data.contract_type_id" formControlName="contract_type_id" id="contract_type_id"
+                fullWidth
+                status="{{ isSubmitted && form.controls.contract_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option value="">Todos los contratos...</nb-option>
+                <nb-option selected="{{ item.id == data.contract_type_id }}" *ngFor="let item of contract_type"
+                  [value]="item.id">
+                  {{ (item.name).toUpperCase() }}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

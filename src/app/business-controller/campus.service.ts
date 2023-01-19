@@ -18,7 +18,7 @@ export class CampusService {
   GetCollection(params = {}): Promise<Campus[]> {
     let servObj = new ServiceObject(params ? 'campus?pagination=false' : 'campus');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
@@ -61,6 +61,22 @@ export class CampusService {
         return Promise.resolve(servObj);
       })
       .catch(x => {
+        throw x.message;
+      });
+  }
+
+  ChangeStatus(id): Promise<any> {
+    let servObj = new ServiceObject(`campus/${id}/changeStatus`);
+
+    return this.webAPI.PatchAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(<any>servObj);
+      }).catch(x => {
         throw x.message;
       });
   }

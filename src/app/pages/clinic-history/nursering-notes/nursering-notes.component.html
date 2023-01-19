@@ -1,0 +1,51 @@
+<!-- <ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content> -->
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode">
+
+          <nb-step label="Descripción Nota">
+            <ngx-notes-description [record_id]="record_id" [type_record_id]="3" [is_pad]="is_pad"></ngx-notes-description>
+          </nb-step>
+
+          <nb-step label="Ex Físico">
+            <ngx-nursing-physical-exam [record_id]="record_id" [type_record_id]="3" [enfermery]="true">
+            </ngx-nursing-physical-exam>
+          </nb-step>
+
+          <nb-step label="Signos Vitales">
+            <ngx-signs (messageEvent)="receiveMessage($event)" [record_id]="record_id" [admissions]="admission" [type_record_id]="type_record_id"></ngx-signs>
+          </nb-step>
+
+          <nb-step label="Procedimientos de enfermeria">
+            <ngx-nursing-procedure [record_id]="record_id" [type_record_id]="type_record_id"></ngx-nursing-procedure>
+          </nb-step>
+
+          <nb-step label="Plan de cuidados">
+            <ngx-care-plan [record_id]="record_id" [type_record_id]="type_record_id"></ngx-care-plan>
+          </nb-step>
+
+          <nb-step label="Control de líquidos">
+            <div *ngIf="this.showLiq">
+              <ngx-liquid-control  [record_id]="record_id" [type_record_id]="type_record_id"></ngx-liquid-control>
+            </div>
+          </nb-step>
+
+          <nb-step label="Recomendaciones">
+            <ngx-recommendations-evo [record_id]="record_id" [type_record]="type_record_id" [enfermeryreco]="true"></ngx-recommendations-evo>
+          </nb-step>
+      
+          <nb-step [hidden]="true">
+
+            <div class="step-container">
+              <h3>Wizard completed!</h3>
+              <button nbButton (click)="stepper.reset()">Try again</button>
+            </div>
+
+          </nb-step>
+
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  <!-- </div>
+</ngx-base-list> -->

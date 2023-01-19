@@ -1,0 +1,62 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <div class="row justify-content-center">
+    <div class="col col-lg-6 asds">
+      <label for="illness_text" class="form-text text-muted font-weight-bold justify-content-center"> ¿Ha recibido tratamiento fisioterapéutico por la enfermedad que consulta o es remitido? </label>
+    </div> 
+
+    <div class="col col-lg-6">
+      <nb-radio-group formControlName="illness" smoke id="illness" class="d-flex text" name="illness" onpaste="return false"
+        status="{{ isSubmitted && form.controls.illness.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <nb-radio value="SI">SI</nb-radio>
+        <nb-radio value="NO">NO</nb-radio>
+        <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+      </nb-radio-group>
+    </div>      
+  
+  </div>
+
+    <div class="row justify-content-center">
+
+      <div class="col col-lg-6 asds">
+        <label for="sports_text" class="form-text text-muted font-weight-bold justify-content-center"> ¿Hace ejercicio más allá de las actividades diarias? </label>
+      </div>
+
+      <div class="col col-lg-6">
+        <nb-radio-group formControlName="sports" smoke id="sports" class="d-flex text" name="sports" onpaste="return false"
+          status="{{ isSubmitted && form.controls.sports.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-radio value="SI">SI</nb-radio>
+          <nb-radio value="NO">NO</nb-radio>
+          <nb-radio value="NO APLICA">NO APLICA</nb-radio>
+        </nb-radio-group>
+      </div>
+    </div>
+
+    <div class="col col-lg-12">
+      <label for="obsertations" class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
+      <textarea id="obsertations" nbInput fullWidth formControlName="obsertations" obsertations rows="3" cols="50" onpaste="return false"
+        status="{{ isSubmitted && form.controls.obsertations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+    </div>
+
+    <div class="col col-lg-12">
+      <label for="days_number" class="form-text text-muted font-weight-bold">En promedio, ¿Cuantos días por semana realiza ejercicio? :</label>
+      <textarea id="days_number" nbInput fullWidth formControlName="days_number" days_number rows="1" cols="20" onpaste="return false"
+        status="{{ isSubmitted && form.controls.days_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+    </div>
+
+    <div class="col col-lg-12">
+      <label for="minutes_number" class="form-text text-muted font-weight-bold">En promedio, ¿Cuántos minutos al día realiza ejercicio? :</label>
+      <textarea id="minutes_number" nbInput fullWidth formControlName="minutes_number" minutes_number rows="1" cols="20" onpaste="return false"
+        status="{{ isSubmitted && form.controls.minutes_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+    </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+
+</form>

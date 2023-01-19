@@ -1,21 +1,15 @@
 <ngx-base-list
-  [messageError]="messageError"
-  [routes]="routes">
-  <div content>
-    <ngx-base-table 
-                    (propagar)="GetDataSelect($event)"
+  [messageError]="messageError">
+  <div content >
+    <ngx-base-table *ngIf="this.rendersettings"
                     [title]="title"
-                    [subtitle]="subtitle"
-                    [settings]="settings"
-                    entity="procedure_bypackage/{{ procedure_package_id }}"
-                    customData="procedure_package">
+                    [settings]="rendersettings"
+                    [entity]="this.parentData.entity"
+                    [customData]="this.parentData.customData">
       <div actions>
-        <div class="actions">
-          <a nbButton routerLink="/pages/setting/procedure">Volver</a>
-         
+        <div class="actions">      
         </div>
       </div>
     </ngx-base-table>
-    <button nbButton status="danger" class="btn-studen-admissions" (click)="saveGroup()"> Agregar </button>
   </div>
 </ngx-base-list>

@@ -1,0 +1,150 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+    <div class="row justify-content-center"> 
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">INDEPENDIENTE:</label>
+        <nb-select [selected]="this.data.independent" formControlName="independent" id="independent" fullWidth onpaste="return false"
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.independent.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+          <nb-option value="No Aplica">No Aplica</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">CLAUDICANTE CON AYUDA:</label>
+        <nb-select [selected]="this.data.help" formControlName="help" id="help" fullWidth onpaste="return false"
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.help.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+          <nb-option value="No Aplica">No Aplica</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">ESPASTICAS:</label>
+        <nb-select [selected]="this.data.spastic" formControlName="spastic" id="spastic" fullWidth onpaste="return false"
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.spastic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+          <nb-option value="No Aplica">No Aplica</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">ATAXICAS:</label>
+        <nb-select [selected]="this.data.ataxic" formControlName="ataxic" id="ataxic" fullWidth onpaste="return false"
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.ataxic.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+          <nb-option value="No Aplica">No Aplica</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">SE EVIDENCIA CONTACTO INICIAL:</label>
+        <nb-select [selected]="this.data.contact" formControlName="contact" id="contact" fullWidth onpaste="return false"
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.contact.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+          <nb-option value="No Aplica">No Aplica</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">SE EVIDENCIA RESPUESTA A LA CARGA:</label>
+        <nb-select [selected]="this.data.response" formControlName="response" id="response" fullWidth onpaste="return false"
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.response.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+          <nb-option value="No Aplica">No Aplica</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">SE EVIDENCIA SOPORTE MEDIO:</label>
+        <nb-select [selected]="this.data.support_init" formControlName="support_init" id="support_init" fullWidth onpaste="return false"
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.support_init.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+          <nb-option value="No Aplica">No Aplica</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">SE EVIDENCIA SOPORTE TERMINAL:</label>
+        <nb-select [selected]="this.data.support_finish" formControlName="support_finish" id="support_finish" fullWidth onpaste="return false"
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.support_finish.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+          <nb-option value="No Aplica">No Aplica</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">PREBALANCEO:</label>
+        <nb-select [selected]="this.data.prebalance" formControlName="prebalance" id="prebalance" fullWidth onpaste="return false"
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.prebalance.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+          <nb-option value="No Aplica">No Aplica</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">BALANCEO MEDIO:</label>
+        <nb-select [selected]="this.data.medium_balance" formControlName="medium_balance" id="head" fullWidth onpaste="return false"
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.medium_balance.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+          <nb-option value="No Aplica">No Aplica</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">BALANCEO TERMINAL:</label>
+        <nb-select [selected]="this.data.finish_balance" formControlName="finish_balance" id="finish_balance" fullWidth onpaste="return false"
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.finish_balance.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Si">Si</nb-option>
+          <nb-option value="No">No</nb-option>
+          <nb-option value="No Aplica">No Aplica</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-12">
+        <label class="form-text text-muted font-weight-bold">OBSERVACIONES:</label>
+        <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="3" onpaste="return false"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+
+    </div>
+
+    <div class="div-send">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+</form>

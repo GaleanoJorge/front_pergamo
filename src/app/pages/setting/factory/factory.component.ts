@@ -18,8 +18,8 @@ export class FactoryComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Fabricante';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Identificación', 'Verificatión', 'Nombre'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]}, ${this.headerFields[4]}`;
+  public headerFields: any[] = ['ID','Nombre'];
+  public messageToltip: string = `Búsqueda por:${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -31,7 +31,7 @@ export class FactoryComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -48,7 +48,7 @@ export class FactoryComponent implements OnInit {
         type: 'string',
       },
       name: {
-        title: this.headerFields[3],
+        title: this.headerFields[1],
         type: 'string',
       },
     },

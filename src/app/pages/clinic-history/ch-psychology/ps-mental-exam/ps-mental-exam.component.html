@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-12">
+      <nb-accordion>
+        <nb-accordion-item>
+          <nb-accordion-item-header>Funciones de Relación</nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <ngx-ps-relationship [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-relationship>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+        <nb-accordion-item>
+          <nb-accordion-item-header>Funciones Intelectivas</nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <ngx-ps-intellective [record_id]="record_id" (messageEvent)="receiveMessage($event)"[has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-intellective>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+    </div>
+  </div>
+
+</form>

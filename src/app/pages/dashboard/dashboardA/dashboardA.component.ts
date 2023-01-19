@@ -1,6 +1,9 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { EChartOption } from 'echarts';
+import { DashboardRoleService } from '../../../business-controller/dashboard-role.service';
+import { DashboardService } from '../../../business-controller/dashboard.service';
 import { ReportBusinessService } from '../../../business-controller/report-business.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
     selector: 'ngx-dashboardA',
@@ -8,8 +11,16 @@ import { ReportBusinessService } from '../../../business-controller/report-busin
     styleUrls: ['dashboardA.component.scss'],
 })
 export class DashboardAComponent {
-
-    constructor(private reporteBS: ReportBusinessService) { }
+    public currentRole;
+    public dashboards_routes;
+    public dashboards_roles = false;
+    public dashboards = [];
+    constructor(
+        private reporteBS: ReportBusinessService,
+        private authService: AuthService,
+        private DashboardS: DashboardService,
+        private DashboardRoleS: DashboardRoleService,
+    ) { }
 
     routes = [
         {
@@ -24,6 +35,26 @@ export class DashboardAComponent {
     public dataGraphic: any[] = [];
 
     ngOnInit() {
+        var curr = this.authService.GetRole();
+        this.currentRole = this.authService.GetUser().roles.find(x => {
+            return x.id == curr;
+        });
+
+        this.DashboardS.GetCollection().then(x => {
+            this.dashboards_routes = x;
+        });
+
+        this.DashboardRoleS.GetCollection({
+            role_id: curr,
+        }).then(x => {
+            this.dashboards_roles = true;
+            if (x.length > 0) {
+                x.forEach(e => {
+                    this.dashboards.push(e['dashboard_id']);
+                });
+            }
+        });
+
         this.dataGraphic.push({
             type: 'pie',
             title: 'Total de Grupos (120)',
@@ -64,5 +95,12 @@ export class DashboardAComponent {
                 { name: "649 Mujeres", value: 649 }
             ]
         });
+    }
+
+    getLink(id) {
+        var a = this.dashboards_routes.find(x => {
+            return x.id == id;
+          }).link;
+        return a;
     }
 }

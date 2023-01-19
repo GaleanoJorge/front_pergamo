@@ -16,7 +16,7 @@ export class CiiuClassComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Clase de clasificación industrial';
+  public title: string = 'Tipo de Clasificación Industrial';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Código', 'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]}`;
@@ -31,7 +31,7 @@ export class CiiuClassComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -61,7 +61,7 @@ export class CiiuClassComponent implements OnInit {
   public routes = [
     {
       name: 'Clase de clasificación industrial',
-      route: '../../setting/ciiu-group',
+      route: '../../setting/ciiu-class',
     },
   ];
 

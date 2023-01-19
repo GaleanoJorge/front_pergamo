@@ -1,0 +1,88 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Procedencia y cuantía de los ingresos mensuales</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center" >
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="none" class="form-text text-muted font-weight-bold">No tiene ningún ingreso
+          </label>
+          <nb-toggle class="center" formControlName="none" none>
+          </nb-toggle>        
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center" *ngIf="this.form.controls.none.value == 0">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="salary" class="form-text text-muted font-weight-bold">Salario</label>
+        <input type="number" nbInput fullWidth id="salary" formControlName="salary" salary
+          (change)="onChangesTotal($event, 1)"
+          status="{{ isSubmitted && form.controls.salary.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="pension" class="form-text text-muted font-weight-bold">Pensión</label>
+        <input type="number" nbInput fullWidth id="pension" formControlName="pension" pension
+          (change)="onChangesTotal($event, 2)"
+          status="{{ isSubmitted && form.controls.pension.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="donations" class="form-text text-muted font-weight-bold">Donaciones</label>
+        <input type="number" nbInput fullWidth id="donations" formControlName="donations" donations
+          (change)="onChangesTotal($event, 3)"
+          status="{{ isSubmitted && form.controls.donations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="rent" class="form-text text-muted font-weight-bold">Renta</label>
+        <input type="number" nbInput fullWidth id="rent" formControlName="rent" rent
+          (change)="onChangesTotal($event, 4)"
+          status="{{ isSubmitted && form.controls.rent.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="familiar_help" class="form-text text-muted font-weight-bold">Ayuda Familiar</label>
+        <input type="number" nbInput fullWidth id="familiar_help" formControlName="familiar_help" familiar_help
+          (change)="onChangesTotal($event, 5)"
+          status="{{ isSubmitted && form.controls.familiar_help.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container" *ngIf="this.form.controls.none.value == 0">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-6">
+        <hr />
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center" *ngIf="this.form.controls.none.value == 0">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold align">Total de ingresos</label>
+        <input type="text" nbInput fullWidth disabled="true" placeholder="Total"  id="total"
+          formControlName="total" nbInput [value]="this.incomeTotal">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

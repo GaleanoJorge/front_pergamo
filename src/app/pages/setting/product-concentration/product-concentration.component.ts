@@ -16,7 +16,7 @@ export class ProductConcentrationComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Concentración del producto';
+  public title: string = 'Concentración del Producto';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Valor'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -31,7 +31,7 @@ export class ProductConcentrationComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -79,6 +79,7 @@ export class ProductConcentrationComponent implements OnInit {
 
   NewProductConcentration() {
     this.dialogFormService.open(FormProductConcentrationComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nueva Concentración del producto',
         saved: this.RefreshData.bind(this),
@@ -88,6 +89,7 @@ export class ProductConcentrationComponent implements OnInit {
 
   EditProductConcentration(data) {
     this.dialogFormService.open(FormProductConcentrationComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar Concentración del producto',
         data,

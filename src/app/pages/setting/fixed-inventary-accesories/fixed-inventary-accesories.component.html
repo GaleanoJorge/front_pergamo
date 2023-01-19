@@ -1,0 +1,21 @@
+<ngx-base-list [messageError]="messageError">
+  <!-- //INVENTARIO DE ACCESORIOS  -->
+  <div content>
+    <nb-tabset fullWidth (changeTab)="reloadForm($event)">
+
+      <nb-tab tabTitle="ASIGNADOS">
+        <div *ngIf="this.showdiv">
+          <ngx-fixed-inventary-add-access [parentData]="false"></ngx-fixed-inventary-add-access>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="DISPONIBLE">
+        <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+          entity="fixed_accessories/?pagination=true" customData='fixed_accessories' [messageToltip]="messageToltip">
+          <div actions>
+          </div>
+        </ngx-base-table>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</ngx-base-list>

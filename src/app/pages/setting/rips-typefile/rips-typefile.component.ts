@@ -16,7 +16,7 @@ export class RipsTypeFileComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Tipo de archivos Rips';
+  public title: string = 'Tipo de Archivos Rips';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Código' ,'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]}`;
@@ -31,7 +31,7 @@ export class RipsTypeFileComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent

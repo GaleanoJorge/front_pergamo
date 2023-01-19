@@ -1,0 +1,196 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <div class="row" *ngIf="user">
+      <div title class="col-md-6">
+        <p class="parrafo" *ngIf="user"><b>CÉDULA: </b> {{user.identification}} </p>
+        <p class="parrafo" *ngIf="user"><b>NOMBRE: </b> {{this.user.firstname + ' ' + this.user.lastname}}</p>
+        <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}}</p>
+        <p class="parrafo" *ngIf="user"><b>EDAD: </b> {{user.age}} </p>
+      </div>
+      <div class="col-md-6 position">
+        <a nbButton (click)="back()">Volver</a>
+      </div>
+    </div>
+
+    <nb-tabset *ngIf="user" class="tabset" (changeTab)="tablock($event)">
+      <nb-tab tabTitle="INGRESO PARTE 1">
+        <div *ngIf="this.show == 1">
+          <nb-stepper #stepper [linear]="linearMode">
+
+            <nb-step label='Valoracion Terapeutica'>
+              <ngx-table-valoration-ot *ngIf="chvaloration" [data]="chvaloration" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input" [type_record_id]="1" [record_id]="record_id">
+              </ngx-table-valoration-ot>
+            </nb-step>
+
+
+            <nb-step label="Signos Vitales">
+
+              <ngx-signs [record_id]="record_id" [type_record_id]="1" [admissions]="admission"
+                (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-signs>
+
+            </nb-step>
+
+            <nb-step label='Historia Ocupacional'>
+              <ngx-table-occupat-history-ot [type_record_id]="1" *ngIf="chocuupationalhistory"
+                (messageEvent)="inputMessage($event)" [has_input]="has_input" [record_id]="record_id"
+                [data]="chocuupationalhistory"></ngx-table-occupat-history-ot>
+            </nb-step>
+
+            <nb-step label='Antecedentes Ocupacionales'>
+              <ngx-table-past-ot [type_record_id]="1" *ngIf="chpast" [record_id]="record_id" [data]="chpast"
+                (messageEvent)="inputMessage($event)" [has_input]="has_input">
+              </ngx-table-past-ot>
+            </nb-step>
+
+            <nb-step label='Actividades Vida Diaria'>
+              <ngx-table-daily-activities-ot [type_record_id]="1" *ngIf="chdailyactivities" [record_id]="record_id"
+                (messageEvent)="inputMessage($event)" [has_input]="has_input" [data]="chdailyactivities">
+              </ngx-table-daily-activities-ot>
+            </nb-step>
+
+            <nb-step label='Habilidades Motoras'>
+              <ngx-entry-form-motor-skills-ot [type_record_id]="1" [record_id]="record_id"
+                (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+              </ngx-entry-form-motor-skills-ot>
+            </nb-step>
+
+            <nb-step label='Conciencia Térmica'>
+              <ngx-table-thermal-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input">
+
+              </ngx-table-thermal-m-ot>
+            </nb-step>
+
+          </nb-stepper>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="INGRESO PARTE 2">
+        <div *ngIf="this.show == 2">
+          <nb-stepper #stepper [linear]="linearMode">
+
+            <nb-step label='Discriminacion Auditiva'>
+              <ngx-table-dis-auditory-m-ot [type_record_id]="1" [record_id]="record_id"
+                (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+              </ngx-table-dis-auditory-m-ot>
+            </nb-step>
+
+            <nb-step label='Discriminacion Tactil'>
+              <ngx-table-dis-tactile-m-ot [type_record_id]="1" [record_id]="record_id"
+                (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+              </ngx-table-dis-tactile-m-ot>
+            </nb-step>
+
+            <nb-step label='Agudeza'>
+              <ngx-table-acuity-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input">
+
+              </ngx-table-acuity-m-ot>
+            </nb-step>
+
+            <nb-step label='Componente Vestibular'>
+              <ngx-table-component-m-ot [type_record_id]="1" [record_id]="record_id"
+                (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+              </ngx-table-component-m-ot>
+            </nb-step>
+
+            <nb-step label='Examen Mental'>
+              <ngx-table-test-m-ot [type_record_id]="1" [record_id]="record_id" (messageEvent)="inputMessage($event)"
+                [has_input]="has_input">
+
+              </ngx-table-test-m-ot>
+            </nb-step>
+
+            <nb-step label='Interaccion'>
+              <ngx-table-communication-m-ot [type_record_id]="1" [record_id]="record_id"
+                (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+              </ngx-table-communication-m-ot>
+            </nb-step>
+
+            <nb-step label='Valoracion Diaria'>
+              <ngx-table-assessment-m-ot [type_record_id]="1" [record_id]="record_id"
+                (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+              </ngx-table-assessment-m-ot>
+            </nb-step>
+
+            <nb-step label='Sesiones'>
+              <ngx-table-weekly-int-m-ot [type_record_id]="1" [record_id]="record_id"
+                (messageEvent)="inputMessage($event)" [has_input]="has_input">
+
+              </ngx-table-weekly-int-m-ot>
+            </nb-step>
+
+          </nb-stepper>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="NOTA REGULAR">
+        <div *ngIf="this.show == 3">
+          <nb-stepper #stepper [linear]="linearMode">
+
+            <nb-step label='Valoracion Terapeutica'>
+              <ngx-r-n-valoration-ot [type_record_id]="3" *ngIf="chrnvaloration" [record_id]="record_id"
+                [data]="chrnvaloration">
+              </ngx-r-n-valoration-ot>
+            </nb-step>
+
+
+            <nb-step label="Signos Vitales">
+
+              <ngx-signs [record_id]="record_id" [type_record_id]="3" [admissions]="admission"></ngx-signs>
+
+
+            </nb-step>
+
+            <nb-step label='Valoración diaria'>
+              <ngx-r-n-therapeutic-obj-ot [type_record_id]="3" *ngIf="rntherapeutic" [record_id]="record_id"
+                [data]="rntherapeutic">
+
+              </ngx-r-n-therapeutic-obj-ot>
+            </nb-step>
+
+            <nb-step label='Intervención'>
+              <ngx-table-r-n-intervention-ot [type_record_id]="3" *ngIf="rntherapeutic" [record_id]="record_id">
+
+              </ngx-table-r-n-intervention-ot>
+            </nb-step>
+
+
+            <nb-step label='Materiales'>
+              <ngx-r-n-materials-ot [type_record_id]="3" *ngIf="chrnmaterials" [record_id]="record_id"
+                [data]="chrnmaterials">
+
+              </ngx-r-n-materials-ot>
+            </nb-step>
+
+
+            <nb-step label='Sesiones'>
+              <ngx-r-n-weekly-ot [record_id]="record_id">
+
+              </ngx-r-n-weekly-ot>
+
+            </nb-step>
+
+            <nb-step label="Recomendaciones">
+              <ngx-recommendations-evo [record_id]="record_id" [type_record]="3"></ngx-recommendations-evo>
+            </nb-step>
+
+            
+          </nb-stepper>
+        </div>
+      </nb-tab>
+    </nb-tabset>
+
+    <div style="text-align: center;">
+      <a (click)="close()" nbButton>Finalizar registro</a>
+    </div>
+
+  </div>
+</ngx-base-list>

@@ -1,0 +1,46 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card style="max-width: 1100px;max-height: 600px;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="name" class="form-text text-muted font-weight-bold">TIPO:</label>
+          <nb-select [selected]="this.data.fixed_type_id" formControlName="fixed_type_id" id="fixed_type_id" fullWidth
+            status="{{ isSubmitted && form.controls.fixed_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.fixed_type_id }}" *ngFor="let item of fixed_type_id"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="campus_id" class="form-text text-muted font-weight-bold">SEDE:</label>
+          <nb-select [selected]="this.data.campus_id" formControlName="campus_id" id="campus_id" fullWidth
+            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus_id" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <!-- 
+        <div class="col-12 col-sm-12 col-md-6">
+          <label class="form-text text-muted font-weight-bold">ASIGNAR USUARIO</label>
+          <nb-select multiple [selected]="this.data.user_id" formControlName="user_id" id="user_id" user_id fullWidth
+            status="{{ isSubmitted && form.controls.user_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+            placeholder="Seleccione...">
+            <nb-option selected="{{ item.id == data.user_id }}" *ngFor="let item of user_id"
+              [value]="item.id">
+              {{ item.nombre_completo }}</nb-option>
+          </nb-select>
+        </div> -->
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">CANCELAR</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">GUARDAR</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

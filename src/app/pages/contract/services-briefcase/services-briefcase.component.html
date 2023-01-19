@@ -11,7 +11,7 @@
                     customData="manual_price">
       <div actions>
         <div class="actions">
-          <a nbButton routerLink="/pages/contract/briefcase">Volver</a>
+          <a nbButton routerLink="/pages/contract/briefcase/{{this.briefcase_id}}">Volver</a>
           <nb-select style="margin-left: 5px;" (selectedChange)="ChangeManual($event)" placeholder="Filtrar por Manual">
             <nb-option value="0">Todos los registros</nb-option>
             <nb-option *ngFor="let item of manual" [value]="item.id">{{item.name}}</nb-option>
@@ -32,7 +32,7 @@
                           <div class="col-md-12">
                             <label for="factor" class="form-text text-muted font-weight-bold">Signo:</label>
                             <nb-select formControlName="factor_sign" id="factor_sign" fullWidth
-                              status="{{ isSubmitted && form.controls.factor_sign.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                              status="{{ isSubmitted && form.controls.factor_sign.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                               <nb-option value="">Seleccione...</nb-option>
                               <nb-option [value]="0">+</nb-option>
                               <nb-option [value]="1">-</nb-option>
@@ -41,7 +41,7 @@
                           <div class="col-md-12">
                             <label for="factor" class="form-text text-muted font-weight-bold">Factor en porcentaje:</label>
                             <input nbInput fullWidth id="factor" formControlName="factor" factor
-                              status="{{ isSubmitted && form.controls.factor.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                              status="{{ isSubmitted && form.controls.factor.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                           </div>
                         </div>
                               <div class="div-send">

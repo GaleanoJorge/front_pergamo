@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CurrencyPipe } from '@angular/common';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {
   NbAccordionModule,
@@ -9,7 +10,9 @@ import {
   NbRouteTabsetModule,
   NbStepperModule,
   NbRadioModule,
-  NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule,
+  NbTooltipModule,
+  NbPopoverModule,
+  NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule, NbAutocompleteModule,
 } from '@nebular/theme';
 import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
 import { ManualComponent } from './manual/manual.component';
@@ -137,9 +140,7 @@ import { FormProductGroupComponent } from './product-group/form-product-group/fo
 import { FormProductCategoryComponent } from './product-category/form-product-category/form-product-category.component';
 import { FormProductSubcategoryComponent } from './product-subcategory/form-product-subcategory/form-product-subcategory.component';
 import { FormProductGenericComponent } from './product-generic/form-product-generic/form-product-generic.component';
-import { TypeAssetsComponent } from './type-assets/type-assets.component';
 import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
-import { FormTypeAssetsComponent } from './type-assets/form-type-assets/form-type-assets.component';
 import { FormFixedAssetsComponent } from './fixed-assets/form-fixed-assets/form-fixed-assets.component';
 import { ProductComponent } from './product/product.component';
 import { InvimaStatusComponent } from './invima-status/invima-status.component';
@@ -199,7 +200,207 @@ import { ObjetionResponseComponent } from './objetion-response/objetion-response
 import { FormObjetionResponseComponent } from './objetion-response/form-objetion-response/form-objetion-response.component';
 import { FormDiagnosisComponent } from './diagnosis/form-diagnosis/form-diagnosis.component';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
-
+import { FormSpecialFieldComponent } from './special-field/form-special-field/form-special-field.component';
+import { SpecialFieldComponent } from './special-field/special-field.component';
+import { ContractTypeComponent } from './contract-type/contract-type.component';
+import { FormContractTypeComponent } from './contract-type/form-contract-type/form-contract-type.component';
+import { FormTypeProfessionalComponent } from './type-professional/form-type-professional/form-type-professional.component';
+import { TypeProfessionalComponent } from './type-professional/type-professional.component';
+import { CostCenterComponent } from './cost-center/cost-center.component';
+import { FormCostCenterComponent } from './cost-center/form-cost-center/form-cost-center.component';
+import { FormObservationNoveltyComponent } from './observation-novelty/form-observation-novelty/form-observation-novelty.component';
+import { ObservationNoveltyComponent } from './observation-novelty/observation-novelty.component';
+import { InabilityComponent } from './inability/inability.component';
+import { FormInabilityComponent } from './inability/form-inability/form-inability.component';
+import { FormAdmissionsPatientComponent } from '../admissions/admissions-patient/form-admissions-patient/form-admissions-patient.component';
+import { AdmissionsPatientComponent } from '../admissions/admissions-patient/admissions-patient.component';
+import { FormManualProcedureComponent } from './manual/form-manual-procedure/form-manual-procedure.component';
+import { FormManualProductComponent } from './manual/form-manual-product/form-manual-product.component';
+import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
+import { ActionsComponentProcedure } from './manual/procedure-massive/actions.component';
+import { ActionsComponentProduct } from './manual/product-massive/actions.component';
+import { FormPolicyTypeComponent } from './policy-type/form-policy-type/form-policy-type.component';
+import { PolicyTypeComponent } from './policy-type/policy-type.component';
+import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
+import { SelectProcedureComponent } from './procedure/procedure-package/select-procedure.component';
+import { DietConsistencyComponent } from './diet-consistency/diet-consistency.component';
+import { FormDietConsistencyComponent } from './diet-consistency/form-diet-consistency/form-diet-consistency.component';
+import { DietComponentComponent } from './diet-componet/diet-componet.component';
+import { FormDietComponentComponent } from './diet-componet/form-diet-componet/form-diet-componet.component';
+import { DietDayComponent } from './diet-day/diet-day.component';
+import { FormDietDayComponent } from './diet-day/form-diet-day/form-diet-day.component';
+import { DietWeekComponent } from './diet-week/diet-week.component';
+import { FormDietWeekComponent } from './diet-week/form-diet-week/form-diet-week.component';
+import { DietDishComponent } from './diet-dish/diet-dish.component';
+import { FormDietDishComponent } from './diet-dish/form-diet-dish/form-diet-dish.component';
+import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component';
+import { FormDietMenuTypeComponent } from './diet-menu-type/form-diet-menu-type/form-diet-menu-type.component';
+import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
+import { FormDietSupplyTypeComponent } from './diet-supply-type/form-diet-supply-type/form-diet-supply-type.component';
+import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
+import { FormDietSuppliesComponent } from './diet-supplies/form-diet-supplies/form-diet-supplies.component';
+import { DishStockPackageComponent } from './diet-dish/dish-stock-package/dish-stock-package.component';
+import { SelectDishStockComponent } from './diet-dish/dish-stock-package/select-dish-stock.component';
+import { AmountDishStockComponent } from './diet-dish/dish-stock-package/amount-dish-stock.component';
+import { DietMenuComponent } from './diet-menu/diet-menu.component';
+import { Actions2Component } from './diet-menu/actions.component';
+import { FormDietMenuComponent } from './diet-menu/form-diet-menu/form-diet-menu.component';
+import { DishPackageComponent } from './diet-menu/dish-package/dish-package.component';
+import { SelectDishComponent } from './diet-menu/dish-package/select-dish.component';
+import { RelationshipComponent } from './relationship/relationship.component';
+import { FormRelationshipComponent } from './relationship/form-relationship/form-relationship.component';
+import { ActionsCompanyComponent } from './company/actions.component';
+import { ActionsComponentEditDelete } from './company-mail/actions.component';
+import { ActionsCDComponent } from './company-document/actionsCD.component';
+import { FormHourlyFrequencyComponent } from './hourly-frequency/form-hourly-frequency/form-hourly-frequency.component';
+import { HourlyFrequencyComponent } from './hourly-frequency/hourly-frequency.component';
+import { ActionsDishComponent } from './diet-dish/actions-dish.component';
+import { LocalityComponent } from './locality/locality.component';
+import { FormLocalityComponent } from './locality/form-locality/form-locality.component';
+import { FormNeighborhoodOrResidenceComponent } from './neighborhood/form-neighborhood/form-neighborhood.component';
+import { NeighborhoodOrResidenceComponent } from './neighborhood/neighborhood.component';
+import { PadRiskComponent } from './pad-risk/pad-risk.component';
+import { FormPadRiskComponent } from './pad-risk/form-pad-risk/form-pad-risk.component';
+import { TariffComponent } from './tariff/tariff.component';
+import { FormTariffComponent } from './tariff/form-tariff/form-tariff.component';
+import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
+import { ActionsLocationCapacityComponent } from './location-capacity/actions-location-capacity.component';
+import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
+import { ActionsSingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/actions-single-location-capacity.component';
+import { FormLocationCapacityComponent } from './location-capacity/sigle-location-capacity/form-location-capacity/form-location-capacity.component';
+import { FormFinancialDataComponent } from './users/form-financial-data/form-financial-data.component';
+import { AuthStatusComponent } from './auth-status/auth-status.component';
+import { FormAuthStatusComponent } from './auth-status/form-auth-status/form-auth-status.component';
+import { FormEditLocationCapacityComponent } from './location-capacity/sigle-location-capacity/form-edit-location-capacity/form-edit-location-capacity.component';
+import { BillingComponent } from './billing/billing.component';
+import { FormBillingComponent } from './billing/form-billing/form-billing.component';
+import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
+import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock/form-pharmacy-stock.component';
+import { PharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/pharmacy-update-max-min.component';
+import { FormPharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/form-pharmacy-update-max-min/form-pharmacy-update-max-min.component';
+import { ProdBillingPackageComponent } from './billing/prod-billing-package/prod-billing-package.component';
+import { AmountBillingComponent } from './billing/prod-billing-package/amount-billing.component';
+import { SelectProductBillingComponent } from './billing/prod-billing-package/select-prod-billing.component';
+import { AmountProcedureComponent } from './procedure/procedure-package/amount-procedure-package.component';
+import { DynamicProcedurePackageComponent } from './procedure/procedure-package/dynamic-procedure-package.component';
+import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
+import { TcRadicationComponent } from './tc-radication/tc-radication.component';
+import { TcBillingComponent } from './tc-billing/tc-billing.component';
+import { AmountUnitBillingComponent } from './billing/prod-billing-package/amount-unit-billing.component';
+import { BaseLocationPackageComponent } from './location-capacity/sigle-location-capacity/base-location-package/base-location-package.component';
+import { NomProductComponent } from './nom-product/nom-product.component';
+import { FormNomProductComponent } from './nom-product/form-nom-product/form-nom-product.component';
+import { FormFixedAreaCampusComponent } from './fixed-area-campus/form-fixed-area-campus/form-fixed-area-campus.component';
+import { FixedAreaCampusComponent } from './fixed-area-campus/fixed-area-campus.component';
+import { FixedCodeComponent } from './fixed-code/fixed-code.component';
+import { FixedConditionComponent } from './fixed-condition/fixed-condition.component';
+import { FixedPropertyComponent } from './fixed-property/fixed-property.component';
+import { FormFixedConditionComponent } from './fixed-condition/form-fixed-condition/form-fixed-condition.component';
+import { FormFixedCodeComponent } from './fixed-code/form-fixed-code/form-fixed-code.component';
+import { FormFixedPropertyComponent } from './fixed-property/form-fixed-property/form-fixed-property.component';
+import { FixedClasificationComponent } from './fixed-clasification/fixed-clasification.component';
+import { FormFixedClasificationComponent } from './fixed-clasification/form-fixed-clasification/form-fixed-clasification.component';
+import { FormFixedTypeComponent } from './fixed-type/form-fixed-type/form-fixed-type.component';
+import { FixedTypeComponent } from './fixed-type/fixed-type.component';
+import { FormFixedLocationCampusComponent } from './fixed-location-campus/form-fixed-location-campus/form-fixed-location-campus.component';
+import { FixedLocationCampusComponent } from './fixed-location-campus/fixed-location-campus.component';
+import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories.component';
+import { FormFixedAccessoriesComponent } from './fixed-accessories/form-fixed-accessories/form-fixed-accessories.component';
+import { FormFixedInventaryComponent } from './fixed-inventary/form-fixed-inventary/form-fixed-inventary.component';
+import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
+import { ActionsInFixComponent } from './fixed-inventary/actionsInFix.component';
+import { MinimumSalaryComponent } from './minimum-salary/minimum-salary.component';
+import { FormMinimumSalaryComponent } from './minimum-salary/form-minimum-salary/form-minimum-salary.component';
+import { TaxValueUnitComponent } from './tax-value-unit/tax-value-unit.component';
+import { FormTaxValueUnitComponent } from './tax-value-unit/form-tax-value-unit/form-tax-value-unit.component';
+import { MunicipalityIcaComponent } from './municipality-ica/municipality-ica.component';
+import { FormMunicipalityIcaComponent } from './municipality-ica/form-municipality-ica/form-municipality-ica.component';
+import { FormFixedRequestComponent } from './fixed-request/form-fixed-request/form-fixed-request.component';
+import { FixedRequestComponent } from './fixed-request/fixed-request.component';
+import { FixedInventaryAccesoriesComponent } from './fixed-inventary-accesories/fixed-inventary-accesories.component';
+import { ActionsInvAccesComponent } from './fixed-inventary-accesories/actionsInAcces.component';
+import { FormFixedInventaryAccesoriesComponent } from './fixed-inventary-accesories/form-fixed-inventary-accesories/form-fixed-inventary-accesories.component';
+import { FixedTabComponent } from './fixed-tab/fixed-tab.component';
+import { FixedInventaryAddComponent } from './fixed-inventary-add/fixed-inventary-add.component';
+import { FixedInventaryAddAccessComponent } from './fixed-inventary-add-access/fixed-inventary-add-access.component';
+import { FormFixedInventaryAddAccessComponent } from './fixed-inventary-add-access/form-fixed-inventary_add-access/form-fixed-inventary-add-access.component';
+import { FixedAccessRequestsComponent } from './fixed-access-requests/fixed-access-requests.component';
+import { FormFixedAccessRequestsComponent } from './fixed-access-requests/form-fixed-access-requests/form-fixed-access-requests.component';
+import { FormFixedInventaryAddComponent } from './fixed-inventary-add/form-fixed-inventary-add/form-fixed-inventary-add.component';
+import { ActionsAccReqComponent } from './fixed-access-requests/actions.component';
+import { AmountRequestsComponent } from './fixed-access-requests/requests-package/amountRequests.component';
+import { RequestsPackageComponent } from './fixed-access-requests/requests-package/requests-package.component';
+import { SelectRequestsComponent } from './fixed-access-requests/requests-package/select-requests.component';
+import { FixedTabRequestsComponent } from './fixed-tab-requests/fixed-tab-requests.component';
+import { AssetsRequestsPackageComponent } from './fixed-assets-requests/assets-requests-package/assets-requests-package.component';
+import { AssetsSelectRequestsComponent } from './fixed-assets-requests/assets-requests-package/assets-select-requests.component';
+import { FormFixedAssetsRequestsComponent } from './fixed-assets-requests/form-fixed-assets-requests/form-fixed-assets-requests.component';
+import { ActionsAssReqComponent } from './fixed-assets-requests/actions.component';
+import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-assets-requests.component';
+import { ProductSuppliesComponent } from './product-supplies/product-supplies.component';
+import { FormProductSuppliesComponent } from './product-supplies/form-product-supplies/form-product-supplies.component';
+import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
+import { FormSuppliesCommComponent } from './supplies-comm/form-supplies-comm/form-supplies-comm.component';
+import { AmountSuppliesComponent } from './billing/prod-supplies-package/amount-supplies.component';
+import { AmountUnitSuppliesComponent } from './billing/prod-supplies-package/amount-unit-supplies.component';
+import { ProdSuppliesPackageComponent } from './billing/prod-supplies-package/prod-supplies-package.component';
+import { SelectProductSuppliesComponent } from './billing/prod-supplies-package/select-prod-supplies.component';
+import { FormConfirmDisabledComponent } from './users/form-confirm-disabled/form-confirm-disabled.component';
+import { IvaBillingComponent } from './billing/prod-billing-package/iva-billing.component';
+import { IvaSuppliesComponent } from './billing/prod-supplies-package/iva-supplies.component';
+import { BillingTabComponent } from './billing-tab/billing-tab.component';
+import { BillingRequestPharmacyMostComponent } from './billing-request-pharmacy-most/billing-request-pharmacy-most.component';
+import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
+import { BillingPadPrefixComponent } from './billing-pad-prefix/billing-pad-prefix.component';
+import { FormBillingPadPrefixComponent } from './billing-pad-prefix/form-billing-pad-prefix/form-billing-pad-prefix.component';
+import { BillingPadConsecutiveComponent } from './billing-pad-consecutive/billing-pad-consecutive.component';
+import { FormBillingPadConsecutiveComponent } from './billing-pad-consecutive/form-billing-pad-consecutive/form-billing-pad-consecutive.component';
+import { FixedFormNomProductComponent } from './fixed-nom-product/form-fixed-nom-product/form-fixed-nom-product.component';
+import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.component';
+import { AssistanceStockComponent } from './assistance-stock/assistance-stock.component';
+import { FormAssistanceStockComponent } from './assistance-stock/form-assistance-stock/form-assistance-stock.component';
+import { AssistanceStockReqComponent } from './assistance-stock/form-assistance-stock/assistance-stock-req.component';
+import { ActionsStockComponent } from './assistance-stock/actions.component';
+import { ActionsComponentInsume } from './manual/insume-massive/actions.component';
+import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
+import { FormManualInsumeComponent } from './manual/form-manual-insume/form-manual-insume.component';
+import { TcCollectionComponent } from './tc-collection/tc-collection.component';
+import { FixedAssetsRequestsPatientComponent } from './fixed-assets-requests-patient/fixed-assets-requests-patient.component';
+import { ActionsAssReqPatientComponent } from './fixed-assets-requests-patient/actions.component';
+import { FormFixedAssetsRequestsPatientComponent } from './fixed-assets-requests-patient/form-fixed-assets-requests-patient/form-fixed-assets-requests-patient.component';
+import { AssetsSelectRequestsPatientComponent } from './fixed-assets-requests-patient/assets-requests-patient-package/assets-select-requests-patient.component';
+import { AssetsRequestsPatientPackageComponent } from './fixed-assets-requests-patient/assets-requests-patient-package/assets-requests-patient-package.component';
+import { FormFixedStockComponent } from './fixed-stock/form-fixed-stock/form-fixed-stock.component';
+import { FixedStockComponent } from './fixed-stock/fixed-stock.component';
+import { UserComponent } from './pharmacy-stock/user-package/user.component';
+import { UserPackageComponent } from './pharmacy-stock/user-package/user-package.component';
+import { ActionPharmaComponent } from './pharmacy-stock/actions.component';
+import { ServicesComponent } from './pharmacy-stock/services-package/services.component';
+import { ServicesPackageComponent } from './pharmacy-stock/services-package/services-package.component';
+import { UserFixedPackageComponent } from './fixed-stock/user-fixed-package/user-fixed-package.component';
+import { UserFixedComponent } from './fixed-stock/user-fixed-package/user-fixed.component';
+import { ActionFixedComponent } from './fixed-stock/actions.component';
+import { FormDrugReturnedComponent } from './assistance-stock/form-drug-returned/form-drug-returned.component';
+import { RoleCheckComponent } from './users/role-package/role-check.component';
+import { RolePackageComponent } from './users/role-package/role-package.component';
+import { ServicesFixedPackageComponent } from './fixed-stock/services-fixed-package/services-fixed-package.component';
+import { ServicesFixedComponent } from './fixed-stock/services-fixed-package/services-fixed.component';
+import { FixedPatientsComponent } from './fixed-patients/fixed-patients.component';
+import { FixedMovementsComponent } from './fixed-movements/fixed-movements.component';
+import { FixedInventaryAddPatientsComponent } from './fixed-inventary-add-patients/fixed-inventary-add-patients.component';
+import { FormFixedInventaryAddPatientsComponent } from './fixed-inventary-add-patients/form-fixed-inventary-add-patients/form-fixed-inventary-add-patients.component';
+import { FormFixedReturnComponent } from './fixed-return/form-fixed-return/form-fixed-return.component';
+import { ActionsReturnSedComponent } from './fixed-return/actions-return.component';
+import { FixedReturnComponent } from './fixed-return/fixed-return.component';
+import { FormFixedReturnPatientsComponent } from './fixed-return-patients/form-fixed-return-patients/form-fixed-return-patients.component';
+import { ActionsReturnPatiComponent } from './fixed-return-patients/actions-return.component';
+import { FixedReturnPatientsComponent } from './fixed-return-patients/fixed-return-patients.component';
+import { FormFixedDeniedComponent } from './fixed-assets-requests-patient/form-fixed-denied/form-fixed-denied.component';
+import { FormTariffConfirmDisabledComponent } from './tariff/form-tariff-confirm-disabled/form-tariff-confirm-disabled.component';
+import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
+import { ActionsBedComponent } from './bed/actions-bed.component';
+import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
+import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-measure/form-supplies-measure.component';
 
 @NgModule({
   imports: [
@@ -217,7 +418,8 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
     NbInputModule,
     NbToggleModule,
     NbSelectModule,
-    NbAccordionModule,
+    NbPopoverModule,
+    NbTooltipModule,
     NbUserModule,
     NbAlertModule,
     SettingRoutingModule,
@@ -227,13 +429,52 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
     NbLayoutModule,
     NbSpinnerModule,
     NbCheckboxModule,
-    NbIconModule
+    NbAccordionModule,
+    NbAutocompleteModule,
   ],
   declarations: [
+
+    RoleCheckComponent,
+    RolePackageComponent,
+    ActionsComponentInsume,
+    InsumeMassiveComponent,
+    FormManualInsumeComponent,
+    ActionsStockComponent,
+    AssistanceStockReqComponent,
+    AuthStatusComponent,
+    FormAuthStatusComponent,
+    ActionsCDComponent,
+    ActionsComponentEditDelete,
+    RelationshipComponent,
+    FormRelationshipComponent,
+    ActionsCompanyComponent,
+    ActionsComponentProcedure,
+    ActionsComponentProduct,
+    AmountProcedureComponent,
+    DynamicProcedurePackageComponent,
+    SelectProcedureComponent,
+    ProductMassiveComponent,
+    FormManualProcedureComponent,
+    FormManualProductComponent,
+    FormPolicyTypeComponent,
+    PolicyTypeComponent,
+    FormBedComponent,
+    BedComponent,
+    RolesPermissionsComponent,
+    FormObservationNoveltyComponent,
+    ObservationNoveltyComponent,
+    FormSpecialFieldComponent,
+    SpecialFieldComponent,
+    ContractTypeComponent,
+    FormContractTypeComponent,
+    FormTypeProfessionalComponent,
+    TypeProfessionalComponent,
     SpecialAttentionComponent,
     FormScopeOfAttentionComponent,
     FormSpecialAttentionComponent,
     ScopeOfAttentionComponent,
+    CostCenterComponent,
+    FormCostCenterComponent,
     ProgramComponent,
     FormProgramComponent,
     PavilionComponent,
@@ -241,6 +482,7 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
     FlatComponent,
     FormFlatComponent,
     BedComponent,
+    ActionsBedComponent,
     FormBedComponent,
     AffiliateTypeComponent,
     FormAffiliateTypeComponent,
@@ -258,13 +500,12 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
     FormCoverageComponent,
     FormFirmsComponent,
     ProcedurePackageComponent,
+    ProcedurePackage2Component,
     FormInsuranceCarrierComponent,
     FormModalityComponent,
     FormTypeBriefcaseComponent,
     FormTypeContractComponent,
-    TypeAssetsComponent,
     FixedAssetsComponent,
-    FormTypeAssetsComponent,
     FormFixedAssetsComponent,
     AdministrationRouteComponent,
     MeasurementUnitsComponent,
@@ -343,6 +584,7 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
     CompanyTypeComponent,
     FormCompanyTypeComponent,
     UsersComponent,
+    FormConfirmDisabledComponent,
     RolesComponent,
     FormTaxesComponent,
     FormCiiuGroupComponent,
@@ -405,6 +647,7 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
     GlossModalityComponent,
     FormGlossModalityComponent,
     GlossAmbitComponent,
+    FormDrugReturnedComponent,
     FormGlossAmbitComponent,
     GlossServiceComponent,
     FormGlossServiceComponent,
@@ -413,11 +656,209 @@ import { DiagnosisComponent } from './diagnosis/diagnosis.component';
     ObjetionResponseComponent,
     FormObjetionResponseComponent,
     FormDiagnosisComponent,
-    DiagnosisComponent
+    DiagnosisComponent,
+    InabilityComponent,
+    FormInabilityComponent,
+    DietComponentComponent,
+    FormDietComponentComponent,
+    DietConsistencyComponent,
+    FormDietConsistencyComponent,
+    DietDayComponent,
+    FormDietDayComponent,
+    DietDishComponent,
+    FormDietDishComponent,
+    DishStockPackageComponent,
+    SelectDishStockComponent,
+    AmountDishStockComponent,
+    DietMenuTypeComponent,
+    FormDietMenuTypeComponent,
+    DietSuppliesComponent,
+    FormDietSuppliesComponent,
+    DietSupplyTypeComponent,
+    FormDietSupplyTypeComponent,
+    DietWeekComponent,
+    FormDietWeekComponent,
+    DietMenuComponent,
+    Actions2Component,
+    FormDietMenuComponent,
+    DishPackageComponent,
+    SelectDishComponent,
+    FormHourlyFrequencyComponent,
+    HourlyFrequencyComponent,
+    LocalityComponent,
+    FormLocalityComponent,
+    NeighborhoodOrResidenceComponent,
+    FormNeighborhoodOrResidenceComponent,
+    PadRiskComponent,
+    FormPadRiskComponent,
+    TariffComponent,
+    FormTariffComponent,
+    FormTariffConfirmDisabledComponent,
+    LocationCapacityComponent,
+    FormEditLocationCapacityComponent,
+    ActionsLocationCapacityComponent,
+    SingleLocationCapacityComponent,
+    ActionsSingleLocationCapacityComponent,
+    FormLocationCapacityComponent,
+    FormFinancialDataComponent,
+    ActionsDishComponent,
+
+    BillingComponent,
+    FormBillingComponent,
+    BillingTabComponent,
+    ActionsComponent,
+    ProdBillingPackageComponent,
+    SelectProductBillingComponent,
+    AmountBillingComponent,
+    AmountUnitBillingComponent,
+    IvaBillingComponent,
+    IvaSuppliesComponent,
+    PharmacyStockComponent,
+    FormPharmacyStockComponent,
+
+    PharmacyUpdateMaxMinComponent,
+    FormPharmacyUpdateMaxMinComponent,
+
+    TcBillingComponent,
+    TcRadicationComponent,
+    TcHumanTalentComponent,
+    TcCollectionComponent,
+
+    BaseLocationPackageComponent,
+
+    NomProductComponent,
+    FormNomProductComponent,
+    BaseLocationPackageComponent,
+    FormFixedAreaCampusComponent,
+    FixedAreaCampusComponent,
+    FormFixedCodeComponent,
+    FixedCodeComponent,
+    FormFixedConditionComponent,
+    FixedConditionComponent,
+    FormFixedPropertyComponent,
+    FixedPropertyComponent,
+    FixedClasificationComponent,
+    FormFixedClasificationComponent,
+    FormFixedTypeComponent,
+    FixedTypeComponent,
+    FormFixedLocationCampusComponent,
+    FixedLocationCampusComponent,
+    FixedAccessoriesComponent,
+    FormFixedAccessoriesComponent,
+    FixedInventaryComponent,
+    FormFixedInventaryComponent,
+    ActionsInFixComponent,
+    FormNomProductComponent,
+
+    MinimumSalaryComponent,
+    FormMinimumSalaryComponent,
+    TaxValueUnitComponent,
+    FormTaxValueUnitComponent,
+    MunicipalityIcaComponent,
+    FormMunicipalityIcaComponent,
+    FormFixedRequestComponent,
+    FixedRequestComponent,
+    FixedInventaryAccesoriesComponent,
+    FormFixedInventaryAccesoriesComponent,
+    ActionsInvAccesComponent,
+    FixedTabComponent,
+    FixedInventaryAddComponent,
+    FormFixedInventaryAddComponent,
+    FixedInventaryAddAccessComponent,
+    FormFixedInventaryAddAccessComponent,
+    FixedAccessRequestsComponent,
+    FormFixedAccessRequestsComponent,
+    ActionsAccReqComponent,
+
+    AmountRequestsComponent,
+    SelectRequestsComponent,
+    RequestsPackageComponent,
+
+    FixedTabRequestsComponent,
+    AssetsRequestsPackageComponent,
+    AssetsSelectRequestsComponent,
+    FormFixedAssetsRequestsComponent,
+    ActionsAssReqComponent,
+    FixedAssetsRequestsComponent,
+
+    ProductSuppliesComponent,
+    FormProductSuppliesComponent,
+
+    SuppliesCommComponent,
+    FormSuppliesCommComponent,
+
+    AmountSuppliesComponent,
+    AmountUnitSuppliesComponent,
+    ProdSuppliesPackageComponent,
+    SelectProductSuppliesComponent,
+
+
+    BillingRequestPharmacyMostComponent,
+    tcRentabilityComponent,
+
+
+    tcRentabilityComponent,
+
+    BillingPadPrefixComponent,
+    FormBillingPadPrefixComponent,
+    BillingPadConsecutiveComponent,
+    FormBillingPadConsecutiveComponent,
+    FixedFormNomProductComponent,
+    FixedNomProductComponent,
+
+
+    AssetsRequestsPatientPackageComponent,
+    AssetsSelectRequestsPatientComponent,
+    FormFixedAssetsRequestsPatientComponent,
+    ActionsAssReqPatientComponent,
+    FixedAssetsRequestsPatientComponent,
+
+    FormFixedStockComponent,
+    FixedStockComponent,
+
+    UserPackageComponent,
+    UserComponent,
+    ActionPharmaComponent,
+
+    ServicesPackageComponent,
+    ServicesComponent,
+
+    UserFixedComponent,
+    UserFixedPackageComponent,
+    ActionFixedComponent,
+
+    ServicesFixedPackageComponent,
+    ServicesFixedComponent,
+
+    FixedPatientsComponent,
+    FixedMovementsComponent,
+    FixedInventaryAddPatientsComponent,
+    FormFixedInventaryAddPatientsComponent,
+
+    FormFixedReturnComponent,
+    ActionsReturnSedComponent,
+    FixedReturnComponent,
+
+    FormFixedReturnPatientsComponent,
+    ActionsReturnPatiComponent,
+    FixedReturnPatientsComponent,
+    FormFixedDeniedComponent,
+    ProductDamagedComponent,
+
+    SuppliesMeasureComponent,
+    FormSuppliesMeasureComponent
   ],
   providers: [
-    DateFormatPipe
+    DateFormatPipe,
+    CurrencyPipe
   ],
+  exports: [
+    ProcedurePackage2Component,
+    FormUserComponent,
+    FormLocationCapacityComponent,
+    ActionsComponent
+  ],
+  bootstrap: [],
 })
 export class SettingModule {
 }

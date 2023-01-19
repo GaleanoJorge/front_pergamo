@@ -19,7 +19,7 @@ export class ManualComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'Manuales Tarifarios';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre','Año'];
+  public headerFields: any[] = ['ID', 'Nombre','Año','Tipo de manual'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -32,7 +32,7 @@ export class ManualComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -40,7 +40,10 @@ export class ManualComponent implements OnInit {
             'data': row,
             'edit': this.EditManual.bind(this),
             'delete': this.DeleteConfirmManual.bind(this),
+            'clone': this.CloneManual.bind(this),
             'procedure': (row) => this.router.navigate([`/pages/setting/procedure-massive/${row.id}`]),
+            'product': (row) => this.router.navigate([`/pages/setting/product-massive/${row.id}`]),
+            'insume': (row) => this.router.navigate([`/pages/setting/insume-massive/${row.id}`]),
             'procedurelist': (row) => this.router.navigate([`/pages/setting/manual-price/${row.id}`])
           };
         },
@@ -53,6 +56,19 @@ export class ManualComponent implements OnInit {
       name: {
         title: this.headerFields[1],
         type: 'string',
+      },
+      type_manual: {
+        title: this.headerFields[3],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(value == 1){
+            return "Medicamentos";
+          } else if(value == 2){
+            return "Insumos";
+          } else {
+            return "Procedimientos";
+          }
+        },
       },
       year: {
         title: this.headerFields[2],
@@ -94,11 +110,22 @@ export class ManualComponent implements OnInit {
     });
   }
 
+  CloneManual(data) {
+    this.dialogFormService.open(FormManualComponent, {
+      context: {
+        title: 'Clonar manual tarifario',
+        data: data,
+        dataClon: data,
+        saved: this.RefreshData.bind(this),
+      },
+    });
+  }
+
   EditManual(data) {
     this.dialogFormService.open(FormManualComponent, {
       context: {
         title: 'Editar manual tarifario',
-        data,
+        data: data,
         saved: this.RefreshData.bind(this),
       },
     });

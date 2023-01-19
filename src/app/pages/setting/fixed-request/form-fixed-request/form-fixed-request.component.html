@@ -1,0 +1,69 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <div class="row">
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold">SOLICITAR A   -   ACTIVOS FIJO A SOLICITAR:</label>
+        <input type="text" list="codes1" class="data-list" id="fixed_nom_product_id"
+          (change)="saveCode($event.target.value)" formControlName="fixed_nom_product_id" fixed_nom_product_id fullWidth
+          nbInput
+          status="{{ isSubmitted && form.controls.fixed_nom_product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <datalist id="codes1">
+          <option *ngFor="let item of fixed_nom_product_id" [value]="item.name"> {{item.fixed_clasification.fixed_type.name}} -   {{ item.name }}
+          </option>
+        </datalist>
+      </div>
+
+<!-- 
+     <div class="col-12 col-sm-12 col-md-6">
+        <label for="fixed_assets" class="form-text text-muted font-weight-bold"> SOLICITAR A   -   ACTIVOS FIJO A SOLICITAR:</label>
+        <nb-select [selected]="this.data.fixed_nom_product_id" formControlName="fixed_nom_product_id" id="fixed_nom_product_id"
+          fullWidth
+          status="{{ isSubmitted && form.controls.fixed_nom_product_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.fixed_nom_product_id }}" *ngFor="let item of fixed_nom_product_id"
+            [value]="item.id">
+          {{item.fixed_clasification.fixed_type.name}} -   {{ item.name }}</nb-option>
+        </nb-select>
+      </div> -->
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="fixed_location_campus" class="form-text text-muted font-weight-bold">LOCALIZACIÓN DONDE ESTARA EL ACTIVO:</label>
+        <nb-select [selected]="this.data.fixed_location_campus_id" formControlName="fixed_location_campus_id"
+          id="fixed_location_campus_id" fullWidth
+          status="{{ isSubmitted && form.controls.fixed_location_campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.fixed_location_campus_id }}"
+            *ngFor="let item of fixed_location_campus_id" [value]="item.id">
+            {{ item.campus.name }} - {{ item.flat.name }} - {{ item.fixed_area_campus.name }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="request_amount" class="form-text text-muted font-weight-bold">CANTIDAD A SOLICITAR:</label>
+        <input type="number" min="0" pattern="^[0-9]+" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth
+          id="request_amount" formControlName="request_amount" request_amount
+          status="{{ isSubmitted && form.controls.request_amount.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold">PERSONA QUE ESTARÁ A CARGO DEL ACTIVO:</label>
+        <nb-select [selected]="this.data.responsible_user_id" formControlName="responsible_user_id"
+          id="responsible_user_id" fullWidth
+          status="{{ isSubmitted && form.controls.fixed_location_campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.responsible_user_id }}" *ngFor="let item of responsible_user"
+            [value]="item.id">
+            {{ item.nombre_completo }}</nb-option>
+        </nb-select>
+      </div>
+
+    </div>
+    <div class="div-send">
+      <label></label>
+      <button [disabled]="disabled" type="submit" nbButton status="success">SOLICITAR</button>
+    </div>
+
+  </div>
+
+</form>

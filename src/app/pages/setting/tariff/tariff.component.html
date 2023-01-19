@@ -1,0 +1,103 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+
+    <form [formGroup]="form">
+      <div class="row">
+
+        
+
+        <div class="col-md-4">
+          <label for="pad_risk" class="form-text text-muted font-weight-bold">Tipo de contrato:</label>
+          <nb-select formControlName="pad_risk_id" id="pad_risk_id" fullWidth
+            status="{{ isSubmitted && form.controls.pad_risk_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Todas las zonas...</nb-option>
+            <nb-option selected="{{ item.id == data.pad_risk_id }}" *ngFor="let item of pad_risk"
+              [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4">
+          <label for="program" class="form-text text-muted font-weight-bold">Programa:</label>
+          <nb-select formControlName="program_id" id="program_id" fullWidth
+            status="{{ isSubmitted && form.controls.program_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Todos los programas...</nb-option>
+            <nb-option selected="{{ item.id == data.program_id }}" *ngFor="let item of program" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4">
+          <label for="type_of_attention" class="form-text text-muted font-weight-bold">Tipo de atención:</label>
+          <nb-select formControlName="type_of_attention_id" id="type_of_attention_id" fullWidth
+            status="{{ isSubmitted && form.controls.type_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Todos los tipos de atención...</nb-option>
+            <nb-option selected="{{ item.id == data.type_of_attention_id }}"
+              *ngFor="let item of type_of_attention" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+
+
+        <div class="col-md-4">
+          <label for="failed" class="form-text text-muted font-weight-bold">Fallida:</label>
+          <nb-select formControlName="failed" id="failed" fullWidth
+            status="{{ isSubmitted && form.controls.failed.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Todos...</nb-option>
+            <nb-option selected="{{ item.id == data.failed }}"
+              *ngFor="let item of yes_not" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4">
+          <label for="has_car" class="form-text text-muted font-weight-bold">Con carro:</label>
+          <nb-select formControlName="has_car" id="has_car" fullWidth
+            status="{{ isSubmitted && form.controls.has_car.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Todos...</nb-option>
+            <nb-option selected="{{ item.id == data.has_car }}"
+              *ngFor="let item of yes_not" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4">
+          <label for="phone_consult" class="form-text text-muted font-weight-bold">Teleconsulta:</label>
+          <nb-select formControlName="phone_consult" id="phone_consult" fullWidth
+            status="{{ isSubmitted && form.controls.phone_consult.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Todos...</nb-option>
+            <nb-option selected="{{ item.id == data.phone_consult }}"
+              *ngFor="let item of yes_not" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4">
+          <label for="extra_dose" class="form-text text-muted font-weight-bold">Extra dosis:</label>
+          <nb-select formControlName="extra_dose" id="extra_dose" fullWidth
+            status="{{ isSubmitted && form.controls.extra_dose.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Todos...</nb-option>
+            <nb-option selected="{{ item.id == data.extra_dose }}"
+              *ngFor="let item of yes_not" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+
+
+      </div>
+    </form>
+
+    <ngx-base-table [title]="title" [subtitle]="subtitle" customData="tariff" [settings]="settings" entity="tariff/"
+      [messageToltip]="messageToltip">
+      <div actions>
+        <div class="actions">
+          <div class="col-md-12">
+            <button nbButton status="danger" (click)="NewTariff()">Crear</button>
+          </div>
+
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

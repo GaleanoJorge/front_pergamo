@@ -1,0 +1,173 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="big" style="margin-left: 60px;margin-right: 60px; max-width: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body [nbSpinner]="loading">
+      <div class="row mt-3">
+        <div class="col-12">
+          <p class="text-muted subtitle" style="text-align: center;">Datos subjetivos </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="symptoms" class="form-text text-muted font-weight-bold">Sintomas:</label>
+          <input oninput="this.value = this.value.toUpperCase()" minlength="10" nbInput fullWidth size="auto"
+            id= "symptoms" formControlName="symptoms" symptoms
+            status="{{ isSubmitted && form.controls.symptoms.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+        <div class="col-md-6" style="margin-top: 10px;">
+          <label for="respiratory_issues" class="form-text text-muted font-weight-bold">Sintomas
+            respiratorios:</label>
+          <nb-card-body>
+            <nb-toggle formControlName="respiratory_issues" respiratory_issues></nb-toggle>
+          </nb-card-body>
+        </div>
+        <div class="col-md-6" style="margin-top: 10px;">
+          <label for="covid_contact" class="form-text text-muted font-weight-bold">Contacto estrecho con positivos
+            para covid</label>
+          <nb-card-body>
+            <nb-toggle formControlName="covid_contact" covid_contact></nb-toggle>
+          </nb-card-body>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <p class="text-muted subtitle" style="text-align: center;">Gestión y seguimiento del
+            servicio</p>
+        </div>
+        <div class="col-4">
+          <label for="type_plan" class="form-text text-muted font-weight-bold">Tipo de plan:</label>
+          <nb-select [selected]="this.data.type_plan" formControlName="type_plan" id="type_plan"
+            fullWidth
+            status="{{ isSubmitted && form.controls.type_plan.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option hidden selected>Seleccione...</nb-option>
+            <nb-option value="PREMIUM">PREMIUM</nb-option>
+            <nb-option value="COLSANITAS">COLSANITAS</nb-option>
+            <nb-option value="PAC/S.TOTAL ">PAC/S.TOTAL</nb-option>
+            <nb-option value="OTROS">OTROS</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 12px;">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="application_date" class="form-text text-muted font-weight-bold">Fecha de
+              solicitud:</label>
+            <input type="date" nbInput fullWidth id="application_date" formControlName="application_date"
+              application_date
+              status="{{ isSubmitted && form.controls.application_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              [max]="today" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <label for="authorization_pin" class="form-text text-muted font-weight-bold">PIN -ID -
+            Autorización :</label>
+          <input nbInput fullWidth id="authorization_pin" formControlName="authorization_pin" authorization_pin
+            status="{{ isSubmitted && form.controls.authorization_pin.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="profesional_user_id" class="form-text text-muted font-weight-bold">Profesional
+              asignado:</label>
+            <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value, null) "
+              id="profesional_user_id" formControlName="profesional_user_id" profesional_user_id type="text" required
+              status="{{ isSubmitted && form.controls.profesional_user_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <datalist id="codes">
+              <option *ngFor="let item of profesionals" [value]="item.nombre_completo">{{item.identification}} -
+                {{item.user_role[0].role.name}}</option>
+            </datalist>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="diagnosis_id" class="form-text text-muted font-weight-bold">CIE10:</label>
+          <input fullWidth nbInput list="diagnostic" (change)="saveCode($event.target.value, 1)" id="diagnosis_id"
+            formControlName="diagnosis_id" diagnosis_id type="text" required (ngModelChange)="this.searchDiagnostic($event)"
+            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <datalist id="diagnostic">
+            <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} -
+              {{item.name}} </option>
+          </datalist>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="reception_hour" class="form-text text-muted font-weight-bold">Hora de recepción de la llamada
+              y/o caso:</label>
+            <input type="time" nbInput fullWidth id="reception_hour" formControlName="reception_hour" reception_hour
+              status="{{ isSubmitted && form.controls.reception_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="presentation_hour" class="form-text text-muted font-weight-bold">Hora de presentación del
+              servicio:</label>
+            <input type="time" nbInput fullWidth id="presentation_hour" formControlName="presentation_hour"
+              presentation_hour
+              status="{{ isSubmitted && form.controls.presentation_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="acceptance_hour" class="form-text text-muted font-weight-bold">Hora de aceptación del
+              servicio:</label>
+            <input type="time" nbInput fullWidth id="acceptance_hour" formControlName="acceptance_hour" acceptance_hour
+              status="{{ isSubmitted && form.controls.acceptance_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="offer_hour" class="form-text text-muted font-weight-bold">Hora de ofrecida:</label>
+            <input type="time" nbInput fullWidth id="offer_hour" formControlName="offer_hour" offer_hour
+              status="{{ isSubmitted && form.controls.offer_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="start_consult_hour" class="form-text text-muted font-weight-bold">Hora inicio de
+              consulta:</label>
+            <input type="time" nbInput fullWidth id="start_consult_hour" formControlName="start_consult_hour"
+              start_consult_hour
+              status="{{ isSubmitted && form.controls.start_consult_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="finish_consult_hour" class="form-text text-muted font-weight-bold">Hora fin de
+              consulta:</label>
+            <input type="time" nbInput fullWidth id="finish_consult_hour" formControlName="finish_consult_hour"
+              finish_consult_hour
+              status="{{ isSubmitted && form.controls.finish_consult_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="close_date" class="form-text text-muted font-weight-bold">Fecha de
+              cierre:</label>
+            <input type="date" nbInput fullWidth id="close_date" formControlName="close_date" close_date
+              status="{{ isSubmitted && form.controls.close_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              [max]="today" [min]="min_day" />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="close_crm_hour" class="form-text text-muted font-weight-bold">Hora de cierre CRM:</label>
+            <input type="time" nbInput fullWidth id="close_crm_hour" formControlName="close_crm_hour" close_crm_hour
+              status="{{ isSubmitted && form.controls.close_crm_hour.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="copay_value" class="form-text text-muted font-weight-bold">Valor de copago:</label>
+            <input type="number" nbInput fullWidth id="copay_value" formControlName="copay_value" copay_value
+              status="{{ isSubmitted && form.controls.copay_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+          </div>
+        </div>
+      </div>
+      <!-- <div class="div-send">
+          <button type="submit" nbButton status="success">Agregar</button>
+        </div> -->
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

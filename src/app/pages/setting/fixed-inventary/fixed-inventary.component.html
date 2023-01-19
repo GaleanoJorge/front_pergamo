@@ -1,0 +1,23 @@
+<ngx-base-list [messageError]="messageError">
+  <!-- //INVENTARIO DE ACTIVOS  -->
+  <div content>
+    <nb-tabset fullWidth (changeTab)="reloadForm($event)">
+
+      <!-- <nb-tab tabTitle="ACEPTAR">
+        <div *ngIf="this.showdiv == 1">
+          <ngx-fixed-inventary-add [parentData]="true"></ngx-fixed-inventary-add>
+        </div>
+      </nb-tab> -->
+
+      <nb-tab tabTitle="DISPONIBLE">
+        <div *ngIf="this.showdiv==2">
+          <div *ngIf="entity">
+            <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+              customData='fixed_assets' [messageToltip]="messageToltip">
+            </ngx-base-table>
+          </div>
+        </div>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+</ngx-base-list>

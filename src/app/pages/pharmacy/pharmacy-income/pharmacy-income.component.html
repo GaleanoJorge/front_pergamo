@@ -1,0 +1,16 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+    <div *ngIf="entity">
+      <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity"
+        customData='pharmacy_product_request' [messageToltip]="messageToltip">
+        <div actions>
+          <nb-select (selectedChange)="ChangePharmacy($event)" placeholder="Filtrar por Farmacia"
+          [(selected)]="pharmacy">
+          <nb-option value="0">Seleccione una farmacia</nb-option>
+          <nb-option *ngFor="let item of pharmacy_stock" [value]="item.pharmacy_stock_id">{{item.pharmacy.name}}</nb-option>
+        </nb-select>
+        </div>
+      </ngx-base-table>
+    </div>
+  </div>
+</ngx-base-list>

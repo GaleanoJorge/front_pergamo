@@ -16,10 +16,10 @@ export class ProductGenericComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Productos Genericos';
+  public title: string = 'Productos Génericos';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre', 'Descripción'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]}`;
+  public headerFields: any[] = ['ID', 'Nombre - Descripción producto'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -31,7 +31,7 @@ export class ProductGenericComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -46,13 +46,9 @@ export class ProductGenericComponent implements OnInit {
       id: {
         title: this.headerFields[0],
         type: 'string',
-      },
-      name: {
-        title: this.headerFields[1],
-        type: 'string',
-      },
+      }, 
       description: {
-        title: this.headerFields[2],
+        title: this.headerFields[1],
         type: 'string',
       },
     },
@@ -83,6 +79,7 @@ export class ProductGenericComponent implements OnInit {
 
   NewProductGeneric() {
     this.dialogFormService.open(FormProductGenericComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear producto generico',
         saved: this.RefreshData.bind(this),
@@ -92,26 +89,14 @@ export class ProductGenericComponent implements OnInit {
 
   EditProductGeneric(data) {
     this.dialogFormService.open(FormProductGenericComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar producto generico',
         data,
         saved: this.RefreshData.bind(this),
       },
     });
-  }
-
-  // ChangeState(data) {
-  //   // data.status_id = data.status_id === 1 ? 2 : 1;
-
-  //   this.toastrService.info('', 'Cambiando estado');
-
-  //   this.regionS.Update(data).then((x) => {
-  //     this.toastrService.success('', x.message);
-  //     this.table.refresh();
-  //   }).catch((x) => {
-  //     this.toastrService.danger(x.message);
-  //   });
-  // }
+  } 
 
   DeleteConfirmProductGeneric(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {

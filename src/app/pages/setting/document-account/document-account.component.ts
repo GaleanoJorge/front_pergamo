@@ -17,7 +17,7 @@ export class DocumentAccountComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Documentos contables';
+  public title: string = 'Documentos Contables';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre','Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -32,7 +32,7 @@ export class DocumentAccountComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -93,7 +93,7 @@ export class DocumentAccountComponent implements OnInit {
   NewDocumentAccount() {
     this.dialogFormService.open(FormDocumentAccountComponent, {
       context: {
-        title: 'Crear nuevo documento contable',
+        title: 'Crear nuevo Documento Contable',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -102,7 +102,7 @@ export class DocumentAccountComponent implements OnInit {
   EditDocumentAccount(data) {
     this.dialogFormService.open(FormDocumentAccountComponent, {
       context: {
-        title: 'Editar documentos contables',
+        title: 'Editar Documentos Contables',
         data,
         saved: this.RefreshData.bind(this),
       },

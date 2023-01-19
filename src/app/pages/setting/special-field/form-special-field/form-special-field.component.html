@@ -1,0 +1,28 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="small" style="max-width: 400px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
+           />
+        </div>
+        <div class="col-md-12">
+          <label for="type_professional" class="form-text text-muted font-weight-bold">Tipo de profesional:</label>
+          <nb-select [selected]="this.data.type_professional_id" formControlName="type_professional_id" id="type_professional_id" fullWidth
+          status="{{ isSubmitted && form.controls.type_professional_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.type_professional_id }}" *ngFor="let item of type_professional" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+        </div>
+    </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

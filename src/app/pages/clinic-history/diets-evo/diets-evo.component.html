@@ -1,0 +1,22 @@
+<div *ngIf="has_input == false || type_record!=1">
+  <ngx-form-diets-evo (messageEvent)="receiveMessage($event)" [record_id]="record_id"[type_record]="type_record">
+  </ngx-form-diets-evo>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <label class="font-weight-bold ImpPeq">REGISTROS DE DIETAS</label>
+  </div>
+</div>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table pager="false" [title]="title" customData="ch_diets_evo" [settings]="settings"
+      entity="ch_diets_evo/by_record/{{record_id}}/{{this.type_record}}?has_input={{has_input}}">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

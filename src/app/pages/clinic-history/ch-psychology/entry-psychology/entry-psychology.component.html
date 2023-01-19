@@ -1,0 +1,52 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode">
+
+          <nb-step [stepControl]="nameForm" label="Valoración">
+            <ngx-ps-assessment [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-assessment>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Ex. Mental">
+            <ngx-ps-mental-exam [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-mental-exam>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Pensamiento">
+            <ngx-ps-thought [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-thought>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Lenguaje">
+            <ngx-ps-language [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-language>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Esfera Afectiva">
+            <ngx-ps-sphere [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-sphere>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Fun. Sintesís">
+            <ngx-ps-synthesis [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-synthesis>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="V. Multiaxial">
+            <ngx-ps-multiaxial [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-multiaxial>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Intervención">
+            <ngx-ps-intervention [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-intervention>
+          </nb-step>
+
+
+          <nb-step [hidden]="true">
+
+            <div class="step-container">
+              <h3>Wizard completed!</h3>
+              <button nbButton (click)="stepper.reset()">Try again</button>
+            </div>
+
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>

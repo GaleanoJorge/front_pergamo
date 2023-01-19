@@ -16,7 +16,7 @@ export class CompanyKindpersonComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Tipo de persona contable';
+  public title: string = 'Tipo de Persona Contable';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -31,7 +31,7 @@ export class CompanyKindpersonComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -56,7 +56,7 @@ export class CompanyKindpersonComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Tipo de persona contable',
+      name: 'Tipo de Persona Contable',
       route: '../../setting/company-kindperson',
     },
   ];
@@ -80,7 +80,7 @@ export class CompanyKindpersonComponent implements OnInit {
   NewCompanyKindperson() {
     this.dialogFormService.open(FormCompanyKindpersonComponent, {
       context: {
-        title: 'Crear nuevo tipo de persona contable',
+        title: 'Crear nuevo Tipo de Persona Contable',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -89,7 +89,7 @@ export class CompanyKindpersonComponent implements OnInit {
   EditCompanyKindperson(data) {
     this.dialogFormService.open(FormCompanyKindpersonComponent, {
       context: {
-        title: 'Editar tipo de persona contable',
+        title: 'Editar Tipo de Persona Contable',
         data,
         saved: this.RefreshData.bind(this),
       },

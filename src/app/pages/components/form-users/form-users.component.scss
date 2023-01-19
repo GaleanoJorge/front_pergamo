@@ -1,0 +1,110 @@
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] { -moz-appearance:textfield; }
+.title-users{
+    color: #000 !important;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2em;
+    margin-top: 1em;
+}
+.file-select {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.file-select::before {
+  background-color: #54bcc1;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  content: 'CARGA MASIVA'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select input[type="file"] {
+  opacity: 0;
+  width: 150px;
+  margin-right: 5px;
+  height: 40px;
+  display: inline-block;
+}
+
+.file-select-evicencias {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.file-select-evicencias::before {
+  background-color: #54bcc1;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15px;
+  border-radius: 3px;
+  content: 'AGREGAR FOTO DE PERFIL'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select-evicencias input[type="file"] {
+  opacity: 0;
+  height: 40px;
+  display: inline-block;
+}
+
+.file-select-evidencias2 {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.file-select-evidencias2::before {
+  background-color: #54bcc1;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  content: 'AGREGAR FIRMA'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.file-select-evidencias2 input[type="file"] {
+  opacity: 0;
+  height: 40px;
+  display: inline-block;
+}
+
+.avatar-pic {
+  width: 150px;
+  }
+
+
+  :host ::ng-deep .cdk-overlay-pane{
+    overflow: auto !important;
+  }

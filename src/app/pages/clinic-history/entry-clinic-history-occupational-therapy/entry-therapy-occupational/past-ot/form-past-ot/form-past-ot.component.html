@@ -1,0 +1,231 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <div class="col-md-12">
+    <hr/>
+    <label class="form-text text-muted font-weight-bold row justify-content-center">ESTRUCTURA FAMILIAR:</label>
+    <hr/>
+  </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">Nucleo Familiar Base:</label>   
+        <nb-select multiple placeholder="Seleccion Multiple" status="success" nbSelect (disabled)="this.has_input" formControlName="family_base" id="family_base" family_base fullWidth>
+              <nb-option value="Madre">Madre</nb-option>
+              <nb-option value="Padre">Padre</nb-option>
+              <nb-option value="Conyuge">Conyuge</nb-option>
+              <nb-option value="Hijos">Hijos</nb-option>
+              <nb-option value="Tios">Tios</nb-option>
+              <nb-option value="Abuelos">Abuelos</nb-option>
+              <nb-option value="Otros">Otros</nb-option>
+            </nb-select>
+      </div>  
+  
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">Numero de Hijos:</label>
+        <nb-select [selected]="this.data.number_childrens" nbSelect (disabled)="this.has_input" formControlName="number_childrens" id="number_childrens" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.number_childrens.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="1">0</nb-option>
+          <nb-option value="1">1</nb-option>
+          <nb-option value="2">2</nb-option>
+          <nb-option value="3">3</nb-option>
+          <nb-option value="4">4</nb-option>
+          <nb-option value="5">5</nb-option>
+          <nb-option value="6">6</nb-option>
+          <nb-option value="7">7</nb-option>
+          <nb-option value="8">8</nb-option>
+          <nb-option value="9">9</nb-option>
+          <nb-option value="10">10</nb-option>
+        </nb-select>
+      </div>
+
+    </div>
+
+    <div class="row justify-content-center">
+
+      <div class="col col-lg-12">
+        <label class="form-text text-muted font-weight-bold">Observaciones:</label>
+        <textarea id="observation_family_struct" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_family_struct" current_illness rows="3" onpaste="return false"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation_family_struct.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+    </div>
+
+    <br/>
+
+      <div class="col-md-12">
+        <hr/>
+        <label class="form-text text-muted font-weight-bold row justify-content-center">NIVEL DE ESCOLARIDAD Y CAPACITACION:</label>
+        <hr/>
+      </div>
+
+    <div class="row justify-content-center">
+      <div class="col col-lg-3">
+        <label class="form-text text-muted font-weight-bold">Nivel Academico:</label>
+        <nb-select [selected]="this.data.academy" nbSelect (disabled)="this.has_input" formControlName="academy" id="academy" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.academy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="BASICO PRIMARIA">BASICO PRIMARIA</nb-option>
+          <nb-option value="BASICO SECUNDARIA (BACHILLERATO)">BASICO SECUNDARIA (BACHILLERATO)</nb-option>
+          <nb-option value="DOCTORADO">DOCTORADO</nb-option>
+          <nb-option value="ESPECIALIZACION">ESPECIALIZACION</nb-option>
+          <nb-option value="NINGUNO">NINGUNO</nb-option>
+        </nb-select>
+      </div>
+  
+      <div class="col col-lg-3">
+        <label class="form-text text-muted font-weight-bold">Estado del nivel academico:</label>
+        <nb-select [selected]="this.data.level_academy" nbSelect (disabled)="this.has_input" formControlName="level_academy" id="level_academy" fullWidth
+          title="Seleccione..."
+          status="{{ isSubmitted && form.controls.level_academy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Completo">Completo</nb-option>
+          <nb-option value="En Curso">En Curso</nb-option>
+          <nb-option value="Incompleto">Incompleto</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">Observaciones:</label>
+        <textarea id="observation_schooling_training" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_schooling_training" current_illness rows="1" onpaste="return false"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation_schooling_training.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+    </div>
+
+    <br/>
+
+    <div class="row justify-content-center">
+      <div class="col-md-3">
+        <label class="form-text text-muted font-weight-bold justify-content-center"> Tratamiento Terapeutico ? :</label>
+      </div>
+
+      <div class="col col-lg-3">
+        <nb-radio-group formControlName="terapy" terapy id="terapy" class="d-flex text" name="terapy" nbSelect (disabled)="this.has_input"
+          status="{{ isSubmitted && form.controls.terapy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-radio value="SI">SI</nb-radio>
+          <nb-radio value="NO">NO</nb-radio>
+        </nb-radio-group>
+      </div>
+
+      <div *ngIf="showTerapy" class="col col-lg-6">
+        <label class="form-text text-muted font-weight-bold">Observaciones:</label>
+        <textarea id="observation_terapy" nbInput (disabled)="this.has_input" fullWidth formControlName="observation_terapy" current_illness rows="1" onpaste="return false"
+          cols="50"
+          status="{{ isSubmitted && form.controls.observation_terapy.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+
+    </div>
+
+    <br/>
+
+        <div class="col-md-12">
+          <hr/>
+          <label class="form-text text-muted font-weight-bold row justify-content-center">HABITOS:</label>
+          <hr/>
+        </div>
+
+    <br/>
+
+    <div class="row justify-content-center">
+      <div class="col-md-3">
+        <label class="form-text text-muted font-weight-bold justify-content-center">Fumas ?:</label>
+      </div>
+
+      <div class="col col-lg-3">
+        <nb-radio-group formControlName="smoke" smoke id="smoke" class="d-flex text" name="smoke" nbSelect (disabled)="this.has_input"
+          status="{{ isSubmitted && form.controls.smoke.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-radio value="SI">SI</nb-radio>
+          <nb-radio value="NO">NO</nb-radio>
+        </nb-radio-group>
+      </div>
+
+      <div *ngIf="showSmoke" class="col col-lg-6">
+        <nb-radio-group formControlName="f_smoke" f_smoke id="f_smoke" class="d-flex text" name="f_smoke" nbSelect (disabled)="this.has_input"
+          status="{{ isSubmitted && form.controls.f_smoke.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-radio value="Todos los Dias">Todos los Dias</nb-radio>
+          <nb-radio value="Dos,Tres Veces por Semana">Dos,Tres Veces por Semana</nb-radio>
+          <nb-radio value="Cada Ocho Dias">Cada Ocho Dias</nb-radio>
+        </nb-radio-group>
+      </div>    
+    </div>
+
+    <br/>
+
+    <div class="row justify-content-center">
+      <div class="col-md-3">
+        <label class="form-text text-muted font-weight-bold justify-content-center">Consumes Alcohol ?:</label>
+      </div>
+
+      <div class="col col-lg-3">
+        <nb-radio-group formControlName="alcohol" alcohol id="alcohol" class="d-flex text" name="alcohol" nbSelect (disabled)="this.has_input"
+          status="{{ isSubmitted && form.controls.alcohol.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-radio value="SI">SI</nb-radio>
+          <nb-radio value="NO">NO</nb-radio>
+        </nb-radio-group>
+      </div>
+
+
+      <div *ngIf="showAlcohol" class="col col-lg-6">
+        <nb-radio-group formControlName="f_alcohol" f_alcohol id="f_alcohol" class="d-flex text" name="f_alcohol" nbSelect (disabled)="this.has_input"
+          status="{{ isSubmitted && form.controls.f_alcohol.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-radio value="Todos los Dias">Todos los Dias</nb-radio>
+          <nb-radio value="Dos,Tres Veces por Semana">Dos,Tres Veces por Semana</nb-radio>
+          <nb-radio value="Cada Ocho Dias">Cada Ocho Dias</nb-radio>
+        </nb-radio-group>
+      </div>       
+    </div>
+
+    <br/>
+
+    <div class="row justify-content-center">
+      <div class="col-md-3">
+        <label class="form-text text-muted font-weight-bold justify-content-center">Practica un Deporte ?:</label>
+      </div>
+
+      <div class="col col-lg-3">
+        <nb-radio-group formControlName="sport" sport id="sport" class="d-flex text" name="sport" nbSelect (disabled)="this.has_input"
+          status="{{ isSubmitted && form.controls.sport.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-radio value="SI">SI</nb-radio>
+          <nb-radio value="NO">NO</nb-radio>
+        </nb-radio-group>
+      </div>
+
+      <div *ngIf="showSport" class="col col-lg-6">
+        <nb-radio-group formControlName="f_sport" f_sport id="f_sport" class="d-flex text" name="f_sport" nbSelect (disabled)="this.has_input"
+          status="{{ isSubmitted && form.controls.f_sport.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-radio value="Todos los Dias">Todos los Dias</nb-radio>
+          <nb-radio value="Dos,Tres Veces por Semana">Dos,Tres Veces por Semana</nb-radio>
+          <nb-radio value="Cada Ocho Dias">Cada Ocho Dias</nb-radio>
+        </nb-radio-group>
+
+          <div *ngIf="showSport" class="col col-md-12">
+            <label class="form-text text-muted font-weight-bold">Cual Deporte Practica ?:</label>
+            <textarea id="sport_practice_observation" nbInput fullWidth formControlName="sport_practice_observation" current_illness rows="1" nbInput (disabled)="this.has_input" onpaste="return false"
+            cols="50"
+            status="{{ isSubmitted && form.controls.sport_practice_observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+      </div> 
+      
+
+    </div>
+
+    <br/>
+
+    <div class="col col-lg-12">
+      <label class="form-text text-muted font-weight-bold">Observaciones:</label>
+      <textarea id="observation" nbInput fullWidth formControlName="observation" current_illness rows="3" nbInput (disabled)="this.has_input"
+        cols="50"
+        status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+    </div>
+
+    <br/>
+
+    <div class="div-send" *ngIf="!has_input">
+      <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+    </div>
+</form>

@@ -1,0 +1,5 @@
+.input-dinero:before {
+    content: attr(data-symbol);
+  float: left;
+  color: #aaa;
+}

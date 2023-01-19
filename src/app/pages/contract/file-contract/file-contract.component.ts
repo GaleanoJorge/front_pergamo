@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FileContractService } from '../../../business-controller/file-contract.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { FormFileContractComponent } from './form-file-contract/form-file-contract.component';
-import { ActionsComponent } from '../../setting/sectional-council/actions.component';
+import { ActionsFileComponent } from './actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Actions2Component } from './actions2.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-file-contract',
@@ -17,10 +18,11 @@ export class FileContractComponent implements OnInit {
 
   public isSubmitted = false;
   public entity:string;
+  public routes = [];
   public messageError: string = null;
   public title: string = 'Documentos del contrato';
   public subtitle: string = 'Gestión';
-  public headerFields: any[] = ['ID', 'Nombre'];
+  public headerFields: any[] = ['ID', 'Nombre', 'Documento'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -34,7 +36,7 @@ export class FileContractComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -44,7 +46,7 @@ export class FileContractComponent implements OnInit {
             'delete': this.DeleteConfirmFileContract.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: ActionsFileComponent,
       },
       id: {
         title: this.headerFields[0],
@@ -54,19 +56,20 @@ export class FileContractComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
       },
+      file: {
+        title: this.headerFields[2],
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: Actions2Component,
+
+      }
     },
   };
-
-  public routes = [
-    {
-      name: 'Contratos',
-      route: '../../list',
-    },
-    {
-      name: 'Documentos del contrato',
-      route: '../../contract/file-contract',
-    },
-  ];
 
   constructor(
     private FileContractS: FileContractService,
@@ -74,6 +77,7 @@ export class FileContractComponent implements OnInit {
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
     private route: ActivatedRoute,
+    private location: Location,
   ) {
   }
 
@@ -84,8 +88,24 @@ export class FileContractComponent implements OnInit {
     }else{
       this.entity='file_contract';
     }
+
+    this.routes = [
+      {
+        name: 'Contratos',
+        route: '../../list',
+      },
+      {
+        name: 'Documentos del contrato',
+        route: '../../file-contract/' + this.contract_id,
+      },
+    ];
     
   }
+  back() {
+    this.location.back();
+
+ }
+
 
   RefreshData() {
 

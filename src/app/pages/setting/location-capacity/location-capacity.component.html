@@ -1,0 +1,29 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="assistance/?pagination=true&status_id=1"
+                    customData='assistance'
+                    [queryParams]="GetParams()"
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        <div class="actions">
+          <button nbButton status="danger" (click)="renovateLocationCapacity()">Renovar capacidad instalada personal de planta</button>
+          <nb-select style="width: 300px;" placeholder="Filtrar por rol" fullWidth (selectedChange)="changeRole($event)">
+            <nb-option value="">Sin filtro</nb-option>
+            <nb-option *ngFor="let item of role" [value]="item.id">
+              <div class="cuadro" [style]="'background-color: ' + item.color + ';'" style="margin-right: 10px;">
+              </div>
+              {{ item.name }}
+            </nb-option>
+          </nb-select>
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

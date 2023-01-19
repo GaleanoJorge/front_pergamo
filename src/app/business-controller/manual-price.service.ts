@@ -47,6 +47,22 @@ export class ManualPriceService {
       });
   }
 
+  SaveFile(manual_price: any, id = null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('fileUpload_manual_price', id);
+    servObj.data = manual_price;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Update(manual_price: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('manual_price', manual_price.id);
     servObj.data = manual_price;

@@ -1,0 +1,124 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-muted title-form">Pensamiento</p>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Curso</label>
+        <nb-select class="form-text" id="grade" formControlName="grade" fullWidth
+          status="{{ isSubmitted && form.controls.grade.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Adecuado ">Adecuado </nb-option>
+          <nb-option value="Alterado">Alterado</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center" *ngIf="this.form.controls.grade.value == 'Alterado'">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="ch_ps_speed_id" class="form-text text-muted font-weight-bold">Velocidad</label>
+        <nb-select formControlName="ch_ps_speed_id" id="ch_ps_speed_id" fullWidth
+          status="{{ isSubmitted && form.controls.ch_ps_speed_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of speed" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="ch_ps_association_id" class="form-text text-muted font-weight-bold">Asociación o desorganización
+        </label>
+        <nb-select formControlName="ch_ps_association_id" id="ch_ps_association_id" fullWidth
+          status="{{ isSubmitted && form.controls.ch_ps_association_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of association" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Contenido</label>
+        <nb-select class="form-text" id="contents" formControlName="contents" fullWidth
+          status="{{ isSubmitted && form.controls.contents.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="Adecuado ">Adecuado </nb-option>
+          <nb-option value="Alterado">Alterado</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center" *ngIf="this.form.controls.contents.value == 'Alterado'">
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="ch_ps_delusional_id" class="form-text text-muted font-weight-bold">Delirantes</label>
+        <nb-select formControlName="ch_ps_delusional_id" id="ch_ps_delusional_id" fullWidth
+          status="{{ isSubmitted && form.controls.ch_ps_delusional_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of delusional" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="ch_ps_overrated_id" class="form-text text-muted font-weight-bold">Sobrevalorados</label>
+        <nb-select formControlName="ch_ps_overrated_id" id="ch_ps_overrated_id" fullWidth
+          status="{{ isSubmitted && form.controls.ch_ps_overrated_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of overrated" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label class="form-text font-weight-bold">Prevalentes</label>
+        <nb-select class="form-text" id="prevalent" formControlName="prevalent" fullWidth
+          status="{{ isSubmitted && form.controls.prevalent.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option value="De Contaminación ">De Contaminación </nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="ch_ps_obsessive_id" class="form-text text-muted font-weight-bold">Obsesivas</label>
+        <nb-select formControlName="ch_ps_obsessive_id" id="ch_ps_obsessive_id" fullWidth
+          status="{{ isSubmitted && form.controls.ch_ps_obsessive_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option *ngFor="let item of obsessive" [value]="item.id">{{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center">
+    <div class="col-md-16 col-lg-6">
+      <div class="form-group">
+        <label class="form-text text-muted font-weight-bold text ">Observaciones</label>
+        <textarea id="observations" nbInput fullWidth formControlName="observations" observations
+          onpaste="return false"
+          status="{{ isSubmitted && form.controls.observations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="div-send">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>

@@ -5,18 +5,19 @@
       <div class="row">
         <div class="col-md-12">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
-          <input nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
+            />
         </div>
         <div class="col-md-12">
           <label for="begin" class="form-text text-muted font-weight-bold">Edad inicial:</label>
           <input nbInput fullWidth id="begin" formControlName="begin" begin
-            status="{{ isSubmitted && form.controls.begin.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.begin.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-md-12">
           <label for="end" class="form-text text-muted font-weight-bold">Edad final:</label>
           <input nbInput fullWidth id="end" formControlName="end" end
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
       </div>
 

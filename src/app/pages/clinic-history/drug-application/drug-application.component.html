@@ -1,0 +1,35 @@
+<!-- <ngx-form-drug-application (messageEvent)="receiveMessage($event)" [user]="this.user">
+</ngx-form-drug-application> -->
+<!-- <label class="form-text text-muted font-weight-bold align">FORMULACIONES</label> -->
+
+<nb-stepper #stepper [linear]="linearMode">
+  <nb-step [stepControl]="nameForm" label="Medicamentos" style="
+          margin: 0 4rem;">
+
+    <ngx-base-list [messageError]="messageError" [routes]="routes">
+      <div content>
+        <ngx-base-table pager="false" [title]="title" customData="pharmacy_product_request" [settings]="settings"
+          [entity]="entity">
+          <div actions>
+            <div class="actions">
+            </div>
+            <div class="actions" style="margin-top:1em;">
+            </div>
+          </div>
+        </ngx-base-table>
+      </div>
+    </ngx-base-list>
+
+  </nb-step>
+
+  <nb-step [stepControl]="nameForm" label="Insumos" style="
+          margin: 0 4rem;">
+
+    <div class="row">
+      <div class="col-md-12">
+        <ngx-insume-application [record_id]="record_id" [type_record_id]="type_record_id"></ngx-insume-application>
+      </div>
+    </div>
+
+  </nb-step>
+</nb-stepper>

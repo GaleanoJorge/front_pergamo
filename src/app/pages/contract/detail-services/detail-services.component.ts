@@ -14,6 +14,7 @@ import {TypeBriefcaseService} from '../../../business-controller/type-briefcase.
 import {ManualPrice} from '../../../models/manual-price';
 import {CurrencyPipe} from '@angular/common';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { BriefcaseService } from '../../../business-controller/briefcase.service';
 
 @Component({
   selector: 'ngx-detail-services',
@@ -26,9 +27,9 @@ export class DetailServicesComponent implements OnInit {
   
 
   public InscriptionForm: FormGroup;
-  public title = 'Contrato: ';
+  public title ;
   public subtitle = 'Detalle del Portafolio de servicios: ';
-  public headerFields: any[] =  ['Código','Categoría','Servicio','Valor','Factor'];
+  public headerFields: any[] =  ['Código propio','Código homologo','Categoría','Nombre','Valor','Factor','Paciente a prestar'];
   public routes = [];
   public row;
   public selectedOptions: any[] = [];
@@ -44,18 +45,20 @@ export class DetailServicesComponent implements OnInit {
   public manual: any[] = [];
   public type_briefcase: any[] = [];
   public briefcase_id:number;
-
-  
+  public briefcase:any[]=[];
+  public result;
+  public role_permisos = [];
 
   public settings = {  
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
+            'role_permisos': this.role_permisos,
             'delete': this.DeleteServiceBriefcase.bind(this),
             'refreshData': this.RefreshData.bind(this),
           };
@@ -66,46 +69,85 @@ export class DetailServicesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if(row.manual_price.procedure==null){
-            return row.manual_price.product.code;
-          }else{
+          if(row.manual_price.manual_procedure_type_id==3){
+            return row.manual_price.own_code;          
+          }else if(row.manual_price.procedure){
             return row.manual_price.procedure.code;
+          }else if(row.manual_price.product){
+            return row.manual_price.product.code_atc;
+          } else if(row.manual_price.insume){
+            return '--';
+          }
+        },
+      },
+      'manual_price.procedure.homologous_id': {
+        title: this.headerFields[1],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.manual_price.manual_procedure_type_id==3){
+            return row.manual_price.own_code;
+          }else if(row.manual_price.procedure){
+            return row.manual_price.homologous_id;
+          }else if(row.manual_price.product){
+            return row.manual_price.product.nom_product_id;
+          } else if(row.manual_price.insume){
+            return '--';
           }
         },
       },
       manual_price: {
-        title: this.headerFields[1],
+        title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if(value.procedure==null){
-            return 'Medicamentos'
-          }else{
-          return value.procedure.procedure_category.name;
+          if(value.manual_procedure_type_id==3){
+            return 'Procedimiento-paquete'
+          }else if(value.procedure){
+            return value.procedure.procedure_category.name;
+          }else if(value.product){
+            return 'Medicamento'
+          }else if(value.insume){
+            return 'Insumo'
           }
         },
       },
       'manual_price.procedure.name': {
-        title: this.headerFields[0],
+        title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if(row.manual_price.procedure==null){
-            return row.manual_price.product.name;
-          }else{
-            return row.manual_price.procedure.name;
-          }
+          // if(row.manual_price.procedure ){
+          //   return row.manual_price.procedure.name;
+          // }else if(row.manual_price.product){
+          //   return row.manual_price.product.description;
+          // }else if(row.manual_price.insume){
+          //   return row.manual_price.insume.description;
+          // } else {
+          //   return row.manual_price.name
+          // }
+          return row.manual_price.name
         },
       },
    
       value: {
-        title: this.headerFields[3],
+        title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, data) => {
           return this.currency.transform(value);
         },
       },
       factor: {
-        title: this.headerFields[4],
+        title: this.headerFields[5],
         type: 'string',
+      },
+      "manual_price.patient_id": {
+        title: this.headerFields[6],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if(row.manual_price.patient_id==null){
+            return "Todos";
+          }else{
+          return row.manual_price.patient.firstname + ' ' + row.manual_price.patient.lastname;
+          }
+        },
       },
     },
   };
@@ -124,14 +166,21 @@ export class DetailServicesComponent implements OnInit {
     private currency: CurrencyPipe,
     private deleteConfirmService: NbDialogService,
     private dialogFormService: NbDialogService,
+    private BriefcaseS:BriefcaseService,
   ) {
   }
 
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    var permisos = JSON.parse(localStorage.getItem('permissions'));
+    permisos.forEach(x => {
+      if (x.item_id == 116) {
+        this.role_permisos.push(x.permission_id);
+      }
+    });
     if(this.route.snapshot.params.id){
       this.briefcase_id = this.route.snapshot.params.id;
-      this.entity = this.briefcase_id ? 'ServiceBriefcase/ServicesByBriefcase/' + this.briefcase_id : 'services_briefcase';
+      this.entity = this.briefcase_id ? 'ServiceBriefcase/ServicesByBriefcase/' + this.briefcase_id+'?type=1' : 'services_briefcase';
     }else{
       this.entity='services_briefcase';
     }
@@ -148,18 +197,23 @@ export class DetailServicesComponent implements OnInit {
         },
         {
           name: 'Portafolios',
-          route: '../../contract/briefcase',
+          route: '../../briefcase/'+this.briefcase_id,
         },
         {
-          name: 'Asignación de servicios',
-          route: '../../contract/detail-services',
+          name: 'Detalle de servicios',
+          route: '../../detail-services/'+this.briefcase_id,
         },
       ];
+
+      await this.BriefcaseS.GetCollection().then(x => {
+        this.briefcase = x;
+      });
+      this.result=this.briefcase.find(briefcase => briefcase.id == this.route.snapshot.params.id);
+      this.title='Detalle de portafolio de servicios asociados a : '+ this.result.name;
   }
 
 
   GetDataSelect(select: any[]) {
-    console.log(select);
     this.selectedOptions=[];
     select.forEach(element => {
       var manual_price=element;

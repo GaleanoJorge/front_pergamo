@@ -29,4 +29,6 @@ export class User {
     municipality: Municipality;
     roles: Role[];
     deliveries?: Delivery[];
+    file: string;
+    firm:string; 
 }

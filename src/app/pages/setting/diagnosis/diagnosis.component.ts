@@ -33,7 +33,7 @@ export class DiagnosisComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -63,7 +63,7 @@ export class DiagnosisComponent implements OnInit {
   public routes = [
     {
       name: 'Diagnósticos',
-      route: '../../setting/bed',
+      route: '../../setting/diagnosis',
     },
   ];
 

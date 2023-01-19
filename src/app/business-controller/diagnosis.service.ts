@@ -15,8 +15,7 @@ export class DiagnosisService {
 
   GetCollection(params = {}): Promise<Diagnosis[]> {
     let servObj = new ServiceObject(params ? 'diagnosis?pagination=false' : 'diagnosis');
-
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

@@ -30,7 +30,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Nombre del item:</small>
                             <input type="text" nbInput fullWidth fieldSize="medium"
-                                status="{{ isSubmitted && itemForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && itemForm.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 placeholder="Nombre" formControlName="name" required name minlength="5">
                             <div *ngIf="itemForm.controls.name.errors && isSubmitted ">
                                 <small *ngIf="itemForm.controls.name.errors.required">Ingrese el nombre del item</small>
@@ -40,7 +40,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Ruta del item:</small>
                             <input type="text" nbInput fullWidth fieldSize="medium"
-                                status="{{ isSubmitted && itemForm.controls.route.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && itemForm.controls.route.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 placeholder="Ruta" formControlName="route" required route minlength="5">
                             <div *ngIf="itemForm.controls.route.errors && isSubmitted ">
                                 <small *ngIf="itemForm.controls.route.errors.required">Ingrese la ruta del item</small>
@@ -50,7 +50,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Icono del item:</small>
                             <input type="text" nbInput fullWidth fieldSize="medium"
-                                status="{{ isSubmitted && itemForm.controls.icon.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && itemForm.controls.icon.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 placeholder="Icono" formControlName="icon" required icon minlength="5">
                             <div *ngIf="itemForm.controls.icon.errors && isSubmitted ">
                                 <small *ngIf="itemForm.controls.icon.errors.required">Ingrese el icono del item</small>
@@ -60,7 +60,7 @@
                         <div class="col-6">
                             <small class="form-text text-muted">Item padre:</small>
                             <nb-select placeholder="Item" size="medium" fullWidth formControlName="item"
-                                status="{{ isSubmitted && itemForm.controls.item.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
+                                status="{{ isSubmitted && itemForm.controls.item.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
                                 item>
                                 <nb-option *ngFor="let item of itemBS.items" [value]="item.id">{{item.name}}</nb-option>
                             </nb-select>

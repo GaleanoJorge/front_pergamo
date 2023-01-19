@@ -1,0 +1,28 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card size="medium" style="max-width: 600px">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+          <label for="human_talent_request_observation" class="form-text text-muted font-weight-bold">SELECCIONE OBSERVACIÓN:</label>
+          <nb-select
+              id="human_talent_request_observation_id" fullWidth (selectedChange)="ChangeObservation($event)">
+              <nb-option>Seleccione...</nb-option>
+              <nb-option *ngFor="let item of human_talent_request_observation" [value]="item.name">
+                  {{ item.name }}</nb-option>
+          </nb-select>
+      </div>
+        <div class="col-md-12">
+          <label for="observation" class="form-text text-muted font-weight-bold">OBSERVACIÓN:</label>
+          <textarea cols="80" rows="4" nbInput formControlName="observation" id="observation" observation fullWidth placeholder="Observación"
+                status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"></textarea> 
+        </div>
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

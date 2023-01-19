@@ -16,7 +16,7 @@ export class AdmissionsService {
   GetCollection(params = {}): Promise<Admissions[]> {
     let servObj = new ServiceObject(params ? 'admissions?pagination=false' : 'admissions');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj,params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
@@ -31,9 +31,59 @@ export class AdmissionsService {
       });
   }
 
+  getByIdentification(identification, params = {}): Promise<Admissions[]> {
+    let servObj = new ServiceObject('admission/getByIdentification/' + identification);
 
-   GetByPacient(user_id) {
-    let servObj = new ServiceObject(`admissions/ByPacient/${user_id}`);
+    return this.webAPI.GetAction(servObj,params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.admissions = <Admissions[]>servObj.data.admissions;
+
+        return Promise.resolve(this.admissions);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetActiveAdmissions(params = {}): Promise<Admissions[]> {
+    let servObj = new ServiceObject(params ? 'admissions/active/0?pagination=false' : 'admissions/active/0');
+
+    return this.webAPI.GetAction(servObj,params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.admissions = <Admissions[]>servObj.data.admissions;
+
+        return Promise.resolve(this.admissions);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+   GetByPacient(user_id,pagination?) {
+    let servObj = new ServiceObject(!pagination ? `admissions/ByPacient/${user_id}` : `admissions/ByPacient/${user_id}?pagination=false` );
+    return  this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj.data.admissions);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetByBriefcase(briefcase_id) {
+    let servObj = new ServiceObject(`admissions/Briefcase/${briefcase_id}`);
     return  this.webAPI.GetAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;

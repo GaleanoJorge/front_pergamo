@@ -1,2 +1,2 @@
-<ngx-form-users [routes]="routes" [data]="null" [role]="this.role" [title]="title" routeBack="/pages/setting/users">
+<ngx-form-users (messageEvent)="receiveMessage($event)" [routes]="routes" [data]="data" [role]="this.role" [title]="title" [routeBack]="routeBack" [isTH]="isTH">
 </ngx-form-users>

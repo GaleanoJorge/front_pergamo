@@ -1,0 +1,224 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    <label for="ch_external_cause" class="form-text text-muted font-weight-bold align">ANTECEDENTES</label>
+    <div class="row">
+
+
+      <div class="col-md-6">
+        <fieldset class="field_set center">
+          <legend class="prue1 center">ALÉRGICOS</legend>
+  
+          <div class="col-md-12">
+            <nb-radio-group [disabled]="this.disabled" formControlName="revision1" revision1 id="revision1" class="d-flex text" name="revision1"
+              status="{{ isSubmitted && form.controls.revision1.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-radio value="SI">SI</nb-radio>
+              <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
+            </nb-radio-group>
+          </div>
+  
+          <div class="col-md-12" *ngIf="this.form.controls.revision1.value =='SI'">
+            <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
+            <textarea [disabled]="this.disabled" id="description1"  nbInput fullWidth
+              formControlName="description1" description1 onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description1.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="col-md-6">
+        <fieldset class="field_set center">
+          <legend class="prue1 center">FAMILIARES</legend>
+  
+          <div class="col-md-12">
+            <nb-radio-group [disabled]="this.disabled" formControlName="revision2" revision2 id="revision2" class="d-flex text" name="revision2"
+              status="{{ isSubmitted && form.controls.revision2.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-radio value="SI">SI</nb-radio>
+              <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
+            </nb-radio-group>
+          </div>
+  
+          <div class="col-md-12" *ngIf="this.form.controls.revision2.value =='SI'">
+            <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
+            <textarea [disabled]="this.disabled" id="description2"  nbInput fullWidth
+              formControlName="description2" description2 onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description2.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="col-md-6">
+        <fieldset  class="field_set center">
+          <legend class="prue1 center">FARMACOLÓGICOS</legend>
+  
+          <div class="col-md-12">
+            <nb-radio-group [disabled]="this.disabled" formControlName="revision3" revision3 id="revision3" class="d-flex text" name="revision3"
+              status="{{ isSubmitted && form.controls.revision3.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-radio value="SI">SI</nb-radio>
+              <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
+            </nb-radio-group>
+          </div>
+  
+          <div class="col-md-12" *ngIf="this.form.controls.revision3.value =='SI'">
+            <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
+            <textarea [disabled]="this.disabled" id="description3" nbInput fullWidth
+              formControlName="description3" description3 onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description3.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="col-md-6">
+        <fieldset class="field_set center">
+          <legend class="prue1 center">GINECOOBSTÉTRICOS</legend>
+  
+          <div class="col-md-12">
+            <nb-radio-group [disabled]="this.disabled" formControlName="revision4" revision4 id="revision4" class="d-flex text" name="revision4"
+              status="{{ isSubmitted && form.controls.revision4.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-radio value="SI">SI</nb-radio>
+              <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
+            </nb-radio-group>
+          </div>
+  
+          <div class="col-md-12" *ngIf="this.form.controls.revision4.value =='SI'">
+            <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
+            <textarea [disabled]="this.disabled" id="description4"  nbInput fullWidth
+              formControlName="description4" description4 onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description4.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="col-md-6">
+        <fieldset class="field_set center">
+          <legend class="prue1 center">OTROS</legend>
+  
+          <div class="col-md-12">
+            <nb-radio-group [disabled]="this.disabled" formControlName="revision5" revision5 id="revision5" class="d-flex text" name="revision5"
+              status="{{ isSubmitted && form.controls.revision5.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-radio value="SI">SI</nb-radio>
+              <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
+            </nb-radio-group>
+          </div>
+  
+          <div class="col-md-12" *ngIf="this.form.controls.revision5.value =='SI'">
+            <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
+            <textarea [disabled]="this.disabled" id="description5"  nbInput fullWidth
+              formControlName="description5" description5 onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description5.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="col-md-6">
+        <fieldset class="field_set center">
+          <legend class="prue1 center">PERSONALES</legend>
+  
+          <div class="col-md-12">
+            <nb-radio-group [disabled]="this.disabled" formControlName="revision6" revision6 id="revision6" class="d-flex text" name="revision6"
+              status="{{ isSubmitted && form.controls.revision6.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-radio value="SI">SI</nb-radio>
+              <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
+            </nb-radio-group>
+          </div>
+  
+          <div class="col-md-12" *ngIf="this.form.controls.revision6.value =='SI'">
+            <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
+            <textarea [disabled]="this.disabled" id="description6"  nbInput fullWidth
+              formControlName="description6" description6 onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description6.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="col-md-6">
+        <fieldset class="field_set center">
+          <legend class="prue1 center">QUIRÚRGICOS</legend>
+  
+          <div class="col-md-12">
+            <nb-radio-group [disabled]="this.disabled" formControlName="revision7" revision7 id="revision7" class="d-flex text" name="revision7"
+              status="{{ isSubmitted && form.controls.revision7.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-radio value="SI">SI</nb-radio>
+              <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
+            </nb-radio-group>
+          </div>
+  
+          <div class="col-md-12" *ngIf="this.form.controls.revision7.value =='SI'">
+            <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
+            <textarea [disabled]="this.disabled" id="description7"  nbInput fullWidth
+              formControlName="description7" description7 onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description7.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+        </fieldset>
+      </div>
+
+      
+      <div class="col-md-6">
+        <fieldset class="field_set center">
+          <legend class="prue1 center">TOXICOLÓGICOS</legend>
+  
+          <div class="col-md-12">
+            <nb-radio-group [disabled]="this.disabled" formControlName="revision8" revision8 id="revision8" class="d-flex text" name="revision8"
+              status="{{ isSubmitted && form.controls.revision8.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-radio value="SI">SI</nb-radio>
+              <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
+            </nb-radio-group>
+          </div>
+  
+          <div class="col-md-12" *ngIf="this.form.controls.revision8.value =='SI'">
+            <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
+            <textarea [disabled]="this.disabled" id="description8"  nbInput fullWidth
+              formControlName="description8" description8 onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description8.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+        </fieldset>
+      </div>
+      
+      <div class="col-md-6">
+        <fieldset class="field_set center">
+          <legend class="prue1 center">TRANSFUSIONAL</legend>
+  
+          <div class="col-md-12">
+            <nb-radio-group [disabled]="this.disabled" formControlName="revision9" revision9 id="revision9" class="d-flex text" name="revision9"
+              status="{{ isSubmitted && form.controls.revision9.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-radio value="SI">SI</nb-radio>
+              <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
+            </nb-radio-group>
+          </div>
+  
+          <div class="col-md-12" *ngIf="this.form.controls.revision9.value =='SI'">
+            <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
+            <textarea [disabled]="this.disabled" id="description9"  nbInput fullWidth
+              formControlName="description9" description9 onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description9.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col-md-6">
+        <fieldset class="field_set center">
+          <legend class="prue1 center">TRAUMÁTICOS</legend>
+  
+          <div class="col-md-12">
+            <nb-radio-group [disabled]="this.disabled" formControlName="revision10" revision10 id="revision10" class="d-flex text" name="revision10"
+              status="{{ isSubmitted && form.controls.revision10.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-radio value="SI">SI</nb-radio>
+              <nb-radio value="NO REFIERE">NO REFIERE</nb-radio>
+            </nb-radio-group>
+          </div>
+  
+          <div class="col-md-12" *ngIf="this.form.controls.revision10.value =='SI'">
+            <label class="form-text text-muted font-weight-bold text ">OBSERVACIÓN:</label>
+            <textarea [disabled]="this.disabled" id="description10"  nbInput fullWidth
+              formControlName="description10" description10 onpaste="return false" rows="4" cols="50"
+              status="{{ isSubmitted && form.controls.description10.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -3,19 +3,19 @@
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <label for="company" class="form-text text-muted font-weight-bold">Empresas:</label>
           <nb-select [selected]="this.data.company_id" formControlName="company_id" id="company_id" fullWidth
-            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.company_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.company_id }}" *ngFor="let item of company" [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
-        </div>
+        </div> -->
         <div class="col-md-12">
           <label for="document" class="form-text text-muted font-weight-bold">Documentos:</label>
           <nb-select [selected]="this.data.document_id" formControlName="document_id" id="document_id" fullWidth
-            status="{{ isSubmitted && form.controls.document_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.document_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.document_id }}" *ngFor="let item of document" [value]="item.id">
               {{ item.name }}</nb-option>

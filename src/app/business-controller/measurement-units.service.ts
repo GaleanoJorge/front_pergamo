@@ -16,7 +16,7 @@ export class MeasurementUnitsService {
   GetCollection(params = {}): Promise<MeasurementUnits[]> {
     let servObj = new ServiceObject(params ? 'measurement_units?pagination=false' : 'measurement_units');
 
-    return this.webAPI.GetAction(servObj)
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)

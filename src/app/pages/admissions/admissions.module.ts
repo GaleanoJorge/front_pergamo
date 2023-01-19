@@ -10,54 +10,63 @@ import {
     NbStepperModule,
     NbTabsetModule,
     NbUserModule,
-    NbInputModule, NbSelectModule, NbRadioModule, NbIconModule, NbSpinnerModule, NbPopoverModule, NbToggleModule,
+    NbInputModule, NbSelectModule, NbRadioModule, NbIconModule, NbSpinnerModule, NbPopoverModule, NbToggleModule,NbTooltipModule, NbAutocompleteModule
 } from '@nebular/theme';
 
-import {ThemeModule} from '../../@theme/theme.module';
-import {AdmissionsRoutingModule} from './admissions-routing.module';
-import {AdmissionsComponent} from './admissions.component';
-import {AdmissionsListComponent} from './admissions-list/admissions-list.component';
-import {PagesModule} from '../pages.module';
-import {FormPatientComponent} from './form-patient/form-patient.component';
-import {ActionsComponent} from './admissions-list/actions.component';
-import {Actions2Component} from './admissions-patient/actions.component';
-import {EditPatientComponent} from './edit-patient/edit-patient.component';
-import {DateFormatPipe} from '../../pipe/date-format.pipe';
+import { ThemeModule } from '../../@theme/theme.module';
+import { AdmissionsRoutingModule } from './admissions-routing.module';
+import { AdmissionsComponent } from './admissions.component';
+import { AdmissionsListComponent } from './admissions-list/admissions-list.component';
+import { PagesModule } from '../pages.module';
+import { FormPatientComponent } from './form-patient/form-patient.component';
+import { ActionsComponent } from './admissions-list/actions.component';
+import { Actions2Component } from './admissions-patient/actions.component';
+import { EditPatientComponent } from './edit-patient/edit-patient.component';
+import { DateFormatPipe } from '../../pipe/date-format.pipe';
 import { AdmissionsPatientComponent } from './admissions-patient/admissions-patient.component';
 import { FormAdmissionsPatientComponent } from './admissions-patient/form-admissions-patient/form-admissions-patient.component';
 import { BedManagementComponent } from './bed-management/bed-management.component';
 import { Actions3Component } from './bed-management/actions.component';
+import { FormPatientDataComponent } from './patient-data/form-admissions-patient/form-patient-data.component';
+import { PatientDataComponent } from './patient-data/patient-data.component';
+import { ActionsComponentED } from './patient-data/actionsED.component';
+import { CurrencyPipe } from '@angular/common';
 
 @NgModule({
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        ThemeModule,
-        NbTabsetModule,
-        NbRouteTabsetModule,
-        NbStepperModule,
-        NbCardModule,
-        NbButtonModule,
-        NbListModule,
-        NbAccordionModule,
-        NbUserModule,
-        AdmissionsRoutingModule,
-        NbInputModule,
-        PagesModule,
-        Ng2SmartTableModule,
-        NbPopoverModule,
-        NbSelectModule,
-        NbRadioModule,
-        NbIconModule,
-        NbSpinnerModule,
-        NbToggleModule,
-    ],
+  imports: [
+      FormsModule,
+      ReactiveFormsModule,
+      ThemeModule,
+      NbTabsetModule,
+      NbRouteTabsetModule,
+      NbStepperModule,
+      NbCardModule,
+      NbButtonModule,
+      NbListModule,
+      NbTooltipModule,
+      NbAccordionModule,
+      NbUserModule,
+      AdmissionsRoutingModule,
+      NbInputModule,
+      PagesModule,
+      Ng2SmartTableModule,
+      NbPopoverModule,
+      NbSelectModule,
+      NbRadioModule,
+      NbIconModule,
+      NbSpinnerModule,
+      NbToggleModule,
+      NbAutocompleteModule
+  ],
   declarations: [
+    ActionsComponentED,
+    FormPatientDataComponent,
+    PatientDataComponent,
     AdmissionsPatientComponent,
     BedManagementComponent,
     FormAdmissionsPatientComponent,
     AdmissionsComponent,
-    AdmissionsListComponent,
+    // AdmissionsListComponent,
     FormPatientComponent,
     Actions2Component,
     Actions3Component,
@@ -66,8 +75,15 @@ import { Actions3Component } from './bed-management/actions.component';
   ],
   providers: [
     DateFormatPipe,
+    CurrencyPipe,
   ],
-  exports: [],
+  exports: [
+    AdmissionsPatientComponent,
+    AdmissionsListComponent,
+    // FormPatientComponent
+    PatientDataComponent,
+    FormAdmissionsPatientComponent
+  ],
 })
 export class AdmissionsModule {
 }

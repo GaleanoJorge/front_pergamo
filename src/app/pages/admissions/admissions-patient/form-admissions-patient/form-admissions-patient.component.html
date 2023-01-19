@@ -1,85 +1,172 @@
-<form [formGroup]="form" (ngSubmit)="save()">
-  <nb-card size="small" style="max-width: 500px;height: auto;">
+<form [formGroup]="form" style="height: 98%;">
+  <nb-card style="margin: 30px; max-width: 1400px; max-height: 900px; overflow: auto;">
     <nb-card-header>{{ title }}</nb-card-header>
     <nb-card-body>
       <div class="row">
-        <div class="col-md-12">
-          <label for="diagnosis" class="form-text text-muted font-weight-bold">Diagnóstico:</label>
-          <nb-select [selected]="this.data.diagnosis_id" formControlName="diagnosis_id" id="diagnosis_id" fullWidth
-          status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.diagnosis_id }}" *ngFor="let item of diagnosis" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
+        <div class="col-md-6">
+          <label for="admission_route" class="form-text text-muted font-weight-bold">Ambito de atención:</label>
+          <nb-select [selected]="this.data.admission_route_id" (selectedChange)="ShowDiagnostic($event)"
+            formControlName="admission_route_id" id="admission_route_id" fullWidth
+            status="{{ isSubmitted && form.controls.admission_route_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.admission_route_id }}" *ngFor="let item of admission_route"
+              [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
         </div>
-        <div class="col-md-12">
-          <label for="admission_route" class="form-text text-muted font-weight-bold">Ruta de admisión:</label>
-          <nb-select [selected]="this.data.admission_route_id" formControlName="admission_route_id" id="admission_route_id" fullWidth
-          status="{{ isSubmitted && form.controls.admission_route_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.admission_route_id }}" *ngFor="let item of admission_route" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
+        <div class="col-md-6">
+          <label for="scope_of_attention" class="form-text text-muted font-weight-bold">Ruta de admisión:</label>
+          <nb-select [selected]="this.data.scope_of_attention_id" formControlName="scope_of_attention_id"
+            id="scope_of_attention_id" fullWidth
+            status="{{ isSubmitted && form.controls.scope_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.scope_of_attention_id }}"
+              *ngFor="let item of scope_of_attention" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
         </div>
-        <div class="col-md-12">
-          <label for="scope_of_attention" class="form-text text-muted font-weight-bold">Ambito de atención:</label>
-          <nb-select [selected]="this.data.scope_of_attention_id" formControlName="scope_of_attention_id" id="scope_of_attention_id" fullWidth
-          status="{{ isSubmitted && form.controls.scope_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.scope_of_attention_id }}" *ngFor="let item of scope_of_attention" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
+        <div class="col-md-6">
+          <label for="diagnosis_id" class="form-text text-muted font-weight-bold">Diagnóstico:</label>
+          <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+            (ngModelChange)="this.searchDiagnostic($event)" id="diagnosis_id" formControlName="diagnosis_id"
+            diagnosis_id type="text" required
+            status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <datalist id="codes">
+            <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
+          </datalist>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-6">
           <label for="program" class="form-text text-muted font-weight-bold">Programa:</label>
           <nb-select [selected]="this.data.program_id" formControlName="program_id" id="program_id" fullWidth
-          status="{{ isSubmitted && form.controls.program_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.program_id }}" *ngFor="let item of program" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
+            status="{{ isSubmitted && form.controls.program_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.program_id }}" *ngFor="let item of program" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
         </div>
-        <div class="col-md-12">
-          <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
-          <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
-          status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
+        
+        <div class="col-md-6">
+          <label for="eps" class="form-text text-muted font-weight-bold">EPS / Asegurador:</label>
+          <nb-select [selected]="this.data.eps" formControlName="eps" id="eps" fullWidth
+            status="{{ isSubmitted && form.controls.eps.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.eps }}" *ngFor="let item of eps" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
         </div>
-        <div class="col-md-12">
-          <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
-          <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
-          status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.pavilion_id }}" *ngFor="let item of pavilion" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
-        </div>
-        <div class="col-md-12">
-          <label for="bed" class="form-text text-muted font-weight-bold">Cama / Consultorio:</label>
-          <nb-select [selected]="this.data.bed_id" formControlName="bed_id" id="bed_id" fullWidth
-          status="{{ isSubmitted && form.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.bed_id }}" *ngFor="let item of bed" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
-        </div>
-        <div class="col-md-12">
+        <div class="col-md-6">
           <label for="contract" class="form-text text-muted font-weight-bold">Contrato:</label>
           <nb-select [selected]="this.data.contract_id" formControlName="contract_id" id="contract_id" fullWidth
-          status="{{ isSubmitted && form.controls.contract_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
-          <nb-option value="">Seleccione...</nb-option>
-          <nb-option selected="{{ item.id == this.data.contract_id }}" *ngFor="let item of contract" [value]="item.id">
-            {{ item.name }}</nb-option>
-        </nb-select>
+            status="{{ isSubmitted && form.controls.contract_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.contract_id }}" *ngFor="let item of contract"
+              [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
         </div>
-    </div>
+        <div class="col-md-6">
+          <label for="briefcase_id" class="form-text text-muted font-weight-bold">Portafolios de atención:</label>
+          <nb-select [selected]="this.data.briefcase_id" formControlName="briefcase_id" id="briefcase_id" fullWidth
+            status="{{ isSubmitted && form.controls.briefcase_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.briefcase_id }}" *ngFor="let item of briefcase"
+              [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-6" *ngIf="this.form.value.admission_route_id==1 || this.form.value.scope_of_attention_id == 2">
+          <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimientos del portafolio:</label>
+          <input fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Selecciona procedimiento"
+            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+            [nbAutocomplete]="profControl" />
+
+          <nb-autocomplete #profControl (selectedChange)="onSelectionChange($event)">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of filteredProcedureOptionsApplied" [value]="this.getCompleteName(item)">
+              {{ item.manual_price.own_code }} - {{ item.manual_price.name }}
+            </nb-option>
+          </nb-autocomplete> 
+        </div>
+        <div class="col-12 col-sm-12 col-md-6">
+          <label for="regime" class="form-text text-muted font-weight-bold">Régimen:</label>
+          <nb-select [selected]="this.data.regime_id" formControlName="regime_id" id="regime_id" fullWidth
+            status="{{ isSubmitted && form.controls.regime_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == data.regime_id }}" *ngFor="let item of regime" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-6" *ngIf="this.show_cats">
+          <label *ngIf="this.categories[0].payment_type == 1" for="category" class="form-text text-muted font-weight-bold">Cuota moderadora:</label>
+          <label *ngIf="this.categories[0].payment_type == 2" for="category" class="form-text text-muted font-weight-bold">Copago:</label>
+          <label *ngIf="this.categories[0].payment_type == 3
+          " for="category" class="form-text text-muted font-weight-bold">CUPS exento:</label>
+          <nb-select [selected]="this.data.category" formControlName="category" id="category" fullWidth
+            status="{{ isSubmitted && form.controls.category.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.category }}" *ngFor="let item of categories" [value]="item.id">
+              {{ item.category }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-6" *ngIf="this.show_cats">
+          <label for="copay" class="form-text text-muted font-weight-bold">Valor:</label>
+          <input type="text" nbInput id="copay" formControlName="copay" copay
+            fullWidth>
+        </div>
+        <div class="col-md-6" *ngIf="this.show_inputs">
+          <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
+          <nb-select [selected]="this.data.flat_id" formControlName="flat_id" id="flat_id" fullWidth
+            status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.flat_id }}" *ngFor="let item of flat" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-6" *ngIf="this.show_inputs">
+          <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
+          <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
+            status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.pavilion_id }}" *ngFor="let item of pavilion"
+              [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-6" *ngIf="this.show_inputs">
+          <label for="bed" class="form-text text-muted font-weight-bold">Cama / Consultorio:</label>
+          <nb-select [selected]="this.data.bed_id" formControlName="bed_id" id="bed_id" fullWidth
+            status="{{ isSubmitted && form.controls.bed_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.bed_id }}" *ngFor="let item of bed" [value]="item.id">
+              {{ (item.name).toUpperCase() }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-6" *ngIf="this.show_auth_inputs">
+          <label for="auth_number" class="form-text text-muted font-weight-bold">Número de autorización:</label>
+          <input nbInput fullWidth id="auth_number"
+            formControlName="auth_number" auth_number
+            status="{{ isSubmitted && form.controls.auth_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+        </div>
+        <div class="col-md-6" *ngIf="this.show_auth_inputs">
+          <label for="bed" class="form-text text-muted font-weight-bold">Archivo de autorización:</label>
+          <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="file" nbInput fullWidth
+                (change)="changeImage($event.target.files, 1)" />
+        </div>
+        <div class="col-md-6" *ngIf="this.form.value.scope_of_attention_id != 2">
+          <label for="has_caregiver" class="form-text text-muted font-weight-bold">¿Tiene algún acompañante/responsable?
+          </label>
+          <nb-toggle formControlName="has_caregiver" has_caregiver (change)="showCaregiver()">
+          </nb-toggle>
+        </div>
+      </div>
     </nb-card-body>
+    <!-- <nb-card-footer class="d-flex justify-content-end">
+        <button nbButton status="danger" class="ml-1" disabled="{{ loading }}" (click)="save()">Guardar admisión</button>
+  
+      </nb-card-footer> -->
     <nb-card-footer class="d-flex justify-content-end">
-      <button nbButton (click)="close()" type="button">Cancelar</button>
-      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">Guardar</button>
+      <button nbButton (click)="close()" type="button">Cerrar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}" (click)="save()">Guardar admisión</button>
     </nb-card-footer>
   </nb-card>
 </form>

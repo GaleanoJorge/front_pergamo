@@ -1,0 +1,69 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+
+  <div content>
+
+
+    <form [formGroup]="form" (ngSubmit)="FilterHC()">
+      <div class="row">
+        <div class="col-md-4">
+          <label class="form-text text-muted font-weight-bold">Paciente:</label>
+          <input type="text" list="codes2" (change)="saveCode2($event)" formControlName="patient_id" nbInput fullWidth
+            placeholder="Seleccione">
+          <datalist id="codes2">
+            <option *ngFor="let item of patient" [value]="item.identification">
+              {{item.identification}}-{{item.nombre_completo}}</option>
+          </datalist>
+        </div>
+     
+        <div class="col-md-4">
+        <label class="form-text text-muted font-weight-bold">Ambito de atención:</label>
+        <nb-select [selected]="this.data.admission_route_id"
+            formControlName="admission_route_id" id="admission_route_id" fullWidth
+            status="{{ isSubmitted && form.controls.admission_route_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.admission_route_id }}" *ngFor="let item of admission_route"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-text text-muted font-weight-bold">Ruta de admisión:</label>
+          <nb-select [selected]="this.data.scope_of_attention_id" formControlName="scope_of_attention_id"
+            id="scope_of_attention_id" fullWidth
+            status="{{ isSubmitted && form.controls.scope_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option selected="{{ item.id == this.data.scope_of_attention_id }}"
+              *ngFor="let item of scope_of_attention" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-text text-muted font-weight-bold">Tipo de Atención:</label>
+          <nb-select size="medium" fullWidth formControlName="ch_type">
+            <nb-option *ngFor="let type of ch_type" [value]="type.id">{{type.name}}</nb-option>
+            <nb-option value=20>Formulación</nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-md-4">
+          <label for="start_date" class="form-text text-muted font-weight-bold">Desde</label>
+          <input class="inputdate" [max]="today" type="date" nbInput fieldSize="medium" fullWidth id="start_date"
+            formControlName="start_date" start_date />
+        </div>
+        <div class="col-md-4">
+          <label for="finish_date" class="form-text text-muted font-weight-bold">Hasta</label>
+          <input class="inputdate" [min]="min_day" type="date" nbInput fieldSize="medium" fullWidth id="finish_date"
+            formControlName="finish_date" finish_date />
+        </div>
+      </div>
+
+      <div class="col-md-12 filter">
+        <button nbButton status="success" class="ml-1" disabled="{{ loading }}">Generar Historia Clinica</button>
+      </div>
+
+    </form>
+
+  </div>
+</ngx-base-list>

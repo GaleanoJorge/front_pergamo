@@ -5,6 +5,8 @@ import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { ActionsComponent } from './actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
+import { UserChangeService } from '../../../business-controller/user-change.service';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -17,20 +19,24 @@ export class AdmissionsListComponent {
   public data: any[] = [];
   public messageError: string = null;
   public dialog;
-  public title = 'Paciente';
+  public title = 'Tablero de Pacientes';
   public headerFields: any[] = ['Tipo identificación', 'Identificación', 'Nombres', 'Correo', 'Estado'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public subtitle = 'Admisiones';
   public datain;
   public admissions:any[];
   public status;
+  public currentRole;
+  public show = true;
+  public all_changes:any[];
+  public own_user: any = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   public routes = [
     {
       name: 'Pacientes',
-      route: '../../admissions/admissions-list',
+      route: '../../admissions/list',
     },
   ];
 
@@ -38,13 +44,14 @@ export class AdmissionsListComponent {
 
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
           this.datain=row;
           return {
             'data': row,
+            'all_changes': this.all_changes,
             // 'edit': this.EditPatient.bind(this),
             'delete': this.DeleteConfirmPatient.bind(this),
             'reset_password': this.UpdateResetPassword.bind(this),
@@ -94,20 +101,38 @@ export class AdmissionsListComponent {
     private toastrService: NbToastrService,
     private deleteConfirmService: NbDialogService,
     public AdmissionsS: AdmissionsService,
+    public userChangeS: UserChangeService,
+    private authService: AuthService,
   ) {
 
   }
   async ngOnInit() {
-
-  
-  }
+    await this.userChangeS.GetCollection().then(x =>{
+      this.all_changes = x;
+    });
+    this.own_user = this.authService.GetUser();
+    var curr = this.authService.GetRole();
+    this.currentRole = this.own_user.roles.find(x => {
+      return x.id == curr;
+    });
+    this.show = (
+      this.currentRole.role_type_id == 23 || // PAD - GESTOR
+      this.currentRole.role_type_id == 26 || // PAD - GESTOR PHD
+      this.currentRole.role_type_id == 27 || // PAD - ANALISTA ADMIN
+      this.currentRole.role_type_id == 28 || // PAD - CORDINADOR NACIONAL
+      this.currentRole.role_type_id == 29 || // PAD - JEFE DE PLANEACIÓN
+      this.currentRole.role_type_id == 30 || // PAD - DIRECCIÓN
+      this.currentRole.role_type_id == 31 || // PAD - JEFE BUSQUEDA ACTIVA
+      this.currentRole.role_type_id == 32) ? // PAD - CORDINADOR CONVENIOS
+      false : true;
+    }
 
   RefreshData() {
     this.table.refresh();
   }
 
   ChangeState(data) {
-    this.userS.ChangeStatus(data.id).then((x) => {
+    this.userS.ChangeStatus(data.id, this.own_user.id).then((x) => {
       this.toastrService.success('', x.message);
       this.RefreshData();
     }).catch((x) => {

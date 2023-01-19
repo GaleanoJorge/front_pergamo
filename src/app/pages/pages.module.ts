@@ -38,6 +38,32 @@ import { CategoriesDialogComponent } from './components/form-users/categories-di
 import {CheckPermsDirective} from '../directives/check-perms.directive';
 import {PermissionsGuard} from '../guards/permissions.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SpecialitiesDialogComponent } from './components/form-users/especialities-dialog.component';
+import { SignaturePadModule } from '@ng-plus/signature-pad';
+import { AmountWorkLocationComponent } from './components/form-users/work-location-package/amount-work-location.component';
+import { SelectWorkLocationComponent } from './components/form-users/work-location-package/select-work-location.component';
+import { WorkLocationPackageComponent } from './components/form-users/work-location-package/work-location-package.component';
+import { BillingPadComponent } from './billing-pad/billing-pad.component';
+import { UsersCampusComponent } from './components/form-users/users-campus/users-campus.component';
+import { SelectUsersCampusComponent } from './components/form-users/users-campus/select-user-campus.component';
+import { WebSpeachComponent } from './components/web-speach/web-speach.component';
+import { InsumeRequestComponent } from './clinic-history/insume-request/insume-request.component';
+import { FormInsumeRequestComponent } from './clinic-history/insume-request/form-insume-request/form-insume-request.component';
+import { PharmacyModule } from './pharmacy/pharmacy.module';
+import { ProductTabComponent } from './pharmacy/product-tab/product-tab.component';
+import { PharmacyComponent } from './pharmacy/pharmacy.component';
+import { AssistanceStockComponent } from './setting/assistance-stock/assistance-stock.component';
+import { FormAssistanceStockComponent } from './setting/assistance-stock/form-assistance-stock/form-assistance-stock.component';
+import { FormAssistanceReturnComponent } from './setting/assistance-stock/form-assistance-return/form-assistance-return.component';
+import { AgreementCheckComponent } from './components/form-users/agreement-package/agreement-check.component';
+import { AgreementPackageComponent } from './components/form-users/agreement-package/agreement-package.component';
+import { AdmissionsListComponent } from './admissions/admissions-list/admissions-list.component';
+import { DateFormatPipe } from '../pipe/date-format.pipe';
+import { CurrencyPipe } from '@angular/common';
+import { MulticalendarComponent } from './components/multicalendar/multicalendar.component';
+//import { ReferenceComponent } from './reference/reference.component';
+
+
 
 
 @NgModule({
@@ -48,7 +74,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     NgxChartsModule,
     ChartModule,
     NbCardModule,
-    NbMenuModule,
+    SignaturePadModule,
+    NbMenuModule.forRoot(),
     NbAlertModule,
     Ng2SmartTableModule,
     NbInputModule,
@@ -68,8 +95,17 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     NbAutocompleteModule,
     NbTooltipModule,
     NbFormFieldModule,
+    NbRadioModule,
   ],
   declarations: [
+    AdmissionsListComponent,
+    AgreementPackageComponent,
+    AgreementCheckComponent,
+    AssistanceStockComponent,
+    FormAssistanceStockComponent,
+    FormAssistanceReturnComponent,
+    InsumeRequestComponent,
+    FormInsumeRequestComponent,
     PagesComponent,
     BreadcrumbComponent,
     GraphicsComponent,
@@ -82,10 +118,23 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     FormUsersComponent,
     PersonalInformationComponent,
     CategoriesDialogComponent,
+    SpecialitiesDialogComponent,
     CheckPermsDirective,
     ResetPasswordComponent,
+    AmountWorkLocationComponent,
+    SelectWorkLocationComponent,
+    WorkLocationPackageComponent,
+    MulticalendarComponent,
+    BillingPadComponent,
+   // ReferenceComponent,
+    SelectUsersCampusComponent,
+    UsersCampusComponent,
+    WebSpeachComponent,
+    
   ],
+
   exports: [
+    AdmissionsListComponent,
     BreadcrumbComponent,
     GraphicsComponent,
     MapComponent,
@@ -94,8 +143,23 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     BaseFormComponent,
     FormUsersComponent,
     CheckPermsDirective,
+    AmountWorkLocationComponent,
+    SelectWorkLocationComponent,
+    SelectUsersCampusComponent,
+    WorkLocationPackageComponent,
+    MulticalendarComponent,
+    UsersCampusComponent,
+    WebSpeachComponent,
+    InsumeRequestComponent,
+    FormInsumeRequestComponent,
+    AssistanceStockComponent,
+    FormAssistanceStockComponent,
+    FormAssistanceReturnComponent,
   ],
-  providers: [PermissionsGuard],
+  providers: [
+    DateFormatPipe,
+    CurrencyPipe,
+    PermissionsGuard],
 })
 export class PagesModule {
 }

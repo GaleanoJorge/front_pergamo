@@ -5,18 +5,19 @@
       <div class="row">
         <div class="col-4">
           <label for="name" class="form-text text-muted font-weight-bold">Codigó:</label>
-          <input nbInput fullWidth id="code" formControlName="code" code
-            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input  oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="code" formControlName="code" code
+            status="{{ isSubmitted && form.controls.code.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-8">
           <label for="name" class="form-text text-muted font-weight-bold">Nombre:</label>
-          <input nbInput fullWidth id="name" formControlName="name" name
-            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="name" formControlName="name" name
+            status="{{ isSubmitted && form.controls.name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" 
+            />
         </div>
         <div class="col-12 mt-1">
           <label for="sectional" class="form-text text-muted font-weight-bold">País:</label>
           <nb-select [selected]="this.data.country_id" formControlName="country_id" id="country" fullWidth
-            status="{{ isSubmitted && form.controls.country_id.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+            status="{{ isSubmitted && form.controls.country_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
             <nb-option selected="{{ item.id == data.country_id }}" *ngFor="let item of country" [value]="item.id">
               {{ item.name }}</nb-option>

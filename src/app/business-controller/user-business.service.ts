@@ -23,6 +23,56 @@ export class UserBusinessService {
 
 v
 
+  GetCollection(): Promise<User[]> {
+    var servObj = new ServiceObject("user");
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetByPacient(identification:{}): Promise<User[]> {
+    console.log(identification);
+    var servObj = new ServiceObject("user/byRole/2");
+    return this.webAPI.GetAction(servObj, identification)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  GetByAdmission(identification:{}): Promise<User[]> {
+    console.log(identification);
+    var servObj = new ServiceObject("user/byAdmission/2");
+    return this.webAPI.GetAction(servObj, identification)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   GetCollectionByPage(page: number, search: any): Promise<User[]> {
     var paramsMain = new HttpParams().set("identification", search.identification).set("firstname", search.firstname).set("middlefirstname", search.middlefirstname).set("lastname", search.lastname).set("middlelastname", search.middlelastname);
     var servObj = new ServiceObject("user?page=" + page);
@@ -72,8 +122,40 @@ v
       });
   }
 
+  SavePacient(user: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('PacientInscription');
+    servObj.data = user;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
   UpdatePublic(user: any,id = null): Promise<ServiceObject> {
     let servObj = new ServiceObject('public/userInscription', (user.id ? user.id : id));
+    servObj.data = user;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x;
+      });
+  }
+
+  UpdatePatient(user: any,id = null): Promise<ServiceObject> {
+    let servObj = new ServiceObject('PacientInscription', (user.id ? user.id : id));
     servObj.data = user;
     return this.webAPI.PostAction(servObj)
       .then(x => {
@@ -104,9 +186,73 @@ v
       });
   }
 
+  ProfesionalsByCampus(): Promise<User[]> {
+    var servObj = new ServiceObject("users/Profesionals");
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   UserByRole(id:any): Promise<User[]> {
     var servObj = new ServiceObject("user/byRole", id);
     return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  UserByPad(id:any): Promise<User[]> {
+    var servObj = new ServiceObject("user/byPAD/2", id);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  UserByRoleLocation(location_id:any,id:any, params = {}): Promise<User[]> {
+    var servObj = new ServiceObject("user/byRoleLocation/"+location_id, id);
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.users = <User[]>servObj.data.users;
+        return Promise.resolve(this.users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  UserByExternalConsultation(params = {}): Promise<User[]> {
+    var servObj = new ServiceObject("user/ExternalConsultant");
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
@@ -245,9 +391,9 @@ v
       });
   }
 
-  GetUserChildrenById(id): Promise<any> {
-    var servObj = new ServiceObject("user/allChildrenOfParentUser", id);
-    return this.webAPI.GetAction(servObj)
+  GetUserChildrenById(params): Promise<any> {
+    var servObj = new ServiceObject("user/allChildrenOfParentUser", params.id);
+    return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;
         if (!servObj.status)
@@ -260,8 +406,8 @@ v
       });
   }
 
-  ChangeStatus(id): Promise<any> {
-    let servObj = new ServiceObject(`user/${id}/changeStatus`);
+  ChangeStatus(id, own_user_id): Promise<any> {
+    let servObj = new ServiceObject(`user/${id}/changeStatus?own_user=${own_user_id}`);
 
     return this.webAPI.PatchAction(servObj)
       .then(x => {
@@ -308,10 +454,12 @@ v
       });
   }
 
-  GetFormAuxData(activo) {
+  GetFormAuxData(activo,type_professional_id?, search?) {
     let servObj = new ServiceObject('public/getUserAuxiliaryData');
     return this.webAPI.GetAction(servObj, {
       activo,
+      type_professional_id,
+      search
     })
       .then(x => {
         servObj = <ServiceObject>x;

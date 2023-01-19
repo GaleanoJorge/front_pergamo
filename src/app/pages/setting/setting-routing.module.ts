@@ -52,10 +52,7 @@ import { ProductSubcategoryComponent } from './product-subcategory/product-subca
 import { ProductComponent } from './product/product.component';
 import { InvimaStatusComponent } from './invima-status/invima-status.component';
 import { StorageConditionsComponent } from './storage-conditions/storage-conditions.component';
-import { RiskComponent } from './risk/risk.component';
 import { ProductGenericComponent } from './product-generic/product-generic.component';
-import { TypeAssetsComponent } from './type-assets/type-assets.component';
-import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
 import { SectionalCouncilComponent } from './sectional-council/sectional-council.component';
 import { DistrictComponent } from './district/district.component';
 import { OfficeComponent } from './office/office.component';
@@ -65,7 +62,6 @@ import { SpecialtyComponent } from './specialty/specialty.component';
 import { EntityComponent } from './entity/entity.component';
 import { RegionComponent } from './region/region.component';
 import { MunicipalityComponent } from './municipality/municipality.component';
-import { PermissionsGuard } from "../../guards/permissions.guard";
 import { FormUserComponent } from './users/form-user/form-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { ThemesComponent } from './themes/themes.component';
@@ -94,6 +90,68 @@ import { GlossServiceComponent } from './gloss-service/gloss-service.component';
 import { ObjetionCodeResponseComponent } from './objetion-code-response/objetion-code-response.component';
 import { ObjetionResponseComponent } from './objetion-response/objetion-response.component';
 import { DiagnosisComponent } from './diagnosis/diagnosis.component';
+import { ContractTypeComponent } from './contract-type/contract-type.component';
+import { TypeProfessionalComponent } from './type-professional/type-professional.component';
+import { SpecialFieldComponent } from './special-field/special-field.component';
+import { CostCenterComponent } from './cost-center/cost-center.component';
+import { ObservationNoveltyComponent } from './observation-novelty/observation-novelty.component';
+import { InabilityComponent } from './inability/inability.component';
+import { ProductMassiveComponent } from './manual/product-massive/product-massive.component';
+import { PolicyTypeComponent } from './policy-type/policy-type.component';
+import { ProcedurePackage2Component } from './manual/procedure-massive/procedure-package2/procedure-package2.component';
+import { RelationshipComponent } from './relationship/relationship.component';
+import { DietConsistencyComponent } from './diet-consistency/diet-consistency.component';
+import { DietComponentComponent } from './diet-componet/diet-componet.component';
+import { DietDayComponent } from './diet-day/diet-day.component';
+import { DietWeekComponent } from './diet-week/diet-week.component';
+import { DietDishComponent } from './diet-dish/diet-dish.component';
+import { DietMenuTypeComponent } from './diet-menu-type/diet-menu-type.component';
+import { DietSupplyTypeComponent } from './diet-supply-type/diet-supply-type.component';
+import { DietSuppliesComponent } from './diet-supplies/diet-supplies.component';
+import { DietMenuComponent } from './diet-menu/diet-menu.component';
+import { HourlyFrequencyComponent } from './hourly-frequency/hourly-frequency.component';
+import { LocalityComponent } from './locality/locality.component';
+import { NeighborhoodOrResidenceComponent } from './neighborhood/neighborhood.component';
+import { PadRiskComponent } from './pad-risk/pad-risk.component';
+import { TariffComponent } from './tariff/tariff.component';
+import { LocationCapacityComponent } from './location-capacity/location-capacity.component';
+import { SingleLocationCapacityComponent } from './location-capacity/sigle-location-capacity/single-location-capacity.component';
+import { AuthStatusComponent } from './auth-status/auth-status.component';
+import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
+import { TcBillingComponent } from './tc-billing/tc-billing.component';
+import { TcRadicationComponent } from './tc-radication/tc-radication.component';
+import { TcHumanTalentComponent } from './tc-human-talent/tc-human-talent.component';
+import { NomProductComponent } from './nom-product/nom-product.component';
+import { FixedConditionComponent } from './fixed-condition/fixed-condition.component';
+import { FixedPropertyComponent } from './fixed-property/fixed-property.component';
+import { FixedCodeComponent } from './fixed-code/fixed-code.component';
+import { FixedAreaCampusComponent } from './fixed-area-campus/fixed-area-campus.component';
+import { FixedClasificationComponent } from './fixed-clasification/fixed-clasification.component';
+import { FixedTypeComponent } from './fixed-type/fixed-type.component';
+import { FixedLocationCampusComponent } from './fixed-location-campus/fixed-location-campus.component';
+import { FixedAssetsComponent } from './fixed-assets/fixed-assets.component';
+import { FixedAccessoriesComponent } from './fixed-accessories/fixed-accessories.component';
+import { MinimumSalaryComponent } from './minimum-salary/minimum-salary.component';
+import { TaxValueUnitComponent } from './tax-value-unit/tax-value-unit.component';
+import { MunicipalityIcaComponent } from './municipality-ica/municipality-ica.component';
+import { ProductSuppliesComponent } from './product-supplies/product-supplies.component';
+import { SuppliesCommComponent } from './supplies-comm/supplies-comm.component';
+import { BillingTabComponent } from './billing-tab/billing-tab.component';
+import { FixedRequestComponent } from './fixed-request/fixed-request.component';
+import { tcRentabilityComponent } from './tc-rentability/tc-rentability.component';
+import { BillingPadPrefixComponent } from './billing-pad-prefix/billing-pad-prefix.component';
+import { BillingPadConsecutiveComponent } from './billing-pad-consecutive/billing-pad-consecutive.component';
+import { FixedNomProductComponent } from './fixed-nom-product/fixed-nom-product.component';
+import { AssistanceStockComponent } from './assistance-stock/assistance-stock.component';
+import { InsumeMassiveComponent } from './manual/insume-massive/insume-massive.component';
+import { TcCollectionComponent } from './tc-collection/tc-collection.component';
+import { FixedStockComponent } from './fixed-stock/fixed-stock.component';
+import { FixedPatientsComponent } from './fixed-patients/fixed-patients.component';
+import { FixedMovementsComponent } from './fixed-movements/fixed-movements.component';
+import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-assets-requests.component';
+import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
+import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
+import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
 
 const routes: Routes = [{
   path: '',
@@ -102,207 +160,321 @@ const routes: Routes = [{
     {
       path: 'coverage',
       component: CoverageComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'firms',
       component: FirmsComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'objetion-type',
       component: ObjetionTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'objetion-response',
       component: ObjetionResponseComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'objetion-code-response',
       component: ObjetionCodeResponseComponent,
-      data: { permission: 'roles.read' },
+
+    },
+    {
+      path: 'inability',
+      component: InabilityComponent,
+
+    },
+    {
+      path: 'diet-componet',
+      component: DietComponentComponent,
+
+    },
+    {
+      path: 'diet-consistency',
+      component: DietConsistencyComponent,
+
+    },
+    {
+      path: 'diet-day',
+      component: DietDayComponent,
+
+    },
+    {
+      path: 'diet-dish',
+      component: DietDishComponent,
+
+    },
+    {
+      path: 'diet-menu-type',
+      component: DietMenuTypeComponent,
+
+    },
+    {
+      path: 'diet-supplies',
+      component: DietSuppliesComponent,
+
+    },
+    {
+      path: 'diet-supply-type',
+      component: DietSupplyTypeComponent,
+
+    },
+    {
+      path: 'diet-week',
+      component: DietWeekComponent,
+
+    },
+    {
+      path: 'diet-menu',
+      component: DietMenuComponent,
+
+    },
+    {
+      path: 'locality',
+      component: LocalityComponent,
+
+    },
+    {
+      path: 'neighborhood',
+      component: NeighborhoodOrResidenceComponent,
+
+    },
+    {
+      path: 'pad-risk',
+      component: PadRiskComponent,
+
+    },
+    {
+      path: 'tariff',
+      component: TariffComponent,
+
     },
     {
       path: 'gloss-modality',
       component: GlossModalityComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'gloss-ambit',
       component: GlossAmbitComponent,
-      data: { permission: 'roles.read' },
+
+    },
+    {
+      path: 'contract-type',
+      component: ContractTypeComponent,
+
+    },
+    {
+      path: 'type-professional',
+      component: TypeProfessionalComponent,
+
+    },
+    {
+      path: 'observation-novelty',
+      component: ObservationNoveltyComponent,
+
+    },
+    {
+      path: 'policy-type',
+      component: PolicyTypeComponent,
+    },
+    {
+      path: 'special-field',
+      component: SpecialFieldComponent,
+
+    },
+    {
+      path: 'cost-center',
+      component: CostCenterComponent,
     },
     {
       path: 'gloss-service',
       component: GlossServiceComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'received-by',
       component: ReceivedByComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'repeated-initial',
       component: RepeatedInitialComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'contract-status',
       component: ContractStatusComponent,
-      data: { permission: 'roles.read' },
+
+    },
+    {
+      path: 'auth-status',
+      component: AuthStatusComponent,
+
     },
     {
       path: 'objetion-code',
       component: ObjetionCodeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'insurance-carrier',
       component: InsuranceCarrierComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'modality',
       component: ModalityComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'special-attention',
       component: SpecialAttentionComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'scope-of-attention',
       component: ScopeOfAttentionComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'program',
       component: ProgramComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'pavilion',
       component: PavilionComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'flat',
       component: FlatComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'bed',
       component: BedComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'diagnosis',
       component: DiagnosisComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'affiliate-type',
       component: AffiliateTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'admission-route',
       component: AdmissionRouteComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'type-briefcase',
       component: TypeBriefcaseComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'type-contract',
       component: TypeContractComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'administration-route',
       component: AdministrationRouteComponent,
-      data: { permission: 'roles.read' },
-    },
-    {
-      path: 'type-assets',
-      component: TypeAssetsComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'fixed-assets',
       component: FixedAssetsComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'measurement-units',
       component: MeasurementUnitsComponent,
-      data: { permission: 'roles.read' },
+
+    },
+    {
+      path: 'supplies-measure',
+      component: SuppliesMeasureComponent,
+
     },
     {
       path: 'product-concentration',
       component: ProductConcentrationComponent,
-      data: { permission: 'roles.read' },
-    },
-    {
-      path: 'consumption-unit',
-      component: ConsumptionUnitComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product-presentation',
       component: ProductPresentationComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product-group',
       component: ProductGroupComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product',
       component: ProductComponent,
-      data: { permission: 'roles.read' },
+
+    }
+    ,
+    {
+      path: 'nom-product',
+      component: NomProductComponent,
+
+    },
+    {
+      path: 'billing',
+      component: BillingTabComponent,
+
+    },
+    {
+      path: 'pharmacy-stock',
+      component: PharmacyStockComponent,
+
     },
     {
       path: 'invima-status',
       component: InvimaStatusComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'storage-conditions',
       component: StorageConditionsComponent,
-      data: { permission: 'roles.read' },
-    },
-    {
-      path: 'risk',
-      component: RiskComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product-category',
       component: ProductCategoryComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product-subcategory',
       component: ProductSubcategoryComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'product-generic',
       component: ProductGenericComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'users',
       component: UsersComponent,
-      data: { permission: 'roles.read' },
+
+    },
+    {
+      path: 'location-capacity/single-location-capacity/:user_id',
+      component: SingleLocationCapacityComponent,
+
     },
     {
       path: 'users/create/:id',
@@ -315,29 +487,43 @@ const routes: Routes = [{
     {
       path: 'roles',
       component: RolesComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'roles.read' },
+      // canActivate: [PermissionsGuard],
+      // // data: { permission: 'roles.read'},
+
+    },
+    {
+      path: 'location-capacity',
+      component: LocationCapacityComponent,
+
     },
     {
       path: 'permissions',
       component: PermissionsComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'permisos.read' },
+    },
+    {
+      path: 'manual/procedure-massive/procedure-package/:id',
+      component: ProcedurePackage2Component,
     },
     {
       path: 'items',
       component: ItemComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'items.read' },
     },
     {
       path: 'campus',
       component: CampusComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'procedure-massive/:id',
+      component: ProductMassiveComponent,
+    },
+    {
+      path: 'product-massive/:id',
       component: ProcedureMassiveComponent,
+    },
+    {
+      path: 'insume-massive/:id',
+      component: InsumeMassiveComponent,
     },
     {
       path: 'manual-price/:id',
@@ -350,217 +536,330 @@ const routes: Routes = [{
     {
       path: 'procedure-age',
       component: ProcedureAgeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'factory',
       component: FactoryComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'taxes',
       component: TaxesComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'ciiu-group',
       component: CiiuGroupComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'ciiu-division',
       component: CiiuDivisionComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'ciiu-class',
       component: CiiuClassComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'procedure-category',
       component: ProcedureCategoryComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'rips-typefile',
       component: RipsTypeFileComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'rips-type',
       component: RipsTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'pbs-type',
       component: PbsTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'purpose-service',
       component: PurposeServiceComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'procedure-type',
       component: ProcedureTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'company-kindperson',
       component: CompanyKindpersonComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'company-category',
       component: CompanyCategoryComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
-      path: 'company-mail',
+      path: 'company-mail/:id',
       component: CompanyMailComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
-      path: 'company-document',
+      path: 'company-document/:id',
       component: CompanyDocumentComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'document-account',
       component: DocumentAccountComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'document',
       component: DocumentComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'iva',
       component: IvaComponent,
+
+    },
+    {
+      path: 'relationship',
+      component: RelationshipComponent,
       data: { permission: 'roles.read' },
     },
     {
       path: 'retiner',
       component: RetinerComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'company-ciiu',
       component: CompanyCiiuComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'company-fiscal',
       component: CompanyFiscalComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'manual',
       component: ManualComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'payment-terms',
       component: PaymentTermsComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'company',
       component: CompanyComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
-      path: 'company-taxes',
+      path: 'company-taxes/:id',
       component: CompanyTaxesComponent,
-      data: { permission: 'roles.read' },
     },
     {
       path: 'company-type',
       component: CompanyTypeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'procedure',
       component: ProcedureComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'procedure-purpose',
       component: ProcedurePurposeComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'fiscal-clasification',
       component: FiscalClasificationComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'fiscal-characteristic',
       component: FiscalCharacteristicComponent,
-      data: { permission: 'roles.read' },
+
     },
     {
       path: 'sectional-council',
       component: SectionalCouncilComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'concejo-seccional.read' },
     },
     {
       path: 'district',
       component: DistrictComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'distritos.read' },
+
     },
     {
       path: 'office',
       component: OfficeComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'despacho.read' },
     },
     {
       path: 'dependence',
       component: DependenceComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'dependencia.read' },
+
     },
     {
       path: 'position',
       component: PositionComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'cargos.read' },
+
     },
     {
       path: 'specialty',
       component: SpecialtyComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'especialidad.read' },
     },
     {
       path: 'entity',
       component: EntityComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'entidad.read' },
+
     },
     {
       path: 'region',
       component: RegionComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'region.read' },
+
     },
     {
       path: 'municipality',
       component: MunicipalityComponent,
-      canActivate: [PermissionsGuard],
-      data: { permission: 'ciudad.read' },
+
     },
     {
       path: 'themes',
       component: ThemesComponent,
     },
+    {
+      path: 'hourly-frequency',
+      component: HourlyFrequencyComponent,
+    },
+    {
+      path: 'tc-billing',
+      component: TcBillingComponent,
+    },
+    {
+      path: 'tc-radication',
+      component: TcRadicationComponent,
+    },
+    {
+      path: 'tc-human-talent',
+      component: TcHumanTalentComponent,
+    },
+    {
+      path: 'tc-collection',
+      component: TcCollectionComponent,
+    },
+    {
+      path: 'fixed-area-campus',
+      component: FixedAreaCampusComponent,
+    },
+    {
+      path: 'fixed-stock',
+      component: FixedStockComponent,
+    }
 
+    ,
+    {
+      path: 'fixed-code',
+      component: FixedCodeComponent,
+    },
+    {
+      path: 'fixed-condition',
+      component: FixedConditionComponent,
+    },
+    {
+      path: 'fixed-property',
+      component: FixedPropertyComponent,
+    },
+    {
+      path: 'fixed-clasification',
+      component: FixedClasificationComponent,
+    },
+    {
+      path: 'fixed-type',
+      component: FixedTypeComponent,
+    },
+    {
+      path: 'fixed-nom-product',
+      component: FixedNomProductComponent,
+    },
+    {
+      path: 'fixed-location-campus',
+      component: FixedLocationCampusComponent,
+    },
+    {
+      path: 'fixed-accessories',
+      component: FixedAccessoriesComponent,
+    },
+    {
+      path: 'minimum-salary',
+      component: MinimumSalaryComponent,
+    },
+    {
+      path: 'tax-value-unit',
+      component: TaxValueUnitComponent,
+    },
+    {
+      path: 'municipality-ica',
+      component: MunicipalityIcaComponent,
+    },
+    {
+      path: 'fixed-inventary',
+      component: FixedInventaryComponent,
+    },
+    {
+      path: 'fixed-request',
+      component: FixedRequestComponent,
+    },
+    {
+      path: 'fixed-assets-requests',
+      component: FixedAssetsRequestsComponent,
+    },
+    {
+      path: 'product-supplies',
+      component: ProductSuppliesComponent,
+    },
+    {
+      path: 'supplies-comm',
+      component: SuppliesCommComponent,
+    },
+    {
+      path: 'tc-rentability',
+      component: tcRentabilityComponent,
+    },
+    {
+      path: 'billing-pad-prefix',
+      component: BillingPadPrefixComponent,
+    },
+    {
+      path: 'billing-pad-consecutive',
+      component: BillingPadConsecutiveComponent,
+    },
+    {
+      path: 'assistance-stock',
+      component: AssistanceStockComponent,
+    },
+    {
+      path: 'fixed-patients',
+      component: FixedPatientsComponent,
+    },
+    {
+      path: 'fixed-movements',
+      component: FixedMovementsComponent,
+    },
+    {
+      path: 'product-damaged',
+      component: ProductDamagedComponent,
+    }
   ],
 }];
 

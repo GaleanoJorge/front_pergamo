@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CompanyService } from '../../../business-controller/company.service';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
 import { FormCompanyComponent } from './form-company/form-company.component';
-import { ActionsComponent } from '../sectional-council/actions.component';
+import { ActionsCompanyComponent } from './actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 
@@ -31,7 +31,7 @@ export class CompanyComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -41,7 +41,7 @@ export class CompanyComponent implements OnInit {
             'delete': this.DeleteConfirmCompany.bind(this),
           };
         },
-        renderComponent: ActionsComponent,
+        renderComponent: ActionsCompanyComponent,
       },
       id: {
         title: this.headerFields[0],
@@ -107,19 +107,6 @@ export class CompanyComponent implements OnInit {
       },
     });
   }
-
-  // ChangeState(data) {
-  //   // data.status_id = data.status_id === 1 ? 2 : 1;
-
-  //   this.toastrService.info('', 'Cambiando estado');
-
-  //   this.regionS.Update(data).then((x) => {
-  //     this.toastrService.success('', x.message);
-  //     this.table.refresh();
-  //   }).catch((x) => {
-  //     this.toastrService.danger(x.message);
-  //   });
-  // }
 
   DeleteConfirmCompany(data) {
     this.deleteConfirmService.open(ConfirmDialogComponent, {

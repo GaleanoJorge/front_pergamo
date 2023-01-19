@@ -16,7 +16,7 @@ export class CompanyCategoryComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Tipo de categoria Empresa';
+  public title: string = 'Tipo de Categoria Empresa';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -31,7 +31,7 @@ export class CompanyCategoryComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -56,7 +56,7 @@ export class CompanyCategoryComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Tipo de categoria empresa',
+      name: 'Tipo de Categoria empresa',
       route: '../../setting/company-category',
     },
   ];
@@ -80,7 +80,7 @@ export class CompanyCategoryComponent implements OnInit {
   NewCompanyCategory() {
     this.dialogFormService.open(FormCompanyCategoryComponent, {
       context: {
-        title: 'Crear nuevo tipo de categoria de empresa',
+        title: 'Crear nuevo Tipo de Categoria de Empresa',
         saved: this.RefreshData.bind(this),
       },
     });
@@ -89,7 +89,7 @@ export class CompanyCategoryComponent implements OnInit {
   EditCompanyCategory(data) {
     this.dialogFormService.open(FormCompanyCategoryComponent, {
       context: {
-        title: 'Editar tipo de categoria de empresa',
+        title: 'Editar Tipo de Categoria de Empresa',
         data,
         saved: this.RefreshData.bind(this),
       },

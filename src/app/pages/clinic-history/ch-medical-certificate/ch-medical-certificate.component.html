@@ -1,0 +1,16 @@
+<ngx-form-ch-medical-certificate (messageEvent)="receiveMessage($event)" >
+</ngx-form-ch-medical-certificate>
+<label for="ch_medical_certificate" class="form-text text-muted font-weight-bold align center">Certificado Medico</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table  pager="false" [title]="title" customData="ch_medical_certificate" [settings]="settings"
+      entity="ch_medical_certificate/by_record/{{record_id}}/8?pagination=false">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

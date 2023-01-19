@@ -1,0 +1,22 @@
+
+<div *ngIf="has_input == false || type_record_id != 1">
+  <ngx-form-language-orofacial (messageEvent)="receiveMessage($event)" >
+  </ngx-form-language-orofacial>
+</div>
+
+<div>
+  <label for="orofacial_tl" class="form-text text-muted font-weight-bold align">Orofacial</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table  pager="false" [title]="title" customData="orofacial_tl" [settings]="settings"
+      entity="orofacial_tl/by_record/{{record_id}}/1?pagination=false&has_input={{has_input}}">
+      <div actions>
+        <div class="actions">
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
+</div>

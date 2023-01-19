@@ -9,6 +9,7 @@ import {AuthService} from '../../../services/auth.service';
 import {Origin} from '../../../models/origin';
 import {Router} from '@angular/router';
 import {Role} from '../../../models/role';
+import { environment } from '../../../../environments/environment';
 import {Campus} from '../../../models/campus';
 import { UserCampusBusinessService } from '../../../business-controller/user-campus.service';
 import {User} from '../../../models/user';
@@ -69,16 +70,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
-   
+   this.userMain = this.authService.GetUser();
     this.userService.getUsers()
       .pipe(takeUntil(this.destroy$))
       .subscribe((users: any) => {
-        this.user = users.alan
+        this.user = users.alan;
       });
-    this.userMain = this.authService.GetUser();
 
     if (this.userMain)
       this.user.name = this.userMain.firstname + ' ' + this.userMain.lastname;
+      if(this.userMain.file){
+        this.user.picture = environment.storage + this.userMain.file;;
+      }
 
     const {xl} = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
@@ -101,7 +104,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.currentCampus= this.GetCampus();
       this.origins = this.authService.GetOrigins();
       this.roles = this.authService.GetUser().roles;
-      this.campus= await this.userCampusBS.GetCollection(this.userMain.id);
+      this.campus= await this.userCampusBS.GetCollection(this.userMain.id, {status_id: 1});
     }
   }
 

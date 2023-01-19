@@ -12,6 +12,7 @@ import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
   NbChatModule,
   NbCardModule,
@@ -24,15 +25,19 @@ import {
   NbInputModule,
   NbButtonModule,
   NbAlertModule,
+  NbRadioModule,
+  NbIconModule,
+  NbAutocompleteModule,
 } from '@nebular/theme';
 import { LoginComponent } from './pages/login/login.component';
 import { HttpConfigInterceptor } from './interceptor/httpconfig.interceptor';
 import { DateFormatPipe } from './pipe/date-format.pipe';
 import { PagesModule } from './pages/pages.module';
+import { CurrencyPipe, PercentPipe } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DateFormatPipe],
-  imports: [
+  declarations: [AppComponent, LoginComponent, DateFormatPipe,],
+  imports: [ 
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -44,8 +49,12 @@ import { PagesModule } from './pages/pages.module';
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
     NbButtonModule,
+    NbAutocompleteModule,
     NbInputModule,
     NbAlertModule,
+    NbAutocompleteModule,
+    NbEvaIconsModule,
+    NbIconModule,
     NbCardModule,
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
@@ -55,14 +64,20 @@ import { PagesModule } from './pages/pages.module';
     ReactiveFormsModule,
     FormsModule,
     PagesModule,
+    NbRadioModule,
   ],
   bootstrap: [AppComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    DateFormatPipe,
+    CurrencyPipe,
+    PercentPipe
   ],
   exports: [
     PagesModule,
     DateFormatPipe,
+    CurrencyPipe,
+    NbEvaIconsModule,
   ],
 })
 export class AppModule {

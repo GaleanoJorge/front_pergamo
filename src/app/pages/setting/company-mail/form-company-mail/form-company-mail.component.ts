@@ -18,6 +18,7 @@ export class FormCompanyMailComponent implements OnInit {
 
   @Input() title: string;
   @Input() data: any = null;
+  @Input() company_id: any;
 
   public form: FormGroup;
   // public status: Status[];
@@ -56,23 +57,18 @@ export class FormCompanyMailComponent implements OnInit {
     
     
     this.form = this.formBuilder.group({      
-      company_id: [this.data.company_id, Validators.compose([Validators.required])],
+      company_id: [this.company_id, Validators.compose([Validators.required])],
       mail: [this.data.mail, Validators.compose([Validators.required])],
       city_id: [this.data.city_id, Validators.compose([Validators.required])],
       document_id: [this.data.document_id, Validators.compose([Validators.required])],
     });
 
-     this.RegionS.GetCollection().then(x => {
+    this.RegionS.GetCollection().then(x => {
       this.city=x;
     });
-   /*  this.DocumentS.GetCollection().then(x => {
-      this.company=x;
-    });*/
-     this.DocumentS.GetCollection().then(x => {
+    
+    this.DocumentS.GetCollection().then(x => {
       this.document=x;
-    });
-    this.CompanyS.GetCollection().then(x => {
-      this.company=x;
     });
   }
   
@@ -91,7 +87,7 @@ export class FormCompanyMailComponent implements OnInit {
       if (this.data.id) {
         this.CompanyMailS.Update({
           id: this.data.id,
-          company_id: this.form.controls.company_id.value,
+          company_id: Number(this.company_id),
           mail: this.form.controls.mail.value,
           city_id: this.form.controls.city_id.value,
           document_id: this.form.controls.document_id.value,

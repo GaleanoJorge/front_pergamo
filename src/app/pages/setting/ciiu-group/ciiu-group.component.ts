@@ -16,7 +16,7 @@ export class CiiuGroupComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Grupos de clasificación industrial';
+  public title: string = 'Grupos de Clasificación Industrial';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Código', 'Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]},${this.headerFields[2]}`;
@@ -31,7 +31,7 @@ export class CiiuGroupComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent

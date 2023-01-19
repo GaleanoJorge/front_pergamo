@@ -47,6 +47,22 @@ export class GlossService {
       });
   }
 
+  ChangeStatusBriefcase(status: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('changeStatus');
+    servObj.data = status;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   SaveFile(gloss: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('fileUpload');
     servObj.data = gloss;

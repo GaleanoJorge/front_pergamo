@@ -27,7 +27,7 @@ export class SpecialtyComponent implements OnInit {
   public settings = {
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           return {
@@ -64,7 +64,7 @@ export class SpecialtyComponent implements OnInit {
   public routes = [
     {
       name: 'Especialidades',
-      route: '../../setting/especialidades',
+      route: '../../setting/specialty',
     },
   ]
   constructor(

@@ -1,0 +1,17 @@
+<ngx-form-ch-medical-orders (messageEvent)="receiveMessage($event)" [admission]="admission">
+</ngx-form-ch-medical-orders>
+<label class="form-text text-muted font-weight-bold align">Registro Ordenes Medicas</label>
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <ngx-base-table pager="false" [title]="title" customData="ch_medical_orders" [settings]="settings"
+      entity="ch_medical_orders/by_record/{{record_id}}/6">
+      <div actions>
+        <div class="actions">
+          <button nbButton status="danger" class="ml-1 btn-save" (click)="Historic()">Todos los registros</button>
+        </div>
+        <div class="actions" style="margin-top:1em;">
+        </div>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>

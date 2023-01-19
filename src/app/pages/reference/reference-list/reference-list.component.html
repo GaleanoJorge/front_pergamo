@@ -1,0 +1,30 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="reference?role_id={{this.currentRole.id}}"
+                    customData='reference'
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        
+        <form [formGroup]="form">
+          <div class="actions">
+            
+            <nb-select class="filtros" formControlName="reference_status_id" placeholder="Filtrar por estado">
+              <nb-option value="0">Todos los estados</nb-option>
+              <nb-option *ngFor="let item of reference_status" [value]="item.id">{{item.name}}</nb-option>
+            </nb-select>
+            
+            <button nbButton status="danger" ngxCheckPerms="create" (click)="NewReference()">Crear Referencia</button>
+
+          </div>
+        </form>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

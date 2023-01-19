@@ -1,0 +1,138 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <div class="row justify-content-md-center">
+
+    <div class="col col-lg-3 checks ">
+      <a>
+        <nb-card status="{{this.form.controls.check1.value ? 'success' : 'basic'}}" size="tiny">
+          <nb-card-header>
+            <nb-checkbox formControlName="check1" nbCheckBox (disabled)="this.has_input" [disabled]="this.disabled" check1 id="check1"><b></b></nb-checkbox>
+          </nb-card-header>
+          <nb-card-body> {{this.arrayObjectives[0].description}}<br>
+          </nb-card-body>
+        </nb-card>
+      </a>
+    </div>
+
+    <div class="col col-lg-3 checks justify-content">
+      <a>
+        <nb-card status="{{this.form.controls.check2.value ? 'success' : 'basic'}}" size="tiny">
+          <nb-card-header>
+            <nb-checkbox formControlName="check2" nbCheckBox (disabled)="this.has_input" [disabled]="this.disabled" check1 id="check2"><b></b></nb-checkbox>
+          </nb-card-header>
+          <nb-card-body> {{this.arrayObjectives[1].description}}<br>
+          </nb-card-body>
+        </nb-card>
+      </a>
+    </div>
+  
+    <div class="col col-lg-3 checks justify-content">
+      <a>
+        <nb-card status="{{this.form.controls.check3.value ? 'success' : 'basic'}}" size="tiny">
+          <nb-card-header>
+            <nb-checkbox formControlName="check3" nbCheckBox (disabled)="this.has_input" [disabled]="this.disabled" check3 id="check3"><b></b></nb-checkbox>
+          </nb-card-header>
+          <nb-card-body> {{this.arrayObjectives[2].description}}<br>
+          </nb-card-body>
+        </nb-card>
+      </a>
+    </div>
+
+    <div class="col col-lg-3 checks justify-content">
+      <a>
+        <nb-card status="{{this.form.controls.check4.value ? 'success' : 'basic'}}" size="tiny">
+          <nb-card-header>
+            <nb-checkbox formControlName="check4" nbCheckBox (disabled)="this.has_input" [disabled]="this.disabled" check4 id="check4"><b></b></nb-checkbox>
+          </nb-card-header>
+          <nb-card-body> {{this.arrayObjectives[3].description}}<br>
+          </nb-card-body>
+        </nb-card>
+      </a>
+    </div>
+  
+
+    <div class="col col-lg-3 checks justify-content">
+      <a>
+        <nb-card status="{{this.form.controls.check5.value ? 'success' : 'basic'}}" size="tiny">
+          <nb-card-header>
+            <nb-checkbox formControlName="check5" nbCheckBox (disabled)="this.has_input" [disabled]="this.disabled" check5 id="check5"><b></b></nb-checkbox>
+          </nb-card-header>
+          <nb-card-body> {{this.arrayObjectives[4].description}}<br>
+          </nb-card-body>
+        </nb-card>
+      </a>
+    </div>
+
+    <div class="col col-lg-3 checks justify-content">
+      <a>
+        <nb-card status="{{this.form.controls.check6.value ? 'success' : 'basic'}}" size="tiny">
+          <nb-card-header>
+            <nb-checkbox formControlName="check6" nbCheckBox (disabled)="this.has_input" [disabled]="this.disabled" check6 id="check6"><b></b></nb-checkbox>
+          </nb-card-header>
+          <nb-card-body> {{this.arrayObjectives[5].description}}<br>
+          </nb-card-body>
+        </nb-card>
+      </a>
+    </div>
+
+    <div class="col col-lg-3 checks justify-content">
+      <a>
+        <nb-card status="{{this.form.controls.check7.value ? 'success' : 'basic'}}" size="tiny">
+          <nb-card-header>
+            <nb-checkbox formControlName="check7" nbCheckBox (disabled)="this.has_input" [disabled]="this.disabled" check7 id="check7"><b></b></nb-checkbox>
+          </nb-card-header>
+          <nb-card-body> {{this.arrayObjectives[6].description}}<br>
+          </nb-card-body>
+        </nb-card>
+      </a>
+    </div>
+
+    <div class="col col-lg-3 checks justify-content">
+      <a>
+        <nb-card status="{{this.form.controls.check8.value ? 'success' : 'basic'}}" size="tiny">
+          <nb-card-header>
+            <nb-checkbox formControlName="check8" nbCheckBox (disabled)="this.has_input" [disabled]="this.disabled" check8 id="check8"><b></b></nb-checkbox>
+          </nb-card-header>
+          <nb-card-body> {{this.arrayObjectives[7].description}}<br>
+          </nb-card-body>
+        </nb-card>
+      </a>
+    </div>
+  
+
+    <div class="col col-lg-3 checks justify-content">
+      <a>
+        <nb-card size="tiny" status="{{this.form.controls.check9.value ? 'success' : 'basic'}}" >
+          <nb-card-header>
+            <nb-checkbox formControlName="check9" nbCheckBox (disabled)="this.has_input" [disabled]="this.disabled" check9 id="check9"><b></b></nb-checkbox>
+          </nb-card-header>
+          <nb-card-body> {{this.arrayObjectives[8].description}}<br>
+          </nb-card-body>
+        </nb-card>
+      </a>
+    </div>
+
+    <div class="col col-lg-3 checks justify-content">
+      <a>
+        <nb-card size="tiny" status="{{this.form.controls.check10.value ? 'success' : 'basic'}}" >
+          <nb-card-header>
+            <nb-checkbox formControlName="check10" nbCheckBox (disabled)="this.has_input" [disabled]="this.disabled" check10 id="check10"><b></b></nb-checkbox>
+          </nb-card-header>
+          <nb-card-body> {{this.arrayObjectives[9].description}}<br>
+          </nb-card-body>
+        </nb-card>
+      </a>
+    </div>
+
+  </div>
+
+  
+
+
+    <div class="row">
+      <div class="col-md-12" *ngIf="!has_input">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+      </div>
+    </div>
+  
+</form>

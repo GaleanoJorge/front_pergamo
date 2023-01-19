@@ -17,7 +17,7 @@ export class ObjetionCodeResponseComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Codigo de respuesta objeción de glosas';
+  public title: string = 'Código de Respuesta Objeción de Glosas';
   public subtitle: string = 'Respuesta';
   public headerFields: any[] = ['ID','Código','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}`;
@@ -32,7 +32,7 @@ export class ObjetionCodeResponseComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent

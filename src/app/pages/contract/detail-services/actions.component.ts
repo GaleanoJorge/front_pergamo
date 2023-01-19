@@ -10,13 +10,33 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <button nbButton ghost (click)="ConfirmAction(confirmAction)">
+      <button nbTooltip="Editar" *ngIf="value.role_permisos.includes(2)" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton  ghost (click)="ConfirmAction(confirmAction)">
         <nb-icon icon="edit-outline"></nb-icon>
       </button>
-      <button nbButton ghost (click)="value.delete(value.data)">
+      <button nbTooltip="Eliminar" *ngIf="value.role_permisos.includes(4)" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
       </button>
+      <a *ngIf="value.data.manual_price.manual_procedure_type_id==3 && value.role_permisos.includes(1)"  nbTooltip="Información del paquete" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/setting/manual/procedure-massive/procedure-package/' + value.data.manual_price.id">
+        <nb-icon icon="info-outline"></nb-icon>
+      </a>
+      <button *ngIf="value.data.manual_price.description" nbButton ghost [nbPopover]="templateRef"  nbPopoverPlacement="end" nbPopoverTrigger="hover">
+      <nb-icon icon="eye-outline"></nb-icon>
+    </button>
     </div>
+
+
+<ng-template #templateRef>
+<div class="p-3 container-fluid">
+  <nb-card style="max-width: 430px;max-height: 500px;overflow: auto;">
+  <nb-card-header>Descripción</nb-card-header>
+    <nb-card-body>
+      <p>
+        {{value.data.manual_price.description}}     
+      </p>
+    </nb-card-body>
+  </nb-card>
+</div>
+</ng-template>
     <ng-template #confirmAction>
   <div class="container-fluid">
       <nb-card>
@@ -27,7 +47,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
                           <div class="col-md-12">
                             <label for="factor" class="form-text text-muted font-weight-bold">Signo:</label>
                             <nb-select formControlName="factor_sign" id="factor_sign" fullWidth
-                              status="{{ isSubmitted && form.controls.factor_sign.errors ? 'danger' : isSubmitted ? 'success' : '' }}">
+                              status="{{ isSubmitted && form.controls.factor_sign.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                               <nb-option value="">Seleccione...</nb-option>
                               <nb-option [value]="0">+</nb-option>
                               <nb-option [value]="1">-</nb-option>
@@ -36,7 +56,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
                           <div class="col-md-12">
                             <label for="factor" class="form-text text-muted font-weight-bold">Factor en porcentaje:</label>
                             <input nbInput fullWidth id="factor" formControlName="factor" factor
-                              status="{{ isSubmitted && form.controls.factor.errors ? 'danger' : isSubmitted ? 'success' : '' }}" />
+                              status="{{ isSubmitted && form.controls.factor.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                           </div>
                         </div>
                               <div class="div-send">
@@ -75,7 +95,7 @@ export class Actions4Component implements ViewCell {
 
   });
 
-  console.log(this.value);
+  // console.log(this.value);
 
   }
   update(){

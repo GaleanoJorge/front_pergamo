@@ -16,7 +16,7 @@ export class ProductGroupComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Grupo del producto';
+  public title: string = 'Grupo del Producto';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID','Nombre'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -31,7 +31,7 @@ export class ProductGroupComponent implements OnInit {
     },
     columns: {
       actions: {
-        title: '',
+        title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
           // DATA FROM HERE GOES TO renderComponent
@@ -79,6 +79,7 @@ export class ProductGroupComponent implements OnInit {
 
   NewProductGroup() {
     this.dialogFormService.open(FormProductGroupComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Crear nuevo Grupo del producto',
         saved: this.RefreshData.bind(this),
@@ -88,6 +89,7 @@ export class ProductGroupComponent implements OnInit {
 
   EditProductGroup(data) {
     this.dialogFormService.open(FormProductGroupComponent, {
+      closeOnBackdropClick: false,
       context: {
         title: 'Editar Grupo del producto',
         data,

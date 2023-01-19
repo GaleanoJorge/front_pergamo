@@ -1,0 +1,37 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <hr/>
+
+  <div class ="justify-content-center">
+
+    
+    <div class="col col-lg-12">
+      <label for="monthly_sessions_text" class="form-text text-muted font-weight-bold">Sesiones Mensuales:</label>
+      <input  type="number" id="monthly_sessions" nbInput fullWidth formControlName="monthly_sessions" current_illness rows="1" onpaste="return false"
+        cols="50"
+        status="{{ isSubmitted && form.controls.monthly_sessions.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+     </div>
+    
+     <div class="col col-lg-12">
+      <label for="weekly_intensity_text" class="form-text text-muted font-weight-bold">Intensidad Semanal:</label>
+      <input type="number" id="weekly_intensity" nbInput fullWidth formControlName="weekly_intensity" current_illness rows="1" onpaste="return false"
+        cols="50"
+        status="{{ isSubmitted && form.controls.weekly_intensity.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+     </div>
+
+
+<div class="col col-lg-12">
+ <label for="recommendations_text" class="form-text text-muted font-weight-bold">Recomendaciones/Educacion</label>
+ <textarea id="recommendations" nbInput fullWidth formControlName="recommendations" current_illness rows="1" onpaste="return false"
+   cols="50"
+   status="{{ isSubmitted && form.controls.recommendations.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"> </textarea>
+</div>
+
+</div>
+
+<div class="div-send">
+  <button nbButton status="danger" class="ml-FUNCIONAL btn-save" [disabled]="disabled" type="submit">GUARDAR</button>
+</div>
+    
+
+</form>

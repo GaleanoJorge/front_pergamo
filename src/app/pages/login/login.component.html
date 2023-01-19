@@ -16,29 +16,45 @@
       </div>
       <div class="col-12">
         <form [formGroup]="loginForm" *ngIf="!resetPasswordForm">
-          <div class="div-form-login">
-          <small class="col-md-4 form-text text-muted">USUARIO</small>
-          <input class="input-login input-login-style" type="username" nbInput fullWidth
-            status="{{ isSubmitted && loginForm.controls.username.errors ? 'danger' : isSubmitted ? 'success' : '' }}"
-             formControlName="username" required username minlength="5" autocomplete="on">
-            </div>
+          <div class="div-form-login row">
+            <small class="col-md-4 form-text text-muted">USUARIO</small>
+            <input class="input-login input-login-style col-md-8" type="username" nbInput fullWidth
+              status="{{ isSubmitted && loginForm.controls.username.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+              formControlName="username" required username minlength="5" autocomplete="on">
+          </div>
           <div *ngIf="loginForm.controls.username.errors && isSubmitted ">
             <small *ngIf="loginForm.controls.username.errors.required">Ingrese su correo</small>
           </div>
-        <div class="div-form-login">
-          <small class="col-md-4 form-text text-muted">CONTRASEÑA</small>
-          <input (change)="login()" class="input-login input-login-style" type="password" nbInput fullWidth
-            status="{{ isSubmitted && loginForm.controls.password.errors ? 'danger' :  isSubmitted ? 'success' : '' }}"
-            status="danger" formControlName="password" required minlength="5"
-            autocomplete="on">
+          <div class="div-form-login row">
+            <small class="col-md-4 form-text text-muted">CONTRASEÑA</small>
+            <!-- <input (change)="login()" class="input-login input-login-style" type="password" nbInput fullWidth
+              status="{{ isSubmitted && loginForm.controls.password.errors ? 'danger' :  isSubmitted ? 'success' : '' }}"
+              status="danger" formControlName="password" required minlength="5" autocomplete="on"> -->
+
+              <div class="input-group col-md-8">
+                <nb-form-field class="w-100">
+                  <input (change)="login()" class="input-login input-login-style password" [type]="getInputTypePassword()" nbInput fullWidth id="password"
+                    formControlName="password" password
+                    status="{{ isSubmitted && loginForm.controls.password.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+  
+                  <button nbSuffix nbButton ghost (click)="toggleShowPassword()" type="button" class="btn-login">
+                    <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'" pack="eva"
+                      [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+                    </nb-icon>
+                  </button>
+                </nb-form-field>
+              </div>
           </div>
+        
+          
           <div *ngIf="loginForm.controls.password.errors && isSubmitted ">
             <small *ngIf="loginForm.controls.password.errors.required">Ingrese la contraseña</small>
           </div>
           <div class="actions" style="display:flex;margin-top:2em;margin-bottom: 2em;justify-content: center;">
-              <select (change)="ChangeCampus($event.target.value)" placeholder="Seleccione una sede" [(selected)]="campus">
-                <option value="0">Seleccione una sede</option>
-                <option *ngFor="let item of campus" [value]="item.campus.id">{{item.campus.name}}</option>
+            <select (change)="ChangeCampus($event.target.value)" placeholder="Seleccione una sede"
+              [(selected)]="campus">
+              <option value="0">Seleccione una sede</option>
+              <option *ngFor="let item of campus" [value]="item.campus.id">{{item.campus.name}}</option>
             </select>
           </div>
           <div class="row text-center">
@@ -63,7 +79,8 @@
             </div>
           </div> -->
           <div class="center-items-column text-center">
-            <button (click)="chargeCampus()" class="input-login btn-login-w" type="submit" nbButton status="primary" style="width: auto;">Iniciar
+            <button (click)="chargeCampus()" class="input-login btn-login-w" type="submit" nbButton status="primary"
+              style="width: auto;">Iniciar
               Sesión</button>
             <a class="input-login btn-login-w" routerLink="/public/company" nbButton status="info"
               style="margin-top: 10px;width: auto;display: none !important;">O Registrate aquí</a>

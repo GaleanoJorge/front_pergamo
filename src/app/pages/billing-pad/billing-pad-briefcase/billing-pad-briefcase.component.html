@@ -1,0 +1,13 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+    <ngx-base-table [title]="title" [subtitle]="subtitle" [settings]="settings"
+          entity="briefcasecontract/briefcaseByContract/{{this.contract_id}}" customData="briefcase"
+          [messageToltip]="messageToltip">
+          <div actions>
+            <div class="actions" style="margin-top:1em;">
+              <button nbButton (click)="back()" >Volver</button>
+            </div>
+          </div>
+        </ngx-base-table>
+  </div>
+</ngx-base-list>

@@ -17,6 +17,10 @@ ng-content {
   padding: 0.5rem 1rem;
 }
 
+:host ::ng-deep ng2-smart-table table tr th a{
+  font-weight: 700 !important;
+}
+
 .datatable-footer {
   display: flex;
   justify-content: space-between;
@@ -31,7 +35,7 @@ ng-content {
   position: absolute;
   display: flex;
   justify-content: space-between;
-  bottom: 35px;
+  bottom: 95px;
   width: 95%;
   pointer-events: none;
 }
