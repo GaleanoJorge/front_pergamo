@@ -877,7 +877,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
 //
       this.form
         .get('procedure_id')
-        .patchValue(this.getCompleteName(this.data.services_briefcase));
+        .patchValue(this.data.services_briefcase != '' ? this.getCompleteName(this.data.services_briefcase) : '');
       this.form.patchValue({
         procedures: this.data.medical_diary.procedure_id,
       });

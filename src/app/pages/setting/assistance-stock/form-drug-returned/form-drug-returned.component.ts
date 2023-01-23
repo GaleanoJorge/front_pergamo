@@ -104,6 +104,10 @@ export class FormDrugReturnedComponent implements OnInit {
           own_pharmacy_stock_id: this.data2.own_pharmacy_stock_id,
           user_request_pad_id: this.user_id,
           pharmacy_request: this.data2.id,
+          product_generic_id: this.data2.product_generic_id,
+          product_supplies_id: this.data2.product_supplies_id,
+          scope_of_attention_id: this.data2.scope_of_attention_id,
+          pavilion_id: this.data2.pavilion_id,
 
         }).then((x) => {
           this.toastService.success('', x.message);

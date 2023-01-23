@@ -8,17 +8,17 @@
         <div *ngIf="this.show == 1">
 
           <nb-stepper #stepper [linear]="false">
-            <nb-step label="Medicamentos" style="padding: initial;">
+            <nb-step *ngIf="!pavilion_only" label="Medicamentos" style="padding: initial;">
               <ngx-assistance-stock [user]="this.user" [admissions_id]="this.admissions_id" [type]="1">
               </ngx-assistance-stock>
             </nb-step>
 
             <nb-step label="Insumos" style="padding: initial;">
-              <ngx-assistance-stock [user]="this.user" [admissions_id]="this.admissions_id" [type]="2">
+              <ngx-assistance-stock [user]="this.user" [admissions_id]="this.admissions_id" [type]="2" [pavilion_only]="pavilion_only" [pavilion_id]="pavilion_id" [scope_of_attention_id]="scope_of_attention_id">
               </ngx-assistance-stock>
             </nb-step>
 
-            <nb-step label="Activos fijos" style="padding: initial;">
+            <nb-step *ngIf="!pavilion_only" label="Activos fijos" style="padding: initial;">
               <ngx-fixed-return  [user]="this.user" [admissions_id]="this.admissions_id"></ngx-fixed-return>
             </nb-step>
           </nb-stepper>
@@ -30,9 +30,9 @@
         <div *ngIf="this.show == 2">
           <nb-stepper #stepper [linear]="false">
             <nb-step label="Insumos" style="padding: initial;">
-              <ngx-insume-request [user]="this.user" [admissions_id]="this.admissions_id"></ngx-insume-request>
+              <ngx-insume-request [user]="this.user" [admissions_id]="this.admissions_id" [pavilion_only]="pavilion_only" [pavilion_id]="pavilion_id" [scope_of_attention_id]="scope_of_attention_id"></ngx-insume-request>
             </nb-step>
-            <nb-step label="Activos fijos" style="padding: initial;">
+            <nb-step *ngIf="!pavilion_only" label="Activos fijos" style="padding: initial;">
               <ngx-fixed-plan [user]="user" [admissions_id]="this.admissions_id"></ngx-fixed-plan>
             </nb-step>
           </nb-stepper>

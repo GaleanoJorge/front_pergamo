@@ -12,7 +12,7 @@
             {{ item.description }}</nb-option>
         </nb-select>
       </div> -->
-      <div class="col-12 col-sm-12 col-md-6">
+      <div class="col-12 col-sm-12 col-md-6"*ngIf="!this.pavilion_only">
         <label class="form-text text-muted font-weight-bold">INSUMO GENÉRICO:</label>
         <input type="text" list="codes1" class="data-list" id="product_supplies_id"
           (change)="saveCode($event.target.value)" formControlName="product_supplies_id" product_supplies_id fullWidth
@@ -20,6 +20,17 @@
           status="{{ isSubmitted && form.controls.product_supplies_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <datalist id="codes1">
           <option *ngFor="let item of product_supplies_id" [value]="item.manual_price.insume.description">{{item.manual_price.insume.description}}
+          </option>
+        </datalist>
+      </div>
+      <div class="col-12 col-sm-12 col-md-6"*ngIf="this.pavilion_only">
+        <label class="form-text text-muted font-weight-bold">INSUMO GENÉRICO:</label>
+        <input type="text" list="codes2" class="data-list" id="product_supplies_id"
+          (change)="saveCode1($event.target.value)" formControlName="product_supplies_id" product_supplies_id fullWidth
+          nbInput
+          status="{{ isSubmitted && form.controls.product_supplies_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+        <datalist id="codes2">
+          <option *ngFor="let item of product_supplies_id" [value]="item.description">{{item.description}}
           </option>
         </datalist>
       </div>
@@ -42,6 +53,19 @@
         <input type="number" oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="request_amount"
           formControlName="request_amount" request_amount
           status="{{ isSubmitted && form.controls.request_amount.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+      </div>
+
+
+      <div class="col-12 col-sm-12 col-md-6" *ngIf="this.pavilion_only">
+        <label for="pavilion_id" class="form-text text-muted font-weight-bold">PABELLÓN:</label>
+        <nb-select [selected]="this.data.pavilion_id" formControlName="pavilion_id"
+          id="pavilion_id" fullWidth
+          status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.pavilion_id }}"
+            *ngFor="let item of pavilion" [value]="item.id">
+            {{ item.name }} - {{ item.flat.name }}</nb-option>
+        </nb-select>
       </div>
 
 
