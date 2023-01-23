@@ -33,6 +33,7 @@ export class PharmacyIncomePatientComponent implements OnInit {
   public most: boolean = false;
   public entity;
   public pharmacy_stock;
+  public pharmacy;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -141,10 +142,12 @@ export class PharmacyIncomePatientComponent implements OnInit {
   ChangePharmacy(pharmacy) {
     if (pharmacy == 0) {
       this.table.changeEntity('pharmacy_product_request?status=DEVUELTO_PACIENTE' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
-
+      this.title = 'MEDICAMENTOS DEVUELTOS A: ' + this.my_pharmacy_id;
     } else {
-
+      this.pharmacy = pharmacy;
       this.table.changeEntity('pharmacy_product_request?status=DEVUELTO_PACIENTE' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+      let aaa = (this.pharmacy_stock.find(item => {return item.pharmacy_stock_id==this.pharmacy}).pharmacy.name);
+      this.title = 'MEDICAMENTOS DEVUELTOS A: ' + aaa;
     }
     // this.RefreshData();
   }
@@ -162,6 +165,7 @@ export class PharmacyIncomePatientComponent implements OnInit {
         title: 'Aceptar Medicamento',
         data: data,
         my_pharmacy_id: this.my_pharmacy_id,
+        pharmacy: this.pharmacy,
         saved: this.RefreshData.bind(this),
       },
     });
