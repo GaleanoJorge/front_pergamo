@@ -80,9 +80,15 @@ export class FormNRValorationFTComponent implements OnInit {
   }
 
   saveCode(e): void {
-    var localidentify = this.diagnosisr.find(item => item.name == e);
-    if (localidentify) {
-      this.ch_diagnosis_id = localidentify.id;
+    if (this.diagnosisr) {
+      var localidentify = this.diagnosisr.find(item => item.name == e);
+      if (localidentify) {
+        this.ch_diagnosis_id = localidentify.id;
+      } else {
+        this.ch_diagnosis_id = null;
+        this.form.controls.ch_diagnosis_id.setErrors({ 'incorrect': true });
+        this.toastService.warning('', 'Debe seleccionar un item de la lista');
+      }
     } else {
       this.ch_diagnosis_id = null;
       this.form.controls.ch_diagnosis_id.setErrors({ 'incorrect': true });

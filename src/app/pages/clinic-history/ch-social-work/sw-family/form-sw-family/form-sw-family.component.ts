@@ -150,10 +150,16 @@ export class FormSwFamilyComponent implements OnInit {
 
 
   saveCode(e): void {
-    var localidentify = this.activities.find(item => item.name == e);
-
-    if (localidentify) {
-      this.activities_id = localidentify.id;
+    if (this.activities) {
+      var localidentify = this.activities.find(item => item.name == e);
+  
+      if (localidentify) {
+        this.activities_id = localidentify.id;
+      } else {
+        this.activities_id = null;
+        this.toastService.warning('', 'Debe seleccionar un item de la lista');
+        this.form.controls.activities_id.setErrors({ 'incorrect': true });
+      }
     } else {
       this.activities_id = null;
       this.toastService.warning('', 'Debe seleccionar un item de la lista');
@@ -162,11 +168,15 @@ export class FormSwFamilyComponent implements OnInit {
   }
 
   returnProfession(n): string {
-    var localidentify = this.activities.find(item => item.id == n);
-    var activities_name;
-
-    if (localidentify) {
-      activities_name = localidentify.name;
+    if (this.activities) {
+      var localidentify = this.activities.find(item => item.id == n);
+      var activities_name;
+  
+      if (localidentify) {
+        activities_name = localidentify.name;
+      } else {
+        activities_name = null;
+      }
     } else {
       activities_name = null;
     }

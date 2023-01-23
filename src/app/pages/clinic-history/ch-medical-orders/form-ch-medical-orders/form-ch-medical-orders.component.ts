@@ -177,12 +177,18 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
 
   saveCode(e): void {
-    var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value == true ? item.name : item.manual_price.procedure.name) == e);
-
-    if (localidentify) {
-      this.procedure_id = localidentify.id;
-      this.form.controls.procedure_id.setErrors(null);
-
+    if (this.procedure) {
+      var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value == true ? item.name : item.manual_price.procedure.name) == e);
+  
+      if (localidentify) {
+        this.procedure_id = localidentify.id;
+        this.form.controls.procedure_id.setErrors(null);
+  
+      } else {
+        this.procedure_id = null;
+        this.form.controls.procedure_id.setErrors({ 'incorrect': true });
+        this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
+      }
     } else {
       this.procedure_id = null;
       this.form.controls.procedure_id.setErrors({ 'incorrect': true });

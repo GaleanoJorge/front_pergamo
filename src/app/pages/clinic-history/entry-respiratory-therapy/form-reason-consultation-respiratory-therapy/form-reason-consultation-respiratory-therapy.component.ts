@@ -133,17 +133,27 @@ export class FormReasonConsultationRespiratoryTherapyComponent implements OnInit
   }
 
   saveCode(e): void {
-    var localidentify = this.diagnosis.find(item => item.name == e);
-
-    if (localidentify) {
-      if (e) {
-        this.diagnosis_medical = localidentify.id;
+    if (this.diagnosis) {
+      var localidentify = this.diagnosis.find(item => item.name == e);
+  
+      if (localidentify) {
+        if (e) {
+          this.diagnosis_medical = localidentify.id;
+        } else {
+          this.diagnosis_medical = null;
+          this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+          this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
+        }
+  
       } else {
         this.diagnosis_medical = null;
         this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
         this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
       }
-
+    } else {
+      this.diagnosis_medical = null;
+      this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+      this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
 
