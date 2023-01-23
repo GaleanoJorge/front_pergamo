@@ -21,6 +21,9 @@ export class InsumeRequestComponent implements OnInit {
   @Input() admissions_id: any;
   @Input() type_record_id;
   @Input() has_input: boolean = false;
+  @Input() pavilion_only: boolean = false;
+  @Input() pavilion_id;
+  @Input() scope_of_attention_id;
   @Output() messageEvent = new EventEmitter<any>();
   
   public isSubmitted = false;

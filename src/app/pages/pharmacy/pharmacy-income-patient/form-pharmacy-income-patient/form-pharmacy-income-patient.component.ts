@@ -47,7 +47,7 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    if (this.data.services_briefcase.manual_price.supplies_id != null) {
+    if (this.data.product_supplies_id != null) {
       this.title = 'INSUMO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
