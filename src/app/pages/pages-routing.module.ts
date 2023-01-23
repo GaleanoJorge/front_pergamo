@@ -19,6 +19,12 @@ const routes: Routes = [{
       data: { permission: 'dashboard.read' },
     },
     {
+      path: 'help-center',
+      loadChildren: () => import('./help-center/help-center.module')
+        .then(m => m.HelpCenterModule),
+    },
+
+    {
       path: 'contract',
       loadChildren: () => import('./contract/contract.module')
         .then(m => m.ContractModule),

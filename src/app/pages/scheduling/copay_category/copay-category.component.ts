@@ -18,7 +18,7 @@ import { FormConfirmDisabledComponent } from './form-confirm-disabled/form-confi
 export class CopayCategoryComponent implements OnInit {
   public isSubmitted = false;
   public messageError: string = null;
-  public title: string = 'Categorias por copago';
+  public title: string = 'Categorías';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = [
     'ID',

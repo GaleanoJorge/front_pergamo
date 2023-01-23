@@ -1,0 +1,24 @@
+.cuadrito {
+  align-content: center;
+}
+
+.container div {
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  width: 60%;
+}
+
+.div-two {
+  text-align: center;
+}
+
+.icon {
+  transition: transform .2s;
+}
+
+.icon:hover {
+  transform: scale(1.5);
+}
