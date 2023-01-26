@@ -33,7 +33,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Pedido de insumos">
-            <ngx-insume-request [record_id]="record_id" (messageEvent)="inputMessage($event)" [type_record_id]="type_record_id" [user]="user" [has_input]="has_input"></ngx-insume-request>
+            <ngx-insume-request [record_id]="record_id" (messageEvent)="inputMessage($event)" [type_record_id]="type_record_id" [user]="user" [has_input]="has_input" [admissions]="admissions"></ngx-insume-request>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Sesiones">
