@@ -1,0 +1,83 @@
+.container div {
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 0.5%;
+}
+
+.icon {
+  width: 50%;
+}
+
+.div-two {
+  text-align: center;
+  margin-top: 0.5%;
+  margin-bottom: 3%;
+}
+
+.icon {
+  transition: transform .2s;
+}
+
+.icon:hover {
+  transform: scale(1.5);
+}
+
+.container_administrativo div {
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 0.5%;
+}
+
+.container_asistencial div {
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 0.5%;
+}
+
+.container_configuración div {
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 0.5%;
+}
+
+.container_dashboard div {
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 0.5%;
+}
+
+.container_financiero div {
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 0.5%;
+}
+
+.container_logística div {
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 0.5%;
+}
+
+.tittlemain {
+  color: #4ab4b9;
+  margin-top: 3%;
+  margin-bottom: -3%;
+}
+
+.tittle1 {
+  color: #4ab4b9;
+  margin-top: 0%;
+  margin-bottom: -3%;
+}
+
+.tittle2 {
+  font-size: 80%;
+  color: #8f9bb3;
+}

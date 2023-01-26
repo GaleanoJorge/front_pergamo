@@ -13,10 +13,11 @@ import {
   NbLayoutModule,
 } from '@nebular/theme';
 
-import { HelpCenterRoutingModule } from './help-center-routing.module';
-import { HelpCenterComponent } from './help-center.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { PagesModule } from '../pages.module';
+import { HelpCenterMainRoutingModule } from './help-center-main-routing.module';
+import { HelpCenterMainComponent } from './help-center-main.component';
+import { HelpCenterComponent } from './help-center/help-center.component';
 
 @NgModule({
   imports: [
@@ -32,12 +33,12 @@ import { PagesModule } from '../pages.module';
     NbUserModule,
     NbLayoutModule,
     ThemeModule,
-    HelpCenterRoutingModule,
+    HelpCenterMainRoutingModule,
     NgxEchartsModule,
     PagesModule
   ],
   declarations: [
-    HelpCenterComponent,
+    HelpCenterMainComponent,
     HelpCenterComponent,
   ],
   providers: [],
