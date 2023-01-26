@@ -24,7 +24,17 @@ export class PharmacyIncomePatientComponent implements OnInit {
 
   public title: string = 'ACEPTAR DEVOLUCIONES DE MEDICAMENTOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'MEDICAMENTO DEVUELTO POR', 'PRODUCTO GENERICO', 'NOMBRE PACIENTE', 'DOCUMENTO PACIENTE', 'CANTIDAD', 'OBSERVACIÓN'];
+  public headerFields: any[] = [
+    /*00*/ 'CONSECUTIVO',
+    /*01*/ 'MEDICAMENTO DEVUELTO POR',
+    /*02*/ 'PRODUCTO GENERICO',
+    /*03*/ 'NOMBRE PACIENTE',
+    /*04*/ 'DOCUMENTO PACIENTE',
+    /*05*/ 'CANTIDAD',
+    /*06*/ 'OBSERVACIÓN',
+    /*07*/'SEDE',
+    /*08*/'PABELLÓN',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]},${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public validator;
@@ -87,14 +97,44 @@ export class PharmacyIncomePatientComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.patients.firstname + ' ' + value.patients.lastname;
+          if (value) {
+            return value.patients.firstname + ' ' + value.patients.lastname;
+          } else {
+            return '--';
+          }
         },
       },
       identification: {
         title: this.headerFields[4],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.admissions.patients.identification;
+          if (value) {
+            return row.admissions.patients.identification;
+          } else {
+            return '--';
+          }
+        },
+      },
+      campus: {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.pavilion) {
+            return row.pavilion.flat.campus.name;
+          } else {
+            return '--';
+          }
+        },
+      },
+      pavilion: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.pavilion) {
+            return row.pavilion.name;
+          } else {
+            return '--';
+          }
         },
       },
       request_amount: {

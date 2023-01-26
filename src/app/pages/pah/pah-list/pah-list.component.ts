@@ -22,6 +22,7 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { BedService } from '../../../business-controller/bed.service';
 import { FlatService } from '../../../business-controller/flat.service';
 import { PavilionService } from '../../../business-controller/pavilion.service';
+import { SuppliesView } from '../../pad/management-plan/supplies-view/supplies-view.component';
 
 @Component({
   selector: 'ngx-pah-list',
@@ -611,5 +612,17 @@ export class PahListComponent implements OnInit {
 
   changeEntity() {
     this.table.changeEntity(`${this.entity}&eps=${this.eps_id}&flat_id=${this.flat_id}&pavilion_id=${this.pavilion_id}&bed_id=${this.bed_id}`, 'patients')
+  }
+
+  suppliesView() {
+    this.dialogFormService.open(SuppliesView, {
+      context: {
+        own_user: this.user,
+        title: 'Suministros',
+        is_hospitalary: true,
+        pavilion_only: true,
+        scope_of_attention_id: 1,
+      },
+    });
   }
 }

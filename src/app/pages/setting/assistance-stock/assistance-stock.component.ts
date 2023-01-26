@@ -27,6 +27,9 @@ export class AssistanceStockComponent implements OnInit {
   @Input() admissions_id: any = null;
   @Input() parentData: any = null;
   @Input() type;
+  @Input() pavilion_id: any = null;
+  @Input() scope_of_attention_id: any = null;
+  @Input() pavilion_only: boolean = false;
 
   public isSubmitted = false;
   public messageError: string = null;
@@ -37,6 +40,7 @@ export class AssistanceStockComponent implements OnInit {
   public icon: string = 'nb-star';
   public entity: string = null;
   public user_id;
+  public campus_id;
   public data = [];
   public routes;
   public show;
@@ -178,15 +182,12 @@ export class AssistanceStockComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.type == 1) {
-      this.entity = 'pharmacy_product_request_for_use/?pagination=false&admissions=' + this.admissions_id + '&type=' + this.type;
-    } else if (this.type == 2) {
+    this.campus_id = +localStorage.getItem('campus');
+    if (!this.pavilion_only) {
       this.entity = 'pharmacy_product_request_for_use/?pagination=false&admissions=' + this.admissions_id + '&type=' + this.type;
     } else {
-      this.entity = 'pharmacy_product_request_for_use/?pagination=false&admissions=' + this.admissions_id + '&type=' + this.type;
+      this.entity = 'pharmacy_product_request_for_use/?pagination=false&pavilion_id=' + this.pavilion_id + '&campus_id=' + this.campus_id + '&type=' + this.type;
     }
-
-
 
   }
 
