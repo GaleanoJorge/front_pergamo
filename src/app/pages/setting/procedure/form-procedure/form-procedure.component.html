@@ -102,12 +102,11 @@
 
         <div class="col-12 col-sm-12 col-md-4">
           <label for="payment_type" class="form-text text-muted font-weight-bold">Tipo de recaudo:</label>
-          <nb-select [selected]="this.data.payment_type" formControlName="payment_type" id="payment_type" fullWidth
-            status="{{ isSubmitted && form.controls.payment_type.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-select [selected]="this.data.payment_type_id" formControlName="payment_type_id" id="payment_type_id" fullWidth
+            status="{{ isSubmitted && form.controls.payment_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option value="1">COUTA MODERADORA</nb-option>
-            <nb-option value="2">COPAGO</nb-option>
-            <nb-option value="3">EXENTO</nb-option>
+            <nb-option selected="{{ item.id == data.payment_type_id }}" *ngFor="let item of paymentType" [value]="item.id">
+              {{ item.name }}</nb-option>
           </nb-select>
         </div>
         <!-- <div class="col-12 col-sm-12 col-md-4">
