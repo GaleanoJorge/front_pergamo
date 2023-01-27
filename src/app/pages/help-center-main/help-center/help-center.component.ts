@@ -60,8 +60,8 @@ export class HelpCenterComponent {
     goToLogistic(){
         this.router.navigateByUrl("/pages/help-center/logistic");
     }
-    goToSetting2(){
-        this.router.navigateByUrl("/pages/help-center/setting2");
+    goToMaintenance(){
+        this.router.navigateByUrl("/pages/help-center/maintenance");
     }
     back() {
         this.location.back();
