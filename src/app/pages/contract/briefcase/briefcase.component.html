@@ -11,7 +11,7 @@
                     >
       <div actions>
         <div class="actions">
-          <a nbButton routerLink="/pages/contract/list">Volver</a>
+          <button nbButton (click)="back()">Volver</button>
           <button nbButton status="danger" *ngIf="this.role_permisos.includes(2)" (click)="NewBriefcase()">Crear</button>
         </div>
       </div>
