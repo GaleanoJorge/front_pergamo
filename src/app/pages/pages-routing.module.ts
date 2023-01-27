@@ -49,7 +49,7 @@ const routes: Routes = [{
         .then(m => m.HelpCenterModule),
     },
     {
-      path: 'help-center/setting2',
+      path: 'help-center/Maintenance',
       loadChildren: () => import('./help-center-main/help-center-main.module')
         .then(m => m.HelpCenterModule),
     },
