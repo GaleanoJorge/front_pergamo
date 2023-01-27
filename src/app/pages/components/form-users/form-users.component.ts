@@ -965,9 +965,6 @@ export class FormUsersComponent implements OnInit {
 
         this.form.get('num2').setValidators(Validators.required);
         this.form.controls.num2.updateValueAndValidity();
-
-        this.form.get('residence_address_cardinality').setValidators(Validators.required);
-        this.form.controls.residence_address_cardinality.updateValueAndValidity();
         //this.form.get('inability_id').updateValueAndValidity();
       } else {
 
@@ -1000,9 +997,6 @@ export class FormUsersComponent implements OnInit {
 
         this.form.controls.num2.clearValidators();
         this.form.controls.num2.setErrors(null);
-
-        this.form.controls.residence_address_cardinality.clearValidators();
-        this.form.controls.residence_address_cardinality.setErrors(null);
 
       }
     });
