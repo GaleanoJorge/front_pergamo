@@ -19,6 +19,42 @@ const routes: Routes = [{
       data: { permission: 'dashboard.read' },
     },
     {
+      path: 'help-center',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/administrative',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/assistencial',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/statistic',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/finance',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/logistic',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/setting2',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+
+    {
       path: 'contract',
       loadChildren: () => import('./contract/contract.module')
         .then(m => m.ContractModule),

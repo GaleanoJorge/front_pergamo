@@ -49,7 +49,7 @@
             formControlName="procedure_id" procedure_id type="text" required
             status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes2">
-            <option *ngFor="let item of procedure" [value]="item.name">{{ item.name }}</option>
+            <option *ngFor="let item of procedure" [value]="item.name">{{ item.code }} - {{ item.name }}</option>
           </datalist>
         </div>
     </div>

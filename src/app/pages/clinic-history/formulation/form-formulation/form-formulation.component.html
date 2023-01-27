@@ -75,7 +75,7 @@
                     <label class="form-text text-muted font-weight-bold">Dosis por aplicación</label>
                     <div class="row" style="justify-content: center;">
                       <div class="asd">
-                        <input type="number" min="0" pattern="^[0-9]+" placeholder="DOSIS" class="Box" id="dose" formControlName="dose" dose nbInput
+                        <input type="number" min="0" pattern="^[0-9.,]+" placeholder="DOSIS" class="Box" id="dose" formControlName="dose" dose nbInput
                           (change)="onChangesFormulation($event, 3)"
                           status="{{ isSubmitted && form.controls.dose.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                       </div>

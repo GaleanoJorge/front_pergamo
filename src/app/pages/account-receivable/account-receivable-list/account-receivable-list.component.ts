@@ -191,7 +191,7 @@ export class AccountReceivableListComponent implements OnInit {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.firstname + ' ' + value.lastname;
+          return row.nombre_completo;
         },
       },
       observation: {

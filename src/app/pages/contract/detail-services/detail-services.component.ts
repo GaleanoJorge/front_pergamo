@@ -69,7 +69,7 @@ export class DetailServicesComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction(value, row) {
-          if(row.manual_price.manual_procedure_type_id==3){
+          if(row.manual_price.own_code){
             return row.manual_price.own_code;          
           }else if(row.manual_price.procedure){
             return row.manual_price.procedure.code;
