@@ -7,8 +7,8 @@
             </a>
         </div>
         <div class="col-md-3 div-two">
-            <a (click)="goToSetting2()">
-                <img src="assets/images/Configuración.svg" alt="Configuración" class="icon" />
+            <a (click)="goToMaintenance()">
+                <img src="assets/images/Mantenimiento del sistema.svg" alt="Mantenimiento" class="icon" />
             </a>
         </div>
 
@@ -47,16 +47,6 @@
         </div>
 
 
-    </div>
-</div>
-
-<div *ngIf="this.mainhelpcenter == 'ADMINISTRATIVE'" class="container_administrativo">
-    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
-        (click)="back()">Volver</button>
-    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
-        <span style="text-align:center;" class="tittle2">ADMINISTRATIVO</span>
-    </h1>
-    <div class="row">        
     </div>
 </div>
 
@@ -107,15 +97,15 @@
     </div>
 </div>
 
-<div *ngIf="this.mainhelpcenter == 'SETTING2'" class="container_configuración">
+<div *ngIf="this.mainhelpcenter == 'MAINTENANCE'" class="container_mantenimiento">
     <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
         (click)="back()">Volver</button>
     <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
-        <span style="text-align:center;" class="tittle2">CONFIGURACIÓN</span>
+        <span style="text-align:center;" class="tittle2">MANTENIMIENTO DEL SISTEMA</span>
     </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
-        <img src="assets/images/Configuración.svg" alt="Configuración" class="icon" />
+        <img src="assets/images/Mantenimiento del sistema.svg" alt="mantenimiento" class="icon" />
         <!-- </a> -->
     </div>
 </div>
