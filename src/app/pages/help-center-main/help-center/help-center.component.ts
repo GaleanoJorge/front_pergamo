@@ -25,11 +25,11 @@ export class HelpCenterComponent {
 
     ngOnInit() {
 
-        if(this.router.url == "/pages/help-center/administrative"){
-            this.mainhelpcenter = "ADMINISTRATIVE";
-
-        }else if(this.router.url == "/pages/help-center/assistencial"){
+        if(this.router.url == "/pages/help-center/assistencial"){
             this.mainhelpcenter = "ASSISTENCIAL";
+
+        }else if(this.router.url == "/pages/help-center/quality"){
+            this.mainhelpcenter = "QUALITY";
 
         }else if(this.router.url == "/pages/help-center/statistic"){
             this.mainhelpcenter = "STATISTIC";
@@ -40,16 +40,22 @@ export class HelpCenterComponent {
         }else if(this.router.url == "/pages/help-center/logistic"){
             this.mainhelpcenter = "LOGISTIC";
 
-        }else if(this.router.url == "/pages/help-center/setting2"){
-            this.mainhelpcenter = "SETTING2";
+        }else if(this.router.url == "/pages/help-center/sysmaintenance"){
+            this.mainhelpcenter = "SYSMAINTENANCE";
+
+        }else if(this.router.url == "/pages/help-center/helpdesk"){
+            this.mainhelpcenter = "HELPDESK";
+
+        }else if(this.router.url == "/pages/help-center/talent"){
+            this.mainhelpcenter = "TALENT";
         }
     }
-
-    goToAdministrative(){
-        this.router.navigateByUrl("/pages/help-center/administrative");
-    }
+    
     goToAssistencial(){
         this.router.navigateByUrl("/pages/help-center/assistencial");
+    }
+    goToQuality(){
+        this.router.navigateByUrl("/pages/help-center/quality");
     }
     goToStatistic(){
         this.router.navigateByUrl("/pages/help-center/statistic");
@@ -60,12 +66,17 @@ export class HelpCenterComponent {
     goToLogistic(){
         this.router.navigateByUrl("/pages/help-center/logistic");
     }
-    goToMaintenance(){
-        this.router.navigateByUrl("/pages/help-center/maintenance");
+    goToSysMaintenance(){
+        this.router.navigateByUrl("/pages/help-center/sysmaintenance");
+    }
+    goToHelpDesk(){
+        this.router.navigateByUrl("/pages/help-center/helpdesk");
+    }
+    goToTalent(){
+        this.router.navigateByUrl("/pages/help-center/talent");
     }
     back() {
-        this.location.back();
-    
+        this.location.back();    
      }
 
 }
