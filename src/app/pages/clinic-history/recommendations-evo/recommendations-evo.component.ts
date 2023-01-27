@@ -16,13 +16,13 @@ export class RecommendationsEvoComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any;
   @Input() type_record: any;
-  @Input() type_record_id:any;
+  @Input() type_record_id: any;
   @Input() has_input: boolean = false;
   @Input() medicine: boolean = false;
   @Input() enfermeryreco: boolean = false;
   @Input() nutrition: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
-  
+
   linearMode = false;
   public messageError = null;
   public title;
@@ -31,9 +31,9 @@ export class RecommendationsEvoComponent implements OnInit {
   public chreasonconsultation: any[];
   public chvitsigns: any[];
   public nameForm: String;
-  public headerFields: any[] = [ 'Fecha','Educación Paciente/Familiar',
+  public headerFields: any[] = ['Fecha', 'Educación Paciente/Familiar',
     'Recomendación', 'Observación',
-  
+
   ];
   public movieForm: String;
 
@@ -55,7 +55,7 @@ export class RecommendationsEvoComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           return {
             data: row,
-            isNutrition: this.nutrition, 
+            isNutrition: this.nutrition,
             // assigned: this.assigned_management_plan,
             // user: this.user,
             refresh: this.RefreshData.bind(this),
@@ -69,52 +69,52 @@ export class RecommendationsEvoComponent implements OnInit {
         valuePrepareFunction: (value) => {
           return this.datePipe.transform4(value);
         },
-	  },
+      },
       patient_family_education: {
         title: this.headerFields[1],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if(value != null){
+          if (value != null) {
             return value;
-            }else{
-              return 'No'
-            }
-          
+          } else {
+            return 'No'
+          }
+
         },
-      
-    },
+
+      },
       recommendations_evo: {
         title: this.headerFields[2],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if(value){
+          if (value) {
             return value.name;
-            }else{
-              return 'NO APLICA'
-            }
-          
+          } else {
+            return 'NO APLICA'
+          }
+
         },
       },
       observations: {
         title: this.headerFields[3],
         width: 'string',
         valuePrepareFunction: (value) => {
-          if(value == null){
+          if (value == null) {
             return "";
+          } else if (this.nutrition) {
+            return value.substr(0, 137);
+          } else {
+            return value;
           }
-          return value.substr(0, 137)
         },
-
-        
       },
-
     },
   };
 
   constructor(
     public userChangeS: UserChangeService,
     public datePipe: DateFormatPipe
-  ) {}
+  ) { }
 
   async ngOnInit() {
     console.log("Holis")
@@ -129,7 +129,7 @@ export class RecommendationsEvoComponent implements OnInit {
       this.RefreshData();
       if (this.type_record == 1) {
         this.messageEvent.emit(true);
-        this.has_input=true;
+        this.has_input = true;
       }
     }
   }
