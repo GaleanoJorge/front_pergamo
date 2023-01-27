@@ -237,13 +237,13 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
   private filterProcedures(value) {
 
-    this.filteredProcedureOptionsApplied = this.filteredProcedureOptions$.filter((procedure) => (procedure.manual_price.own_code + ' - ' + procedure.manual_price.name).includes(value.toUpperCase()));
+    this.filteredProcedureOptionsApplied = this.filteredProcedureOptions$.filter((procedure) => (procedure.manual_price.procedure.code + ' - ' + procedure.manual_price.own_code + ' - ' + procedure.manual_price.name).includes(value.toUpperCase()));
 
   }
 
   onSelectionChange($event) {
     this.procedure = this.filteredProcedureOptions$.find(
-      (item) => item.manual_price.name == this.form.value.procedure_id.split(' - ')[1]
+      (item) => item.manual_price.name == this.form.value.procedure_id.split(' - ')[2]
     );
     if (this.procedure == null) {
       return;
@@ -475,7 +475,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   }
 
   getCompleteName(item) {
-    return item.manual_price.own_code + " - " + item.manual_price.name;
+    return item.manual_price.procedure.code + " - " + item.manual_price.own_code + " - " + item.manual_price.name;
   }
 
   showCaregiver() {
@@ -877,7 +877,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
 //
       this.form
         .get('procedure_id')
-        .patchValue(this.data.services_briefcase != '' ? this.getCompleteName(this.data.services_briefcase) : '');
+        .patchValue(this.getCompleteName(this.data.services_briefcase));
       this.form.patchValue({
         procedures: this.data.medical_diary.procedure_id,
       });

@@ -43,7 +43,17 @@ export class ManagementPlanComponent implements OnInit {
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = '';
-  public headerFields: any[] = ['Servicio', 'Frecuencia', 'Cantidad agendada', 'Personal asistencial', 'Consecutivo de admisión - Ambito - Programa', 'Ejecutado', 'Incumplidas', 'Medicamento'];
+  public headerFields: any[] = [
+    /*00*/'Servicio', 
+    /*01*/'Frecuencia', 
+    /*02*/'Cantidad agendada', 
+    /*03*/'Personal asistencial', 
+    /*04*/'Consecutivo de admisión - Ambito - Programa', 
+    /*05*/'Ejecutado', 
+    /*06*/'Incumplidas', 
+    /*07*/'Medicamento',
+    /*08*/'Fecha creación',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -67,7 +77,7 @@ export class ManagementPlanComponent implements OnInit {
   public valor: any = null;
   public close: any;
   public showAnex: boolean = false;
-
+  static datePipe2: any;
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -176,6 +186,13 @@ export class ManagementPlanComponent implements OnInit {
 
         },
       },
+      created_at: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          return ManagementPlanComponent.datePipe2.transform4(value);
+        },
+      },
     },
   };
 
@@ -252,7 +269,7 @@ export class ManagementPlanComponent implements OnInit {
 
 
   async ngOnInit() {
-
+    ManagementPlanComponent.datePipe2 = this.datePipe;
     if (this.settings1.columns["service_briefcase"].hasOwnProperty("show")) {
       if (this.settings1.columns["service_briefcase"].show == false) {
         delete this.settings1.columns["service_briefcase"];
@@ -445,7 +462,8 @@ export class ManagementPlanComponent implements OnInit {
   }
 
   changeEntity() {
-    this.table.changeEntity(`${this.entity}` + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '', 'management_plan')
+    this.table.changeEntity(`${this.entity}` + '&start_date=' + this.form.controls.start_date.value + '&finish_date=' + this.form.controls.finish_date.value + '', 
+'management_plan')
   }
 
 }
