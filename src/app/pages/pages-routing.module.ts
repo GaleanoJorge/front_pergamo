@@ -34,7 +34,7 @@ const routes: Routes = [{
         .then(m => m.HelpCenterModule),
     },
     {
-      path: 'help-center/dashboard2',
+      path: 'help-center/statistic',
       loadChildren: () => import('./help-center-main/help-center-main.module')
         .then(m => m.HelpCenterModule),
     },

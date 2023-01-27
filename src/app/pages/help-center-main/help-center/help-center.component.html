@@ -17,8 +17,8 @@
             </a>
         </div>
         <div class="col-md-4 div-two">
-            <a (click)="goToDashboard2()">
-                <img src="assets/images/Dashboard.svg" alt="Dashboard" class="icon" />
+            <a (click)="goToStatistic()">
+                <img src="assets/images/Estadístico.svg" alt="Estadístico" class="icon" />
             </a>
         </div>
         <div class="col-md-4 div-two">
@@ -28,20 +28,23 @@
         </div>
         <div class="col-md-4 div-two">
             <a (click)="goToLogistic()">
-                <img src="assets/images/Logística.svg" alt="Logística" class="icon" />
+                <img src="assets/images/Logístico.svg" alt="Logístico" class="icon" />
             </a>
         </div>
     </div>
 </div>
 
 <div *ngIf="this.mainhelpcenter == 'ADMINISTRATIVE'" class="container_administrativo">
-    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;"  nbButton (click)="back()">Volver</button>
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
     <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
-        <span style="text-align:center;" class="tittle2">ADMINISTRATIVO</span></h1>
+        <span style="text-align:center;" class="tittle2">ADMINISTRATIVO</span>
+    </h1>
     <div class="row">
         <div class="col-md-4 div-two">
-            <!-- <a href="#" target="#"> -->
-            <img src="assets/images/Contratos.svg" alt="Contratos" class="icon" />
+            <a href="https://www.youtube.com/watch?v=pJshYYTRVnY" target="_blank">
+                <img src="assets/images/Contratos.svg" alt="Contratos" class="icon" />
+            </a>
             <!-- </a> -->
         </div>
         <div class="col-md-4 div-two">
@@ -58,20 +61,40 @@
 </div>
 
 <div *ngIf="this.mainhelpcenter == 'ASSISTENCIAL'" class="container_asistencial">
-    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;"  nbButton (click)="back()">Volver</button>
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
     <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
-        <span style="text-align:center;" class="tittle2">ASISTENCIAL</span></h1>
-    <div class="col-md-4 div-two">
-        <a href="assets/images/Hospitalización.pdf" target="_blank">
-            <img src="assets/images/Hospitalización.svg" alt="Hospitalización" class="icon" />
-        </a>
+        <span style="text-align:center;" class="tittle2">ASISTENCIAL</span>
+    </h1>
+    <div class="row">
+        <div class="col-md-4 div-two">
+            <a href="assets/images/Hospitalización.pdf" target="_blank">
+                <img src="assets/images/Historia clínica médica.svg" alt="HCmédica" class="icon" />
+            </a>
+        </div>
+
+
+        <div class="col-md-4 div-two">
+            <a (click)="goToAdmitNP()">
+                <img src="assets/images/Admitir nuevo paciente.svg" alt="AdmitirNP" class="icon" />
+            </a>
+        </div>
+
+        <div class="col-md-4 div-two">
+            <a href="https://youtu.be/3ImuisAW1xI" target="_blank"
+                target="_blank">
+                <img src="assets/images/Crear nuevo paciente.svg" alt="CrearNP" class="icon" />
+            </a>
+        </div>
     </div>
 </div>
 
 <div *ngIf="this.mainhelpcenter == 'SETTING2'" class="container_configuración">
-    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;"  nbButton (click)="back()">Volver</button>
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
     <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
-        <span style="text-align:center;" class="tittle2">CONFIGURACIÓN</span></h1>
+        <span style="text-align:center;" class="tittle2">CONFIGURACIÓN</span>
+    </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
         <img src="assets/images/Configuración.svg" alt="Configuración" class="icon" />
@@ -79,21 +102,25 @@
     </div>
 </div>
 
-<div *ngIf="this.mainhelpcenter == 'DASHBOARD2'" class="container_dashboard">
-    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;"  nbButton (click)="back()">Volver</button>
+<div *ngIf="this.mainhelpcenter == 'STATISTIC'" class="container_estadístico">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
     <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
-        <span style="text-align:center;" class="tittle2">DASHBOARD</span></h1>
+        <span style="text-align:center;" class="tittle2">ESTADÍSTICO</span>
+    </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
-        <img src="assets/images/Dashboard.svg" alt="Dashboard" class="icon" />
+        <img src="assets/images/Estadístico.svg" alt="Estadístico" class="icon" />
         <!-- </a> -->
     </div>
 </div>
 
 <div *ngIf="this.mainhelpcenter == 'FINANCE'" class="container_financiero">
-    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;"  nbButton (click)="back()">Volver</button>
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
     <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
-        <span style="text-align:center;" class="tittle2">FINANCIERO</span></h1>
+        <span style="text-align:center;" class="tittle2">FINANCIERO</span>
+    </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
         <img src="assets/images/Financiero.svg" alt="Financiero" class="icon" />
@@ -101,13 +128,15 @@
     </div>
 </div>
 
-<div *ngIf="this.mainhelpcenter == 'LOGISTIC'" class="container_logística">
-    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;"  nbButton (click)="back()">Volver</button>
+<div *ngIf="this.mainhelpcenter == 'LOGISTIC'" class="container_logístico">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
     <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
-        <span style="text-align:center;" class="tittle2">LOGÍSTICA</span></h1>
+        <span style="text-align:center;" class="tittle2">LOGÍSTICO</span>
+    </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
-        <img src="assets/images/Logística.svg" alt="Logística" class="icon" />
+        <img src="assets/images/Logístico.svg" alt="Logístico" class="icon" />
         <!-- </a> -->
     </div>
 </div>

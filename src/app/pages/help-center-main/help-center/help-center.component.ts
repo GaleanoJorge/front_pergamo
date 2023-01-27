@@ -31,8 +31,8 @@ export class HelpCenterComponent {
         }else if(this.router.url == "/pages/help-center/assistencial"){
             this.mainhelpcenter = "ASSISTENCIAL";
 
-        }else if(this.router.url == "/pages/help-center/dashboard2"){
-            this.mainhelpcenter = "DASHBOARD2";
+        }else if(this.router.url == "/pages/help-center/statistic"){
+            this.mainhelpcenter = "STATISTIC";
 
         }else if(this.router.url == "/pages/help-center/finance"){
             this.mainhelpcenter = "FINANCE";
@@ -51,8 +51,8 @@ export class HelpCenterComponent {
     goToAssistencial(){
         this.router.navigateByUrl("/pages/help-center/assistencial");
     }
-    goToDashboard2(){
-        this.router.navigateByUrl("/pages/help-center/dashboard2");
+    goToStatistic(){
+        this.router.navigateByUrl("/pages/help-center/statistic");
     }
     goToFinance(){
         this.router.navigateByUrl("/pages/help-center/finance");
