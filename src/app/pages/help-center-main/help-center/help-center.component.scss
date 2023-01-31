@@ -1,6 +1,5 @@
 .container div {
   justify-content: center;
-  align-items: center;
   margin-top: 3%;
   margin-bottom: 0.5%;
 }
@@ -9,7 +8,12 @@
   width: 50%;
 }
 
+.icon2 {
+  width: 40%;
+}
+
 .div-two {
+  justify-content: center;
   text-align: center;
   margin-top: 0.5%;
   margin-bottom: 3%;
@@ -23,44 +27,54 @@
   transform: scale(1.5);
 }
 
-.container_administrativo div {
-  justify-content: center;
-  align-items: center;
-  margin-top: 3%;
-  margin-bottom: 0.5%;
+.icon2:hover {
+  transform: scale(1.2);
 }
 
 .container_asistencial div {
   justify-content: center;
-  align-items: center;
   margin-top: 3%;
   margin-bottom: 0.5%;
 }
 
-.container_configuración div {
-  justify-content: center;
-  align-items: center;
+.container_calidad div {
+  justify-content: center; 
   margin-top: 3%;
   margin-bottom: 0.5%;
 }
 
 .container_estadístico div {
   justify-content: center;
-  align-items: center;
   margin-top: 3%;
   margin-bottom: 0.5%;
 }
 
 .container_financiero div {
   justify-content: center;
-  align-items: center;
   margin-top: 3%;
   margin-bottom: 0.5%;
 }
 
 .container_logístico div {
   justify-content: center;
-  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 0.5%;
+}
+
+.container_mantenimientosis div {
+  justify-content: center;
+  margin-top: 3%;
+  margin-bottom: 0.5%;
+}
+
+.container_mesaayuda div {
+  justify-content: center;
+  margin-top: 3%;
+  margin-bottom: 0.5%;
+}
+
+.container_talento div {
+  justify-content: center;
   margin-top: 3%;
   margin-bottom: 0.5%;
 }
@@ -68,7 +82,7 @@
 .tittlemain {
   color: #4ab4b9;
   margin-top: 3%;
-  margin-bottom: -2%;
+  margin-bottom: 0%;
 }
 
 .tittle1 {

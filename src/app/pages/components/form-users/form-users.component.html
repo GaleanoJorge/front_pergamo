@@ -498,7 +498,7 @@
             <label for="residence_address" class="form-text text-muted font-weight-bold">Puntos Cardinales</label>
             <nb-select id="residence_address_cardinality" formControlName="residence_address_cardinality"
               residence_address_cardinality fullWidth title="Seleccione..."
-              status="{{ isSubmitted && form.controls.residence_municipality_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              status="{{ isSubmitted && form.controls.residence_address_cardinality.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value=" ">Seleccione...</nb-option>
               <nb-option value="Noreste">NORESTE</nb-option>
               <nb-option value="Noroeste">NOROESTE</nb-option>

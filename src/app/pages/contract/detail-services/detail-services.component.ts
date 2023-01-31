@@ -15,6 +15,7 @@ import {ManualPrice} from '../../../models/manual-price';
 import {CurrencyPipe} from '@angular/common';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BriefcaseService } from '../../../business-controller/briefcase.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-detail-services',
@@ -167,6 +168,7 @@ export class DetailServicesComponent implements OnInit {
     private deleteConfirmService: NbDialogService,
     private dialogFormService: NbDialogService,
     private BriefcaseS:BriefcaseService,
+    private location: Location,
   ) {
   }
 
@@ -304,5 +306,9 @@ export class DetailServicesComponent implements OnInit {
     this.RefreshData();
     this.selectedOptions=[];
   } 
+  }
+
+  back() {
+    this.location.back();
   }
 }

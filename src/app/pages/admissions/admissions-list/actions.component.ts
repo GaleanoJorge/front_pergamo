@@ -176,8 +176,8 @@ export class ActionsComponent implements ViewCell, OnInit {
       this.status = true;
     }
     this.UserChangeForm = this.formBuilder.group({
-      right_user_id: [this.rowData.right_user_id, Validators.compose([Validators.required])],
-      observation_novelty_id: [this.rowData.observation_novelty_id, Validators.compose([Validators.required])],
+      right_user_id: ['', Validators.compose([Validators.required])],
+      observation_novelty_id: ['', Validators.compose([Validators.required])],
     });
     var compare = this.value.all_changes.find(item => item.wrong_user_id == this.value.data.id);
     var compare2 = this.value.all_changes.find(item => item.right_user_id == this.value.data.id);
@@ -243,18 +243,18 @@ export class ActionsComponent implements ViewCell, OnInit {
         this.loading = false;
       });
     } else {
-      this.dialog = this.dialog.close();
-      this.UserChangeS.Save({
-        wrong_user_id: this.value.data.id,
-        right_user_id: this.user_id,
-        observation_novelty_id: this.UserChangeForm.controls.observation_novelty_id.value,
-      }).then(x => {
-        this.toastService.success('', x.message);
-        this.dialog.close();
-      }).catch(x => {
-        this.isSubmitted = false;
-        this.loading = false;
-      });
+      // this.dialog = this.dialog.close();
+      // this.UserChangeS.Save({
+      //   wrong_user_id: this.value.data.id,
+      //   right_user_id: this.user_id,
+      //   observation_novelty_id: this.UserChangeForm.controls.observation_novelty_id.value,
+      // }).then(x => {
+      //   this.toastService.success('', x.message);
+      //   this.dialog.close();
+      // }).catch(x => {
+      //   this.isSubmitted = false;
+      //   this.loading = false;
+      // });
     }
   }
 }

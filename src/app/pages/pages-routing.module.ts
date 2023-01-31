@@ -22,14 +22,14 @@ const routes: Routes = [{
       path: 'help-center',
       loadChildren: () => import('./help-center-main/help-center-main.module')
         .then(m => m.HelpCenterModule),
-    },
+    },   
     {
-      path: 'help-center/administrative',
+      path: 'help-center/assistencial',
       loadChildren: () => import('./help-center-main/help-center-main.module')
         .then(m => m.HelpCenterModule),
     },
     {
-      path: 'help-center/assistencial',
+      path: 'help-center/quality', 
       loadChildren: () => import('./help-center-main/help-center-main.module')
         .then(m => m.HelpCenterModule),
     },
@@ -47,13 +47,22 @@ const routes: Routes = [{
       path: 'help-center/logistic',
       loadChildren: () => import('./help-center-main/help-center-main.module')
         .then(m => m.HelpCenterModule),
-    },
+    },   
     {
-      path: 'help-center/setting2',
+      path: 'help-center/sysmaintenance',
       loadChildren: () => import('./help-center-main/help-center-main.module')
         .then(m => m.HelpCenterModule),
     },
-
+    {
+      path: 'help-center/helpdesk',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/talent',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
     {
       path: 'contract',
       loadChildren: () => import('./contract/contract.module')
