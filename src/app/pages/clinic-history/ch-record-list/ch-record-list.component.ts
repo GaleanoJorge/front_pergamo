@@ -233,9 +233,11 @@ export class ChRecordListComponent implements OnInit {
         role_id: +localStorage.getItem('role_id'),
         medical_diary_days_id: this.external_consult_id
           ? this.external_consult_id
-          : null,
+          : null, 
         user_id: this.own_user.id,
         type_of_attention_id: this.type_of_attention,
+        isExternalConsultation: (this.external_consult && this.external_consult.length > 0),
+        procedureName: (this.external_consult && this.external_consult.length > 0) ? this.external_consult[0].services_briefcase.manual_price.procedure.name:null,
         speciality_id: this.route.snapshot.queryParams.ext_con ? this.form?.value.speciality_id : null
       })
       .then((x) => {
