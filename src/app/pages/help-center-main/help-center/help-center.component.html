@@ -6,11 +6,6 @@
                 <img src="assets/images/Asistencial.svg" alt="Asistencial" class="icon" />
             </a>
         </div>
-        <div class="col-md-3 div-two">
-            <a (click)="goToMaintenance()">
-                <img src="assets/images/Mantenimiento del sistema.svg" alt="Mantenimiento" class="icon" />
-            </a>
-        </div>
 
         <div class="col-md-3 div-two">
             <a (click)="goToQuality()">
@@ -23,20 +18,28 @@
                 <img src="assets/images/Estadístico.svg" alt="Estadístico" class="icon" />
             </a>
         </div>
+
         <div class="col-md-3 div-two">
             <a (click)="goToFinance()">
                 <img src="assets/images/Financiero.svg" alt="Financiero" class="icon" />
             </a>
         </div>
+        
         <div class="col-md-3 div-two">
             <a (click)="goToLogistic()">
                 <img src="assets/images/Logístico.svg" alt="Logístico" class="icon" />
+            </a>
+        </div>     
+
+        <div class="col-md-3 div-two">
+            <a (click)="goToSysMaintenance()">
+                <img src="assets/images/Mantenimiento del sistema.svg" alt="MantenimientoSis" class="icon" />
             </a>
         </div>
 
         <div class="col-md-3 div-two">
             <a (click)="goToHelpDesk()">
-                <img src="assets/images/Mesa de ayuda.svg" alt="MesaA" class="icon" />
+                <img src="assets/images/Mesa de ayuda.svg" alt="MesaAyuda" class="icon" />
             </a>
         </div>
 
@@ -45,8 +48,6 @@
                 <img src="assets/images/Talento humano.svg" alt="Talento" class="icon" />
             </a>
         </div>
-
-
     </div>
 </div>
 
@@ -97,15 +98,15 @@
     </div>
 </div>
 
-<div *ngIf="this.mainhelpcenter == 'MAINTENANCE'" class="container_mantenimiento">
+<div *ngIf="this.mainhelpcenter == 'QUALITY'" class="container_calidad">
     <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
         (click)="back()">Volver</button>
     <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
-        <span style="text-align:center;" class="tittle2">MANTENIMIENTO DEL SISTEMA</span>
+        <span style="text-align:center;" class="tittle2">CONTROL DE CALIDAD</span>
     </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
-        <img src="assets/images/Mantenimiento del sistema.svg" alt="mantenimiento" class="icon" />
+        <img src="assets/images/Control de calidad.svg" alt="Calidad" class="icon" />
         <!-- </a> -->
     </div>
 </div>
@@ -145,6 +146,45 @@
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
         <img src="assets/images/Logístico.svg" alt="Logístico" class="icon" />
+        <!-- </a> -->
+    </div>
+</div>
+
+<div *ngIf="this.mainhelpcenter == 'SYSMAINTENANCE'" class="container_mantenimientosis">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
+    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
+        <span style="text-align:center;" class="tittle2">MANTENIMIENTO DEL SISTEMA</span>
+    </h1>
+    <div class="col-md-4 div-two">
+        <!-- <a href="#" target="#"> -->
+        <img src="assets/images/Mantenimiento del sistema.svg" alt="MantenimientoSis" class="icon" />
+        <!-- </a> -->
+    </div>
+</div>
+
+<div *ngIf="this.mainhelpcenter == 'HELPDESK'" class="container_mesaayuda">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
+    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
+        <span style="text-align:center;" class="tittle2">MESA DE AYUDA</span>
+    </h1>
+    <div class="col-md-4 div-two">
+        <!-- <a href="#" target="#"> -->
+        <img src="assets/images/Mesa de ayuda.svg" alt="MesaAyuda" class="icon" />
+        <!-- </a> -->
+    </div>
+</div>
+
+<div *ngIf="this.mainhelpcenter == 'TALENT'" class="container_talento">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
+    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
+        <span style="text-align:center;" class="tittle2">TALENTO HUMANO</span>
+    </h1>
+    <div class="col-md-4 div-two">
+        <!-- <a href="#" target="#"> -->
+        <img src="assets/images/Talento humano.svg" alt="Talento" class="icon" />
         <!-- </a> -->
     </div>
 </div>
