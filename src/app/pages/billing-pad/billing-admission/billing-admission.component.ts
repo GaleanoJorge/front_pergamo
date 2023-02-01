@@ -99,6 +99,8 @@ export class BillingAdmissionComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           if (row.its_credit_note != null) {
             return row.its_credit_note.billing_pad_prefix.name + row.its_credit_note.consecutive;
+          } else if (row.billing_pad_mu != null) {
+            return row.billing_pad_mu.billing_pad_prefix.name + row.billing_pad_mu.consecutive;
           } else {
             return '-';
           }

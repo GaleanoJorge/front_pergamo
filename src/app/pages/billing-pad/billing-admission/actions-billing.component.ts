@@ -10,13 +10,13 @@ import { AuthService } from '../../../services/auth.service';
       <button *ngIf="value.data.billing_pad_status_id == 1" nbTooltip="PROCEDIMIENTOS" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/billing-pad/billing-pad-procedure/' + value.data.admissions_id + '/' + value.data.id">
         <nb-icon icon="archive-outline"></nb-icon>
       </button>
-      <button *ngIf="value.data.billing_pad_status_id != 1" nbTooltip="VER FACTURACIÓN" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data)">
+      <button *ngIf="value.data.billing_pad_status_id != 1 && !value.data.billing_pad_mu_id" nbTooltip="VER FACTURACIÓN" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data)">
           <nb-icon icon="file-text-outline"></nb-icon>
       </button>
-      <button *ngIf="this.curr == 1" nbTooltip="REENVIAR .DAT" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.resend(value.data)">
+      <button *ngIf="this.curr == 1 && !value.data.billing_pad_mu_id" nbTooltip="REENVIAR .DAT" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.resend(value.data)">
           <nb-icon icon="paper-plane-outline"></nb-icon>
       </button>
-      <button *ngIf="value.data.has_cancel == 0 && value.data.billing_pad_status_id == 2  && value.data.its_credit_note == null" nbTooltip="ANULAR FACTURA" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.cancel(value.data)">
+      <button *ngIf="value.data.has_cancel == 0 && value.data.billing_pad_status_id == 2  && value.data.its_credit_note == null && !value.data.billing_pad_mu_id" nbTooltip="ANULAR FACTURA" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.cancel(value.data)">
           <nb-icon icon="close-square-outline"></nb-icon>
       </button>
     </div>
