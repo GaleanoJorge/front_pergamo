@@ -9,6 +9,7 @@ import { CurrencyPipe, PercentPipe } from '@angular/common';
 import { StatusBusinessService } from '../../../../business-controller/status-business.service';
 import { disable } from '@rxweb/reactive-form-validators';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { PaymentTypeService } from '../../../../business-controller/payment-type.service';
 
 @Component({
   selector: 'ngx-form-copay_category',
@@ -28,6 +29,7 @@ export class FormCopayCategoryComponent implements OnInit {
   public type_contracts: any[] = [];
   public status: any[] = [];
   public value;
+  public paymentType: any[] = [];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -38,35 +40,36 @@ export class FormCopayCategoryComponent implements OnInit {
     private StatusS: StatusBusinessService,
     private currency: CurrencyPipe,
     private percent: PercentPipe,
-    private CopayParametersS: CopayParametersService
+    private CopayParametersS: CopayParametersService,
+    private paymenTypeS: PaymentTypeService
   ) { }
 
   ngOnInit(): void {
     if (!this.data) {
       this.data = {
-        payment_type: '',
         category: '',
         value: '',
         status_id: '',
+        payment_type_id: ''
       };
     }
 
     this.form = this.formBuilder.group({
-      payment_type: [
-        String(this.data.payment_type),
+      payment_type_id: [
+        this.data.payment_type_id,
         Validators.compose([Validators.required]),
       ],
       category: [
         {
           value: this.data.category,
-          disabled: this.data.payment_type == 3 ? true : false,
+          disabled: this.data.payment_type_id == 3 ? true : false,
         },
         Validators.compose([Validators.required]),
       ],
       value: [
         {
           value: this.data.value,
-          disabled: this.data.payment_type == 3 ? true : false,
+          disabled: this.data.payment_type_id == 3 ? true : false,
         },
         Validators.compose([Validators.required]),
       ],
@@ -80,11 +83,15 @@ export class FormCopayCategoryComponent implements OnInit {
       this.status = x;
     });
 
+    this.paymenTypeS.GetCollection().then((x) => {
+      this.paymentType = x;
+    })
+
     this.onChanges();
   }
 
   onChanges() {
-    this.form.get('payment_type').valueChanges.subscribe((val) => {
+    this.form.get('payment_type_id').valueChanges.subscribe((val) => {
       if (val == 3) {
         this.form.get('category').disable();
         this.form.get('value').disable();
@@ -117,7 +124,7 @@ export class FormCopayCategoryComponent implements OnInit {
   }
 
   validateCharacter(keyChar) {
-    if (this.form.controls.payment_type.value == 2) {
+    if (this.form.controls.payment_type_id.value == 2) {
       if (isNaN(keyChar) && keyChar != '.') {
         return false;
       }
@@ -151,7 +158,7 @@ export class FormCopayCategoryComponent implements OnInit {
   }
 
   addPercentSign() {
-    if (this.form.controls.payment_type.value == 2 && !this.form.controls.value.value.includes("%") && this.form.controls.value.value != "") {
+    if (this.form.controls.payment_type_id.value == 2 && !this.form.controls.value.value.includes("%") && this.form.controls.value.value != "") {
       let valueInput = document.getElementById("value") as HTMLInputElement;
       valueInput.value = this.form.controls.value.value + "%";
     }
@@ -167,7 +174,7 @@ export class FormCopayCategoryComponent implements OnInit {
     this.dialogRef.close();
   }
   save() {
-    if(this.form.controls.payment_type.value == 2){
+    if(this.form.controls.payment_type_id.value == 2){
       let currentValue = this.form.controls.value.value;
       currentValue = currentValue.replace("%","");
       this.value = currentValue/100;
@@ -181,7 +188,7 @@ export class FormCopayCategoryComponent implements OnInit {
       if (this.data.id) {
         this.CopayParametersS.Update({
           id: this.data.id,
-          payment_type: this.form.controls.payment_type.value,
+          payment_type: this.form.controls.payment_type_id.value,
           category: this.form.controls.category.value,
           value: this.value,
           status_id: this.form.controls.status_id.value,
@@ -200,7 +207,7 @@ export class FormCopayCategoryComponent implements OnInit {
           });
       } else {
         this.CopayParametersS.Save({
-          payment_type: this.form.controls.payment_type.value,
+          payment_type: this.form.controls.payment_type_id.value,
           category: this.form.controls.category.value,
           value: this.value ? this.value : 0,
           status_id: this.form.controls.status_id.value,
