@@ -238,7 +238,7 @@ export class ChRecordListComponent implements OnInit {
         }
       })
     }else{
-      this.selectedSpeciality = userData.assistance[0].assistance_special[0].specialty_id;
+      this.selectedSpeciality = userData.assistance[0].assistance_special.length > 0 ? userData.assistance[0].assistance_special[0].specialty_id : null;
       this.NewChRecord();
     }
   }
