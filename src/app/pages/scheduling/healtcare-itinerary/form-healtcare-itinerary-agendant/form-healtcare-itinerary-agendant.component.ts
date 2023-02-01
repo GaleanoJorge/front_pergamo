@@ -297,7 +297,7 @@ export class FormHealthcareItineraryAgendantComponent implements OnInit {
     this.form.get('category_id').valueChanges.subscribe((val) => {
       if(val != ''){
         var localCat  = this.categories.find(item => item.id == val);
-        if(localCat.payment_type == 2){
+        if(localCat.payment_type_id == 2){
           
           var localproc = this.procedures.find(
             (item) => item.id == this.procedure_id

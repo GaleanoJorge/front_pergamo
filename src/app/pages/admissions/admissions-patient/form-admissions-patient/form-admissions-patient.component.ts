@@ -633,7 +633,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
     this.form.get('category').valueChanges.subscribe((val) => {
       if (val != '') {
         var localCat = this.categories.find(item => item.id == val);
-        if (localCat.payment_type == 2) {
+        if (localCat.payment_type_id == 2) {
 
           var localproc = this.filteredProcedureOptions$.find(
             (item) => item.manual_price.name == this.form.value.procedure_id.split(' - ')[2]
