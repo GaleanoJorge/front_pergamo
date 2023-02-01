@@ -162,8 +162,8 @@ export class FormAdmissionsPatientComponent implements OnInit {
       file_auth: [this.data.file_auth],
       has_caregiver: [this.data.has_caregiver, Validators.compose([Validators.required])],
       regime_id: [this.data.regime_id, Validators.compose([Validators.required])],
-      category: [''],
-      copay: [{ value: '', disabled: true }],
+      category: ['', Validators.compose([Validators.required])],
+      copay: [{ value: '', disabled: true } , Validators.compose([Validators.required])],
       eps: [this.data.eps],
     });
     if (this.campus_id == null) {
