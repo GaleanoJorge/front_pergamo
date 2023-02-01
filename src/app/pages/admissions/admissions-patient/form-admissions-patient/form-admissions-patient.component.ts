@@ -120,7 +120,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
     this.form = this.formBuilder.group({
       diagnosis_id: [
         this.data.diagnosis_id,
-        Validators.compose([Validators.required]),
       ],
       admission_route_id: [
         {
@@ -268,6 +267,11 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
   save() {
     this.isSubmitted = true;
+    if (this.form.controls.scope_of_attention_id.value == 2) {
+      this.form.controls.diagnosis_id.setErrors(null);
+      this.form.controls.diagnosis_id.setValidators([]);
+        this.form.controls.diagnosis_id.updateValueAndValidity();
+    }
     if (!this.form.invalid) {
       this.loading = true;
       if (this.data.id && !this.ambolatory) {
@@ -504,6 +508,12 @@ export class FormAdmissionsPatientComponent implements OnInit {
       if (val === '') {
         this.program = [];
       } else {
+        if (val == 1) {
+          this.form.controls.auth_number.setValidators(Validators.compose([Validators.required]));
+        } else {
+          this.form.controls.auth_number.setValidators([]);
+          this.form.controls.auth_number.updateValueAndValidity();
+        }
         this.ambit = val;
         this.GetProgram(val).then();
       }
@@ -626,7 +636,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         if (localCat.payment_type == 2) {
 
           var localproc = this.filteredProcedureOptions$.find(
-            (item) => item.manual_price.name == this.form.value.procedure_id.split(' - ')[1]
+            (item) => item.manual_price.name == this.form.value.procedure_id.split(' - ')[2]
           );
           if (localproc) {
             this.copay_value = localproc.value * localCat.value;
@@ -672,7 +682,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         this.form.controls.procedure_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.flat_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.pavilion_id.setValidators(Validators.compose([Validators.required]));
-        this.form.controls.auth_number.setValidators(Validators.compose([Validators.required]));
+
         // this.form.controls.file_auth.setValidators(Validators.compose([Validators.required]));
         this.form.controls.bed_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.has_caregiver.setValue(false);
@@ -687,8 +697,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         this.form.controls.pavilion_id.updateValueAndValidity();
         this.form.controls.bed_id.setValidators([]);
         this.form.controls.bed_id.updateValueAndValidity();
-        this.form.controls.auth_number.setValidators([]);
-        this.form.controls.auth_number.updateValueAndValidity();
+
         this.form.controls.file_auth.setValidators([]);
         this.form.controls.file_auth.updateValueAndValidity();
       }
@@ -724,24 +733,28 @@ export class FormAdmissionsPatientComponent implements OnInit {
   saveCode(e): void {
     if (this.diagnosis) {
       var localidentify = this.diagnosis.find((item) => item.name == e);
-  
+
       if (localidentify) {
         this.diagnosis_id = localidentify.id;
       } else {
         this.diagnosis_id = null;
+        if (this.form.controls.scope_of_attention_id.value != 2) {
+          this.toastService.warning(
+            '',
+            'Debe seleccionar un diagnostico de la lista'
+          );
+          this.form.controls.diagnosis_id.setErrors({ incorrect: true });
+        }
+      }
+    } else {
+      this.diagnosis_id = null;
+      if (this.form.controls.scope_of_attention_id.value != 2) {
         this.toastService.warning(
           '',
           'Debe seleccionar un diagnostico de la lista'
         );
         this.form.controls.diagnosis_id.setErrors({ incorrect: true });
       }
-    } else {
-      this.diagnosis_id = null;
-      this.toastService.warning(
-        '',
-        'Debe seleccionar un diagnostico de la lista'
-      );
-      this.form.controls.diagnosis_id.setErrors({ incorrect: true });
     }
   }
 
@@ -802,7 +815,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       });
     }
     if ((!pavilion_id || pavilion_id === '') || (!this.data.eps ? (!this.form.controls.procedure_id.value || this.form.controls.procedure_id.value === '') : false) || (!ambit || ambit === '')) return Promise.resolve(false);
-    var proc = this.data.eps ? 0 : this.filteredProcedureOptions$.find(item => item.manual_price.name == this.form.controls.procedure_id.value.split(" - ")[1]).manual_price.procedure_id;
+    var proc = this.data.eps ? 0 : this.filteredProcedureOptions$.find(item => item.manual_price.name == this.form.controls.procedure_id.value.split(" - ")[2]).manual_price.procedure_id;
     return this.BedS.GetBedByPavilion(pavilion_id, ambit, proc, this.ambolatory ? { office: this.data.medical_diary.office_id, patient_id: this.user_id, } : {
       patient_id: this.user_id,
     }).then(x => {
@@ -874,7 +887,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         //   .patchValue(this.data.services_briefcase.id);
       }
 
-//
+      //
       this.form
         .get('procedure_id')
         .patchValue(this.getCompleteName(this.data.services_briefcase));
@@ -883,7 +896,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       });
 
       this.onSelectionChange(null);
-//
+      //
 
       return Promise.resolve(true);
     });
