@@ -87,6 +87,8 @@ export class PharmacyRequestPatientComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           if (value != null) {
             return value.manual_price.name;
+          } else if (row.product_supplies == null) {
+            return row.product_generic.description;
           } else {
             return row.product_supplies.description;
           }

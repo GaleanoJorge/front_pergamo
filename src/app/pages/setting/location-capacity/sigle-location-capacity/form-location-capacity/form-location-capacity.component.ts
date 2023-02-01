@@ -42,7 +42,8 @@ export class FormLocationCapacityComponent implements OnInit {
     { id: 10, name: "OCTUBRE" },
     { id: 11, name: "NOVIEMBRE" },
     { id: 12, name: "DICIEMBRE" },
-  ];;
+  ];
+  public months2 = [];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -72,14 +73,20 @@ export class FormLocationCapacityComponent implements OnInit {
       };
     }
 
-    this.form = this.formBuilder.group({
-      month: [''],
+    this.months.forEach(x => {
+      if (x.id == new Date().getMonth() + 1 || x.id == new Date().getMonth() + 2) {
+        this.months2.push(x);
+      }
     });
 
-    if (this.procedence == 1) {
-      this.form.controls.month.setValidators([Validators.required]);
-        this.form.controls.month.updateValueAndValidity();
-    }
+    this.form = this.formBuilder.group({
+      month: ['', Validators.compose([Validators.required])],
+    });
+
+    // if (this.procedence == 1) {
+    //   this.form.controls.month.setValidators([Validators.required]);
+    //     this.form.controls.month.updateValueAndValidity();
+    // }
 
     await this.BaseLocationCapacityS.GetCollection({ assistance_id: this.data.id }).then(x => {
       this.loading = false;

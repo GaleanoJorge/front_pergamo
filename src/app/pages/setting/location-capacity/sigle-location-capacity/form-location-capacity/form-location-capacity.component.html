@@ -13,6 +13,15 @@
               </nb-option>
             </nb-select>
           </div>
+          <div *ngIf="this.currentRole.role_type_id == 2 && this.procedence == 2" style="margin-right: 10px; width: 250px">
+            <nb-select formControlName="month" fullWidth
+            status="{{ isSubmitted && form.controls.month.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">SELECCIONE MES</nb-option>
+              <nb-option *ngFor="let item of months2" [value]="item.id">
+                {{ item.name }}
+              </nb-option>
+            </nb-select>
+          </div>
         </div>
       </div>
 

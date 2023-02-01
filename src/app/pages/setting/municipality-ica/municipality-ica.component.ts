@@ -17,7 +17,7 @@ export class MunicipalityIcaComponent implements OnInit {
   public messageError: string = null;
   public title: string = 'RETE ICA POR MUNICIPIO';
   public subtitle: string = 'RETE ICA';
-  public headerFields: any[] = ['MUNICIPIO', 'VALOR'];
+  public headerFields: any[] = ['MUNICIPIO', 'VALOR', 'AÑO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -53,6 +53,13 @@ export class MunicipalityIcaComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           return row.value + ' * 1000';
+        }
+      },
+      year: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          return value;
         }
       },
     },

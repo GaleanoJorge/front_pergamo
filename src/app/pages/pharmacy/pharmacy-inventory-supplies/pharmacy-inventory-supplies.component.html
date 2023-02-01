@@ -10,6 +10,7 @@
               customData='pharmacy_lot_stock' [messageToltip]="messageToltip">
               <div actions>
                 <div class="actions">
+                  <button nbButton status="danger" class="mr-3 btn-save" (click)="Inventory()">Imprimir Inventario</button>
                   <nb-select (selectedChange)="ChangePharmacy($event)" placeholder="Filtrar por Farmacia"
                     [(selected)]="pharmacy">
                     <nb-option value="0">Seleccione una farmacia</nb-option>

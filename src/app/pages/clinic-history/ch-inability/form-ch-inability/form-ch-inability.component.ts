@@ -186,7 +186,7 @@ export class FormChInabilityComponent implements OnInit {
 
   async save() {
     this.isSubmitted = true;
-    if (!this.form.invalid) {
+    if (!this.form.invalid && this.diagnosis_id) {
       this.loading = true;
       this.showTable = false;
 
@@ -253,6 +253,8 @@ export class FormChInabilityComponent implements OnInit {
           });
         this.messageEvent.emit(true);
       }
+    } else {
+      this.toastService.warning("","Debe diligenciar los campos obligatorios");
     }
   }
 
@@ -268,14 +270,24 @@ export class FormChInabilityComponent implements OnInit {
   }
 
   saveCode(e): void {
-    var localidentify = this.diagnosis.find(item => item.name == e);
-
-    if (localidentify) {
-      this.diagnosis_id = localidentify.id;
+    if(this.diagnosis){
+      
+      var localidentify = this.diagnosis.find(item => item.name == e);
+  
+      if (localidentify) {
+        this.diagnosis_id = localidentify.id;
+        this.form.controls.diagnosis_id.setErrors({incorrect: false});
+      } else {
+        this.diagnosis_id = null;
+        this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+        this.form.controls.diagnosis_id.setErrors({incorrect: true});
+        this.form.patchValue({diagnosis_id:''});
+        // this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
+      }
     } else {
-      this.diagnosis_id = null;
       this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
-      // this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
+        this.form.controls.diagnosis_id.setErrors({incorrect: true});
+        this.form.patchValue({diagnosis_id:''});
     }
   }
   receiveMessage($event) {

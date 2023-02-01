@@ -171,7 +171,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
         }
         return Promise.resolve(true);
       }).catch(x => {
-        this.toastService.danger('', x);
+        this.showToast(10000, x);
         return Promise.resolve(false);
       });
       return Promise.resolve(response);
@@ -186,6 +186,13 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
       return false;
     }
   
+  }
+
+  showToast(duration, m) {
+    this.toastService.warning(
+        '',
+        m,
+        { duration });
   }
 
   RefreshData() {

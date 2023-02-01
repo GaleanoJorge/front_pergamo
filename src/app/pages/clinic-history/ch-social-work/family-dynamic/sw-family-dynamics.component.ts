@@ -69,7 +69,7 @@ export class SwFamilyDynamicsComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
-            return value.firstname + " " + value.middlefirstname  + " " + value.lastname + " " + value.middlelastname;
+            return (value.firstname != null ? value.firstname : "")  + " " + (value.middlefirstname != null ? value.middlefirstname : "")  + " " + (value.lastname != null ? value.lastname : "") + " " + (value.middlelastname != null ? value.middlelastname : "");
             
           } else {
             return 'NO APLICA'
@@ -81,7 +81,7 @@ export class SwFamilyDynamicsComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
-            return value.firstname + " " + value.middlefirstname  + " " + value.lastname + " " + value.middlelastname;
+            return (value.firstname != null ? value.firstname : "")  + " " + (value.middlefirstname != null ? value.middlefirstname : "")  + " " + (value.lastname != null ? value.lastname : "") + " " + (value.middlelastname != null ? value.middlelastname : "");
           } else {
             return 'NO APLICA'
           }
