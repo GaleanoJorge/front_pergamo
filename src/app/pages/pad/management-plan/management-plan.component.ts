@@ -246,8 +246,9 @@ export class ManagementPlanComponent implements OnInit {
     public roleBS: RoleBusinessService,
     private router: Router,
     private location: Location,
-    private dbPouch: DbPwaService
-  ) { }
+
+  ) {
+  }
   public form: FormGroup;
   public ResponseManagementPlanForm: FormGroup;
   public RadicationManagementPlanForm: FormGroup;
@@ -276,117 +277,32 @@ export class ManagementPlanComponent implements OnInit {
       }
     }
 
-        await this.admissionS
-          .GetCollection({ admissions_id: this.admissions_id })
-          .then((x) => {
-            this.admissions1 = x;
-          });
-
-        this.own_user = this.authService.GetUser();
-        var curr = this.authService.GetRole();
-        this.currentRole = this.own_user.roles.find((x) => {
-          return x.id == curr;
-        });
-        this.currentRoleId = this.currentRole.id;
-        this.user_id = this.route.snapshot.params.user;
-        await this.roleBS
-          .GetCollection({ id: this.currentRoleId })
-          .then((x) => {
-            this.roles = x;
-          })
-          .catch((x) => { });
-        this.user_logged = this.authService.GetUser().id;
-        if (this.currentRole.role_type_id != 2 && this.title == null) {
-          this.admissions_id = this.route.snapshot.params.id;
-          this.title =
-            'Plan de Manejo Paciente ' +
-            this.admissions1[0].location[0].scope_of_attention.name;
-          this.entity =
-            'management_plan_by_patient/' +
-            this.user_id +
-            '/' +
-            0 +
-            '?admission_id=' +
-            this.admissions_id;
-        } else if (this.medical == 1) {
-          this.title =
-            'Plan de Manejo Paciente ' +
-            this.admissions1[0].location[0].scope_of_attention.name;
-          this.entity = 'management_plan_by_patient/' + this.patient + '/' + 0;
-        } else {
-          this.title = 'Servicios a Ejecutar';
-          this.entity =
-            'management_plan_by_patient/' +
-            this.user_id +
-            '/' +
-            this.user_logged;
-        }
-
-        this.routes = [
-          {
-            name: 'Pad',
-            route: '/pages/pad/list',
-          },
-          {
-            name: 'Plan de Manejo',
-            route:
-              '/pages/pad/management-plan/' +
-              this.admissions_id +
-              '/' +
-              this.user_id,
-          },
-        ];
+    this.own_user = this.authService.GetUser();
+    var curr = this.authService.GetRole();
+    this.currentRole = this.own_user.roles.find(x => {
+      return x.id == curr;
+    });
+    if(this.route.snapshot.queryParams.f_pd){
+      if(this.currentRole.role_type_id == 1){
+        this.showAnex = true
       }
-
-      if (this.route.snapshot.queryParams.f_pd) {
-        if (this.currentRole.role_type_id == 1) {
-          this.showAnex = true;
-        }
-      } else {
-        this.showAnex = true;
-      }
-
-      await this.patienBS.GetUserById(this.user_id).then((x) => {
-        this.user = x;
-      });
-
     } else {
+      this.showAnex = true;
+    }
+    this.currentRoleId = this.currentRole.id;
+
+    if (this.admissions) {
+      this.admissions_id = this.admissions;
+      this.settings = this.settings2;
+      this.user_id = this.patient;
+    } else {
+      this.admissions_id = this.route.snapshot.params.id;
       this.user_id = this.route.snapshot.params.user;
-      this.settings = this.settings3;
-      this.own_user = this.authService.GetUser();
-      var curr = this.authService.GetRole();
-      this.currentRole = this.own_user.roles.find(x => {
-        return x.id == curr;
-      });
-
-      this.currentRoleId = this.currentRole.id;
-
-      if (this.admissions) {
-        this.admissions_id = this.admissions;
-        this.settings = this.settings2;
-        this.user_id = this.patient;
-      } else {
-        this.admissions_id = this.route.snapshot.params.id;
-        this.user_id = this.route.snapshot.params.user;
-        this.settings = this.settings1;
-      }
-
-
-
-
-      this.user_id = this.route.snapshot.params.user;
-      this.user_logged = this.authService.GetUser().id;
-      if (this.currentRole.role_type_id != 2 && this.title == null) {
-        this.admissions_id = this.route.snapshot.params.id;
-        // this.title = "Plan de manejo paciente " + this.admissions1[0].location[0].scope_of_attention.name;
-        // this.entity = "management_plan_by_patient/" + this.user_id + "/" + 0 + "?admission_id=" + this.admissions_id;
-      } else if (this.medical == 1) {
-        // this.title = "Plan de manejo paciente " + this.admissions1[0].location[0].scope_of_attention.name;
-        // this.entity = "management_plan_by_patient/" + this.patient + "/" + 0;
-      } else {
-        // this.title = "Servicios a Ejecutar";
-        // this.entity = "management_plan_by_patient/" + this.user_id + "/" + this.user_logged;
-      }
+      this.settings = this.settings1;
+    }
+    await this.admissionS.GetCollection({ admissions_id: this.admissions_id }).then(x => {
+      this.admissions1 = x;
+    });
 
     this.form = this.formBuilder.group({
       start_date: ['', []],
@@ -400,45 +316,39 @@ export class ManagementPlanComponent implements OnInit {
       this.changeEntity()
     });
 
-      this.routes = [
-        {
-          name: 'Pad',
-          route: '/pages/pad/list',
-
-        },
-        {
-          name: 'Plan de manejo',
-          route: '/pages/pad/management-plan/' + this.admissions_id + '/' + this.user_id,
-        },
-      ];
-
-
-      this.title = 'Plan de Manejo Paciente ';
-
-      var entry = 'management_plan' + '_' + this.user_id;
-      let dataTable = new PouchDB(entry);
-      dataTable
-        .get(entry, function (err, doc) {
-          if (err) {
-            console.log(err);
-          }
-        })
-        .then((x) => {
-          this.management_plan = x.data;
-        });
-    }
-
-    if (this.route.snapshot.queryParams.f_pd) {
-      if (this.currentRole.role_type_id == 1) {
-        this.showAnex = true;
-      }
+    this.user_id = this.route.snapshot.params.user;
+    await this.roleBS.GetCollection({ id: this.currentRoleId }).then(x => {
+      this.roles = x;
+    }).catch(x => { });
+    this.user_logged = this.authService.GetUser().id;
+    if (this.currentRole.role_type_id != 2 && this.title == null) {
+      this.admissions_id = this.route.snapshot.params.id;
+      this.title = "Plan de manejo paciente " + this.admissions1[0].location[0].scope_of_attention.name;
+      this.entity = "management_plan_by_patient/" + this.user_id + "/" + 0 + "?admission_id=" + this.admissions_id;
+    } else if (this.medical == 1) {
+      this.title = "Plan de manejo paciente " + this.admissions1[0].location[0].scope_of_attention.name;
+      this.entity = "management_plan_by_patient/" + this.patient + "/" + 0;
     } else {
-      this.showAnex = true;
+      this.title = "Servicios a Ejecutar";
+      this.entity = "management_plan_by_patient/" + this.user_id + "/" + this.user_logged;
     }
 
-    this.form = this.formBuilder.group({
-      start_date: ['', []],
-      finish_date: ['', []],
+
+
+    this.routes = [
+      {
+        name: 'Pad',
+        route: '/pages/pad/list',
+
+      },
+      {
+        name: 'Plan de manejo',
+        route: '/pages/pad/management-plan/' + this.admissions_id + '/' + this.user_id,
+      },
+    ];
+
+    await this.patienBS.GetUserById(this.user_id).then(x => {
+      this.user = x;
     });
 
 

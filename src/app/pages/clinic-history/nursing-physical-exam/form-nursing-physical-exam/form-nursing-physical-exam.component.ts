@@ -5,9 +5,6 @@ import { ChTypePhysicalExamService } from '../../../../business-controller/ch_ty
 import { ChPhysicalExamService } from '../../../../business-controller/ch_physical_exam.service';
 import { NursingTypePhysicalService } from '../../../../business-controller/nursing-type-physical.service';
 import { triggerShapeEvent } from '@syncfusion/ej2/maps';
-import PouchDB from 'pouchdb-browser';
-import { DbPwaService } from '../../../../services/authPouch.service';
-import { PouchManager } from '../../PouchManager';
 
 @Component({
   selector: 'ngx-form-nursing-physical-exam',
@@ -101,7 +98,12 @@ export class FormNursingPhysicalExamComponent implements OnInit {
   // }
 
   async ngOnInit() {
-
+    // if (!this.data) {
+    //   this.data = {
+    //     revision: '',
+    //     type_ch_physical_exam_id: '',
+    //   };
+    // }
     if (!this.data) {
       this.data = {
         revision1: '',
@@ -125,33 +127,44 @@ export class FormNursingPhysicalExamComponent implements OnInit {
     await Promise.all([this.GetAuxData()]);
     this.loadAuxData = false;
     this.loadForm();
+    // this.form = this.formBuilder.group({
+    //   nursing_physical_exam: this.formBuilder.array([]),
 
-    if (navigator.onLine) {
+    // });
 
-      this.PhysicalExamS.GetCollection({
-        ch_record_id: this.record_id,
-        type_record_id: this.type_record_id
-      }).then(x => {
-        if (x.length > 0 && this.type_record_id == 1) {
-          this.disabled = true;
-          this.messageEvent.emit(true);
-        } else {
-          this.disabled = false;
-          this.messageEvent.emit(false);
-        }
-      });
-    } else {
-      let pouchManager = new PouchManager("nursing_physical_exam_sync");
-      let background = await pouchManager.get(this.record_id.toString());
-      if (background) {
+    this.PhysicalExamS.GetCollection({
+      ch_record_id: this.record_id,
+      type_record_id: this.type_record_id
+    }).then(x => {
+      if (x.length > 0 && this.type_record_id == 1) {
         this.disabled = true;
         this.messageEvent.emit(true);
+      } else {
+        this.disabled = false;
+        this.messageEvent.emit(false);
       }
-    }
-
+    });
   }
 
-
+  // disabledFormularies(Data){
+  //   console.log('adentro');
+  //   this.form.patchValue({
+  //     revision1: '',
+  //     description1: '',
+  //     revision2: '',
+  //     description2: '',
+  //     revision3: '',
+  //     description3: '',
+  //     revision4: '',
+  //     description4: '',
+  //     revision5: '',
+  //     description5: '',
+  //     revision6: '',
+  //     description6: '',
+  //     revision7: '',
+  //     description7: '',
+  //   });
+  // }
 
   async GetAuxData() {
     if (this.enfermery) {
@@ -161,77 +174,43 @@ export class FormNursingPhysicalExamComponent implements OnInit {
         // this.type_ch_physical_exam.forEach(element => {
         //   this.addForms();
 
-      }
-      if (this.type_record_id == 1) {
-
-        await this.PhysicalExamS.ByRecord(this.record_id, this.type_record_id).then(
-          (x) => {
-            x;
-
-            if (x.length > 0) {
-              this.data = x;
-              this.disabled = true;
-              this.form.controls.description1.disable();
-              this.form.controls.description1.updateValueAndValidity();
-              this.form.controls.description2.disable();
-              this.form.controls.description2.updateValueAndValidity();
-              this.form.controls.description3.disable();
-              this.form.controls.description3.updateValueAndValidity();
-              this.form.controls.description4.disable();
-              this.form.controls.description4.updateValueAndValidity();
-              this.form.controls.description5.disable();
-              this.form.controls.description5.updateValueAndValidity();
-              this.form.controls.description6.disable();
-              this.form.controls.description6.updateValueAndValidity();
-              this.form.controls.description7.disable();
-              this.form.controls.description7.updateValueAndValidity();
-            }
-          }
-        );
-
-        return Promise.resolve(true);
-      }
+        // });
+      });
 
     } else {
-      if (!this.enfermery) {
-        let dataTable = new PouchDB('type_ch_physical_exam');
-        dataTable.get('type_ch_physical_exam').then(x => {
-          this.type_ch_physical_exam = x.type;
-          return Promise.resolve(true);
-        });
-
-
-      } else {
-        this.type_ch_physical_exam = this.arrayMedical;
-
-      }
+      this.type_ch_physical_exam = this.arrayMedical;
       this.loading = false;
-      if (this.type_record_id == 1) {
-        let pouchManager = new PouchManager("nursing_physical_exam_sync");
-        let nursingPhysicalExam = await pouchManager.get(this.record_id.toString());
-        if (nursingPhysicalExam && JSON.parse(nursingPhysicalExam.physical_exam).length > 0) {
-          this.data = JSON.parse(nursingPhysicalExam.physical_exam);
-          this.disabled = true;
-          this.form.controls.description1.disable();
-          this.form.controls.description1.updateValueAndValidity();
-          this.form.controls.description2.disable();
-          this.form.controls.description2.updateValueAndValidity();
-          this.form.controls.description3.disable();
-          this.form.controls.description3.updateValueAndValidity();
-          this.form.controls.description4.disable();
-          this.form.controls.description4.updateValueAndValidity();
-          this.form.controls.description5.disable();
-          this.form.controls.description5.updateValueAndValidity();
-          this.form.controls.description6.disable();
-          this.form.controls.description6.updateValueAndValidity();
-          this.form.controls.description7.disable();
-          this.form.controls.description7.updateValueAndValidity();
-        }
-      }
     }
 
+    if (this.type_record_id == 1) {
 
+      await this.PhysicalExamS.ByRecord(this.record_id, this.type_record_id).then(
+        (x) => {
+          x;
 
+          if (x.length > 0) {
+            this.data = x;
+            this.disabled = true;
+            this.form.controls.description1.disable();
+            this.form.controls.description1.updateValueAndValidity();
+            this.form.controls.description2.disable();
+            this.form.controls.description2.updateValueAndValidity();
+            this.form.controls.description3.disable();
+            this.form.controls.description3.updateValueAndValidity();
+            this.form.controls.description4.disable();
+            this.form.controls.description4.updateValueAndValidity();
+            this.form.controls.description5.disable();
+            this.form.controls.description5.updateValueAndValidity();
+            this.form.controls.description6.disable();
+            this.form.controls.description6.updateValueAndValidity();
+            this.form.controls.description7.disable();
+            this.form.controls.description7.updateValueAndValidity();
+          }
+        }
+      );
+
+      return Promise.resolve(true);
+    }
   }
 
   async loadForm(force = true) {
@@ -299,26 +278,44 @@ export class FormNursingPhysicalExamComponent implements OnInit {
     this.onChanges();
   }
 
-  private afterSave(message) {
-    this.toastService.success('', message);
-    this.messageEvent.emit(true);
-  }
-
   async save() {
     var contador = 0;
     var err = 0;
     this.isSubmitted = true;
+
     if (!this.form.invalid) {
       this.makeArray();
       this.loading = true;
-      let data = {
-        physical_exam: JSON.stringify(this.ArrayforSaving),
-        type_record_id: this.type_record_id,
-        ch_record_id: this.record_id,
-      };
-      if (navigator.onLine) {
-        await this.PhysicalExamS.Save(data).then((x) => {
-          this.afterSave(x.message);
+      // this.showTable = false;
+      if (this.data.id) {
+        await this.PhysicalExamS.Update({
+          id: this.data.id,
+          revision: this.form.controls.revision.value,
+          type_ch_physical_exam_id:
+            this.form.controls.type_ch_physical_exam_id.value,
+          description: this.form.controls.description.value,
+          type_record_id: 1,
+          ch_record_id: this.record_id,
+        })
+          .then((x) => {
+            this.toastService.success('', x.message);
+            this.messageEvent.emit(true);
+            if (this.saved) {
+              this.saved();
+            }
+          })
+          .catch((x) => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+      } else {
+        await this.PhysicalExamS.Save({
+          physical_exam: JSON.stringify(this.ArrayforSaving),
+          type_record_id: this.type_record_id,
+          ch_record_id: this.record_id,
+        }).then((x) => {
+          this.toastService.success('', x.message);
+          this.messageEvent.emit(true);
         }).catch((x) => {
           this.isSubmitted = false;
           this.loading = false;
@@ -327,16 +324,7 @@ export class FormNursingPhysicalExamComponent implements OnInit {
         this.disabled = true;
         this.loading = false;
         this.messageEvent.emit(true);
-      } else {
-        data["_id"] = this.record_id.toString();
-        let pouchManager = new PouchManager('nursing_physical_exam_sync');
-        await pouchManager.insert(data);
-        this.afterSave(pouchManager.SUCCESSFUL_INSERT_MESSAGE);
-        this.disabled = true;
-        this.loading = false;
-        this.messageEvent.emit(true);
       }
-
     } else {
       this.toastService.warning('', 'Debe diligenciar los campos obligatorios');
     }
