@@ -1,0 +1,26 @@
+<nb-card size="height">
+  <nb-card-header>
+    <span class="h5">{{ title }}</span>
+  </nb-card-header>
+  <nb-card-body>
+    <div>
+      <form [formGroup]="form">
+        <div class="col-md-12">
+          <label for="specialty_id" class="form-text text-muted font-weight-bold align">ESPECIALIDAD:</label>
+          <nb-select [selected]="this.data.specialty_id" formControlName="specialty_id" id="specialty_id" fullWidth
+            title="Seleccione..."
+            status="{{ isSubmitted && form.controls.specialty_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option *ngFor="let item of specialty_id" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+      </form>
+    </div>
+  </nb-card-body>
+
+  <nb-card-footer class="d-flex justify-content-end">
+    <button nbButton ghost type="button" (click)="close()">Cancelar</button>
+    <button nbButton status="danger" class="ml-1" type="button" (click)="CreateAction()">{{ textConfirm }}</button>
+  </nb-card-footer>
+</nb-card>

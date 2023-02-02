@@ -14,6 +14,7 @@ import { TypeBriefcaseService } from '../../../business-controller/type-briefcas
 import { ManualPrice } from '../../../models/manual-price';
 import { Console } from 'console';
 import { BriefcaseService } from '../../../business-controller/briefcase.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-services-briefcase',
@@ -184,6 +185,7 @@ export class ServicesBriefcaseComponent implements OnInit {
     private toastS: NbToastrService,
     private BriefcaseS: BriefcaseService,
     private currency: CurrencyPipe,
+    private location: Location,
   ) {
   }
 
@@ -299,5 +301,9 @@ export class ServicesBriefcaseComponent implements OnInit {
       this.RefreshData();
       this.selectedOptions = [];
     }
+  }
+
+  back() {
+    this.location.back();
   }
 }

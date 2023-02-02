@@ -45,7 +45,6 @@ export class FormulationComponent implements OnInit {
         title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,

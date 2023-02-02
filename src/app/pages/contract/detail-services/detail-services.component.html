@@ -11,7 +11,7 @@
                     customData="services_briefcase">
       <div actions>
         <div class="actions">
-          <a nbButton routerLink="/pages/contract/briefcase/{{this.briefcase_id}}">Volver</a>
+          <button nbButton class="mr-1" (click)="back()" >Volver</button>
           <!--<nb-select style="margin-left: 5px;" (selectedChange)="ChangeManual($event)" placeholder="Filtrar por Categoria" [(selected)]="manual">
             <nb-option value="0">Todos los registros</nb-option>
             <nb-option *ngFor="let item of manual" [value]="item.id">{{item.name}}</nb-option>
