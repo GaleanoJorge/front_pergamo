@@ -146,9 +146,28 @@ export class FormReasonConsultationComponent implements OnInit {
           ch_external_cause_id: this.form.controls.ch_external_cause_id.value,
           type_record_id: 1,
           ch_record_id: this.record_id,
-
-        }).then(x => {
-          this.toastService.success('', x.message);
+        }
+        if (navigator.onLine) {
+          await this.reasonConsultationS.Update(data).then(x => {
+            this.toastService.success('', x.message);
+            this.messageEvent.emit(true);
+            this.loading = false;
+            this.ch_reason_consultation = x.data.ch_reason_consultation;
+            this.botton_title = 'Actualizar';
+            if (this.saved) {
+              this.saved();
+            }
+          }).catch(x => {
+            this.isSubmitted = false;
+            this.loading = false;
+          });
+        } else {
+          //Es la actualización en offline
+          data["_id"] = data.id.toString();
+          delete data["id"];
+          let pouchManager = new PouchManager('reason_consultation_sync');
+          await pouchManager.update(data);
+          this.toastService.success('', pouchManager.SUCCESSFUL_UPDATE_MESSAGE);
           this.messageEvent.emit(true);
           this.loading = false;
           this.ch_reason_consultation = x.data.ch_reason_consultation;
