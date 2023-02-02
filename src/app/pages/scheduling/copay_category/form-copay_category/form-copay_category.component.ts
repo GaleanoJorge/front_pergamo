@@ -52,6 +52,11 @@ export class FormCopayCategoryComponent implements OnInit {
         status_id: '',
         payment_type_id: ''
       };
+    } else {
+      if (this.data.payment_type_id == 2) {
+        this.data.value = this.data.value * 100;
+      }
+      this.data.value = this.data.value.toString();
     }
 
     this.form = this.formBuilder.group({
@@ -135,7 +140,7 @@ export class FormCopayCategoryComponent implements OnInit {
         return false;
       }
       let lengthValue = this.form.controls.value.value.length;
-      if(this.form.controls.value.value.includes(".") && this.form.controls.value.value[lengthValue-1] == '0' && keyChar == "0"){
+      if (this.form.controls.value.value.includes(".") && this.form.controls.value.value[lengthValue - 1] == '0' && keyChar == "0") {
         return false;
       }
     } else {
@@ -164,9 +169,9 @@ export class FormCopayCategoryComponent implements OnInit {
     }
   }
 
-  removePercentSign(){
+  removePercentSign() {
     let currentValue = this.form.controls.value.value;
-    currentValue = currentValue.replace("%","");
+    currentValue = currentValue.replace("%", "");
     this.form.controls.value.setValue(currentValue);
   }
 
@@ -174,14 +179,14 @@ export class FormCopayCategoryComponent implements OnInit {
     this.dialogRef.close();
   }
   save() {
-    if(this.form.controls.payment_type_id.value == 2){
+    if (this.form.controls.payment_type_id.value == 2) {
       let currentValue = this.form.controls.value.value;
-      currentValue = currentValue.replace("%","");
-      this.value = currentValue/100;
-    }else{
+      currentValue = currentValue.replace("%", "");
+      this.value = currentValue / 100;
+    } else {
       this.value = this.form.controls.value.value;
     }
-    
+
     this.isSubmitted = true;
     if (!this.form.invalid) {
       this.loading = true;
