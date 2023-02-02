@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -6,13 +6,17 @@ import { Location } from '@angular/common';
     selector: 'ngx-help-center',
     templateUrl: 'help-center.component.html',
     styleUrls: ['help-center.component.scss'],
+    
 })
 export class HelpCenterComponent {
+    changeimg: boolean;
 
     constructor(
         private router: Router,
-        private location: Location,
-    ) { }
+        private location: Location,        
+    ) { 
+        this.changeimg = false;
+    }
 
     routes = [
         {
@@ -25,58 +29,57 @@ export class HelpCenterComponent {
 
     ngOnInit() {
 
-        if(this.router.url == "/pages/help-center/assistencial"){
+        if (this.router.url == "/pages/help-center/assistencial") {
             this.mainhelpcenter = "ASSISTENCIAL";
 
-        }else if(this.router.url == "/pages/help-center/quality"){
+        } else if (this.router.url == "/pages/help-center/quality") {
             this.mainhelpcenter = "QUALITY";
 
-        }else if(this.router.url == "/pages/help-center/statistic"){
+        } else if (this.router.url == "/pages/help-center/statistic") {
             this.mainhelpcenter = "STATISTIC";
 
-        }else if(this.router.url == "/pages/help-center/finance"){
+        } else if (this.router.url == "/pages/help-center/finance") {
             this.mainhelpcenter = "FINANCE";
 
-        }else if(this.router.url == "/pages/help-center/logistic"){
+        } else if (this.router.url == "/pages/help-center/logistic") {
             this.mainhelpcenter = "LOGISTIC";
 
-        }else if(this.router.url == "/pages/help-center/sysmaintenance"){
+        } else if (this.router.url == "/pages/help-center/sysmaintenance") {
             this.mainhelpcenter = "SYSMAINTENANCE";
 
-        }else if(this.router.url == "/pages/help-center/helpdesk"){
+        } else if (this.router.url == "/pages/help-center/helpdesk") {
             this.mainhelpcenter = "HELPDESK";
 
-        }else if(this.router.url == "/pages/help-center/talent"){
+        } else if (this.router.url == "/pages/help-center/talent") {
             this.mainhelpcenter = "TALENT";
         }
     }
-    
-    goToAssistencial(){
+
+    goToAssistencial() {
         this.router.navigateByUrl("/pages/help-center/assistencial");
     }
-    goToQuality(){
+    goToQuality() {
         this.router.navigateByUrl("/pages/help-center/quality");
     }
-    goToStatistic(){
+    goToStatistic() {
         this.router.navigateByUrl("/pages/help-center/statistic");
     }
-    goToFinance(){
+    goToFinance() {
         this.router.navigateByUrl("/pages/help-center/finance");
     }
-    goToLogistic(){
+    goToLogistic() {
         this.router.navigateByUrl("/pages/help-center/logistic");
     }
-    goToSysMaintenance(){
+    goToSysMaintenance() {
         this.router.navigateByUrl("/pages/help-center/sysmaintenance");
     }
-    goToHelpDesk(){
+    goToHelpDesk() {
         this.router.navigateByUrl("/pages/help-center/helpdesk");
     }
-    goToTalent(){
+    goToTalent() {
         this.router.navigateByUrl("/pages/help-center/talent");
     }
     back() {
-        this.location.back();    
-     }
-
+        this.location.back();
+    }
 }
