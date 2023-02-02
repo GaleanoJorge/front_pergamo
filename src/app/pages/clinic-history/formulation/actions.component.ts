@@ -16,7 +16,7 @@ import { ChFormulationService } from '../../../business-controller/ch-formulatio
     <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
     </button>
-    <button *ngIf="(this.value.data.product_generic || this.value.data.product_supplies) && this.value.counter <= 4" nbTooltip="Duplicar Formulación" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="showFormulations(formulations)">
+    <button *ngIf="(this.value.data.product_generic || this.value.data.product_supplies)" nbTooltip="Duplicar Formulación" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="showFormulations(formulations)">
         <nb-icon icon="copy-outline"></nb-icon>
     </button>
 

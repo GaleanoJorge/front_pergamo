@@ -1,51 +1,51 @@
 <div *ngIf="this.mainhelpcenter == ''" class="container">
     <h1 class="tittlemain" style="text-align:center;">CENTRO DE AYUDA</h1>
-    <div class="row">        
+    <div class="row">
         <div class="col-md-3 div-two">
             <a (click)="goToAssistencial()">
-                <img src="assets/images/Asistencial.svg" alt="Asistencial" class="icon" />
+                <img src="../../../../assets/images/Asistencial.svg" alt="Asistencial" class="icon" />
             </a>
         </div>
 
         <div class="col-md-3 div-two">
             <a (click)="goToQuality()">
-                <img src="assets/images/Control de calidad.svg" alt="Calidad" class="icon" />
+                <img src="../../../../assets/images/Control de calidad.svg" alt="Calidad" class="icon" />
             </a>
         </div>
 
         <div class="col-md-3 div-two">
             <a (click)="goToStatistic()">
-                <img src="assets/images/Estadístico.svg" alt="Estadístico" class="icon" />
+                <img src="../../../../assets/images/Estadístico.svg" alt="Estadístico" class="icon" />
             </a>
         </div>
 
         <div class="col-md-3 div-two">
             <a (click)="goToFinance()">
-                <img src="assets/images/Financiero.svg" alt="Financiero" class="icon" />
+                <img src="../../../../assets/images/Financiero.svg" alt="Financiero" class="icon" />
             </a>
         </div>
-        
+
         <div class="col-md-3 div-two">
             <a (click)="goToLogistic()">
-                <img src="assets/images/Logístico.svg" alt="Logístico" class="icon" />
+                <img src="../../../../assets/images/Logístico.svg" alt="Logístico" class="icon" />
             </a>
-        </div>     
+        </div>
 
         <div class="col-md-3 div-two">
             <a (click)="goToSysMaintenance()">
-                <img src="assets/images/Mantenimiento del sistema.svg" alt="MantenimientoSis" class="icon" />
+                <img src="../../../../assets/images/Mantenimiento del sistema.svg" alt="MantenimientoSis" class="icon" />
             </a>
         </div>
 
         <div class="col-md-3 div-two">
             <a (click)="goToHelpDesk()">
-                <img src="assets/images/Mesa de ayuda.svg" alt="MesaAyuda" class="icon" />
+                <img src="../../../../assets/images/Mesa de ayuda.svg" alt="MesaAyuda" class="icon" />
             </a>
         </div>
 
         <div class="col-md-3 div-two">
             <a (click)="goToTalent()">
-                <img src="assets/images/Talento humano.svg" alt="Talento" class="icon" />
+                <img src="../../../../assets/images/Talento humano.svg" alt="Talento" class="icon" />
             </a>
         </div>
     </div>
@@ -60,41 +60,73 @@
     <div class="row">
         <div class="col-md-4 div-two">
             <a (click)="goToAdmitNP()">
-                <img src="assets/images/Admitir nuevo paciente.svg" alt="AdmitirNP" class="icon2" />
+                <img src="../../../../assets/images/Admitir nuevo paciente.svg" alt="AdmitirNP" class="icon2" />
             </a>
         </div>
 
         <div class="col-md-4 div-two">
             <!-- <a href="#" target="#"> -->
-            <img src="assets/images/Conciliaciones.svg" alt="Conciliaciones" class="icon2" />
+            <img src="../../../../assets/images/Conciliaciones.svg" alt="Conciliaciones" class="icon2" />
             <!-- </a> -->
         </div>
-        
+
         <div class="col-md-4 div-two">
             <a href="https://www.youtube.com/watch?v=pJshYYTRVnY" target="_blank">
-                <img src="assets/images/Contratos.svg" alt="Contratos" class="icon2" />
+                <img src="../../../../assets/images/Contratos.svg" alt="Contratos" class="icon2" />
             </a>
             <!-- </a> -->
         </div>
 
         <div class="col-md-4 div-two">
-            <a href="https://youtu.be/3ImuisAW1xI" target="_blank"
-                target="_blank">
-                <img src="assets/images/Crear nuevo paciente.svg" alt="CrearNP" class="icon2" />
+            <a href="https://youtu.be/3ImuisAW1xI" target="_blank" target="_blank">
+                <img src="../../../../assets/images/Crear nuevo paciente.svg" alt="CrearNP" class="icon2"/>
             </a>
         </div>
 
         <div class="col-md-4 div-two">
-            <!-- <a href="#" target="#"> -->
-            <img src="assets/images/Glosas.svg" alt="Glosas" class="icon2" />
-            <!-- </a> -->
+            <!-- (mouseover)="changeimg=true" (mouseout)="changeimg=false" -->
+            <!-- *ngIf="!changeimg" -->
+            <a>
+                <img src="../../../../assets/images/Glosas.svg" alt="Glosas" class="icon2"/>
+            </a>
+            <!-- <a *ngIf="changeimg">
+                <img src="../../../../assets/images/Instructivos.svg" class="icon2"/>
+            </a>
+            <div class="row">
+                <div class="col">
+                    <a href="#" class="menu-item div-three iconpdf" *ngIf="changeimg">
+                        <img src="../../../../assets/images/pdf.svg" class="iconPdf"/>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#" Class="menu-item div-three iconplay" *ngIf="changeimg">
+                        <img src="../../../../assets/images/play.svg" class="iconPlay"/>
+                    </a>
+                </div>
+            </div> -->
         </div>
 
-        <div class="col-md-4 div-two">
-            <a href="assets/images/Hospitalización.pdf" target="_blank">
-                <img src="assets/images/Historia clínica médica.svg" alt="HCmédica" class="icon2" />
+
+        <div class="col-md-4 div-two" (mouseover)="changeimg2=true" (mouseout)="changeimg2=false">
+            <a *ngIf="!changeimg2">
+                <img src="../../../../assets/images/Historia clínica médica.svg" alt="HCmédica" class="icon2"/>
             </a>
-        </div>                      
+            <a *ngIf="changeimg2">
+                <img src="../../../../assets/images/Instructivos.svg" class="icon2"/>
+            </a>
+            <div class="row">
+                <div class="col">
+                    <a href="../../../../assets/user-manual/Historia clínica médica.pdf" target="_blank" class="menu-item div-three iconpdf" *ngIf="changeimg2">
+                        <img src="../../../../assets/images/pdf.svg" class="iconPdf"/>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="https://youtu.be/3ImuisAW1xI" target="_blank" Class="menu-item div-three iconplay" *ngIf="changeimg2">
+                        <img src="../../../../assets/images/play.svg" class="iconPlay"/>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -106,7 +138,7 @@
     </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
-        <img src="assets/images/Control de calidad.svg" alt="Calidad" class="icon" />
+        <img src="../../../../assets/images/Control de calidad.svg" alt="Calidad" class="icon" />
         <!-- </a> -->
     </div>
 </div>
@@ -119,7 +151,7 @@
     </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
-        <img src="assets/images/Estadístico.svg" alt="Estadístico" class="icon" />
+        <img src="../../../../assets/images/Estadístico.svg" alt="Estadístico" class="icon" />
         <!-- </a> -->
     </div>
 </div>
@@ -132,7 +164,7 @@
     </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
-        <img src="assets/images/Financiero.svg" alt="Financiero" class="icon" />
+        <img src="../../../../assets/images/Financiero.svg" alt="Financiero" class="icon" />
         <!-- </a> -->
     </div>
 </div>
@@ -145,7 +177,7 @@
     </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
-        <img src="assets/images/Logístico.svg" alt="Logístico" class="icon" />
+        <img src="../../../../assets/images/Logístico.svg" alt="Logístico" class="icon" />
         <!-- </a> -->
     </div>
 </div>
@@ -158,7 +190,7 @@
     </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
-        <img src="assets/images/Mantenimiento del sistema.svg" alt="MantenimientoSis" class="icon" />
+        <img src="../../../../assets/images/Mantenimiento del sistema.svg" alt="MantenimientoSis" class="icon" />
         <!-- </a> -->
     </div>
 </div>
@@ -171,7 +203,7 @@
     </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
-        <img src="assets/images/Mesa de ayuda.svg" alt="MesaAyuda" class="icon" />
+        <img src="../../../../assets/images/Mesa de ayuda.svg" alt="MesaAyuda" class="icon" />
         <!-- </a> -->
     </div>
 </div>
@@ -184,7 +216,7 @@
     </h1>
     <div class="col-md-4 div-two">
         <!-- <a href="#" target="#"> -->
-        <img src="assets/images/Talento humano.svg" alt="Talento" class="icon" />
+        <img src="../../../../assets/images/Talento humano.svg" alt="Talento" class="icon" />
         <!-- </a> -->
     </div>
 </div>

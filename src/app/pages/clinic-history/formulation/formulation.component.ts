@@ -32,7 +32,6 @@ export class FormulationComponent implements OnInit {
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
-  public counter = 0;
 
   public loading: boolean = false;
 
@@ -46,14 +45,12 @@ export class FormulationComponent implements OnInit {
         title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-          this.counter++;
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
             'assigned': this.assigned_management_plan,
             'ch_record_id': this.route.snapshot.params.id,
             'user': this.users,
-            'counter': this.counter,
             'delete': this.DeleteConfirmFormulation.bind(this),
             'refresh': this.RefreshData.bind(this),
           };
