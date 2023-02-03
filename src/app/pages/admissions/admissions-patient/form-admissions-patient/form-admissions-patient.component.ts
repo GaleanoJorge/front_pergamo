@@ -162,7 +162,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       file_auth: [this.data.file_auth],
       has_caregiver: [this.data.has_caregiver, Validators.compose([Validators.required])],
       regime_id: [this.data.regime_id, Validators.compose([Validators.required])],
-      category: ['', Validators.compose([Validators.required])],
+      category: [''],
       copay: [{ value: '', disabled: true } , Validators.compose([Validators.required])],
       eps: [this.data.eps],
     });
@@ -624,9 +624,12 @@ export class FormAdmissionsPatientComponent implements OnInit {
     }).then((x) => {
       if (x.length > 0) {
         this.show_cats = true;
+        this.form.controls.category.setValidators(Validators.compose([Validators.required]));
         this.categories = x;
       } else {
         this.show_cats = false;
+        this.form.controls.category.clearValidators();
+        this.form.controls.category.setErrors(null);
       }
     });
 
@@ -861,8 +864,11 @@ export class FormAdmissionsPatientComponent implements OnInit {
             'Tipo de contrato sin categorias asociadas'
           );
           this.show_cats = false;
+          this.form.controls.category.clearValidators();
+          this.form.controls.category.setErrors(null);
         } else {
           this.show_cats = true;
+          this.form.controls.category.setValidators(Validators.compose([Validators.required]));
         }
         return Promise.resolve(true);
       });
