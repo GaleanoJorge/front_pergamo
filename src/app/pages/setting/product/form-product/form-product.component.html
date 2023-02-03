@@ -32,7 +32,7 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="unit_packing" class="form-text text-muted font-weight-bold">Unidades por empaque:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="unit_packing"
+          <input type='number' oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="unit_packing"
             formControlName="unit_packing" unit_packing
             status="{{ isSubmitted && form.controls.unit_packing.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
@@ -40,8 +40,7 @@
         <div class="col-12 col-sm-12 col-md-6">
           <label class="form-text text-muted font-weight-bold">Producto Genérico:</label>
           <input type="text" list="codes1" class="data-list" id="product_generic_id"
-            (change)="saveCode($event.target.value)" formControlName="product_generic_id" product_generic_id fullWidth
-            nbInput
+            (change)="saveCode($event.target.value)" formControlName="product_generic_id" product_generic_id fullWidth nbInput
             status="{{ isSubmitted && form.controls.product_generic_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           <datalist id="codes1">
             <option *ngFor="let item of product_generic" [value]="item.description">{{item.description}}
@@ -132,7 +131,7 @@
         <div class="col-12 col-sm-12 col-md-6">
           <label for="code_cum_consecutive" class="form-text text-muted font-weight-bold">Consecutivo de registro
             sanitario:</label>
-          <input nbInput fullWidth id="code_cum_consecutive" formControlName="code_cum_consecutive" code_cum_consecutive (change)="onchangeForm($event)"
+          <input type="number" nbInput fullWidth id="code_cum_consecutive" formControlName="code_cum_consecutive" code_cum_consecutive (change)="onchangeForm($event)"
             status="{{ isSubmitted && form.controls.code_cum_consecutive.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
 

@@ -7,6 +7,7 @@ import { PharmacyProductRequestService } from '../../../../business-controller/p
 import { SelectProductPatientShippingComponent } from './select-prod-patient-shipping.component';
 import { AmountShippingPatientComponent } from './amount-shipping-patient.component';
 import { threadId } from 'worker_threads';
+import { ActionSemaphoComponent } from './action-semapho.component';
 
 @Component({
   selector: 'ngx-prod-shipping-patient-package',
@@ -62,6 +63,17 @@ export class ProdShippingPatientPackageComponent implements OnInit {
           };
         },
         renderComponent: SelectProductPatientShippingComponent,
+      },
+      semaphore: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionSemaphoComponent,
       },
       product: {
         title: this.headerFields[0],

@@ -253,6 +253,7 @@ export class FormProductGenericComponent implements OnInit {
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();
+          this.form.setValue({ drug_concentration_id: '', measurement_units_id: '', product_presentation_id: '', description: '', pbs_type_id: '', nom_product_id: '', administration_route_id: '', special_controller_medicine: '', code_atc: '', product_dose_id: '', dose: '', multidose_concentration_id: '', prod_domiciliary: '', prod_ambulatory: '' });
           if (this.saved) {
             this.saved();
           }

@@ -6,6 +6,7 @@ import { BaseTableComponent } from '../../../components/base-table/base-table.co
 import { AmountShippingComponent } from './amount-shipping.component';
 import { SelectProductShippingComponent } from './select-prod-shipping.component';
 import { PharmacyProductRequestService } from '../../../../business-controller/pharmacy-product-request.service';
+import { ActionSemaphoComponent } from '../../pharmacy-request-patient/prod-shipping-patient-package/action-semapho.component';
 
 @Component({
   selector: 'ngx-prod-shipping-package',
@@ -61,6 +62,17 @@ export class ProdShippingPackageComponent implements OnInit {
           };
         },
         renderComponent: SelectProductShippingComponent,
+      },
+      semaphore: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionSemaphoComponent,
       },
       product: {
         title: this.headerFields[0],
