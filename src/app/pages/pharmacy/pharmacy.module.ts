@@ -101,6 +101,11 @@ import { AmountUnitComponent } from './pharmacy-lot/prod-lot-package/amountUnit.
 import { PharmaInvReturnComponent } from './pharmacy-income/pharma-inv-return/pharma-inv-return.component';
 import { AmountDamagedPharComponent } from './pharmacy-return/prod-return-package/amount-damaged.component';
 import { FormElementDeniedComponent } from './pharmacy-request-patient/form-element-denied/form-element-denied.component';
+import { PharmaLotStockTabComponent } from './pharma-lot-stock-tab/pharma-lot-stock-tab.component';
+import { FormPharmacyInvAdjustComponent } from './pharmacy-inventory-adjustment/form-pharmacy-inv-adjust/form-pharmacy-inv-adjust.component';
+import { ActionsInvAdjustComponent } from './pharmacy-inventory-adjustment/actionsInvAdjust.component';
+import { PharmacyInventoryAdjustmentComponent } from './pharmacy-inventory-adjustment/pharmacy-inventory-adjustment.component';
+import { ActionSemaphoComponent } from './pharmacy-request-patient/prod-shipping-patient-package/action-semapho.component';
 
 @NgModule({
   imports: [
@@ -168,7 +173,9 @@ import { FormElementDeniedComponent } from './pharmacy-request-patient/form-elem
     PharmacyInventorySuppliesComponent,
     FormPharmacyInventorySuppliesComponent,
     FormPharmaInvSupPersonComponent,
-
+    FormPharmacyInvAdjustComponent,
+    ActionsInvAdjustComponent,
+    PharmacyInventoryAdjustmentComponent,
 
     PharmacyLotComponent,
     FormPharmacyLotComponent,
@@ -178,6 +185,7 @@ import { FormElementDeniedComponent } from './pharmacy-request-patient/form-elem
     LotComponent,
     DateComponent,
     AmountUnitComponent,
+    PharmaLotStockTabComponent,
 
     PharmacyProductRequestComponent,
     FormPharmacyProductRequestComponent,
@@ -218,7 +226,8 @@ import { FormElementDeniedComponent } from './pharmacy-request-patient/form-elem
     AmountIncomePatientComponent,
     AmountDamagedPatientComponent,
     FormPharmacyIncomePatientComponent,
-    FormElementDeniedComponent
+    FormElementDeniedComponent,
+    ActionSemaphoComponent
 
   ],
   exports: [
@@ -230,7 +239,7 @@ import { FormElementDeniedComponent } from './pharmacy-request-patient/form-elem
     ProdSuppliesRequestPackageComponent,
     SelectProductSuppliesRequestComponent,
     BillingRequestPharmacyComponent,
-
+    ActionSemaphoComponent,
     FormPharmacyIncomeComponent,
     PharmacyIncomeComponent,
     ActionsIncoComponent,
@@ -259,7 +268,10 @@ import { FormElementDeniedComponent } from './pharmacy-request-patient/form-elem
     FormPharmacyInventorySuppliesComponent,
     FormPharmaInvSupPersonComponent,
 
-
+    FormPharmacyInvAdjustComponent,
+    ActionsInvAdjustComponent,
+    PharmacyInventoryAdjustmentComponent,
+    
     PharmacyLotComponent,
     FormPharmacyLotComponent,
     ProdLotPackageComponent,
@@ -274,6 +286,7 @@ import { FormElementDeniedComponent } from './pharmacy-request-patient/form-elem
     FormPharmacyProductSuppliesComponent,
     PharmacyProductSuppliesComponent,
     ProductRequestComponent,
+    PharmaLotStockTabComponent,
 
     ProdShippingPackageComponent,
     SelectProductShippingComponent,
