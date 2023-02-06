@@ -85,14 +85,14 @@ export class InformedConsentsComponent implements OnInit {
   ngOnInit(): void {
     if(this.route.snapshot.params.id){
       this.ch_record = this.route.snapshot.params.id;
-      this.entity = this.ch_record ? 'InformedConsents/FileByRecord/' + this.ch_record : 'informed_consents';
+      this.entity = this.ch_record ? 'InformedConsents/FileByRecord/' + this.ch_record : 'ch_document';
     }else{
-      this.entity='informed_consents';
+      this.entity='ch_document';
     }
 
     this.routes = [
       {
-        name: 'Registro Histotia Clinica',
+        name: 'Registro Historia Clinica',
         route: '../../list',
       },
       {
