@@ -15,6 +15,7 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
   @Input() title: string;
   @Input() data: any = null;
   @Input() my_pharmacy_id: any = null;
+  @Input() pharmacy: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -69,7 +70,7 @@ export class FormPharmacyInventorySuppliesComponent implements OnInit {
           // status2: 1,
           product_supplies_id: this.data.billing_stock.product_supplies_com.product_supplies_id,
           request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
-          own_pharmacy_stock_id: this.my_pharmacy_id,
+          own_pharmacy_stock_id: this.pharmacy == null ? this.my_pharmacy_id : this.my_pharmacy_id != this.pharmacy ? this.pharmacy : this.my_pharmacy_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.close();

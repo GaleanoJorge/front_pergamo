@@ -1,0 +1,24 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    [entity]="entity"
+                    customData='informed_consents'
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        <div class="actions">
+
+          <button nbButton (click)="back()" >Volver</button>
+          <button nbButton status="danger" (click)="NewFileContract()">Crear</button>
+
+
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>
