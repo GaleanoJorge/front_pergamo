@@ -8,13 +8,13 @@ import { InformedConsents } from '../models/informed-consents';
   providedIn: 'root'
 })
 export class InformedConsentsService {
-  public ch_document: InformedConsents[] = [];
+  public informed_consents: InformedConsents[] = [];
 
   constructor(private webAPI: WebAPIService) {
   }
 
   GetCollection(params = {}): Promise<InformedConsents[]> {
-    let servObj = new ServiceObject(params ? 'ch_document?pagination=false' : 'ch_document');
+    let servObj = new ServiceObject(params ? 'informed_consents?pagination=false' : 'informed_consents');
 
     return this.webAPI.GetAction(servObj)
       .then(x => {
@@ -22,18 +22,18 @@ export class InformedConsentsService {
         if (!servObj.status)
           throw new Error(servObj.message);
 
-        this.ch_document = <InformedConsents[]>servObj.data.ch_document;
+        this.informed_consents = <InformedConsents[]>servObj.data.informed_consents;
 
-        return Promise.resolve(this.ch_document);
+        return Promise.resolve(this.informed_consents);
       })
       .catch(x => {
         throw x.message;
       });
   }
 
-  Save(ch_document: any): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_document');
-    servObj.data = ch_document;
+  Save(informed_consents: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('informed_consents');
+    servObj.data = informed_consents;
     return this.webAPI.PostAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
@@ -49,7 +49,7 @@ export class InformedConsentsService {
 
 
   Update(sect: any, id = null): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_document', (sect.id ? sect.id : id));
+    let servObj = new ServiceObject('informed_consents', (sect.id ? sect.id : id));
     servObj.data = sect;
     return this.webAPI.PostAction(servObj)
       .then(x => {
@@ -65,7 +65,7 @@ export class InformedConsentsService {
 
 
   Delete(id): Promise<ServiceObject> {
-    let servObj = new ServiceObject('ch_document', id);
+    let servObj = new ServiceObject('informed_consents', id);
     return this.webAPI.DeleteAction(servObj)
       .then(x => {
         servObj = <ServiceObject>x;
