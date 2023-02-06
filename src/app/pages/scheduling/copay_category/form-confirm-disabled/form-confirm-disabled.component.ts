@@ -9,6 +9,7 @@ import { ReasonCancelService } from '../../../../business-controller/reason-canc
 import { RoleBusinessService } from '../../../../business-controller/role-business.service';
 import { StatusBusinessService } from '../../../../business-controller/status-business.service';
 import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'ngx-form-confirm-disabled',
@@ -47,7 +48,7 @@ export class FormConfirmDisabledComponent implements OnInit {
     private reasonCancelS: ReasonCancelService,
     public datePipe: DateFormatPipe,
     private medicalDiaryDaysS: MedicalDiaryDaysService,
-
+    private authService: AuthService,
     private roleS: RoleBusinessService
   ) {}
 
@@ -155,6 +156,7 @@ export class FormConfirmDisabledComponent implements OnInit {
             status_id: 5,
             reason_cancel_id: this.form.controls.reason_cancel_id.value,
             cancel_description: this.form.controls.cancel_description.value,
+            user_cancel_id: this.authService.GetUser().id
           })
           .then((x) => {
             this.toastrService.success('', x.message);

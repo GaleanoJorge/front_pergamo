@@ -106,12 +106,8 @@
           </nb-autocomplete>
         </div>
         <div *ngIf="!this.disabled && showcat" class="col-md-6">
-          <label *ngIf="categories[0].payment_type == 1" for="category_id"
-            class="form-text text-muted font-weight-bold">Cuota moderadora:</label>
-          <label *ngIf="categories[0].payment_type == 2" for="category_id"
-            class="form-text text-muted font-weight-bold">Copago:</label>
-          <label *ngIf="categories[0].payment_type == 3" for="category_id"
-            class="form-text text-muted font-weight-bold">Exento:</label>
+          <label for="category_id"
+            class="form-text text-muted font-weight-bold">{{categories[0].payment_type.name}}:</label>
           <nb-select [selected]="this.data.category_id" [disabled]="this.disabled || onlyView"
             formControlName="category_id" id="category_id" fullWidth>
             <nb-option value="">Seleccione...</nb-option>

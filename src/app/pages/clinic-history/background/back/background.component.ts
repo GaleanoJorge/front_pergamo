@@ -117,7 +117,6 @@ export class BackgroundComponent implements OnInit {
     }
     if ($event == true) {
       this.RefreshData();
-      
     }
   }
 }

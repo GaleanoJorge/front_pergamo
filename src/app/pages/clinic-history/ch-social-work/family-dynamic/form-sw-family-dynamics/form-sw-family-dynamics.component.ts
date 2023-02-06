@@ -85,9 +85,6 @@ export class FormSwFamilyDynamicsComponent implements OnInit {
       this.decisions = x;
     });
 
-    this.familyS.GetCollection({record_id:this.record_id}).then(x => {
-      this.authority = x;
-    });
     this.onChanges();
   
   }

@@ -8,6 +8,8 @@
         <p class="parrafo" *ngIf="user"><b>NOMBRE:</b> {{user.nombre_completo}}</p>
         <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}}</p>
         <p class="parrafo" *ngIf="user"><b>EDAD:</b> {{user.age}}</p>
+        <p class="parrafo" *ngIf="user"><b>CELULAR:</b> {{user.phone}}</p>
+        <p class="parrafo" *ngIf="user"><b>DIRECCIÓN:</b> {{user.residence_address}}</p>
         <p class="parrafo" *ngIf="user"><b>GÉNERO:</b> {{user.gender.name}}</p>
         <p class="parrafo" *ngIf="user"><b>ASEGURADOR:</b> {{user.admissions[0].contract.company.name}}</p>
         <p class="parrafo" *ngIf="user"><b>CONTRATO:</b> {{user.admissions[0].contract.name}}</p>

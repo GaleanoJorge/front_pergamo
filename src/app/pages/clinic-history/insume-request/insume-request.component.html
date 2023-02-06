@@ -1,6 +1,6 @@
 <div *ngIf="has_input == false || type_record_id != 1" class="col-12 col-sm-12 col-md-12">
-  <ngx-form-insume-request (messageEvent)="receiveMessage($event)" [user]="this.user"
-    [admissions_id]="this.admissions_id" [record_id]="record_id">
+  <ngx-form-insume-request (messageEvent)="receiveMessage($event)" [user]="this.user" [scope_of_attention_id]="scope_of_attention_id"
+    [admissions_id]="this.admissions_id" [record_id]="record_id" [pavilion_only]="pavilion_only" [pavilion_id]="pavilion_id">
   </ngx-form-insume-request>
 </div>
 <ngx-base-list [messageError]="messageError">

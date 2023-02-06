@@ -1,11 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="save()">
   <hr>
   <div>
-
-    <div class="col col-lg-12">
-      <label class="form-text text-muted font-weight-bold" id="ch_e_valoration_o_t"> </label>
-      <option *ngFor="let item of ch_e_valoration_o_t" [value]="item.name">{{ item.code }}</option>
-    </div>
     <div class="col col-lg-12">
       <label for="ch_diagnosis_id" class="form-text text-muted font-weight-bold">DIAGNOSTICO MEDICO:</label>
       <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="ch_diagnosis_id"

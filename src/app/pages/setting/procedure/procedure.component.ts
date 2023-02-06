@@ -63,7 +63,7 @@ export class ProcedureComponent implements OnInit {
         title: this.headerFields[11],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value == 1 ? 'COUTA MODERADORA' : value == 2 ? 'COPAGO' :  value == 3 ? 'EXENTO' : '--';
+          return value.name
         },
       },
     },

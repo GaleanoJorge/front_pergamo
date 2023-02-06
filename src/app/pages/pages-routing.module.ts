@@ -20,10 +20,49 @@ const routes: Routes = [{
     },
     {
       path: 'help-center',
-      loadChildren: () => import('./help-center/help-center.module')
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },   
+    {
+      path: 'help-center/assistencial',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
         .then(m => m.HelpCenterModule),
     },
-
+    {
+      path: 'help-center/quality', 
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/statistic',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/finance',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/logistic',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },   
+    {
+      path: 'help-center/sysmaintenance',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/helpdesk',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/talent',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
     {
       path: 'contract',
       loadChildren: () => import('./contract/contract.module')

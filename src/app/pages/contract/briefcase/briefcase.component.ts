@@ -9,6 +9,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { ActivatedRoute, Router } from '@angular/router';
 import { CampusBriefcaseService } from '../../../business-controller/campus-briefcase.service';
 import { ContractService } from '../../../business-controller/contract.service';
+import { Location } from '@angular/common';
 import { ItemRolePermissionBusinessService } from '../../../business-controller/item-role-permission-business.service';
 
 
@@ -131,6 +132,7 @@ export class BriefcaseComponent implements OnInit {
     private route: ActivatedRoute,
     private CampusBriefcaseS: CampusBriefcaseService,
     private ContractS: ContractService,
+    private location: Location,
   ) {
   }
 
@@ -223,6 +225,10 @@ export class BriefcaseComponent implements OnInit {
     }).catch(x => {
       throw x;
     });
+  }
+
+  back() {
+    this.location.back();
   }
 
 }
