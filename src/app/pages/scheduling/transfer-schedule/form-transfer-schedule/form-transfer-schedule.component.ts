@@ -45,6 +45,7 @@ export class FormTransferScheduleComponent implements OnInit {
   public startHour: string;
   public finishHour: string;
   public scheduleData;
+  public afterFunction;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -219,6 +220,7 @@ export class FormTransferScheduleComponent implements OnInit {
         procedureId: this.procedure.id,
       }).then((x) => {
         this.toastService.success('', x.message);
+        this.afterFunction();
         this.close();
       }).catch((x) => {
         this.isSubmitted = false;
