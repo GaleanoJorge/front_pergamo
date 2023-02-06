@@ -345,6 +345,15 @@ export class FormMedicalDiaryComponent implements OnInit {
     }else{
       inputDates.style.borderColor = "lightseagreen";
     }
+    let currentDateString = new Date().toISOString().split('T')[0];
+    if(this.calendar_array.includes(currentDateString)){
+      let minimumDate = new Date();
+      let selectedMinimumDate = new Date(currentDateString + 'T' +  this.form.controls.start_time.value);
+      if(selectedMinimumDate < minimumDate){
+        this.toastService.warning('', "No puede seleccionar una fecha anterior a la actual");
+        return;
+      }
+    }
 
     if (!this.form.invalid) {
       this.loading = true;
