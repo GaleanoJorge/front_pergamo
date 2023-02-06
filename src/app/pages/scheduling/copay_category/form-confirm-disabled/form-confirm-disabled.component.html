@@ -38,7 +38,7 @@
               <nb-option *ngFor="let item of reason_cancel" [value]="item.id">{{ item.name }}</nb-option>
             </nb-select>
           </div>
-          <div *ngIf="this.form.controls.reason_cancel_id.value == 3" class="col-md-12">
+          <div class="col-md-12">
             <label for="cancel_description" class="form-text text-muted font-weight-bold">Observación:</label>
             <input type="text" nbInput id="cancel_description" formControlName="cancel_description" cancel_description fullWidth
             status="{{ isSubmitted && form.controls.cancel_description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">

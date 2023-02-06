@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/billing-request-pharmacy.component';
-import { PharmacyInventoryComponent } from './pharmacy-inventory/pharmacy-inventory.component';
-import { PharmacyLotComponent } from './pharmacy-lot/pharmacy-lot.component';
-import { PharmacyProductRequestComponent } from './pharmacy-product-request/pharmacy-product-request.component';
+import { PharmaLotStockTabComponent } from './pharma-lot-stock-tab/pharma-lot-stock-tab.component';
+import { PharmacyInventoryAdjustmentComponent } from './pharmacy-inventory-adjustment/pharmacy-inventory-adjustment.component';
 import { PharmacyRequestPatientsComponent } from './pharmacy-request-patients/pharmacy-request-patients.component';
 import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
 import { PharmacyComponent } from './pharmacy.component';
@@ -17,8 +16,8 @@ const routes: Routes = [{
   component: PharmacyComponent,
   children: [
     {
-      path: 'pharmacy-lot',
-      component: PharmacyLotComponent,
+      path: 'pharma-lot-stock-tab',
+      component: PharmaLotStockTabComponent,
     } ,
     {
     
@@ -41,6 +40,10 @@ const routes: Routes = [{
     {
       path: 'pharmacy-request-patients',
       component: PharmacyRequestPatientsComponent,
+    },
+    {
+      path: 'pharmacy-inventory-adjustment',
+      component: PharmacyInventoryAdjustmentComponent,
     }
   ],
 }];

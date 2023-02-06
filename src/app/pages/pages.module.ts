@@ -29,6 +29,7 @@ import { BaseListComponent } from './components/base-list/base-list.component';
 import { BaseTableComponent } from './components/base-table/base-table.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { ChRecordSelectComponent } from './clinic-history/ch-record-list/ch-record-select/ch-record-select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StatusFieldComponent } from './components/status-field/status-field.component';
 import { BaseFormComponent } from './components/base-form/base-form.component';
@@ -113,6 +114,7 @@ import { MulticalendarComponent } from './components/multicalendar/multicalendar
     BaseListComponent,
     BaseTableComponent,
     ConfirmDialogComponent,
+    ChRecordSelectComponent,
     StatusFieldComponent,
     BaseFormComponent,
     FormUsersComponent,

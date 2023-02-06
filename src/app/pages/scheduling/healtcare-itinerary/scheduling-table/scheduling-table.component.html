@@ -10,6 +10,7 @@
           <nb-option value="2">RESERVADAS</nb-option>
           <nb-option value="3">CONFIRMADAS</nb-option>
           <nb-option value="4">FACTURADAS</nb-option>
+          <nb-option value="5">CANCELADAS</nb-option>
         </nb-select>
       </div>
 
@@ -53,7 +54,7 @@
   </form>
   <div class="row">
     <div class="col-md-12">
-      <ngx-base-table [settings]="settings" entity="medical_diary_days?scheduling=true&pagination=true" customData='medical_diary_days'>
+      <ngx-base-table [settings]="settings" entity="medical_diary_days?scheduling=true&pagination=true&show_cancel=true" customData='medical_diary_days'>
       </ngx-base-table>
     </div>
   </div>

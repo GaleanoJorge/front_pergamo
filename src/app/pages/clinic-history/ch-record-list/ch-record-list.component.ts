@@ -15,6 +15,7 @@ import { AssignedManagementPlanService } from '../../../business-controller/assi
 import { MedicalDiaryDaysService } from '../../../business-controller/medical_diary_days.service';
 import { required } from '@rxweb/reactive-form-validators';
 import { SuppliesView } from '../../pad/management-plan/supplies-view/supplies-view.component';
+import { ChRecordSelectComponent } from './ch-record-select/ch-record-select.component';
 
 @Component({
   selector: 'ngx-ch-record-list',
@@ -59,9 +60,11 @@ export class ChRecordListComponent implements OnInit {
   public show_labs = false;
   public form: FormGroup;
   static datePipe2: any;
-  
+
   public disabled: boolean = false;
   public showButtom: boolean = true;
+
+  public selectedSpeciality = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @ViewChild('masiveAuth', { read: TemplateRef }) masiveAuth: TemplateRef<HTMLElement>;
@@ -163,7 +166,7 @@ export class ChRecordListComponent implements OnInit {
       return x.id == curr;
     });
     if (this.route.snapshot.queryParams.ext_con) {
-      this.type_of_attention=-2;
+      this.type_of_attention = -2;
       this.external_consult_id = this.route.snapshot.params.id2;
       this.entity = `ch_record/byadmission/${this.admissions_id}/${this.external_consult_id}?ext_con=${this.route.snapshot.queryParams.ext_con}`;
       await this.MedicalDiaryDays.GetOne(this.external_consult_id)
@@ -174,12 +177,12 @@ export class ChRecordListComponent implements OnInit {
           this.toastService.warning('', 'Agenda no encontrada');
         });
 
-        this.form = this.formBuilder.group({
-          speciality_id: [
-           null,
-           Validators.compose([Validators.required]),
-          ],
-        });
+      this.form = this.formBuilder.group({
+        speciality_id: [
+          null,
+          Validators.compose([Validators.required]),
+        ],
+      });
     } else {
       this.assigned_management_plan = this.route.snapshot.params.id2;
       this.type_of_attention = this.route.snapshot.params.id3;
@@ -224,7 +227,23 @@ export class ChRecordListComponent implements OnInit {
     this.table.refresh();
   }
 
-  NewChRecord() {
+  CreateChRecord() {
+    let userData = JSON.parse(localStorage.getItem('user'));
+    if (+localStorage.getItem('role_id') == 14 && userData.assistance[0].assistance_special.length > 1) {
+      this.dialogFormService.open(ChRecordSelectComponent, {
+        context: {
+          title: 'Creación de historia clínica',
+          executeAction: this.NewChRecord.bind(this),
+          textConfirm: "Crear"
+        }
+      })
+    }else{
+      this.selectedSpeciality = userData.assistance[0].assistance_special.length > 0 ? userData.assistance[0].assistance_special[0].specialty_id : null;
+      this.NewChRecord();
+    }
+  }
+
+  NewChRecord(arg = null) {
     this.chRecordS
       .Save({
         status: 'ACTIVO',
@@ -233,16 +252,17 @@ export class ChRecordListComponent implements OnInit {
         role_id: +localStorage.getItem('role_id'),
         medical_diary_days_id: this.external_consult_id
           ? this.external_consult_id
-          : null, 
+          : null,
         user_id: this.own_user.id,
         type_of_attention_id: this.type_of_attention,
         isExternalConsultation: (this.external_consult && this.external_consult.length > 0),
-        procedureName: (this.external_consult && this.external_consult.length > 0) ? this.external_consult[0].services_briefcase.manual_price.procedure.name:null,
-        speciality_id: this.route.snapshot.queryParams.ext_con ? this.form?.value.speciality_id : null
+        //procedureName: (this.external_consult && this.external_consult.length > 0) ? this.external_consult[0].services_briefcase.manual_price.procedure.name : null,
+        speciality_id: this.route.snapshot.queryParams.ext_con ? this.form?.value.speciality_id : null,
+        speciality: arg ? arg:this.selectedSpeciality
       })
       .then((x) => {
         if (x.data.assistance_special) {
-        this.toastService.warning(x.message, 'ERROR');
+          this.toastService.warning(x.message, 'ERROR');
           this.assistance_special = x.data.assistance_special;
           this.ConfirmActions();
         } else {
@@ -273,7 +293,7 @@ export class ChRecordListComponent implements OnInit {
         own_user: this.own_user,
         title: 'Suministros del paciente',
         admissions_id: this.admissions_id,
-        is_hospitalary: this.actual_location.flat ? true: false,
+        is_hospitalary: this.actual_location.flat ? true : false,
       },
     });
   }

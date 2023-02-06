@@ -14,20 +14,13 @@ import { FormPharmacyLotComponent } from './form-pharmacy-lot/form-pharmacy-lot.
   styleUrls: ['./pharmacy-lot.component.scss']
 })
 export class PharmacyLotComponent implements OnInit {
-  @Input() parentData: any;
   public isSubmitted = false;
-  public messageError = null;
-
+  public messageError: string = null;
   public title: string = 'LOTES INGRESADOS EN ALMACEN';
   public subtitle: string = '';
-  public headerFields: any[] = ['ID', 'FABRICANTE', 'VALOR FACTURA', 'FECHA RECEPCIÓN DEL PRODUCTO'];
+  public headerFields: any[] = ['ID', 'PRODUCTO','FABRICANTE', 'CANTIDAD INGRESADA', '10%', 'LOTE', 'FECHA DE VENCIDO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
-  public data = [];
-  public entity;
-  public user;
-  public my_pharmacy_id;
-
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -45,6 +38,18 @@ export class PharmacyLotComponent implements OnInit {
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (row.billing_stock.product_id == null) {
+            return row.billing_stock.product_supplies_com.name;
+          } else {
+            return row.billing_stock.product.name;
+          }
+        },
+      },
+
+      factory: {
+        title: this.headerFields[2],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.billing_stock.product_id == null) {
             return row.billing_stock.product_supplies_com.factory.name;
           } else {
             return row.billing_stock.product.factory.name;
@@ -52,21 +57,24 @@ export class PharmacyLotComponent implements OnInit {
         },
       },
 
-      total: {
-        title: this.headerFields[2],
-        type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.pharmacy_lot.total;
-
-        }
-      },
-      receipt_date: {
+      actual_amount: {
         title: this.headerFields[3],
         type: 'string',
-        valuePrepareFunction: (value, row) => {
-          return row.pharmacy_lot.receipt_date;
+      },
 
-        }
+      sample: {
+        title: this.headerFields[4],
+        type: 'string',
+      },
+
+      lot: {
+        title: this.headerFields[5],
+        type: 'string',
+      },
+
+      expiration_date: {
+        title: this.headerFields[6],
+        type: 'string',
       }
     },
   };
@@ -80,27 +88,10 @@ export class PharmacyLotComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = this.authService.GetUser();
-    this.pharmacyS.GetPharmacyByUserId(this.user.id, {}).then(x => {
-      if (x.length > 0) {
-        this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_lot_stock?pharmacy_stock_id=' + x[0].id + '&islot=' + true;
-      }
-    });
   }
 
   RefreshData() {
     this.table.refresh();
-  }
-
-  NewPharmacy() {
-    this.dialogFormService.open(FormPharmacyLotComponent, {
-      closeOnBackdropClick: false,
-      context: {
-        title: 'Crear nuevo lote',
-        saved: this.RefreshData.bind(this),
-      },
-    });
   }
 
   receiveMessage($event) {
@@ -138,5 +129,4 @@ export class PharmacyLotComponent implements OnInit {
       throw x;
     });
   }
-
 }

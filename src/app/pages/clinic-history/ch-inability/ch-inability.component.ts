@@ -22,7 +22,7 @@ export class ChInabilityComponent implements OnInit {
   public user_id;
   public nameForm: String;
   public headerFields: any[] = [
-    'Fecha','Prorroga', 'Codigo de Contingencia', 'Fecha de Inicio', 'Fecha Final', 'Cant de Días','Diagnostico', 'Tipo de Incapacidad', 'Tipo de Procedimiento', 'Observación',
+    'Fecha','Prorroga', 'Codigo de Contingencia', 'Fecha de Inicio', 'Fecha Final', 'Cant de Días', 'Diagnostico', 'Tipo de Incapacidad', 'Tipo de Procedimiento', 'Observación',
     
   ];
 
@@ -63,7 +63,14 @@ export class ChInabilityComponent implements OnInit {
       extension: {
         title: this.headerFields[1],
         type: 'string',
+        valuePrepareFunction: (value) => {
+          if (value != null) {
+            return value;
+          } else {
+            return "No"
+          }
         },
+      },
       ch_contingency_code: {
         title: this.headerFields[2],
         width: 'string',
@@ -71,22 +78,22 @@ export class ChInabilityComponent implements OnInit {
           return value.name;
         },
       },
-      
-        initial_date: {
+
+     initial_date: {
         title: this.headerFields[3],
         width: 'string',
-        
+
       },
       final_date: {
         title: this.headerFields[4],
         width: 'string',
-        
-       },
-       total_days: {
+
+      },
+      total_days: {
         title: this.headerFields[5],
         type: 'string',
-        },
-       diagnosis: {
+      },
+      diagnosis: {
         title: this.headerFields[6],
         width: 'string',
         valuePrepareFunction(value, row) {
@@ -110,8 +117,8 @@ export class ChInabilityComponent implements OnInit {
       observation: {
         title: this.headerFields[9],
         width: 'string',
-        
-       },
+
+      },
     },
   };
 
@@ -122,11 +129,11 @@ export class ChInabilityComponent implements OnInit {
   constructor(
     public userChangeS: UserChangeService,
     public datePipe: DateFormatPipe,
-    ) {
-      
-    }
+  ) {
 
-  async ngOnInit() {}
+  }
+
+  async ngOnInit() { }
 
   RefreshData() {
     this.table.refresh();
@@ -138,5 +145,5 @@ export class ChInabilityComponent implements OnInit {
     }
   }
 
- 
+
 }
