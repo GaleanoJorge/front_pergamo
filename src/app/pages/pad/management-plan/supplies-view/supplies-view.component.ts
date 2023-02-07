@@ -18,7 +18,10 @@ export class SuppliesView {
   @Input() user: any = null;
   @Input() own_user: any = null;
   @Input() admissions_id: any = null;
+  @Input() pavilion_id: any = null;
+  @Input() scope_of_attention_id: any = null;
   @Input() is_hospitalary: boolean = false;
+  @Input() pavilion_only: boolean = false;
 
   public show;
   public saved: any = null;

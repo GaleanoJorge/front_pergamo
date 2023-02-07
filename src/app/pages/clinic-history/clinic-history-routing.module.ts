@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BackListComponent } from './background/back-list.component'; 
+import { BackListComponent } from './background/back-list.component';
 import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
 import { PsychologyListComponent } from './ch-psychology/psychology-list/psychology-list.component';
 import { ChRecordListComponent } from './ch-record-list/ch-record-list.component';
@@ -12,8 +12,10 @@ import { ClinicHistoryComponent } from './clinic-history.component';
 import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
 import { ClinicHistoryPhysicTherapy } from './entry-clinic-history-physical-therapy/ch-physic-therapy.component';
 import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
+import { InformedConsentsComponent } from './informed-consents/informed-consents.component';
 import { RespiratoryTherapyListComponent } from './respiratory-therapy-list/respiratory-therapy-list.component';
 import { FormChScalesComponent } from './scales/form-ch-scales/form-ch-scales.component';
+import { TracingListComponent } from './tracing-list/tracing-list.component';
 
 
 const routes: Routes = [{
@@ -29,8 +31,8 @@ const routes: Routes = [{
       path: 'clinic-history-nursing-list/:id/:id2',
       component: ClinicHistoryNursingListComponent,
     },
-
-    { path: 'respiratory-therapy-list/:id/:id2',
+    {
+      path: 'respiratory-therapy-list/:id/:id2',
       component: RespiratoryTherapyListComponent,
     },
     {
@@ -50,7 +52,6 @@ const routes: Routes = [{
       component: ChRecordListComponent,
     },
     {
-  
       path: 'ch-record-list/:id/:id2/:id3',
       component: ChRecordListComponent,
     },
@@ -77,8 +78,16 @@ const routes: Routes = [{
     {
       path: 'ch-psychology/psychology-list/:id1/:id2',
       component: PsychologyListComponent,
-    }, 
-    
+    },
+    {
+      path: 'tracing-list/tracing-list/:id1/:id2',
+      component: TracingListComponent,
+    },
+    {
+      path: 'informed-consents/:id',
+      component: InformedConsentsComponent,
+    },
+
   ],
 }];
 

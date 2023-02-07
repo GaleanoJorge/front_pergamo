@@ -102,8 +102,8 @@ export class FormReasonConsultationComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       reason_consultation: [this.data[0] ? this.data[0].reason_consultation : this.data.reason_consultation, Validators.compose([Validators.required])],
-      current_illness: [this.data[0] ? this.data[0].current_illness : this.data.current_illness,],
-      ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id,],
+      current_illness: [this.data[0] ? this.data[0].current_illness : this.data.current_illness, Validators.compose([Validators.required])],
+      ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id, Validators.compose([Validators.required])],
     });
 
 

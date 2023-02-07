@@ -415,6 +415,10 @@ import { TracingComponent } from './tracing/tracing.component';
 import { TracingListComponent } from './tracing-list/tracing-list.component';
 import { FormTracingListComponent } from './tracing-list/form-tracing-list/form-tracing-list.component';
 import { ActionsPExamComponent } from './nursing-physical-exam/actions.component';
+import { InformedConsentsComponent } from './informed-consents/informed-consents.component';
+import { ActionsInformedComponent } from './informed-consents/actions.component';
+import { FormInformedConsentsComponent } from './informed-consents/form-informed-consents/form-informed-consents.component';
+import { Actions23Component } from './informed-consents/actions2.component';
 
 
 @NgModule({
@@ -694,6 +698,10 @@ import { ActionsPExamComponent } from './nursing-physical-exam/actions.component
     FormReasonConsultationComponent,
     EntryClinicHistoryComponent,
     ChRecordListComponent,
+    InformedConsentsComponent,
+    ActionsInformedComponent,
+    FormInformedConsentsComponent,
+    Actions23Component,
     FormsignsComponent,
     SignsListComponent,
     Actions1Component,

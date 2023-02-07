@@ -11,6 +11,7 @@ import { StatusBusinessService } from '../../../../business-controller/status-bu
 import { PbsTypeService } from '../../../../business-controller/pbs-type.service';
 import { PurposeServiceService } from '../../../../business-controller/purpose-service.service';
 import { ProcedureTypeService } from '../../../../business-controller/procedure-type.service';
+import { PaymentTypeService } from '../../../../business-controller/payment-type.service';
 
 @Component({
   selector: 'ngx-form-procedure',
@@ -37,6 +38,7 @@ export class FormProcedureComponent implements OnInit {
   public status: any[];
   public procedure_cups: any[];
   public showSelect: Boolean = false;
+  public paymentType: any[];
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -51,7 +53,8 @@ export class FormProcedureComponent implements OnInit {
     private statusS: StatusBusinessService,
     private PbsTypeS: PbsTypeService,
     private PurposeServiceS: PurposeServiceService,
-    private ProcedureTypeS: ProcedureTypeService
+    private ProcedureTypeS: ProcedureTypeService,
+    private PaymentTypeS: PaymentTypeService
   ) {}
 
   async ngOnInit() {
@@ -68,7 +71,7 @@ export class FormProcedureComponent implements OnInit {
         procedure_purpose_id: '',
         purpose_service_id: '',
         procedure_type_id: 1,
-        payment_type: '',
+        payment_type_id: '',
       };
     }
 
@@ -115,8 +118,8 @@ export class FormProcedureComponent implements OnInit {
         this.data.procedure_type_id,
         Validators.compose([Validators.required]),
       ],
-      payment_type: [
-        String(this.data.payment_type),
+      payment_type_id: [
+        this.data.payment_type_id,
         Validators.compose([Validators.required]),
       ],
       //time: [this.data.time, Validators.compose([Validators.required])],
@@ -148,6 +151,9 @@ export class FormProcedureComponent implements OnInit {
     });
     await this.ProcedureS.GetCollection().then((x) => {
       this.procedure_cups = x;
+    });
+    await this.PaymentTypeS.GetCollection().then((x) => {
+      this.paymentType = x;
     });
   }
   onChange(tipoId) {
@@ -194,7 +200,7 @@ export class FormProcedureComponent implements OnInit {
           procedure_purpose_id: this.form.controls.procedure_purpose_id.value,
           purpose_service_id: this.form.controls.purpose_service_id.value,
           procedure_type_id: this.form.controls.procedure_type_id.value,
-          payment_type: this.form.controls.payment_type.value,
+          payment_type: this.form.controls.payment_type_id.value,
           // time: this.form.controls.time.value,
         })
           .then((x) => {
@@ -221,7 +227,7 @@ export class FormProcedureComponent implements OnInit {
           procedure_purpose_id: this.form.controls.procedure_purpose_id.value,
           purpose_service_id: this.form.controls.purpose_service_id.value,
           procedure_type_id: this.form.controls.procedure_type_id.value,
-          payment_type: this.form.controls.payment_type.value,
+          payment_type: this.form.controls.payment_type_id.value,
           // time: this.form.controls.time.value,
         })
           .then((x) => {

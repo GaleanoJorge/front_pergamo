@@ -72,6 +72,9 @@ import { DisclaimerService } from '../../../business-controller/disclaimer.servi
       <nb-icon icon="attach-outline"></nb-icon>
     </button>
 
+    <button nbTooltip="Consentimientos informados" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/informed-consents/' + value.data.id"> 
+      <nb-icon icon="archive-outline"></nb-icon>
+    </button>
   </div>
 
   <ng-template #confirmAction>

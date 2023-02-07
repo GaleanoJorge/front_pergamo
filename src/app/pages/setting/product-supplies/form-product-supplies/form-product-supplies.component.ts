@@ -118,17 +118,14 @@ export class FormProductSuppliesComponent implements OnInit {
   selectsubcategory(event: Event) {
     let Subcat = this.product_subcategory.find(x => x.id == event);
     this.subcategory = Subcat.name;
-    // this.form.controls.description.setValue(this.subcategory);
   }
   selectSizesup(event: Event) {
     let SizeSup = this.size_supplies_measure.find(x => x.id == event);
     this.size_supplies = SizeSup.name;
-    // this.form.controls.description.setValue(this.size_supplies);
   }
   selectMeasureSupplies(event: Event) {
     let SupMea = this.measure_supplies_measure.find(x => x.id == event);
     this.measure_supplies = SupMea.name;
-    // this.form.controls.description.setValue(this.measure_supplies);
   }
 
   close() {
@@ -151,11 +148,11 @@ export class FormProductSuppliesComponent implements OnInit {
           id: this.data.id,
           product_group_id: this.form.controls.product_group_id.value,
           product_category_id: this.form.controls.product_category_id.value,
-          product_subcategory_id: this.form.controls.product_subcategory_id.value,
+          product_subcategory_id: this.data.product_subcategory_id,
           size: this.form.controls.size.value,
           measure: this.form.controls.measure.value,
           stature: this.form.controls.stature.value,
-          description:
+          description: this.form.controls.size.value == "" ? this.subcategory :
             this.form.controls.measure.value == "" && this.form.controls.stature.value == "" ?
               this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies :
               this.form.controls.size.value == "" && this.form.controls.measure.value == "" ?
@@ -180,17 +177,21 @@ export class FormProductSuppliesComponent implements OnInit {
         });
       } else {
         this.ProductSuppliesS.Save({
+          product_group_id: this.form.controls.product_group_id.value,
+          product_category_id: this.form.controls.product_category_id.value,
+          product_subcategory_id: this.form.controls.product_subcategory_id.value,
           size: this.form.controls.size.value,
           measure: this.form.controls.measure.value,
           stature: this.form.controls.stature.value,
           size_supplies_measure_id: this.form.controls.size_supplies_measure_id.value,
           measure_supplies_measure_id: this.form.controls.measure_supplies_measure_id.value,
           description:
-            this.form.controls.measure.value == "" && this.form.controls.stature.value == "" ?
-              this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies :
-              this.form.controls.size.value == "" && this.form.controls.measure.value == "" ?
-                this.subcategory + " " + this.form.controls.stature.value :
-                this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies,
+            this.form.controls.size.value == "" ? this.subcategory :
+              this.form.controls.measure.value == "" && this.form.controls.stature.value == "" ?
+                this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies :
+                this.form.controls.size.value == "" && this.form.controls.measure.value == "" ?
+                  this.subcategory + " " + this.form.controls.stature.value :
+                  this.subcategory + " " + this.form.controls.size.value + " " + this.size_supplies + " x " + this.form.controls.measure.value + " " + this.measure_supplies,
           minimum_stock: this.form.controls.minimum_stock.value,
           maximum_stock: this.form.controls.maximum_stock.value,
           product_dose_id: this.form.controls.product_dose_id.value,
@@ -198,8 +199,9 @@ export class FormProductSuppliesComponent implements OnInit {
           code_gmdn: this.form.controls.code_gmdn.value,
 
         }).then(x => {
-          this.toastService.success('', x.message);
           this.close();
+          this.form.setValue({ product_group_id: '', product_category_id: '', product_subcategory_id: '', size: '', measure: '', stature: '', size_supplies_measure_id: '', measure_supplies_measure_id: '', description: '', product_dose_id: '', dose: '', code_gmdn: '' });
+          this.toastService.success('eyy', x.message);
           if (this.saved) {
             this.saved();
           }

@@ -31,6 +31,7 @@ export class PharmacyRequestComponent implements OnInit {
   public pharmacy_stock;
   public showdiv: Number = null;
   public entity;
+  public pharmacy;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -117,10 +118,12 @@ export class PharmacyRequestComponent implements OnInit {
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
       this.table.changeEntity('pharmacy_product_request/?pagination=true&status=SOLICITADO FARMACIA'+'&request_pharmacy_stock_id='+this.my_pharmacy_id,'pharmacy_product_request');
-
+      this.title = 'SOLICITUDES DE MEDICAMENTOS A: ' + this.my_pharmacy_id;
     }else{
-
+      this.pharmacy = pharmacy;
       this.table.changeEntity('pharmacy_product_request/?pagination=true&status=SOLICITADO FARMACIA'+'&request_pharmacy_stock_id='+pharmacy,'pharmacy_product_request');
+      let aaa = (this.pharmacy_stock.find(item => {return item.pharmacy_stock_id==this.pharmacy}).pharmacy.name);
+      this.title = 'SOLICITUDES DE MEDICAMENTOS A: ' + aaa;
     }
     // this.RefreshData();
   }
@@ -146,6 +149,7 @@ export class PharmacyRequestComponent implements OnInit {
         title: 'Enviar Medicamento',
         data: data,
         my_pharmacy_id: this.my_pharmacy_id,
+        pharmacy: this.pharmacy,
         saved: this.RefreshData.bind(this),
       },
     });

@@ -19,6 +19,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
   @Input() user: any = null;
   @Output() messageEvent = new EventEmitter<any>();
   @Input() my_pharmacy_id: any = null;
+  @Input() pharmacy: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -63,7 +64,15 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
         entity: 'pharmacy_lot_stock?product_generic_id=' + this.data.product_generic_id + '&pharmacy_stock_id=' + this.my_pharmacy_id,
         customData: 'pharmacy_lot_stock',
       };
-    } else {
+    } else if (this.data.product_generic_id == null && this.data.services_briefcase_id != null && this.data.product_supplies_id != null) {
+      this.title = 'INSUMO COMERCIAL:';
+      this.parentData = {
+        selectedOptions: [],
+        entity: 'pharmacy_lot_stock?product_supplies_id=' + this.data.product_supplies_id + '&pharmacy_stock_id=' + this.my_pharmacy_id,
+        customData: 'pharmacy_lot_stock',
+      };
+    }
+    else {
       this.title = 'MEDICAMENTO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
@@ -133,7 +142,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
             id: this.data.id,
             amount: total_sent,
             status: 'ENVIADO',
-            own_pharmacy_stock_id: this.my_pharmacy_id,
+            own_pharmacy_stock_id: this.pharmacy == null ? this.my_pharmacy_id : this.my_pharmacy_id != this.pharmacy ? this.pharmacy : this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
           }).then(x => {
@@ -164,7 +173,7 @@ export class FormPharmacyRequestPatientComponent implements OnInit {
           this.pharProdReqS.Save({
             amount: this.form.controls.amount.value,
             status: 'ENVIADO',
-            own_pharmacy_stock_id: this.my_pharmacy_id,
+            own_pharmacy_stock_id: this.pharmacy == null ? this.my_pharmacy_id : this.my_pharmacy_id != this.pharmacy ? this.pharmacy : this.my_pharmacy_id,
             request_pharmacy_stock_id: this.form.controls.request_pharmacy_stock_id.value,
           }).then(x => {
             this.toastService.success('', x.message);
