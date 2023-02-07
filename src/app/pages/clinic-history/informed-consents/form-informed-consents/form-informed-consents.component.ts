@@ -3,8 +3,8 @@ import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 // import {StatusBusinessService} from '../../../../business-controller/status-business.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { InformedConsentsService } from '../../../../business-controller/informed-consents.service';
 import { environment } from '../../../../../environments/environment.prod';
+import { ConsentsInformedService } from '../../../../business-controller/consents-informed.service';
 
 @Component({
   selector: 'ngx-form-informed-consents',
@@ -29,7 +29,7 @@ export class FormInformedConsentsComponent implements OnInit {
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     // private statusBS: StatusBusinessService,
-    private InformedConsentsS: InformedConsentsService,
+    private ConsentsInformedS: ConsentsInformedService,
     private toastService: NbToastrService,
     private route: ActivatedRoute,
   ) {
@@ -73,17 +73,19 @@ export class FormInformedConsentsComponent implements OnInit {
 
     var formData = new FormData();
     var data = this.form.controls;
-    formData.append('file', this.form.value.file);
+    formData.append('file', this.form.controls.file.value);
     formData.append('name', data.name.value);
     formData.append('ch_record_id', this.ch_record);
+    formData.append('admissions_id', this.ch_record);
+    formData.append('type_consents_id', this.ch_record);
 
 
     try {
       let response;
       if (this.data?.id) {
-        response = await this.InformedConsentsS.Update(formData, this.data.id);
+        response = await this.ConsentsInformedS.Update(this.data.id);
       } else {
-        response = await this.InformedConsentsS.Save(formData);
+        response = await this.ConsentsInformedS.Save(formData);
       }
       this.toastService.success('', response.message);
       this.messageError = null;

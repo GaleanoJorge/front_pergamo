@@ -4,10 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormInformedConsentsComponent } from './form-informed-consents/form-informed-consents.component';
 import { ActionsInformedComponent } from './actions.component';
-import { InformedConsentsService } from '../../../business-controller/informed-consents.service';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { Actions23Component } from './actions2.component';
+import { ConsentsInformedService } from '../../../business-controller/consents-informed.service';
 
 @Component({
   selector: 'ngx-informed-consents',
@@ -73,7 +73,7 @@ export class InformedConsentsComponent implements OnInit {
   };
 
   constructor(
-    private InformedConsentsS: InformedConsentsService,
+    private ConsentsInformedS: ConsentsInformedService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -85,9 +85,10 @@ export class InformedConsentsComponent implements OnInit {
   ngOnInit(): void {
     if(this.route.snapshot.params.id){
       this.ch_record = this.route.snapshot.params.id;
-      this.entity = this.ch_record ? 'InformedConsents/FileByRecord/' + this.ch_record : 'informed_consents';
+      // this.entity = this.ch_record ? 'InformedConsents/FileByRecord/' + this.ch_record : 'consents_informed';
+      this.entity = this.ch_record ? 'InformedConsents/FileByRecord/' + this.ch_record : 'consents_informed';
     }else{
-      this.entity='informed_consents';
+      this.entity='consents_informed';
     }
 
     this.routes = [
@@ -142,7 +143,7 @@ export class InformedConsentsComponent implements OnInit {
   }
 
   DeleteFileContract(data) {
-    return this.InformedConsentsS.Delete(data.id).then(x => {
+    return this.ConsentsInformedS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {
