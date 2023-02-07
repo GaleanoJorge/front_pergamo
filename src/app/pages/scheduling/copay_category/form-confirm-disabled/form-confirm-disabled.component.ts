@@ -110,7 +110,8 @@ export class FormConfirmDisabledComponent implements OnInit {
         reason_cancel_id: [null, Validators.compose([Validators.required])],
         cancel_description: [null],
         relative_name: [null],
-        relationship_id: [null]
+        relationship_id: [null],
+        familiar_cancel: [false]
       });
 
       this.onChanges();
@@ -187,7 +188,7 @@ export class FormConfirmDisabledComponent implements OnInit {
             this.toastrService.success('', x.message);
             this.dialogRef.close();
             if (this.CancelScheduling) {
-              this.CancelScheduling();
+              this.CancelScheduling(this.data);
             }
           })
           .catch((x) => {
