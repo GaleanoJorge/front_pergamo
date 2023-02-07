@@ -276,8 +276,6 @@ import { BillingComponent } from './billing/billing.component';
 import { FormBillingComponent } from './billing/form-billing/form-billing.component';
 import { PharmacyStockComponent } from './pharmacy-stock/pharmacy-stock.component';
 import { FormPharmacyStockComponent } from './pharmacy-stock/form-pharmacy-stock/form-pharmacy-stock.component';
-import { PharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/pharmacy-update-max-min.component';
-import { FormPharmacyUpdateMaxMinComponent } from './pharmacy-update-max-min/form-pharmacy-update-max-min/form-pharmacy-update-max-min.component';
 import { ProdBillingPackageComponent } from './billing/prod-billing-package/prod-billing-package.component';
 import { AmountBillingComponent } from './billing/prod-billing-package/amount-billing.component';
 import { SelectProductBillingComponent } from './billing/prod-billing-package/select-prod-billing.component';
@@ -720,9 +718,6 @@ import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adju
 
     PharmacyAdjustmentComponent,
     FormPharmacyAdjustmentComponent,
-    PharmacyUpdateMaxMinComponent,
-    FormPharmacyUpdateMaxMinComponent,
-
     TcBillingComponent,
     TcRadicationComponent,
     TcHumanTalentComponent,

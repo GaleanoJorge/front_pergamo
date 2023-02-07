@@ -63,7 +63,11 @@ export class ProcedureComponent implements OnInit {
         title: this.headerFields[11],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.name
+          if (value) {
+            return value.name
+          } else {
+            return 'NO PARAMETRIZADO'
+          }
         },
       },
     },
