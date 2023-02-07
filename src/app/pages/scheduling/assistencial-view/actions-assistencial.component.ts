@@ -6,7 +6,7 @@ import { ViewCell } from 'ng2-smart-table';
   template: `
     <div class="d-flex justify-content-center">
       <button
-        *ngIf="this.rowData.medical_status_id == 4"
+        *ngIf="this.rowData.medical_status_id == 4 && this.rowData.ch_record_count == 0"
         nbTooltip="No atendida"
         nbTooltipPlacement="top"
         nbTooltipStatus="primary"
@@ -16,7 +16,7 @@ import { ViewCell } from 'ng2-smart-table';
         <nb-icon icon="person-delete-outline"></nb-icon>
       </button>
       <button
-      *ngIf="this.rowData.medical_status_id == 4"
+      *ngIf="this.rowData.medical_status_id == 4 && this.rowData.ch_record_count == 0"
       nbTooltip="Registrar historia clínica"
       nbTooltipPlacement="top"
       nbTooltipStatus="primary"
@@ -41,9 +41,27 @@ export class ActionsAssistencialComponent implements ViewCell {
   public show_cc: boolean = false;
   public route: string = '';
 
-  constructor(private toastService: NbToastrService) {}
+  public colors = {
+    amarillo: '#FFFF00',
+    pergamo: '#54BCC1',
+    naranja: '#FF7000',
+    azul: '#0000FF',
+    verde: '#28B463',
+    rojo: '#FF0000',
+    morado: '#7A39BB',
+  };
+
+  public color;
+  public color2;
+  public tooltip = "Con historia clínica";
+  public tooltip2 = "Sin historia clínica";
+
+  constructor(private toastService: NbToastrService) { }
 
   ngOnInit() {
+    this.color = this.colors.naranja;
+    this.color2 = this.colors.verde;
+
     if (this.rowData.patient) {
       if (this.rowData.patient.email == null) {
         this.complete = true;
