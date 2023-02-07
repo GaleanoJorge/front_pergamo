@@ -409,14 +409,8 @@ import { FixedReturnPatientsComponent } from './fixed-return-patients/fixed-retu
 import { FormFixedDeniedComponent } from './fixed-assets-requests-patient/form-fixed-denied/form-fixed-denied.component';
 import { FormTariffConfirmDisabledComponent } from './tariff/form-tariff-confirm-disabled/form-tariff-confirm-disabled.component';
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
-import { ReportRipsComponent } from './report-rips/report-rips.component';
-import { FormReportRipsComponent } from './report-rips/form-report-rips/form-report-rips.component';
-import { ReportPharmacyComponent } from './report-pharmacy/report-pharmacy.component';
-import { FormReportBillingComponent } from './report-billing/form-report-billing/form-report-billing.component';
-import { ReportBillingComponent } from './report-billing/report-billing.component';
-import { FormReportGlossComponent } from './report-gloss/form-report-gloss/form-report-gloss.component';
-import { ReportGlossComponent } from './report-gloss/report-gloss.component';
-import { FormReportPharmacyComponent } from './report-pharmacy/form-report-pharmacy/form-report-pharmacy.component';
+import { FormReportCensusComponent } from './report-census/form-report-census/form-report-census.component';
+import { ReportCensusComponent } from './report-census/report-census.component';
 import { ActionsBedComponent } from './bed/actions-bed.component';
 import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
 import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-measure/form-supplies-measure.component';
@@ -860,14 +854,8 @@ import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-m
     FormFixedDeniedComponent,
     ProductDamagedComponent,
 
-    ReportRipsComponent,
-    FormReportRipsComponent,
-    ReportPharmacyComponent,
-    FormReportPharmacyComponent,
-    ReportBillingComponent,
-    FormReportBillingComponent,
-    ReportGlossComponent,
-    FormReportGlossComponent,
+    ReportCensusComponent,
+    FormReportCensusComponent,
     SuppliesMeasureComponent,
     FormSuppliesMeasureComponent,
   ],

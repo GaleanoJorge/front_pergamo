@@ -151,11 +151,8 @@ import { FixedMovementsComponent } from './fixed-movements/fixed-movements.compo
 import { FixedAssetsRequestsComponent } from './fixed-assets-requests/fixed-assets-requests.component';
 import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.component';
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
-import { FormReportRipsComponent } from './report-rips/form-report-rips/form-report-rips.component';
 import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
-import { FormReportPharmacyComponent } from './report-pharmacy/form-report-pharmacy/form-report-pharmacy.component';
-import { FormReportBillingComponent } from './report-billing/form-report-billing/form-report-billing.component';
-import { FormReportGlossComponent } from './report-gloss/form-report-gloss/form-report-gloss.component';
+import { FormReportCensusComponent } from './report-census/form-report-census/form-report-census.component';
 
 const routes: Routes = [{
   path: '',
@@ -865,20 +862,8 @@ const routes: Routes = [{
       component: ProductDamagedComponent,
     },
     {
-      path: 'report-rips',
-      component: FormReportRipsComponent,
-    },
-    {
-      path: 'report-pharmacy',
-      component: FormReportPharmacyComponent,
-    },
-    {
-      path: 'report-billing',
-      component: FormReportBillingComponent,
-    },
-    {
-      path: 'report-gloss',
-      component: FormReportGlossComponent,
+      path: 'report-census',
+      component: FormReportCensusComponent,
     }
   ],
 }];
