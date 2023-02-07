@@ -28,6 +28,8 @@ import { Procedure } from '../../../models/procedure';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { FormTransferScheduleComponent } from './form-transfer-schedule/form-transfer-schedule.component';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'ngx-transfer-schedule',
@@ -44,7 +46,7 @@ import { DatePipe } from '@angular/common';
 })
 export class TransferScheduleComponent implements OnInit {
 
-  public title = 'Transferir agenda';
+  public title = 'Transferencia de agenda';
   public loading = true;
   public today = null;
   public max_day = null;
@@ -59,6 +61,7 @@ export class TransferScheduleComponent implements OnInit {
   public medical_diary: any[] = [];
   public messageError: string = null;
   public existItinerary: boolean = false;
+  public isDisable = false;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @ViewChild('schedule') schedule: ScheduleComponent;
@@ -90,10 +93,16 @@ export class TransferScheduleComponent implements OnInit {
     private assistanceS: AssistanceService,
     private procedureS: ProcedureService,
     private dialogFormService: NbDialogService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private router: Router) {
   }
 
   ngOnInit(): void {
+
+    if (this.router.url.includes("disable")) {
+      this.title = "Bloquear agenda";
+      this.isDisable = true;
+    }
 
     this.today = new Date();
     this.max_day = new Date(this.today.getFullYear() + 2, this.today.getMonth(), this.today.getDate());
@@ -299,8 +308,24 @@ export class TransferScheduleComponent implements OnInit {
                 finishDate: this.form.controls.finish_date.value,
                 startHour: this.form.controls.start_hour.value,
                 finishHour: this.form.controls.finish_hour.value,
-                scheduleData: this.scheduleData
+                scheduleData: this.scheduleData,
+                afterFunction: this.loadSchedule.bind(this)
               }
+            })
+            break;
+          case "disableButton":
+            if (this.scheduleData.length == 0) {
+              this.messageError =
+                'Usuario sin itinerario para el procedimiento seleccionado en las fechas delimitadas';
+              this.toastService.warning('', this.messageError);
+              this.loading = false;
+              return;
+            }
+            this.dialogFormService.open(ConfirmDialogComponent, {
+              context: {
+                title: "Confirmación de bloqueo de agendas",
+                delete: this.disableSchedule.bind(this),
+              },
             })
             break;
         }
@@ -310,6 +335,20 @@ export class TransferScheduleComponent implements OnInit {
       }
 
     }
+  }
+
+  private disableSchedule(){
+    return this.assistanceS.DisableSchedule({
+      userId: this.user.id,
+      startDate: this.form.controls.start_date.value + ' ' + this.form.controls.start_hour.value,
+      finishDate: this.form.controls.finish_date.value + ' ' + this.form.controls.finish_hour.value,
+      procedureId: this.procedure.id
+    }).then(x => {
+      this.loadSchedule();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw x;
+    });
   }
 
   onActionComplete(args: ActionEventArgs): void {
