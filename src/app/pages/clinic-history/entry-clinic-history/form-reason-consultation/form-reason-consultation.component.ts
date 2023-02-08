@@ -84,20 +84,25 @@ export class FormReasonConsultationComponent implements OnInit {
           current_illness: [this.data[0] ? this.data[0].current_illness : this.data.current_illness,],
           ch_external_cause_id: [this.data[0] ? this.data[0].ch_external_cause_id : this.data.ch_external_cause_id,],
         });
+        this.ch_reason_consultation = x[0];
+        if (this.ch_reason_consultation != null) {
+          this.messageEvent.emit(true);
+          this.botton_title = 'Actualizar';
+        }
         this.findExternal();
       });
     }
 
-    this.reasonConsultationS.GetCollection({
-      ch_record_id: this.record_id,
-      type_record_id: this.record_id,
-    }).then(x => {
-      this.ch_reason_consultation = x[0];
-      if (this.ch_reason_consultation != null) {
-        this.messageEvent.emit(true);
-        this.botton_title = 'Actualizar';
-      }
-    });
+    // this.reasonConsultationS.GetCollection({
+    //   ch_record_id: this.record_id,
+    //   type_record_id: this.record_id,
+    // }).then(x => {
+    //   this.ch_reason_consultation = x[0];
+    //   if (this.ch_reason_consultation != null) {
+    //     this.messageEvent.emit(true);
+    //     this.botton_title = 'Actualizar';
+    //   }
+    // });
 
 
     this.form = this.formBuilder.group({

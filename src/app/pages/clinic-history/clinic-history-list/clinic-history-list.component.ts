@@ -15,6 +15,7 @@ import { filter, pairwise } from 'rxjs/operators';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
+
 @Component({
   selector: 'ngx-clinic-history-list',
   templateUrl: './clinic-history-list.component.html',

@@ -39,9 +39,9 @@ export class FormChApComponent implements OnInit {
   ngOnInit(): void {
     this.record_id = this.route.snapshot.params.id;
 
-    this.chRecord.GetCollection(this.record_id).then((x) => {
-      this.admissions_id = x;
-    });
+    // this.chRecord.GetCollection(this.record_id).then((x) => {
+    //   this.admissions_id = x;
+    // });
 
     this.ChApS.GetCollection({
       ch_record_id: this.record_id,

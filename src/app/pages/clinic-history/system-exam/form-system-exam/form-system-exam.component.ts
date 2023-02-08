@@ -110,13 +110,13 @@ export class FormSystemExamComponent implements OnInit {
       });
 
 
-    await this.SystemExamS.ByRecord(this.record_id, this.type_record_id).then(x => {
-      if (x.length > 0) {
-        this.data = x
-        this.disabled = true;
-        this.messageEvent.emit(true);
-      }
-    });
+    // await this.SystemExamS.ByRecord(this.record_id, this.type_record_id).then(x => {
+    //   if (x.length > 0) {
+    //     this.data = x
+    //     this.disabled = true;
+    //     this.messageEvent.emit(true);
+    //   }
+    // });
 
     return Promise.resolve(true);
   }
