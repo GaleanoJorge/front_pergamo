@@ -21,7 +21,7 @@ export class InformedConsentsComponent implements OnInit {
   public entity:string;
   public routes = [];
   public messageError: string = null;
-  public title: string = 'Consentimientos informados';
+  public title: string = 'Documentos adjuntos';
   public subtitle: string = 'Gestión';
   public headerFields: any[] = ['ID', 'Nombre', 'Documento'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}`;
@@ -97,7 +97,7 @@ export class InformedConsentsComponent implements OnInit {
         route: '../../list',
       },
       {
-        name: 'Consentimientos informados',
+        name: 'Documentos adjuntos',
         route: '../../informed-consents/' + this.ch_record,
       },
     ];
