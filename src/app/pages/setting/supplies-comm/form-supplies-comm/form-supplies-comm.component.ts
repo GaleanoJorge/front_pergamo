@@ -64,7 +64,7 @@ export class FormSuppliesCommComponent implements OnInit {
     }
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
-      product_supplies_id: [this.data.product_supplies.description, Validators.compose([Validators.required])],
+      product_supplies_id: [this.data.product_supplies ? this.data.product_supplies.description : this.data.product_supplies_id, Validators.compose([Validators.required])],
       factory_id: [this.data.factory_id, Validators.compose([Validators.required])],
       invima_registration: [this.data.invima_registration, Validators.compose([Validators.required])],
       invima_status_id: [this.data.invima_status_id, Validators.compose([Validators.required])],
