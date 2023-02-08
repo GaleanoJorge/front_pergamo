@@ -81,18 +81,6 @@ export class ReportCensusService {
     });
   }
 
-  ExportCensus2(type: any = {}): any {
-    let servObj = new ServiceObject('report_censusPDF2');
-    return this.webAPI.GetAction(servObj, type).then(x => {
-      servObj = <ServiceObject>x;
-      if (!servObj.status)
-        throw new Error(servObj.message);
-      return Promise.resolve(servObj);
-    }).catch(x => {
-      throw x.message;
-    });
-  }
-
   //? Export con varios parámetros
   GetExportCensus(id, params = {}): Promise<ReportCensus[]> {
     let servObj = new ServiceObject('report_censusEXCEL/export', id);
@@ -105,30 +93,6 @@ export class ReportCensusService {
       throw x.message;
     });
   }
-
-  // public exportAsPDFFile(json: any[], pdfFileName: string): void {
-  //   // Extraemos el
-  //   const DATA: any = document;
-  //   const doc = new jsPDF('p', 'pt', 'carta');
-  //   const options = {
-  //     background: 'white',
-  //     scale: 3
-  //   };
-  //   html2canvas(DATA, options).then((canvas) => {
-  //     const img = canvas.toDataURL('image/PNG');
-
-  //     // Add image Canvas to PDF
-  //     const bufferX = 15;
-  //     const bufferY = 15;
-  //     const imgProps = (doc as any).getImageProperties(img);
-  //     const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-  //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-  //     doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-  //     return doc;
-  //   }).then((docResult) => {
-  //     docResult.save(`${new Date().toISOString()}_tutorial.pdf`);
-  //   });
-  // }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
     //! Exportación de Excel con ExcelJs
