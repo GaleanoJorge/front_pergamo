@@ -7,7 +7,7 @@ import { ActionsInformedComponent } from './actions.component';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
 import { Actions23Component } from './actions2.component';
-import { ConsentsInformedService } from '../../../business-controller/consents-informed.service';
+import { ChDocumentService } from '../../../business-controller/ch-document.service';
 
 @Component({
   selector: 'ngx-informed-consents',
@@ -73,7 +73,7 @@ export class InformedConsentsComponent implements OnInit {
   };
 
   constructor(
-    private ConsentsInformedS: ConsentsInformedService,
+private  ChDocumentS: ChDocumentService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
@@ -85,10 +85,9 @@ export class InformedConsentsComponent implements OnInit {
   ngOnInit(): void {
     if(this.route.snapshot.params.id){
       this.ch_record = this.route.snapshot.params.id;
-      // this.entity = this.ch_record ? 'InformedConsents/FileByRecord/' + this.ch_record : 'consents_informed';
-      this.entity = this.ch_record ? 'InformedConsents/FileByRecord/' + this.ch_record : 'consents_informed';
+      this.entity = this.ch_record ? 'InformedConsents/FileByRecord/' + this.ch_record : 'ch_document';
     }else{
-      this.entity='consents_informed';
+      this.entity='ch_document';
     }
 
     this.routes = [
@@ -115,7 +114,7 @@ export class InformedConsentsComponent implements OnInit {
   NewFileContract() {
     this.dialogFormService.open(FormInformedConsentsComponent, {
       context: {
-        title: 'Crear nuevo documento del contrato',
+        title: 'Ingresar nuevo documento',
         saved: this.RefreshData.bind(this),
         ch_record:this.ch_record,
       },
@@ -125,7 +124,7 @@ export class InformedConsentsComponent implements OnInit {
   EditFileContract(data) {
     this.dialogFormService.open(FormInformedConsentsComponent, {
       context: {
-        title: 'Editar documento del contrato',
+        title: 'Editar documento',
         data,
         saved: this.RefreshData.bind(this),
       },
@@ -143,7 +142,7 @@ export class InformedConsentsComponent implements OnInit {
   }
 
   DeleteFileContract(data) {
-    return this.ConsentsInformedS.Delete(data.id).then(x => {
+    return this.ChDocumentS.Delete(data.id).then(x => {
       this.table.refresh();
       return Promise.resolve(x.message);
     }).catch(x => {
