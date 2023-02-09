@@ -491,6 +491,7 @@ export class SchedulingTableComponent implements OnInit {
       context: {
         id: data.patient.id,
         saved: this.RefreshData.bind(this),
+        is_checking_in: true
       },
     });
   }

@@ -358,6 +358,7 @@ export class MedicalComponent implements OnInit {
   charge() {
     this.eventSettings = {
       dataSource: <Object[]>extend([], this.scheduleData, null, true),
+      enableTooltip: true,
     };
   }
 

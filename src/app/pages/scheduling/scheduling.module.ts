@@ -63,6 +63,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { FormTransferScheduleComponent } from './transfer-schedule/form-transfer-schedule/form-transfer-schedule.component';
 import { TransferScheduleComponent } from './transfer-schedule/transfer-schedule.component';
+import { ActionsSemaphoreComponent } from './assistencial-view/actions-semaphore.component';
 
 
 
@@ -132,6 +133,7 @@ import { TransferScheduleComponent } from './transfer-schedule/transfer-schedule
     ActionsDaysComponent,
     NonWorkingDaysComponent,
     FormNonWorkingDaysComponent,
+    ActionsSemaphoreComponent,
     
     MedicalDiaryComponent,
     ActionsMedicalDiaryComponent,

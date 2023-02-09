@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-// import {StatusBusinessService} from '../../../../business-controller/status-business.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { InformedConsentsService } from '../../../../business-controller/informed-consents.service';
 import { environment } from '../../../../../environments/environment.prod';
+import { ChDocumentService } from '../../../../business-controller/ch-document.service';
 
 @Component({
   selector: 'ngx-form-informed-consents',
@@ -28,10 +26,8 @@ export class FormInformedConsentsComponent implements OnInit {
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
-    // private statusBS: StatusBusinessService,
-    private InformedConsentsS: InformedConsentsService,
     private toastService: NbToastrService,
-    private route: ActivatedRoute,
+    private ChDocumentS: ChDocumentService
   ) {
   }
 
@@ -73,17 +69,15 @@ export class FormInformedConsentsComponent implements OnInit {
 
     var formData = new FormData();
     var data = this.form.controls;
-    formData.append('file', this.form.value.file);
+    formData.append('file', this.form.controls.file.value);
     formData.append('name', data.name.value);
     formData.append('ch_record_id', this.ch_record);
-
-
     try {
       let response;
       if (this.data?.id) {
-        response = await this.InformedConsentsS.Update(formData, this.data.id);
+        response = await this.ChDocumentS.Update(this.data.id);
       } else {
-        response = await this.InformedConsentsS.Save(formData);
+        response = await this.ChDocumentS.Save(formData);
       }
       this.toastService.success('', response.message);
       this.messageError = null;

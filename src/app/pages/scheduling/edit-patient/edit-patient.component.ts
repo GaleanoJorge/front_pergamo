@@ -19,6 +19,7 @@ export class EditPatientComponent implements OnInit {
   public loading = true;
   public data = null;
   public saved;
+  public is_checking_in = false;
 
 
   @ViewChild('form') form: FormUsersComponent;

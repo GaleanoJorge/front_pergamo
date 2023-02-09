@@ -80,7 +80,7 @@ export class FormProductComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
       factory_id: [this.data.factory_id, Validators.compose([Validators.required])],
-      product_generic_id: [this.data.product_generic.description, Validators.compose([Validators.required])],
+      product_generic_id: [this.data.product_generic ? this.data.product_generic.description : this.data.product_generic_id, Validators.compose([Validators.required])],
       invima_registration: [this.data.invima_registration, Validators.compose([Validators.required])],
       invima_status_id: [this.data.invima_status_id, Validators.compose([Validators.required])],
       sanitary_registration_id: [this.data.sanitary_registration_id, Validators.compose([Validators.required])],

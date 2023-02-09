@@ -61,6 +61,7 @@ export class FormUsersComponent implements OnInit {
   @Input() isStudent = null;
   @Input() isTH = null;
   @Input() edit_own_info: boolean = false;
+  @Input() isCheckingIn = false;
   @Output() messageEvent = new EventEmitter<any>();
 
 
@@ -138,7 +139,7 @@ export class FormUsersComponent implements OnInit {
   public own_user: any = null;
   public int = 0;
 
-
+  
 
 
   constructor(
@@ -570,6 +571,10 @@ export class FormUsersComponent implements OnInit {
     if (this.data) {
       this.form.controls['identification_type_id'].disable();
       this.form.controls['identification'].disable();
+    }
+
+    if(this.isCheckingIn){
+      this.form.controls.email.setValidators(Validators.compose([Validators.required]));
     }
 
     this.onChanges();

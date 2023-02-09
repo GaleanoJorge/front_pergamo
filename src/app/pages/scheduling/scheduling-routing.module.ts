@@ -52,6 +52,10 @@ const routes: Routes = [
         path: 'schedule-transfer',
         component: TransferScheduleComponent,
       },
+      {
+        path: 'schedule-disable',
+        component: TransferScheduleComponent,
+      },
     ],
   },
 ];
