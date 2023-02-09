@@ -52,10 +52,10 @@ export class ActionsSemaphoreComponent implements ViewCell {
   async ngOnInit() {
 
     this.color = this.colors.naranja;
-    this.tooltip = 'Con historia clínica';
+    this.tooltip = 'Sin historia clínica';
 
     this.color2 = this.colors.verde;
-    this.tooltip2 = 'Sin historia clínica';
+    this.tooltip2 = 'Con historia clínica';
 
   }
 
