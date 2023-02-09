@@ -26,6 +26,7 @@ export class FormReasonConsultationComponent implements OnInit {
   @Input() data: any = null;
   @Input() record_id: any = null;
   @Input() has_input: boolean = false;
+  @Input() type_record_id: boolean = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   languages: string[] = languages;
@@ -149,7 +150,7 @@ export class FormReasonConsultationComponent implements OnInit {
           reason_consultation: this.form.controls.reason_consultation.value,
           current_illness: this.form.controls.current_illness.value,
           ch_external_cause_id: this.form.controls.ch_external_cause_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
 
         }).then(x => {
@@ -170,7 +171,7 @@ export class FormReasonConsultationComponent implements OnInit {
           reason_consultation: this.form.controls.reason_consultation.value,
           current_illness: this.form.controls.current_illness.value,
           ch_external_cause_id: this.form.controls.ch_external_cause_id.value,
-          type_record_id: 1,
+          type_record_id: this.type_record_id,
           ch_record_id: this.record_id,
         }).then(x => {
           this.toastService.success('', x.message);
