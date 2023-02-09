@@ -43,7 +43,6 @@ import { SignsListComponent } from './signs/signs.component';
 import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
 import { SystemExamComponent } from './system-exam/system-exam.component';
 import { OrdersMedicalComponent } from './medical-orders/orders-medical.component';
-import { FormOrdersMedicalComponent } from './medical-orders/form-orders-medical/form-orders-medical.component';
 import { FormSystemExamComponent } from './system-exam/form-system-exam/form-system-exam.component';
 import { PadModule } from '../pad/pad.module';
 import { FormBackgroundComponent } from './background/back/form-background/form-background.component';
@@ -715,7 +714,6 @@ import { Actions23Component } from './informed-consents/actions2.component';
     FormPhysicalExamComponent,
     PhysicalExamComponent,
     Actions3Component,
-    FormOrdersMedicalComponent,
     FormSystemExamComponent,
     SystemExamComponent,
     Actions7Component,
@@ -799,7 +797,6 @@ import { Actions23Component } from './informed-consents/actions2.component';
 
     FormChMedicalOrdersComponent,
     ChMedicalOrdersComponent,
-    FormOrdersMedicalComponent,
     OrdersMedicalComponent,
 
     // historia nutricion

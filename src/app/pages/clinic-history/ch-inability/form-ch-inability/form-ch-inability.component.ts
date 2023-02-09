@@ -80,9 +80,9 @@ export class FormChInabilityComponent implements OnInit {
       
 
     });
-    this.chRecord.GetCollection(this.record_id).then((x) => {
-      this.admissions_id = x;
-    });
+    // this.chRecord.GetCollection(this.record_id).then((x) => {
+    //   this.admissions_id = x;
+    // });
     // this.DiagnosisS.GetCollection().then((x) => {
     //   this.diagnosis= x;
     // });

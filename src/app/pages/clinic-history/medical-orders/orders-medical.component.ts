@@ -44,6 +44,10 @@ export class OrdersMedicalComponent implements OnInit {
   public saveEntry: any = 0;
   public loading: boolean = false;
 
+  public show1 = false;
+  public show2 = false;
+
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -75,18 +79,18 @@ export class OrdersMedicalComponent implements OnInit {
       };
     }
 
-    await this.chreasonconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chreasonconsultation = x;
-    });
-    await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chvitsigns = x;
-    });
-    await this.chdiagnosisS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chdiagnosis = x;
-    });
-    await this.chphysicalS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.physical = x;
-    });
+    // await this.chreasonconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chreasonconsultation = x;
+    // });
+    // await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chvitsigns = x;
+    // });
+    // await this.chdiagnosisS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chdiagnosis = x;
+    // });
+    // await this.chphysicalS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.physical = x;
+    // });
 
     this.form = this.formBuilder.group({
       ch_entry_review_system_id: [this.data.ch_entry_review_system_id, Validators.compose([Validators.required])],//el que es ciclico
@@ -113,21 +117,25 @@ export class OrdersMedicalComponent implements OnInit {
     }
   }
 
-  saveMcEa() {
-  }
-  saveRxSystem() {
-  }
-  saveExFisic() {
-  }
-  saveVitalSgns() {
-  }
-  saveDiagnostic() {
-  }
-
+  
   receiveMessage($event) {
     if ($event == true) {
       this.messageEvent.emit($event);
     }
   }
-}
 
+  filterStepper($event){
+    return $event.target.textContent;
+  }
+
+
+  goto($event) {
+    let selectedStep =  this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Interconsulta') {
+      this.show1 = true;
+    } else if (selectedStep == '3' || selectedStep == 'Plan manejo') {
+      this.show2 = true;
+    }
+
+}
+}

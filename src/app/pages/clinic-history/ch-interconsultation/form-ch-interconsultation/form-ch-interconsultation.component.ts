@@ -55,9 +55,9 @@ export class FormChInterconsultationComponent implements OnInit {
   ngOnInit(): void {
     this.record_id = this.route.snapshot.params.id;
 
-    this.chRecord.GetCollection(this.record_id).then((x) => {
-      this.admissions_id = x;
-    });
+    // this.chRecord.GetCollection(this.record_id).then((x) => {
+    //   this.admissions_id = x;
+    // });
 
     if (!this.data) {
       this.data = {
