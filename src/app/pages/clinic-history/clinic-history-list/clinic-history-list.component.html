@@ -2,7 +2,7 @@
   <div content>
     <div class="row" *ngIf="user">
       <div class="col-md-6" title *ngIf="user">
-        <p class="parrafo" *ngIf="user">CÉDULA: {{user.identification}} </p>
+        <p class="parrafo" *ngIf="user">IDENTIFICACIÓN: {{user.identification}} </p>
         <p class="parrafo" *ngIf="user">NOMBRE: {{this.user.firstname + ' ' + this.user.lastname}}</p>
         <p class="parrafo" *ngIf="user">FECHA DE NACIMIENTO: {{this.datePipe.transform3(user.birthday)}} </p>
         <p class="parrafo" *ngIf="user">EDAD: {{user.age}} </p>

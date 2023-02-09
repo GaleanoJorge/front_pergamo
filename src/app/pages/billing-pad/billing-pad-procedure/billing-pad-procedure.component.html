@@ -7,7 +7,7 @@
         <ngx-base-table (propagar)="eventSelections($event)" pager="false" [settings]="settings" [entity]="entity"
         customData="billing_pad" [messageToltip]="messageToltip">
         <div title *ngIf="user">
-          <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}}</p>
+          <p class="parrafo" *ngIf="user"><b>IDENTIFICACIÓN:</b> {{user.identification}}</p>
           <!-- <p class="parrafo" *ngIf="user"><b>NOMBRE:</b> {{user.nombre_completo}}</p> -->
           <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}}</p>
           <p class="parrafo" *ngIf="user"><b>EDAD:</b> {{user.age}}</p>
