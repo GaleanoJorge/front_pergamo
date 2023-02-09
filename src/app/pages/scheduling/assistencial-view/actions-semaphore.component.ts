@@ -8,13 +8,17 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <div *ngIf="value.data.ch_record_count == 0" class = "cuadro" 
+    <div *ngIf="value.data.exist_ch_record == 0" class = "cuadro" 
      [style]="'background-color: '+this.color+';'"
      nbTooltip={{tooltip}} nbTooltipPlacement="top" nbTooltipStatus="primary">
     </div>
-    <div *ngIf="value.data.ch_record_count > 0" class = "cuadro" 
+    <div *ngIf="value.data.exist_finalized_ch_record > 0" class = "cuadro" 
      [style]="'background-color: '+this.color2+';'"
      nbTooltip={{tooltip2}} nbTooltipPlacement="top" nbTooltipStatus="primary">
+    </div>
+    <div *ngIf="value.data.exist_finalized_ch_record == 0 && value.data.exist_ch_record > 0" class = "cuadro" 
+     [style]="'background-color: '+this.color3+';'"
+     nbTooltip={{tooltip3}} nbTooltipPlacement="top" nbTooltipStatus="primary">
     </div>
   </div>
   `,
@@ -37,10 +41,12 @@ export class ActionsSemaphoreComponent implements ViewCell {
 
   public color: string;
   public color2: string;
+  public color3: string;
 
   public semaphore: any;
   public tooltip: string;
   public tooltip2: string;
+  public tooltip3: string;
   public today;
   public status;
   public description;
@@ -55,7 +61,10 @@ export class ActionsSemaphoreComponent implements ViewCell {
     this.tooltip = 'Sin historia clínica';
 
     this.color2 = this.colors.verde;
-    this.tooltip2 = 'Con historia clínica';
+    this.tooltip2 = 'Con historia clínica finalizada';
+
+    this.color3 = this.colors.amarillo;
+    this.tooltip3 = 'Con historia clínica sin finalizar';
 
   }
 
