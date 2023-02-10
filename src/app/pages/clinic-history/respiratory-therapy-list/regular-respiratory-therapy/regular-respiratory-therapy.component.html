@@ -1,0 +1,84 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper [linear]="linearMode" (click)="goto($event)">
+          <!-- <nb-stepper orientation="vertical" #stepper [linear]="linearMode">  -->
+          <nb-step [stepControl]="nameForm" label="Valoración">
+            <ngx-reason-consultation-respiratory-therapy [record_id]="record_id" [type_record_id]="type_record_id">
+            </ngx-reason-consultation-respiratory-therapy>
+
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Antecedentes">
+            <div class="row" *ngIf="this.show1">
+              <div class="col-md-12">
+                <ngx-back-list [record_id]="record_id" [user]="user" [type_record_id]="type_record_id"></ngx-back-list>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Signos Vitales">
+            <div class="row" *ngIf="this.show2">
+              <div class="col-md-12">
+                <ngx-signs [record_id]="record_id" [admissions]="admissions"
+                  [type_record_id]="type_record_id"></ngx-signs>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Destete de oxigeno">
+            <div class="row" *ngIf="this.show3">
+              <div class="col-md-12">
+                <ngx-oxygen-therapy [record_id]="record_id" [type_record_id]="type_record_id"></ngx-oxygen-therapy>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Pedido de insumos">
+            <div class="row" *ngIf="this.show4">
+              <div class="col-md-12">
+                <ngx-insume-request [record_id]="record_id" [admissions]="admissions"
+                  [user]="user"></ngx-insume-request>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Sesiones">
+            <div class="row" *ngIf="this.show5">
+              <div class="col-md-12">
+                <ngx-sessions-therapy [record_id]="record_id" [type_record_id]="type_record_id"></ngx-sessions-therapy>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Intervención">
+            <div class="row" *ngIf="this.show6">
+              <div class="col-md-12">
+                <ngx-ps-intervention [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-intervention>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Recomendaciones">
+            <div class="row" *ngIf="this.show7">
+              <div class="col-md-12">
+                <ngx-recommendations-evo [record_id]="record_id"
+                  [type_record]="type_record_id"></ngx-recommendations-evo>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [hidden]="true">
+
+            <div class="step-container">
+              <h3>Wizard completed!</h3>
+              <button nbButton (click)="stepper.reset()">Try again</button>
+            </div>
+
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>

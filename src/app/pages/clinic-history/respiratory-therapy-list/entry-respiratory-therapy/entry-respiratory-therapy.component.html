@@ -1,0 +1,93 @@
+<ngx-base-list [messageError]="messageError" [routes]="routes">
+  <div content>
+    <nb-card>
+      <nb-card-body *ngIf="this.user">
+        <nb-stepper #stepper [linear]="linearMode" (click)="goto($event)">
+          <nb-step [stepControl]=" nameForm" label="Valoración">
+          <ngx-reason-consultation-respiratory-therapy [record_id]="record_id" [type_record_id]="type_record_id"
+            (messageEvent)="inputMessage($event)" [has_input]="has_input">
+          </ngx-reason-consultation-respiratory-therapy>
+
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Antecedentes">
+            <div class="row" *ngIf="this.show1">
+              <div class="col-md-12">
+                <ngx-back-list [record_id]="record_id" [user]="user" (messageEvent)="inputMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-back-list>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Signos Vitales">
+            <div class="row" *ngIf="this.show2">
+              <div class="col-md-12">
+                <ngx-signs [record_id]="record_id" [admissions]="admissions" (messageEvent)="inputMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-signs>
+              </div>
+            </div>
+          </nb-step>
+          <!-- *ngIf="vitalsigns" [data]="vitalsigns"  -->
+
+          <nb-step [stepControl]="nameForm" label="Destete de oxigeno">
+            <div class="row" *ngIf="this.show3">
+              <div class="col-md-12">
+                <ngx-oxygen-therapy *ngIf="teraphyRespiratory" [record_id]="record_id"
+                  (messageEvent)="inputMessage($event)" [type_record_id]="type_record_id" [has_input]="has_input"
+                  [data]="teraphyRespiratory">
+                </ngx-oxygen-therapy>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Valoración Terapeutica">
+            <div class="row" *ngIf="this.show4">
+              <div class="col-md-12">
+                <ngx-assessment-therapy [record_id]="record_id" [data]="data" [type_record_id]="type_record_id"
+                  (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-assessment-therapy>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Objetivos">
+            <div class="row" *ngIf="this.show5">
+              <div class="col-md-12">
+                <ngx-objectives-therapy [record_id]="record_id" [type_record_id]="type_record_id"
+                  (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-objectives-therapy>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Pedido de insumos">
+            <div class="row" *ngIf="this.show6">
+              <div class="col-md-12">
+                <ngx-insume-request [record_id]="record_id" (messageEvent)="inputMessage($event)"
+                  [type_record_id]="type_record_id" [user]="user" [has_input]="has_input"
+                  [admissions]="admissions"></ngx-insume-request>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Sesiones">
+            <div class="row" *ngIf="this.show7">
+              <div class="col-md-12">
+                <ngx-sessions-therapy [record_id]="record_id" [type_record_id]="type_record_id"
+                  (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-sessions-therapy>
+              </div>
+            </div>
+          </nb-step>
+
+
+          <nb-step [hidden]="true">
+
+            <div class="step-container">
+              <h3>Wizard completed!</h3>
+              <button nbButton (click)="stepper.reset()">Try again</button>
+            </div>
+
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</ngx-base-list>
