@@ -56,6 +56,8 @@ export class EntryClinicHistoryNursingComponent implements OnInit {
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
+  public show1 = false;
+  public show2 = false;
 
 
   constructor(
@@ -188,17 +190,6 @@ export class EntryClinicHistoryNursingComponent implements OnInit {
     // console.log('adentro');
   }
 
-  saveRxSystem() {
-  }
-
-  saveExFisic() {
-  }
-
-  saveVitalSgns() {
-  }
-  
-  saveDiagnostic() {
-  }
 
   receiveMessage($event) {
     if ($event == true) {
@@ -219,5 +210,18 @@ export class EntryClinicHistoryNursingComponent implements OnInit {
     inputMessage($event) {
       this.input_done = true;
     }
-}
 
+    filterStepper($event){
+      return $event.target.textContent;
+    }
+  
+  
+    goto($event) {
+      let selectedStep =  this.filterStepper($event);
+      if (selectedStep == '2' || selectedStep == 'Ex Físico') {
+        this.show1 = true;
+      } else if (selectedStep == '3' || selectedStep == 'Signos Vitales') {
+        this.show2 = true;
+      } 
+}
+}

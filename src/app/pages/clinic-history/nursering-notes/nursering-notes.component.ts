@@ -46,6 +46,12 @@ export class NurseringNotesComponent implements OnInit {
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
+  public show1=false;
+  public show2=false;
+  public show3=false;
+  public show4=false;
+  public show5=false;
+  public show6=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -84,20 +90,6 @@ export class NurseringNotesComponent implements OnInit {
     console.log(event);
   }
 
-  saveMcEa() {
-  }
-
-  saveRxSystem() {
-  }
-
-  saveExFisic() {
-  }
-
-  saveVitalSgns() {
-  }
-
-  saveDiagnostic() {
-  }
 
   receiveMessage($event) {
     if ($event == true) {
@@ -110,6 +102,30 @@ export class NurseringNotesComponent implements OnInit {
           clearInterval(this.interval);
         }
       }, 1000)
+    }
+  }
+  filterStepper($event){
+    return $event.target.textContent;
+  }
+
+
+  goto($event) {
+    let selectedStep =  this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Ex Físico') {
+      this.show1 = true;
+    } else if (selectedStep == '3' || selectedStep == 'Signos Vitales') {
+      this.show2 = true;
+    } else if (selectedStep == '4' || selectedStep == 'Procedimientos de enfermeria') {
+      this.show3 = true;
+    }
+    else if (selectedStep == '5' || selectedStep == 'Plan de cuidados') {
+      this.show4 = true;
+    }
+    else if (selectedStep == '6' || selectedStep == 'Control de líquidos') {
+      this.show5 = true;
+    }
+    else if (selectedStep == '7' || selectedStep == 'Recomendaciones') {
+      this.show6 = true;
     }
   }
 }
