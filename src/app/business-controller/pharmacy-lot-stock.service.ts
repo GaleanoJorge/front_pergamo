@@ -145,9 +145,9 @@ export class PharmacyLotStockService {
       });
   }
 
-  ViewInventory(type: any={}): any {
+  ViewInventory(params = {}): any {
     let servObj = new ServiceObject('viewInventory');
-    return this.webAPI.GetAction(servObj,type)
+    return this.webAPI.GetAction(servObj, params)
     .then(x => {
       servObj = <ServiceObject>x;
       if (!servObj.status)
