@@ -4,9 +4,9 @@
       <nb-card-body *ngIf="this.user">
         <nb-stepper #stepper [linear]="linearMode" (click)="goto($event)">
           <nb-step [stepControl]=" nameForm" label="Valoración">
-          <ngx-reason-consultation-respiratory-therapy [record_id]="record_id" [type_record_id]="type_record_id"
+          <ngx-reason-consultation-rt [record_id]="record_id" [type_record_id]="type_record_id"
             (messageEvent)="inputMessage($event)" [has_input]="has_input">
-          </ngx-reason-consultation-respiratory-therapy>
+          </ngx-reason-consultation-rt>
 
           </nb-step>
 
