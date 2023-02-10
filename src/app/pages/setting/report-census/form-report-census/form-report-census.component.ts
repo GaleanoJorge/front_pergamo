@@ -90,7 +90,7 @@ export class FormReportCensusComponent implements OnInit {
       this.pavilion_id = localidentify.id;
     } else {
       this.pavilion_id = null;
-      this.toastService.warning('', 'Selecciona una Pabellón de la Lista');
+      this.toastService.warning('', 'Selecciona un Pabellón de la Lista');
     }
   }
 
@@ -103,19 +103,8 @@ export class FormReportCensusComponent implements OnInit {
       initial_report: this.form.controls.initial_report.value,
       final_report: this.form.controls.final_report.value,
     }).then(x => {
-      //this.loadingDownload = false;
       this.toastService.success('', x.message);
       window.open(x.url);
-    }).catch(x => {
-      this.isSubmitted = false;
-    });
-  }
-
-  exportAsPDF2(): void {
-    this.ReportCensusS.ExportCensus2({ type: 1 }).then(x => {
-      //this.loadingDownload = false;
-      this.toastService.success('', x.message);
-      window.open(x.url, '_blank');
     }).catch(x => {
       this.isSubmitted = false;
     });
@@ -131,13 +120,13 @@ export class FormReportCensusComponent implements OnInit {
         initial_report: this.form.controls.initial_report.value,
         final_report: this.form.controls.final_report.value,
       },).then((x) => {
-        // if (x.length > 0) {
-        this.ReportCensusS.exportAsExcelFile(x, 'reporte_censo_[' +
-          this.form.controls.initial_report.value + ']_a_[' +
-          this.form.controls.final_report.value + ']');
-        // } else {
-        //   this.toastService.warning('', 'No Existen Registros');
-        // }
+        if (x.length > 0) {
+          this.ReportCensusS.exportAsExcelFile(x, 'reporte_censo_[' +
+            this.form.controls.initial_report.value + ']_a_[' +
+            this.form.controls.final_report.value + ']');
+        } else {
+          this.toastService.warning('', 'No Existen Registros');
+        }
       });
     }
   }
