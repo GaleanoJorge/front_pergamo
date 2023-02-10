@@ -52,7 +52,6 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public is_pad: number = 0;
   public loading: boolean = false;
   public currentRole: any;
-  public show: any;
   public int= 0;
   public signatureImage: string;
   public previousUrl: string;
@@ -63,7 +62,12 @@ export class ClinicHistoryNursingListComponent implements OnInit {
   public management;
   public applicated: any;
   public text: any = null;
-
+  public show1 = false;
+  public show2 = false;
+  public show3 = false;
+  public show4 = false;
+  public show5 = false;
+  
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -301,23 +305,23 @@ export class ClinicHistoryNursingListComponent implements OnInit {
     // console.log(e.tabTitle);
     switch (e.tabTitle) {
       case "INGRESO": {
-        this.show = 1;
+        this.show1 = true;
         break;
       }
       case "NOTA DE ENFERMERÍA": {
-        this.show = 2;
+        this.show2 = true;
         break;
       }
       case "VALORACIÓN DE LA PIEL": {
-        this.show = 3;
+        this.show3 = true;
         break;
       }
       case "ESCALAS": {
-        this.show = 4;
+        this.show4 = true;
         break;
       }
       case "APLICACIÓN DE MEDICAMENTOS": {
-        this.show = 5;
+        this.show5 = true;
         break;
       }
     }
