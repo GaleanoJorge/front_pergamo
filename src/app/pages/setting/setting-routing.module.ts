@@ -153,6 +153,7 @@ import { FixedInventaryComponent } from './fixed-inventary/fixed-inventary.compo
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
 import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
 import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adjustment.component';
+import { FormReportCensusComponent } from './report-census/form-report-census/form-report-census.component';
 
 const routes: Routes = [{
   path: '',
@@ -860,6 +861,10 @@ const routes: Routes = [{
     {
       path: 'product-damaged',
       component: ProductDamagedComponent,
+    },
+    {
+      path: 'report-census',
+      component: FormReportCensusComponent,
     }
     ,
     {

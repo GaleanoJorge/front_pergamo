@@ -12,7 +12,18 @@ import {
   NbRadioModule,
   NbTooltipModule,
   NbPopoverModule,
-  NbTabsetModule, NbUserModule, NbInputModule, NbSelectModule, NbAlertModule, NbDialogModule, NbIconModule, NbToggleModule, NbLayoutModule, NbSpinnerModule, NbCheckboxModule, NbAutocompleteModule,
+  NbTabsetModule,
+  NbUserModule,
+  NbInputModule,
+  NbSelectModule,
+  NbAlertModule,
+  NbDialogModule,
+  NbIconModule,
+  NbToggleModule,
+  NbLayoutModule,
+  NbSpinnerModule,
+  NbCheckboxModule,
+  NbAutocompleteModule,
 } from '@nebular/theme';
 import { RipsTypeFileComponent } from './rips-typefile/rips-typefile.component';
 import { ManualComponent } from './manual/manual.component';
@@ -396,6 +407,8 @@ import { FixedReturnPatientsComponent } from './fixed-return-patients/fixed-retu
 import { FormFixedDeniedComponent } from './fixed-assets-requests-patient/form-fixed-denied/form-fixed-denied.component';
 import { FormTariffConfirmDisabledComponent } from './tariff/form-tariff-confirm-disabled/form-tariff-confirm-disabled.component';
 import { ProductDamagedComponent } from './product-damaged/product-damaged.component';
+import { FormReportCensusComponent } from './report-census/form-report-census/form-report-census.component';
+import { ReportCensusComponent } from './report-census/report-census.component';
 import { ActionsBedComponent } from './bed/actions-bed.component';
 import { SuppliesMeasureComponent } from './supplies-measure/supplies-measure.component';
 import { FormSuppliesMeasureComponent } from './supplies-measure/form-supplies-measure/form-supplies-measure.component';
@@ -433,7 +446,6 @@ import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adju
     NbAutocompleteModule,
   ],
   declarations: [
-
     RoleCheckComponent,
     RolePackageComponent,
     ActionsComponentInsume,
@@ -791,10 +803,8 @@ import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adju
     ProdSuppliesPackageComponent,
     SelectProductSuppliesComponent,
 
-
     BillingRequestPharmacyMostComponent,
     tcRentabilityComponent,
-
 
     tcRentabilityComponent,
 
@@ -804,7 +814,6 @@ import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adju
     FormBillingPadConsecutiveComponent,
     FixedFormNomProductComponent,
     FixedNomProductComponent,
-
 
     AssetsRequestsPatientPackageComponent,
     AssetsSelectRequestsPatientComponent,
@@ -844,20 +853,18 @@ import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adju
     FormFixedDeniedComponent,
     ProductDamagedComponent,
 
+    ReportCensusComponent,
+    FormReportCensusComponent,
     SuppliesMeasureComponent,
-    FormSuppliesMeasureComponent
+    FormSuppliesMeasureComponent,
   ],
-  providers: [
-    DateFormatPipe,
-    CurrencyPipe
-  ],
+  providers: [DateFormatPipe, CurrencyPipe],
   exports: [
     ProcedurePackage2Component,
     FormUserComponent,
     FormLocationCapacityComponent,
-    ActionsComponent
+    ActionsComponent,
   ],
   bootstrap: [],
 })
-export class SettingModule {
-}
+export class SettingModule {}
