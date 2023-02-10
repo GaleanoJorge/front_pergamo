@@ -180,7 +180,7 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
   }
 
   Inventory() {
-    this.invS.ViewInventory({type:2}).then(x => {
+    this.invS.ViewInventory({type:2, pharmacy_stock_id : this.pharmacy}).then(x => {
 
       //this.loadingDownload = false;
       this.toastService.success('', x.message);
