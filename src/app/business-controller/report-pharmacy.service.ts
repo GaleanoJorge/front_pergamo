@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
+import * as XLSX from 'xlsx';
 import { ReportPharmacy } from '../models/report-pharmacy';
 import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
