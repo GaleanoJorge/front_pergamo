@@ -31,7 +31,7 @@ export class FormLocationCapacityComponent implements OnInit {
   public currentRole;
   public months = [
     { id: 1, name: "ENERO" },
-    { id: 2, name: "FREBRERO" },
+    { id: 2, name: "FEBRERO" },
     { id: 3, name: "MARZO" },
     { id: 4, name: "ABRIL" },
     { id: 5, name: "MAYO" },

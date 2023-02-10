@@ -6,7 +6,7 @@ export class ReportGloss extends MainClass {
   id: number;
   initial_report: string;
   final_report: string;
-  gloss: string;
+  gloss_id: string;
   status: string;
   user_id: string;
 }

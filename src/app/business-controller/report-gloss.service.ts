@@ -80,7 +80,7 @@ export class ReportGlossService {
 
   // Glossas
   GetExportGloss(id, params = {}): Promise<ReportGloss[]> {
-    let servObj = new ServiceObject('report_gloss/export2', id);
+    let servObj = new ServiceObject('report_gloss/export', id);
     return this.webAPI.GetAction(servObj, params)
       .then(x => {
         servObj = <ServiceObject>x;

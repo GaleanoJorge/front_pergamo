@@ -1,13 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { BillingService } from '../../../../business-controller/billing.service';
+import { CompanyService } from '../../../../business-controller/company.service';
 import { ReportBillingService } from '../../../../business-controller/report-billing.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
-
-const EXCEL_TYPE =
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-const EXCEL_EXTENSION = '.xlsx';
 @Component({
   selector: 'ngx-form-report-billing',
   templateUrl: './form-report-billing.component.html',
@@ -15,7 +11,7 @@ const EXCEL_EXTENSION = '.xlsx';
 })
 export class FormReportBillingComponent implements OnInit {
   @Input() title: string;
-  @Output() messageEvent = new EventEmitter<any>();
+  // @Output() messageEvent = new EventEmitter<any>();
   @Input() data: any = null;
   @Input() saved: any = null;
 
@@ -24,92 +20,78 @@ export class FormReportBillingComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public user_id;
-  public billing: any[];
-  public billing_id;
-  public entity;
-  public customData;
+  public company: any[];
+  public company_id;
+  // public entity;
+  // public customData;
   public show: boolean = false;
 
   public today = null;
 
   constructor(
-    private excelService: ReportBillingService,
+    private ReportBillingS: ReportBillingService,
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private UserBusinessS: UserBusinessService,
-    private BillingS: BillingService
-  ) {}
+    private CompanyS: CompanyService
+  ) { }
 
   async ngOnInit() {
-    this.entity = this.entity;
-    this.customData = this.customData;
+    //? Sin uso hasta el momento
+    // this.entity = this.entity;
+    // this.customData = this.customData;
     this.today = new Date();
     this.today = this.today.toISOString().split('T')[0];
     if (!this.data) {
       this.data = {
         initial_report: '',
         final_report: '',
-        billing_id: '',
+        company_id: '',
         status: '',
       };
     }
 
     this.form = this.formBuilder.group({
-      initial_report: [
-        this.data.initial_report,
-        Validators.compose([Validators.required]),
-      ],
-      final_report: [
-        this.data.final_report,
-        Validators.compose([Validators.required]),
-      ],
-      billing_id: [
-        this.data.billing_id,
-        Validators.compose([Validators.required]),
-      ],
+      initial_report: [this.data.initial_report, Validators.compose([Validators.required]),],
+      final_report: [this.data.final_report, Validators.compose([Validators.required]),],
+      company_id: [this.data.company_id, Validators.compose([Validators.required]),],
       status: [this.data.status, Validators.compose([Validators.required])],
     });
 
-    await this.BillingS.GetCollection().then((x) => {
-      this.billing = x;
+    await this.CompanyS.GetCollection().then((x) => {
+      this.company = x;
     });
-
     await this.UserBusinessS.GetUser().then((x) => {
       this.user_id = x;
     });
   }
 
   saveCode(e): void {
-    var localidentify = this.billing.find(
-      (item) => item.name == e
+    var localidentify = this.company.find((item) => item.name == e
     );
     if (localidentify) {
-      this.billing_id = localidentify.id;
+      this.company_id = localidentify.id;
     } else {
-      this.billing_id = null;
-      this.toastService.warning(
-        '',
-        'Selecciona una EPS de la Lista'
-      );
+      this.company_id = null;
+      this.toastService.warning('', 'Selecciona una EPS de la lista');
     }
   }
 
   exportAsXLSX(): void {
-    if (!this.form.invalid) {
-      this.excelService
-        .GetExportBilling(this.billing_id, {
-          initial_report: this.form.controls.initial_report.value,
-          final_report: this.form.controls.final_report.value,
-          status: this.form.controls.status.value,
-          billing_id: this.billing_id,
-        })
-        .then((x) => {
-          // if (x['reports'].length > 0) {
-          this.excelService.exportAsExcelFile(x['reports'], "reporte_facturacion_de_[" + this.form.controls.initial_report.value + "]_a_[" + this.form.controls.final_report.value + "]");
-          // } else {
-          //   this.toastService.warning('', 'No existen datos');
-          // }
-        });
+    if (this.form.invalid) {
+      this.ReportBillingS.GetExportBilling(this.company_id, {
+        id: this.company_id,
+        initial_report: this.form.controls.initial_report.value,
+        final_report: this.form.controls.final_report.value,
+      }).then((x) => {
+        // if (x.length > 0) {
+        this.ReportBillingS.exportAsExcelFile(x, 'reporte_facturación_[' +
+          this.form.controls.initial_report.value + ']_a_[' +
+          this.form.controls.final_report.value + ']');
+        // } else {
+        //   this.toastService.warning('', 'No Existen Registros');
+        // }
+      });
     }
   }
 
@@ -118,7 +100,7 @@ export class FormReportBillingComponent implements OnInit {
     var now_date = new Date();
     if (date > now_date) {
       this.form.controls.final_report.setErrors({ incorrect: true });
-      this.toastService.danger(null, 'La fecha no puede ser mayor a la actual');
+      this.toastService.danger(null, 'Fecha Mayor a la Actual');
     } else {
       this.form.controls.final_report.setErrors(null);
     }

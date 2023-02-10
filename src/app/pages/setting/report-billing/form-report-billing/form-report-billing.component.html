@@ -2,85 +2,36 @@
   <div>
     <div class="row">
       <div class="col-12 col-sm-12">
-        <label class="form-text text-muted font-weight-bold center-text-center"
-          >GENERACIÓN DE REPORTE FACTURACION</label
-        >
+        <label class="form-text text-muted font-weight-bold center-text-center">GENERACIÓN DE REPORTE FACTURACION</label>
       </div>
 
-      <div class="col-12 col-sm-12 col-md-6">
-        <label for="billing_id" class="form-text text-muted font-weight-bold">Selecciona Prefijo de Factura:</label>
-        <input
-          fullWidth
-          nbInput
-          list="codes"
-          (change)="saveCode($event.target.value)"
-          id="billing_id"
-          formControlName="billing_id"
-          billing_id
-          type="text"
-          required
-          status="{{isSubmitted && form.controls.billing_id.errors? 'danger': isSubmitted? 'success': 'basic'}}"/>
-        <datalist id="codes" *ngIf="billing">
-          <option *ngFor="let item of billing" [value]="item.company_id">{{ item.name }}</option>
+      <div class="col-12 col-sm-12 col-md-4">
+        <label for="company_id" class="form-text text-muted font-weight-bold">Selecciona EPS:</label>
+        <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="company_id"
+          formControlName="company_id" company_id type="text" required placeholder="Seleccione"
+          status="{{isSubmitted && form.controls.company_id.errors? 'danger': isSubmitted? 'success': 'basic'}}" />
+        <datalist id="codes" *ngIf="company">
+          <option *ngFor="let item of company" [value]="item.name">{{ item.name }}</option>
         </datalist>
       </div>
 
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="form" class="form-text text-muted font-weight-bold">Estado de Factura:</label>
-          <nb-select
-            class="form-text"
-            id="billing_pad_status"
-            formControlName="billing_pad_status"
-            fullWidth
-            status
-            status="{{ isSubmitted && form.controls.billing_pad_status.errors ? 'danger': isSubmitted ? 'success': 'basic' }}">
-            <nb-option value="">Seleccione...</nb-option>
-            <nb-option value="CREADA">CREADA</nb-option>
-            <nb-option value="FACTURADA">FACTURADA</nb-option>
-            <nb-option value="RECHAZADA">RECHAZADA</nb-option>
-            <nb-option value="ANULADA">ANULADA</nb-option>
-          </nb-select>
-        </div>
+      <div class="col-12 col-sm-12 col-md-4">
+        <label class="form-text text-muted font-weight-bold align">Fecha Inicial:</label>
+        <input nbInput type="date" [max]="today" (change)="onDatechange1($event)" fullWidth id="initial_report"
+          formControlName="initial_report" initial_report
+          status="{{ isSubmitted && form.controls.initial_report.errors ? 'danger': isSubmitted ? 'success': 'basic' }}" />
       </div>
 
-      <div class="col-12 col-sm-12 col-md-6">
-        <label class="form-text text-muted font-weight-bold align">Fecha inicial:</label>
-        <input
-          nbInput
-          type="date"
-          [max]="today"
-          fullWidth
-          id="initial_report"
-          formControlName="initial_report"
-          initial_report
-          status="{{ isSubmitted && form.controls.initial_report.errors ? 'danger': isSubmitted ? 'success': 'basic' }}"/>
-      </div>
-
-      <div class="col-12 col-sm-12 col-md-6">
-        <label class="form-text text-muted font-weight-bold align">Fecha final:</label>
-        <input
-          nbInput
-          type="date"
-          [max]="today"
-          (change)="onDatechange1($event)"
-          fullWidth
-          id="final_report"
-          formControlName="final_report"
-          final_report
-          status="{{ isSubmitted && form.controls.final_report.errors ? 'danger': isSubmitted ? 'success': 'basic' }}"/>
+      <div class="col-12 col-sm-12 col-md-4">
+        <label class="form-text text-muted font-weight-bold align">Fecha Final:</label>
+        <input nbInput type="date" [max]="today" (change)="onDatechange1($event)" fullWidth id="final_report"
+          formControlName="final_report" final_report
+          status="{{ isSubmitted && form.controls.final_report.errors ? 'danger': isSubmitted ? 'success': 'basic' }}" />
       </div>
     </div>
 
     <div class="div-send">
-      <label></label>
-      <button
-        [disabled]="disabled"
-        type="submit"
-        nbButton
-        status="success"
-        (click)="exportAsXLSX()">
-        DESCARGAR</button>
+      <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsXLSX()">DESCARGAR</button>
     </div>
   </div>
 </form>
