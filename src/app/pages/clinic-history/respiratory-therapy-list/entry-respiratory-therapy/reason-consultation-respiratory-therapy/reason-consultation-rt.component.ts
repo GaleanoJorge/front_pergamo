@@ -6,11 +6,11 @@ import { BaseTableComponent } from '../../../../components/base-table/base-table
 import { UserChangeService } from '../../../../../business-controller/user-change.service';
 import { DateFormatPipe } from '../../../../../pipe/date-format.pipe';
 @Component({
-  selector: 'ngx-reason-consultation-respiratory-therapy',
-  templateUrl: './reason-consultation-respiratory-therapy.component.html',
-  styleUrls: ['./reason-consultation-respiratory-therapy.component.scss'],
+  selector: 'ngx-reason-consultation-rt',
+  templateUrl: './reason-consultation-rt.component.html',
+  styleUrls: ['./reason-consultation-rt.component.scss'],
 })
-export class ReasonConsultationRespiratoryTherapyComponent implements OnInit {
+export class ReasonConsultationRTComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   @Input() record_id = null; 
   @Input() type_record: any = null;
