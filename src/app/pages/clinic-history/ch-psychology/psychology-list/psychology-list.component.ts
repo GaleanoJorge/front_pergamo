@@ -54,6 +54,8 @@ export class PsychologyListComponent implements OnInit {
   public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
   public signatureImage: string;
+  public show1 = false;
+  public show2 = false;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -229,11 +231,11 @@ export class PsychologyListComponent implements OnInit {
     console.log(e.tabTitle);
     switch (e.tabTitle) {
       case "INGRESO": {
-        this.show = 1;
+        this.show1 = true;
         break;
       }
       case "REGULAR": {
-        this.show = 2;
+        this.show2 = true;
         break;
       }
     }

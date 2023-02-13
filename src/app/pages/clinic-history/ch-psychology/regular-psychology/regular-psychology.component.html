@@ -2,29 +2,47 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper [linear]="linearMode"> 
-    
+        <nb-stepper #stepper [linear]="linearMode" (click)="goto($event)">
+
           <nb-step [stepControl]="nameForm" label="Valoración">
-            <ngx-ps-assessment [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-assessment>
+                <ngx-ps-assessment [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-assessment>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Operacionalización">
-            <ngx-ps-operationalization [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-operationalization>
+            <div class="row" *ngIf="this.show1">
+              <div class="col-md-12">
+                <ngx-ps-operationalization [record_id]="record_id"
+                  [type_record_id]="type_record_id"></ngx-ps-operationalization>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Estado Conciencia">
-            <ngx-ps-awareness [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-awareness>
+            <div class="row" *ngIf="this.show2">
+              <div class="col-md-12">
+                <ngx-ps-awareness [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-awareness>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Objetivos">
-            <ngx-ps-objectives [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-objectives>
+            <div class="row" *ngIf="this.show3">
+              <div class="col-md-12">
+                <ngx-ps-objectives [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-objectives>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step label="Recomendaciones">
-            <ngx-recommendations-evo [record_id]="record_id" [type_record]="type_record_id"></ngx-recommendations-evo>
+            <div class="row" *ngIf="this.show4">
+              <div class="col-md-12">
+                <ngx-recommendations-evo [record_id]="record_id"
+                  [type_record]="type_record_id"></ngx-recommendations-evo>
+              </div>
+            </div>
           </nb-step>
-          
-         
+
+
           <nb-step [hidden]="true">
 
             <div class="step-container">
