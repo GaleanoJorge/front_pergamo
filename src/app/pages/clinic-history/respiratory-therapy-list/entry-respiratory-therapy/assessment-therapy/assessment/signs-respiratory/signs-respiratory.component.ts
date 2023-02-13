@@ -13,6 +13,7 @@ export class SignsRespiratoryComponent implements OnInit {
   @Input() record_id;
   @Input() type_record: any = null;
   @Input() type_record_id: any = null;
+  @Input() has_input: any = false;
   @Output() messageEvent = new EventEmitter<any>();
 
   linearMode = true;

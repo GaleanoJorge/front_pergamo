@@ -95,13 +95,13 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
       };
     }
 
-    // await this.ChOxygenTherapyS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-    //   this.teraphyRespiratory = x;
-    // });
+    await this.ChOxygenTherapyS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.teraphyRespiratory = x;
+    });
 
-    // await this.SuppliesS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-    //   this.suppliesTeraphyRespiratory = x;
-    // });
+    await this.SuppliesS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.suppliesTeraphyRespiratory = x;
+    });
 
     this.form = this.formBuilder.group({
 
