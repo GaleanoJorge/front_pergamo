@@ -34,6 +34,12 @@
         </div>
       </nb-tab>
 
+      <nb-tab tabTitle="FORMULACIÓN">
+        <div *ngIf="this.show == 4">
+          <ngx-formulation [record_id]="record_id" [user]="this.user.id" [admission]="admission"></ngx-formulation>
+        </div>
+      </nb-tab>
+
       <nb-tab *ngIf="this.show_failed" tabTitle="FALLIDA">
         <div *ngIf="this.show == 9">
           <ngx-failed (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-failed>

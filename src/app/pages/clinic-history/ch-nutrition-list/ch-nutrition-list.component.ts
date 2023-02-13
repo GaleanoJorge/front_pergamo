@@ -235,6 +235,10 @@ export class ChNutritionListComponent implements OnInit {
         this.show = 3;
         break;
       }
+      case "FORMULACIÓN": {
+        this.show = 4;
+        break;
+      }
       case "FALLIDA": {
         this.show = 9;
         break;
