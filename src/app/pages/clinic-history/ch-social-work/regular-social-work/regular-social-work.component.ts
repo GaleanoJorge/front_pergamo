@@ -37,6 +37,8 @@ export class RegularSocialWorkComponent implements OnInit {
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
+  public show1 = false;
+  public show2 = false;
 
 
   constructor(
@@ -61,6 +63,19 @@ export class RegularSocialWorkComponent implements OnInit {
   }
   async save() {
   }
+
+  filterStepper($event) {
+    return $event.target.textContent;
+  }
+
+
+  goto($event) {
+    let selectedStep = this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Intervención') {
+      this.show1 = true;
+    } else if (selectedStep == '3' || selectedStep == 'Recomendaciones / Educación') {
+      this.show2 = true;
+    }
+  }
+
 }
-
-
