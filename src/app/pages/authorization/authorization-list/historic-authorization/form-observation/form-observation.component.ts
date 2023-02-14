@@ -112,6 +112,11 @@ export class FormObservationComponent implements OnInit {
         formData.append('copay', data.copay.value);
         formData.append('copay_value', data.copay_value.value);
         formData.append('file_auth', this.form.value.file_auth);
+        formData.forEach((entry, key) => {
+          if(formData.get(key) == "undefined" || formData.get(key) == "null"){
+            formData.delete(key);
+          }
+        });
         this.authorizationS
           .Update(formData, this.data.id)
           .then((x) => {
