@@ -1,0 +1,35 @@
+<form [formGroup]="form">
+  <div class="center">
+    <fieldset class="field_set center">
+      <ngx-form-ch-position [record_id]="this.record_id" [type_record]="this.type_record"></ngx-form-ch-position>
+    </fieldset>
+
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-12">
+          <hr />
+        </div>
+      </div>
+    </div>
+
+    <fieldset class="field_set center">
+      <ngx-form-ch-hair-valoration [record_id]="record_id" [type_record]="1"></ngx-form-ch-hair-valoration>
+    </fieldset>
+
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-12">
+          <hr />
+        </div>
+      </div>
+    </div>
+
+    <fieldset class="field_set center">
+      <ngx-ch-ostomies [record_id]="record_id" [type_record]="1"></ngx-ch-ostomies>
+    </fieldset>
+
+
+
+
+  </div>
+</form>

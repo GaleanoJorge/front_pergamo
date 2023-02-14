@@ -1,0 +1,42 @@
+<form [formGroup]="form">
+  <div >
+    <fieldset class="field_set center">
+      <legend class="prue1">OXIGENO</legend>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="oxygen_type_id" class="form-text text-muted font-weight-bold align">TIPO DE OXÍGENO:</label>
+          <nb-select fullWidth [selected]="this.data.oxygen_type_id" formControlName="oxygen_type_id"
+            id="oxygen_type_id"
+            status="{{ isSubmitted && form.controls.oxygen_type_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option selected="{{ item.id == this.data.oxygen_type_id }}" *ngFor="let item of oxygen_type"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-6">
+          <label for="liters_per_minute_id" class="form-text text-muted font-weight-bold align">LITROS POR MINUTO:</label>
+          <nb-select fullWidth [selected]="this.data.liters_per_minute_id" formControlName="liters_per_minute_id"
+            id="liters_per_minute_id"
+            status="{{ isSubmitted && form.controls.liters_per_minute_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option value="">SELECCIONE...</nb-option>
+            <nb-option selected="{{ item.id == this.data.liters_per_minute_id }}" *ngFor="let item of liters_per_minute"
+              [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+    </fieldset>
+
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <button nbButton status="danger" class="ml-1 btn-save" [disabled]="disabled"
+          type="button" (click)="save()">GUARDAR</button>
+      </div>
+    </div>
+  </div>
+
+</form>
