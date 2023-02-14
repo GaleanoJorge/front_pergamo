@@ -2,26 +2,40 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper [linear]="false">
+        <nb-stepper #stepper [linear]="false" (click)="goto($event)">
           <nb-step label="Antropometría">
-            <ngx-form-anthropometry (messageEvent2)="receiveMessage($event)" [data]="this.data" [record_id]="this.record_id" [type_record_id]="3"></ngx-form-anthropometry>
+            <ngx-form-anthropometry (messageEvent2)="receiveMessage($event)" [data]="this.data"
+              [record_id]="this.record_id" [type_record_id]="3"></ngx-form-anthropometry>
           </nb-step>
-          
+
           <nb-step label="Cálculos de Nutrición Parenteral">
-            <div *ngIf="this.weight">
-              <ngx-form-parenteral-nutrition [data]="this.data" [weight]="this.weight" [record_id]="this.record_id" [type_record_id]="3"></ngx-form-parenteral-nutrition>
-            </div>
-            <div *ngIf="!this.weight">
-              Debes diligenciar y guardar Antropometría para acceder a este campo
+            <div *ngIf="this.show1">
+              <div *ngIf="this.weight">
+                <ngx-form-parenteral-nutrition [data]="this.data" [weight]="this.weight" [record_id]="this.record_id"
+                  [type_record_id]="3"></ngx-form-parenteral-nutrition>
+              </div>
+              <div *ngIf="!this.weight">
+                Debes diligenciar y guardar Antropometría para acceder a este campo
+              </div>
             </div>
           </nb-step>
-          
+
           <nb-step label="Análisis e Interpretación">
-            <ngx-form-analysis-and-interpretation [data]="this.data" [record_id]="this.record_id" [type_record_id]="3"></ngx-form-analysis-and-interpretation>
+            <div class="row" *ngIf="this.show2">
+              <div class="col-md-12">
+                <ngx-form-analysis-and-interpretation [data]="this.data" [record_id]="this.record_id"
+                  [type_record_id]="3"></ngx-form-analysis-and-interpretation>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step label="Recomendaciones / Educación">
-            <ngx-recommendations-evo [record_id]="record_id" [type_record]="3" [nutrition]="true" ></ngx-recommendations-evo>
+            <div class="row" *ngIf="this.show3">
+              <div class="col-md-12">
+                <ngx-recommendations-evo [record_id]="record_id" [type_record]="3"
+                  [nutrition]="true"></ngx-recommendations-evo>
+              </div>
+            </div>
           </nb-step>
 
         </nb-stepper>
