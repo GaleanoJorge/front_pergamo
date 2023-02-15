@@ -1,0 +1,34 @@
+
+<div class="row justify-content-center col col-lg-12">
+   
+
+  <div *ngIf="(has_input == false || type_record_id != 1) && this.show" class="col-md-12">
+
+    <ngx-form-oxigen-control (messageEvent)="receiveMessage($event)" [type_record_id]="type_record_id" [record_id]="record_id" [admissions]="admissions"
+    [pharmacy_product_request]="pharmacy_product_request">
+    </ngx-form-oxigen-control>
+  
+  </div>
+  
+  <div class="col-md-12">
+  
+    <label class="form-text text-muted font-weight-bold"> REGISTRO OXIGENO</label>
+  <ngx-base-list [messageError]="messageError" [routes]="routes">
+    <div content>
+      <ngx-base-table  pager="false" [title]="title" customData="oxigen_control" [settings]="settings"
+        entity="oxigen_control/by_record/{{record_id}}/1?&has_input={{has_input}}">
+        <div actions>
+          <div class="actions">
+          </div>
+          <div class="actions" style="margin-top:1em;">
+          </div>
+        </div>
+      </ngx-base-table>
+    </div>
+  </ngx-base-list>
+  
+  </div>
+  
+</div>
+
+

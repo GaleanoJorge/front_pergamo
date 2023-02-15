@@ -419,6 +419,9 @@ import { LanguageAssessmentRegularComponent } from './clinic-history-language-li
 import { LanguageInterventionComponent } from './clinic-history-language-list/regularlanguage-list/language-intervention/language-intervention.component';
 import { FormLanguageConceptComponent } from './clinic-history-language-list/regularlanguage-list/language-concept/form-language-concept/form-language-concept.component';
 import { LanguageConceptComponent } from './clinic-history-language-list/regularlanguage-list/language-concept/language-concept.component';
+import { FormOxigenControlComponent } from './respiratory-therapy-list/entry-respiratory-therapy/oxigen-control/form-oxigen-control/form-oxigen-control.component';
+import { ActionsOxigenControlComponent } from './respiratory-therapy-list/entry-respiratory-therapy/oxigen-control/actions.component';
+import { TableOxigenControlComponent } from './respiratory-therapy-list/entry-respiratory-therapy/oxigen-control/table-oxigen-control.component';
 
 
 @NgModule({
@@ -913,6 +916,9 @@ import { LanguageConceptComponent } from './clinic-history-language-list/regular
     ActionsPExamComponent,
    
 
+    FormOxigenControlComponent,
+    ActionsOxigenControlComponent,
+    TableOxigenControlComponent,
 
   ],
 
