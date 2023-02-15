@@ -2,42 +2,71 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper [linear]="false">
+        <nb-stepper #stepper [linear]="false" (click)="goto($event)">
           <nb-step label="Antropometría">
-            <ngx-table-anthropometry (messageEvent2)="receiveMessage($event)" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [data]="this.data"
-              [record_id]="this.record_id" [type_record_id]="1"></ngx-table-anthropometry>
+            <ngx-table-anthropometry (messageEvent2)="receiveMessage($event)" (messageEvent)="inputMessage($event)"
+              [has_input]="has_input" [data]="this.data" [record_id]="this.record_id"
+              [type_record_id]="1"></ngx-table-anthropometry>
           </nb-step>
 
           <nb-step label="Gastrointestinales">
-            <ngx-table-gastrointestinal [data]="this.data" [type_record_id]="1" [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" >
-            </ngx-table-gastrointestinal>
+            <div class="row" *ngIf="this.show1">
+              <div class="col-md-12">
+                <ngx-table-gastrointestinal [data]="this.data" [type_record_id]="1" [record_id]="this.record_id"
+                  (messageEvent)="inputMessage($event)" [has_input]="has_input">
+                </ngx-table-gastrointestinal>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step label="Anamnesis Alimentaria">
-            <ngx-table-food-history [data]="this.data" [type_record_id]="1" [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" ></ngx-table-food-history>
+            <div class="row" *ngIf="this.show2">
+              <div class="col-md-12">
+                <ngx-table-food-history [data]="this.data" [type_record_id]="1" [record_id]="this.record_id"
+                  (messageEvent)="inputMessage($event)" [has_input]="has_input"></ngx-table-food-history>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step label="Cálculos de Nutrición Parenteral">
-            <div *ngIf="this.weight || this.has_input">
-              <ngx-table-parenteral-nutrition [data]="this.data"  [type_record_id]="1"
-                [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" [weight]="weight" ></ngx-table-parenteral-nutrition>
-            </div>
-            <div *ngIf="!this.weight && !this.has_input">
-              Debes diligenciar y guardar Antropometría para acceder a este campo
+            <div *ngIf="this.show3">
+              <div *ngIf="this.weight || this.has_input">
+                <ngx-table-parenteral-nutrition [data]="this.data" [type_record_id]="1" [record_id]="this.record_id"
+                  (messageEvent)="inputMessage($event)" [has_input]="has_input"
+                  [weight]="weight"></ngx-table-parenteral-nutrition>
+              </div>
+              <div *ngIf="!this.weight && !this.has_input">
+                Debes diligenciar y guardar Antropometría para acceder a este campo
+              </div>
             </div>
           </nb-step>
 
           <nb-step label="Antecedentes">
-            <ngx-back-list [has_input]="has_input" [record_id]="record_id" [type_record_id]="1" [user]="this.data" (messageEvent)="inputMessage($event)" ></ngx-back-list>
+            <div class="row" *ngIf="this.show4">
+              <div class="col-md-12">
+                <ngx-back-list [has_input]="has_input" [record_id]="record_id" [type_record_id]="1" [user]="this.data"
+                  (messageEvent)="inputMessage($event)"></ngx-back-list>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step label="Análisis e Interpretación">
-            <ngx-form-analysis-and-interpretation [data]="this.data" [type_record_id]="1" [has_input]="has_input" [record_id]="this.record_id" (messageEvent)="inputMessage($event)" >
-            </ngx-form-analysis-and-interpretation>
+            <div class="row" *ngIf="this.show5">
+              <div class="col-md-12">
+                <ngx-form-analysis-and-interpretation [data]="this.data" [type_record_id]="1" [has_input]="has_input"
+                  [record_id]="this.record_id" (messageEvent)="inputMessage($event)">
+                </ngx-form-analysis-and-interpretation>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step label="Recomendaciones / Educación">
-            <ngx-recommendations-evo [record_id]="record_id" [type_record]="1" (messageEvent)="inputMessage($event)" [has_input]="has_input" [nutrition]="true"></ngx-recommendations-evo>
+            <div class="row" *ngIf="this.show6">
+              <div class="col-md-12">
+                <ngx-recommendations-evo [record_id]="record_id" [type_record]="1" (messageEvent)="inputMessage($event)"
+                  [has_input]="has_input" [nutrition]="true"></ngx-recommendations-evo>
+              </div>
+            </div>
           </nb-step>
 
         </nb-stepper>

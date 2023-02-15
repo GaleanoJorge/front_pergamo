@@ -14,14 +14,14 @@
     <nb-tabset *ngIf="user" fullWidth class="tabset" (changeTab)="tablock($event)">
 
       <nb-tab tabTitle="INGRESO">
-        <div *ngIf="this.show == 1">
+        <div *ngIf="this.show1">
           <ngx-entry-respiratory-therapy (messageEvent)="inputMessage($event)" [has_input]="has_input" [user]="user" [admissions]="admission" [record_id]="record_id"  [type_record_id]="1">
           </ngx-entry-respiratory-therapy>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="REGULAR">
-        <div *ngIf="this.show == 2">
+        <div *ngIf="this.show2">
           <ngx-regular-respiratory-therapy [record_id]="record_id" [admissions]="admission"  [user]="user"  [type_record_id]="3">
           </ngx-regular-respiratory-therapy>
         </div>

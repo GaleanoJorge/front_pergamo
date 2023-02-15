@@ -1,0 +1,49 @@
+ <div class="row" class="accordion">
+    <nb-accordion multi (click)="goto($event)">
+      <nb-accordion-item>
+        <nb-accordion-item-header>Valoración Terapéutica</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-assessment *ngIf="this.show1" [record_id]="record_id"  [type_record_id]="type_record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input" >
+          </ngx-assessment>         
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>Inspección</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-ispection *ngIf="this.show2" [record_id]="record_id" [data]="data" [type_record_id]="type_record_id"  (messageEvent)="inputMessage($event)" [has_input]="has_input" >
+          </ngx-ispection>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>Escala de dolor</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <div *ngIf="this.user">
+          <ngx-form-ch-scales *ngIf="this.show3" [respiratory]="true" [record_id]="record_id" [age]="user">
+          </ngx-form-ch-scales>
+        </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>Auscultación</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-auscultacion *ngIf="this.show4" [record_id]="record_id" [type_record_id]="type_record_id"  (messageEvent)="inputMessage($event)" [has_input]="has_input" >
+          </ngx-auscultacion>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>Ayudas diagnósticas</nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <ngx-diagnostic *ngIf="this.show5" [record_id]="record_id" [type_record_id]="type_record_id"  (messageEvent)="inputMessage($event)" [has_input]="has_input"  >
+          </ngx-diagnostic>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+
+
+    </nb-accordion>
+  </div>

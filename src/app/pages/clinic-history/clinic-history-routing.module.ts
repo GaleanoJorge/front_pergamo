@@ -11,11 +11,11 @@ import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list
 import { ClinicHistoryComponent } from './clinic-history.component';
 import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
 import { ClinicHistoryPhysicTherapy } from './entry-clinic-history-physical-therapy/ch-physic-therapy.component';
-import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
 import { InformedConsentsComponent } from './informed-consents/informed-consents.component';
 import { RespiratoryTherapyListComponent } from './respiratory-therapy-list/respiratory-therapy-list.component';
 import { FormChScalesComponent } from './scales/form-ch-scales/form-ch-scales.component';
 import { TracingListComponent } from './tracing-list/tracing-list.component';
+import { EntryClinicHistoryComponent } from './clinic-history-list/entry-clinic-history/entry-clinic-history.component';
 
 
 const routes: Routes = [{
