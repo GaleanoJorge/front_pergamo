@@ -8,6 +8,7 @@ import { ChMedicalOrdersService } from '../../../../business-controller/ch-medic
 import { FrequencyService } from '../../../../business-controller/frequency.service';
 import { ProcedureService } from '../../../../business-controller/procedure.service';
 import { ServicesBriefcaseService } from '../../../../business-controller/services-briefcase.service';
+import { ChLaboratoryService } from '../../../../business-controller/ch-laboratory.service';
 
 @Component({
   selector: 'ngx-form-ch-medical-orders',
@@ -43,6 +44,7 @@ export class FormChMedicalOrdersComponent implements OnInit {
     private procedureS: ProcedureService,
     private serviceS: ServicesBriefcaseService,
     private ChMedicalOrdersS: ChMedicalOrdersService,
+    private chLaboratoryS: ChLaboratoryService
   ) { }
 
   ngOnInit(): void {
@@ -99,6 +101,14 @@ export class FormChMedicalOrdersComponent implements OnInit {
 
   async save() {
     this.isSubmitted = true;
+    let serviceBriefcase = this.procedure.find(element => element.id == this.procedure_id);
+
+    if(this.form.controls.ambulatory_medical_order.value != true && serviceBriefcase && serviceBriefcase.manual_price.procedure.procedure_category_id == 5){
+      this.form.controls.observations.setValidators(Validators.compose([Validators.required]));
+    }else{
+      this.form.controls.observations.setValidators([]);
+    }
+    
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
@@ -149,6 +159,20 @@ export class FormChMedicalOrdersComponent implements OnInit {
             admissions_id: this.admission.id,
           })
           .then((x) => {
+            let userData = JSON.parse(localStorage.getItem('user'));
+            let medicalOrder = x.data.ch_medical_orders;
+            if (this.form.controls.ambulatory_medical_order.value != true && serviceBriefcase && serviceBriefcase.manual_price.procedure.procedure_category_id == 5) {
+              this.chLaboratoryS.Save({
+                medical_order_id: medicalOrder.id,
+                user_id: userData.id,
+                observation: this.form.controls.observations.value
+              }).then(y => {
+    
+              }).catch((y) => {
+        
+              });
+            }
+
             this.clearForm();
             this.toastService.success('', x.message);
             this.messageEvent.emit(true);
@@ -167,6 +191,9 @@ export class FormChMedicalOrdersComponent implements OnInit {
             this.isSubmitted = false;
             this.loading = false;
           });
+
+
+
         this.messageEvent.emit(true);
       }
 
@@ -179,11 +206,11 @@ export class FormChMedicalOrdersComponent implements OnInit {
   saveCode(e): void {
     if (this.procedure) {
       var localidentify = this.procedure.find(item => (this.form.controls.ambulatory_medical_order.value == true ? item.name : item.manual_price.procedure.name) == e);
-  
+
       if (localidentify) {
         this.procedure_id = localidentify.id;
         this.form.controls.procedure_id.setErrors(null);
-  
+
       } else {
         this.procedure_id = null;
         this.form.controls.procedure_id.setErrors({ 'incorrect': true });
