@@ -31,6 +31,24 @@ export class PharmacyProductRequestService {
       });
   }
 
+  GetForUse(params = {}): Promise<PharmacyProductRequest[]> {
+    let servObj = new ServiceObject(`pharmacy_product_request_for_use/`);
+
+    return this.webAPI.GetAction(servObj, params)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.pharmacy_product_request = <PharmacyProductRequest[]>servObj.data.pharmacy_product_request;
+
+        return Promise.resolve(this.pharmacy_product_request);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(pharmacy_product_request: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('pharmacy_product_request');
     servObj.data = pharmacy_product_request;
