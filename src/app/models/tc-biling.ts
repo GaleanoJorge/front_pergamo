@@ -17,4 +17,5 @@ export class TcBilling extends MainClass {
   consecutive2: string;
   ambit: string;
   campus: string;
+  year: string;
 }
