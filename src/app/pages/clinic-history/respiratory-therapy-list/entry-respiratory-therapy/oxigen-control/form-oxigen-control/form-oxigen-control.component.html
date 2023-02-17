@@ -4,6 +4,34 @@
       <fieldset class="field_set">
         <legend class="prue1 center">Control de oxígeno</legend>
         <div class="row">
+
+          <div class="container">
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-12">
+                <div class="col col-lg-12">
+                  <label class="form-text text-muted font-weight-bold">Última formulación:</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6" title >
+            <p class="parrafo"><b>Sistema de administración: </b> {{this.pharmacy_product_request.at(-1).ch_formulation.oxigen_administration_way.name}} </p>
+            <p class="parrafo"><b>Caudal en l/min: </b> {{this.pharmacy_product_request.at(-1).ch_formulation.dose}}</p>
+          </div>
+
+          <div class="container">
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-12">
+                <hr />
+                <div class="col col-lg-12">
+                  <label class="form-text text-muted font-weight-bold">Registro:</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
           <div class="col col-lg-6">
             <label for="oxigen_administration_way" class="form-text text-muted font-weight-bold">Sistema de
               administración:</label>
