@@ -102,12 +102,6 @@ export class FormChMedicalOrdersComponent implements OnInit {
     this.isSubmitted = true;
     let serviceBriefcase = this.procedure.find(element => element.id == this.procedure_id);
 
-    if(this.form.controls.ambulatory_medical_order.value != true && serviceBriefcase && serviceBriefcase.manual_price.procedure.procedure_category_id == 5){
-      this.form.controls.observations.setValidators(Validators.compose([Validators.required]));
-    }else{
-      this.form.controls.observations.setValidators([]);
-    }
-    
     if (!this.form.invalid) {
       this.loading = true;
       this.showTable = false;
