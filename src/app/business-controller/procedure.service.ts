@@ -31,6 +31,23 @@ export class ProcedureService {
       });
   }
 
+  GetByUser(userId): Promise<Procedure[]> {
+    let servObj = new ServiceObject('get_procedure_by_user', userId);
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        let users = <Procedure[]>servObj.data.procedures;
+
+        return Promise.resolve(users);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   GetCollection(params = {}): Promise<Procedure[]> {
     let servObj = new ServiceObject(params ? 'procedure?pagination=false' : 'procedure');
 

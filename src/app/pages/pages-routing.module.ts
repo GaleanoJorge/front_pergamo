@@ -19,6 +19,51 @@ const routes: Routes = [{
       data: { permission: 'dashboard.read' },
     },
     {
+      path: 'help-center',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },   
+    {
+      path: 'help-center/assistencial',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/quality', 
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/statistic',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/finance',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/logistic',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },   
+    {
+      path: 'help-center/sysmaintenance',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/helpdesk',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
+      path: 'help-center/talent',
+      loadChildren: () => import('./help-center-main/help-center-main.module')
+        .then(m => m.HelpCenterModule),
+    },
+    {
       path: 'contract',
       loadChildren: () => import('./contract/contract.module')
         .then(m => m.ContractModule),
@@ -125,7 +170,12 @@ const routes: Routes = [{
       path: 'scheduling',
       loadChildren: () => import('./scheduling/scheduling.module')
         .then(m => m.SchedulingModule),
-    }
+    },
+    {
+      path: 'laboratories',
+      loadChildren: () => import('./laboratory/laboratory.module')
+        .then(m => m.LaboratoryModule),
+    },
   ],
 }];
 

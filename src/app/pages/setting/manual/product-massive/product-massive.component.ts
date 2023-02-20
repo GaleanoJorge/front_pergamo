@@ -157,7 +157,7 @@ export class ProductMassiveComponent implements OnInit {
   NewProduct() {
     this.dialogFormService.open(FormManualProductComponent, {
       context: {
-        title: 'Crear Medicamentos o insumos',
+        title: 'Crear Medicamentos',
         manual_id:this.manual_id,
         saved: this.RefreshData.bind(this),
       },
@@ -167,7 +167,7 @@ export class ProductMassiveComponent implements OnInit {
   EditManualPrice(data) {
     this.dialogFormService.open(FormManualProductComponent, {
       context: {
-        title: 'Editar Medicamentos o insumos',
+        title: 'Editar Medicamentos',
         data: data,
         manual_id:this.manual_id,
         saved: this.RefreshData.bind(this),

@@ -1,0 +1,94 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <nb-card>
+    <nb-card-body>
+      <fieldset class="field_set">
+        <legend class="prue1 center">Control de oxígeno</legend>
+        <div class="row">
+
+          <div class="container">
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-12">
+                <div class="col col-lg-12">
+                  <label class="form-text text-muted font-weight-bold">Última formulación:</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6" title >
+            <p class="parrafo"><b>Sistema de administración: </b> {{this.pharmacy_product_request.at(-1).ch_formulation.oxigen_administration_way.name}} </p>
+            <p class="parrafo"><b>Caudal en l/min: </b> {{this.pharmacy_product_request.at(-1).ch_formulation.dose}}</p>
+          </div>
+
+          <div class="container">
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-12">
+                <hr />
+                <div class="col col-lg-12">
+                  <label class="form-text text-muted font-weight-bold">Registro:</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col col-lg-6">
+            <label for="oxigen_administration_way" class="form-text text-muted font-weight-bold">Sistema de
+              administración:</label>
+            <nb-select formControlName="oxigen_administration_way_id" id="oxigen_administration_way" fullWidth
+              status="{{ isSubmitted && form.controls.oxigen_administration_way_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of oxigen_administration_way" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+
+          <div class="col col-lg-6">
+            <label for="oxigen_flow" class="form-text text-muted font-weight-bold">Caudal en l/min:</label>
+            <nb-select formControlName="oxigen_flow" id="oxigen_flow" fullWidth
+              status="{{ isSubmitted && form.controls.oxigen_flow.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of oxigen_flow" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+
+          <div class="container">
+            <div class="row justify-content-md-center">
+              <div class="col col-lg-12">
+                <hr />
+                <div class="col col-lg-12">
+                  <label class="form-text text-muted font-weight-bold">Tiempo de administración:</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col col-lg-6">
+            <label for="duration_hours" class="form-text text-muted font-weight-bold">Horas:</label>
+            <nb-select formControlName="duration_hours" id="duration_hours" fullWidth
+              status="{{ isSubmitted && form.controls.duration_hours.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of duration_hours" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+
+          <div class="col col-lg-6">
+            <label for="duration_minutes" class="form-text text-muted font-weight-bold">Minutos:</label>
+            <nb-select formControlName="duration_minutes" id="duration_minutes" fullWidth
+              status="{{ isSubmitted && form.controls.duration_minutes.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of duration_minutes" [value]="item.id">
+                {{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </fieldset>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}">{{this.botton_title}}</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

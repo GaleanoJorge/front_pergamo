@@ -1,0 +1,257 @@
+<div *ngIf="this.mainhelpcenter == ''" class="container">
+    <h1 class="tittlemain" style="text-align:center;">CENTRO DE AYUDA</h1>
+    <div class="row">
+        <div class="col-md-3 div-two">
+            <a (click)="goToAssistencial()">
+                <img src="../../../../assets/images/Asistencial.svg" alt="Asistencial" class="icon" />
+            </a>
+        </div>
+
+        <div class="col-md-3 div-two">
+            <a (click)="goToQuality()">
+                <img src="../../../../assets/images/Control de calidad.svg" alt="Calidad" class="icon" />
+            </a>
+        </div>
+
+        <div class="col-md-3 div-two">
+            <a (click)="goToStatistic()">
+                <img src="../../../../assets/images/Estadístico.svg" alt="Estadístico" class="icon" />
+            </a>
+        </div>
+
+        <div class="col-md-3 div-two">
+            <a (click)="goToFinance()">
+                <img src="../../../../assets/images/Financiero.svg" alt="Financiero" class="icon" />
+            </a>
+        </div>
+
+        <div class="col-md-3 div-two">
+            <a (click)="goToLogistic()">
+                <img src="../../../../assets/images/Logístico.svg" alt="Logístico" class="icon" />
+            </a>
+        </div>
+
+        <div class="col-md-3 div-two">
+            <a (click)="goToSysMaintenance()">
+                <img src="../../../../assets/images/Mantenimiento del sistema.svg" alt="MantenimientoSis" class="icon" />
+            </a>
+        </div>
+
+        <div class="col-md-3 div-two">
+            <a (click)="goToHelpDesk()">
+                <img src="../../../../assets/images/Mesa de ayuda.svg" alt="MesaAyuda" class="icon" />
+            </a>
+        </div>
+
+        <div class="col-md-3 div-two">
+            <a (click)="goToTalent()">
+                <img src="../../../../assets/images/Talento humano.svg" alt="Talento" class="icon" />
+            </a>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="this.mainhelpcenter == 'ASSISTENCIAL'" class="container_asistencial">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
+    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
+        <span style="text-align:center;" class="tittle2">ASISTENCIAL</span>
+    </h1>
+    <div class="row">
+        <div class="col-md-3 div-two">
+            <a (click)="goToAdmitNP()">
+                <img src="../../../../assets/images/Admitir nuevo paciente.svg" alt="AdmitirNP" class="icon2" />
+            </a>
+        </div>
+
+        <div class="col-md-3 div-two">
+            <!-- <a href="#" target="#"> -->
+            <img src="../../../../assets/images/Conciliaciones.svg" alt="Conciliaciones" class="icon2" />
+            <!-- </a> -->
+        </div>
+
+        <div class="col-md-3 div-two" (mouseover)="changeimgcontratos=true" (mouseout)="changeimgcontratos=false">
+            <a *ngIf="!changeimgcontratos">
+                <img src="../../../../assets/images/Contratos.svg" alt="Contratos" class="icon2" />
+            </a>
+            <a *ngIf="changeimgcontratos">
+                <img src="../../../../assets/images/Instructivos-contratos.svg" class="icon2"/>
+            </a>
+            <div class="row">
+                <div class="col">
+                    <a href="../../../../assets/manuals/Manual de usuario - Contratación.pdf" target="_blank" class="menu-item div-three iconpdf" *ngIf="changeimgcontratos">
+                        <img src="../../../../assets/images/pdf.svg" class="iconPdf"/>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="https://youtu.be/ehPJO0dKrbs" target="_blank" Class="menu-item div-three iconplay" *ngIf="changeimgcontratos">
+                        <img src="../../../../assets/images/play.svg" class="iconPlay"/>
+                    </a>
+                </div>
+            </div>  
+        </div>
+
+        <div class="col-md-3 div-two">
+            <a href="https://youtu.be/3ImuisAW1xI" target="_blank" target="_blank">
+                <img src="../../../../assets/images/Crear nuevo paciente.svg" alt="CrearNP" class="icon2"/>
+            </a>
+        </div>
+
+        <div class="col-md-3 div-two">
+            <!-- (mouseover)="changeimg=true" (mouseout)="changeimg=false" -->
+            <!-- *ngIf="!changeimg" -->
+            <a>
+                <img src="../../../../assets/images/Glosas.svg" alt="Glosas" class="icon2"/>
+            </a>
+            <!-- <a *ngIf="changeimg">
+                <img src="../../../../assets/images/Instructivos.svg" class="icon2"/>
+            </a>
+            <div class="row">
+                <div class="col">
+                    <a href="#" class="menu-item div-three iconpdf" *ngIf="changeimg">
+                        <img src="../../../../assets/images/pdf.svg" class="iconPdf"/>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#" Class="menu-item div-three iconplay" *ngIf="changeimg">
+                        <img src="../../../../assets/images/play.svg" class="iconPlay"/>
+                    </a>
+                </div>
+            </div> -->
+        </div>
+
+
+        <div class="col-md-3 div-two" (mouseover)="changeimghcmedica=true" (mouseout)="changeimghcmedica=false">
+            <a *ngIf="!changeimghcmedica">
+                <img src="../../../../assets/images/Historia clínica médica.svg" alt="HCmédica" class="icon2"/>
+            </a>
+            <a *ngIf="changeimghcmedica">
+                <img src="../../../../assets/images/Instructivos-hcmédica.svg" class="icon2"/>
+            </a>
+            <div class="row">
+                <div class="col">
+                    <a href="../../../../assets/manuals/Manual de usuario - Historia clínica médica.pdf" target="_blank" class="menu-item div-three iconpdf" *ngIf="changeimghcmedica">
+                        <img src="../../../../assets/images/pdf.svg" class="iconPdf"/>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="https://youtu.be/Xee2rpTx250" target="_blank" Class="menu-item div-three iconplay" *ngIf="changeimghcmedica">
+                        <img src="../../../../assets/images/play.svg" class="iconPlay"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 div-two" (mouseover)="changeimgtelemedicina=true" (mouseout)="changeimgtelemedicina=false">           
+            <a *ngIf="!changeimgtelemedicina">
+                <img src="../../../../assets/images/Telemedicina.svg" alt="Telemedicina" class="icon2" />
+            </a>
+            <a *ngIf="changeimgtelemedicina">
+                <img src="../../../../assets/images/Instructivos-telemedicina.svg" class="icon2"/>
+            </a>
+            <div class="row">
+                <div class="col">
+                    <a href="../../../../assets/manuals/Manual de usuario - Telemedicina.pdf" target="_blank" class="menu-item div-three iconpdf" *ngIf="changeimgtelemedicina">
+                        <img src="../../../../assets/images/pdf.svg" class="iconPdf"/>
+                    </a>
+                </div>
+                <div class="col">
+                    <a Class="menu-item div-three iconplay" *ngIf="changeimgtelemedicina">
+                        <img src="../../../../assets/images/play.svg" class="iconPlay"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="this.mainhelpcenter == 'QUALITY'" class="container_calidad">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
+    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
+        <span style="text-align:center;" class="tittle2">CONTROL DE CALIDAD</span>
+    </h1>
+    <div class="col-md-3 div-two">
+        <!-- <a href="#" target="#"> -->
+        <img src="../../../../assets/images/Control de calidad.svg" alt="Calidad" class="icon" />
+        <!-- </a> -->
+    </div>
+</div>
+
+<div *ngIf="this.mainhelpcenter == 'STATISTIC'" class="container_estadístico">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
+    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
+        <span style="text-align:center;" class="tittle2">ESTADÍSTICO</span>
+    </h1>
+    <div class="col-md-3 div-two">
+        <!-- <a href="#" target="#"> -->
+        <img src="../../../../assets/images/Estadístico.svg" alt="Estadístico" class="icon" />
+        <!-- </a> -->
+    </div>
+</div>
+
+<div *ngIf="this.mainhelpcenter == 'FINANCE'" class="container_financiero">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
+    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
+        <span style="text-align:center;" class="tittle2">FINANCIERO</span>
+    </h1>
+    <div class="col-md-3 div-two">
+        <!-- <a href="#" target="#"> -->
+        <img src="../../../../assets/images/Financiero.svg" alt="Financiero" class="icon" />
+        <!-- </a> -->
+    </div>
+</div>
+
+<div *ngIf="this.mainhelpcenter == 'LOGISTIC'" class="container_logístico">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
+    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
+        <span style="text-align:center;" class="tittle2">LOGÍSTICO</span>
+    </h1>
+    <div class="col-md-3 div-two">
+        <!-- <a href="#" target="#"> -->
+        <img src="../../../../assets/images/Logístico.svg" alt="Logístico" class="icon" />
+        <!-- </a> -->
+    </div>
+</div>
+
+<div *ngIf="this.mainhelpcenter == 'SYSMAINTENANCE'" class="container_mantenimientosis">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
+    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
+        <span style="text-align:center;" class="tittle2">MANTENIMIENTO DEL SISTEMA</span>
+    </h1>
+    <div class="col-md-3 div-two">
+        <!-- <a href="#" target="#"> -->
+        <img src="../../../../assets/images/Mantenimiento del sistema.svg" alt="MantenimientoSis" class="icon" />
+        <!-- </a> -->
+    </div>
+</div>
+
+<div *ngIf="this.mainhelpcenter == 'HELPDESK'" class="container_mesaayuda">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
+    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
+        <span style="text-align:center;" class="tittle2">MESA DE AYUDA</span>
+    </h1>
+    <div class="col-md-3 div-two">
+        <!-- <a href="#" target="#"> -->
+        <img src="../../../../assets/images/Mesa de ayuda.svg" alt="MesaAyuda" class="icon" />
+        <!-- </a> -->
+    </div>
+</div>
+
+<div *ngIf="this.mainhelpcenter == 'TALENT'" class="container_talento">
+    <button style="background-color: #3eb8be; color:white; border-color: white; opacity:90%;" nbButton
+        (click)="back()">Volver</button>
+    <h1 class="tittle1" style="text-align:center;">CENTRO DE AYUDA <br>
+        <span style="text-align:center;" class="tittle2">TALENTO HUMANO</span>
+    </h1>
+    <div class="col-md-3 div-two">
+        <!-- <a href="#" target="#"> -->
+        <img src="../../../../assets/images/Talento humano.svg" alt="Talento" class="icon" />
+        <!-- </a> -->
+    </div>
+</div>

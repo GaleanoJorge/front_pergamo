@@ -401,7 +401,7 @@ export class InterconsultationComponent implements OnInit {
           user_id: this.own_user.id,
           type_of_attention_id: this.type_of_attention,
           role: this.currentRole.id,
-          specialty_id: this.specialty_id,
+          specialty_id: this.type_of_attention == -1 && this.currentRole.id == 14 && this.showButtom ? 137 : null,
         })
         .then((x) => {
           this.toastService.success('', x.message);

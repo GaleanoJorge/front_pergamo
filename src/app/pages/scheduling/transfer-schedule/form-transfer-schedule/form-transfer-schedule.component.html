@@ -1,0 +1,64 @@
+<form [formGroup]="form" style="height: 80%;margin: 5%;max-width: 1000px;">
+  <nb-card size="big" style="width: 100%;height: 100%;overflow: auto;">
+    <nb-card-header>{{ title }}</nb-card-header>
+    <nb-card-body style="width: 100%;height: 100%;overflow: auto;">
+      <div class="row" *ngIf="isLoaded">
+        <div class="col-md-12">
+          <label for="code" class="form-text text-muted font-weight-bold">Asistencial:</label>
+          <input (focusout)="checkAssistance($event, this.form.controls.user_id.value)" fullWidth formControlName="user_id" nbInput type="text" placeholder="Seleccione..."
+            status="{{ isSubmitted && form.controls.user_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+            [nbAutocomplete]="autoControl" />
+
+          <nb-autocomplete #autoControl (selectedChange)="onSelectionChange($event)">
+            <nb-option class="assistanceAutocompleteOption" value="">Seleccione...</nb-option>
+            <nb-option class="assistanceAutocompleteOption" *ngFor="let user of filteredAssistances" [value]="this.getCompleteName(user)">
+              {{this.getCompleteName(user)}} - {{user.identification}}
+            </nb-option>
+
+          </nb-autocomplete>
+        </div>
+        <div class="col-md-12">
+          <label for="flat_id" class="form-text text-muted font-weight-bold">Sede:</label>
+          <nb-select [selected]="this.campus_id" formControlName="campus_id" id="campus_id" fullWidth
+            status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option>Seleccione...</nb-option>
+            <nb-option *ngFor="let item of campus" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="flat_id" class="form-text text-muted font-weight-bold">Piso:</label>
+          <nb-select [selected]="this.flat_id" formControlName="flat_id" id="flat_id" fullWidth
+            status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option>Seleccione...</nb-option>
+            <nb-option *ngFor="let item of flats" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="pavilion_id" class="form-text text-muted font-weight-bold">Pabellón:</label>
+          <nb-select [selected]="this.pavilion_id" formControlName="pavilion_id" id="pavilion_id" fullWidth
+            status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option>Seleccione...</nb-option>
+            <nb-option *ngFor="let item of pavilions" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-12">
+          <label for="code" class="form-text text-muted font-weight-bold">Consultorio:</label>
+          <nb-select [selected]="this.office_id" formControlName="office_id" id="office_id" fullWidth
+            status="{{ isSubmitted && form.controls.office_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <nb-option>Seleccione...</nb-option>
+            <nb-option *ngFor="let item of offices" [value]="item.id">
+              {{ item.name }}</nb-option>
+          </nb-select>
+        </div>
+    </div>
+    </nb-card-body>
+    <nb-card-footer class="d-flex justify-content-end">
+      <button nbButton (click)="close()" type="button">Cancelar</button>
+      <button nbButton status="danger" class="ml-1" disabled="{{ loading }}" type="button"
+        (click)="transfer()">Transferir</button>
+    </nb-card-footer>
+  </nb-card>
+</form>

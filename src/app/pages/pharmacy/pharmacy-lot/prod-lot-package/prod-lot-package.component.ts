@@ -9,7 +9,6 @@ import { AmountComponent } from './amount.component';
 import { LotComponent } from './lot.component';
 import { DateComponent } from './date.component';
 import { BillingService } from '../../../../business-controller/billing.service';
-import { AmountUnitComponent } from './amountUnit.component';
 
 @Component({
   selector: 'ngx-prod-lot-package',
@@ -250,11 +249,17 @@ export class ProdLotPackageComponent implements OnInit {
     this.RefreshData();
   }
 
-  // onAmountUnitChange(input, row) {
-  //       amount_unit : +input.target.value;
+  onchangeForm(event, row) {
+    var sub = this.selectedOptions2.indexOf(row.id);
+    var subTo = this.form.controls.subtotal.value;
+    if (subTo == '') {
+      this.form.patchValue({ total: sub });
+    } else {
+      var tot2 = sub * subTo;
+      this.form.patchValue({ total: tot2 });
+    }
+  }
 
-
-  // }
   onAmountChange(input, row) {
     if (Number(input.target.value) > Number(row.amount_provitional)) {
       this.toastS.danger("", "La cantidad ingresada no debe superar la cantidad ordenada")

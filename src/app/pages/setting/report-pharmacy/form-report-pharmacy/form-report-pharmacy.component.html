@@ -1,0 +1,66 @@
+<form [formGroup]="form">
+  <div>
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        <label class="form-text text-muted font-weight-bold center-text-center">GENERACIÓN DE REPORTE INVENTARIO FARMACIA</label>
+      </div>
+
+      <!-- <div class="col-xs-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold">Farmacia:</label>
+        <nb-select [selected]="this.data.pharmacy_stock_id" formControlName="pharmacy_stock_id" id="pharmacy_stock_id"
+          fullWidth (change)="saveCode($event.target.value)"
+          status="{{ isSubmitted && form.controls.pharmacy_stock_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.pharmacy_stock_id }}" *ngFor="let item of pharmacy_stock"
+            [value]="item.name">{{ item.id }}</nb-option>
+        </nb-select>
+      </div> -->
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="pharmacy_stock_id" class="form-text text-muted font-weight-bold">Farmacia:</label>
+        <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="pharmacy_stock_id"
+          formControlName="pharmacy_stock_id" pharmacy_stock_id type="text" required placeholder="Seleccione"
+          status="{{isSubmitted && form.controls.pharmacy_stock_id.errors? 'danger': isSubmitted? 'success': 'basic'}}" />
+        <datalist id="codes" *ngIf="pharmacy_stock">
+          <option *ngFor="let item of pharmacy_stock" [value]="item.name">{{ item.name }}</option>
+        </datalist>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="form" class="form-text text-muted font-weight-bold">Estado:</label>
+          <nb-select class="form-text" id="status" formControlName="status" fullWidth status
+            status="{{isSubmitted && form.controls.status.errors? 'danger' : isSubmitted? 'success' : 'basic'}}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option value="TOTAL FARMACIA">TOTAL FARMACIA</nb-option>
+            <nb-option value="ENVIO TOTAL FARMACIA">ENVIO TOTAL FARMACIA</nb-option>
+            <nb-option value="DEVUELTO FARMACIA">DEVUELTO FARMACIA</nb-option>
+            <nb-option value="PARCIAL FARMACIA">PARCIAL FARMACIA</nb-option>
+            <nb-option value="TOTAL PACIENTE">TOTAL PACIENTE</nb-option>
+            <nb-option value="ENVIO TOTAL PACIENTE">ENVIO TOTAL PACIENTE</nb-option>
+            <nb-option value="DEVUELTO PACIENTE">DEVUELTO PACIENTE</nb-option>
+            <nb-option value="PARCIAL PACIENTE">PARCIAL PACIENTE</nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold align">Fecha Inicial:</label>
+        <input nbInput type="date" [max]="today" (change)="onDatechange1($event)" fullWidth id="initial_report"
+          formControlName="initial_report" initial_report
+          status="{{isSubmitted && form.controls.initial_report.errors? 'danger' : isSubmitted? 'success' : 'basic'}}" />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold align">Fecha Final:</label>
+        <input nbInput type="date" [max]="today" (change)="onDatechange1($event)" fullWidth id="final_report"
+          formControlName="final_report" final_report
+          status="{{isSubmitted && form.controls.final_report.errors? 'danger' : isSubmitted? 'success' : 'basic'}}" />
+      </div>
+    </div>
+
+    <div class="div-send">
+      <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsXLSX()">DESCARGAR</button>
+    </div>
+  </div>
+</form>

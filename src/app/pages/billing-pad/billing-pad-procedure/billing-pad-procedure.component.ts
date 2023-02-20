@@ -41,6 +41,7 @@ export class BillingPadProcedureComponent implements OnInit {
     /*07*/ 'VERIFICADO',
     /*08*/ 'CANTIDAD',
     /*09*/ 'VALOR UNITARIO',
+    /*10*/ 'ID',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
@@ -108,6 +109,10 @@ export class BillingPadProcedureComponent implements OnInit {
         },
         renderComponent: ActionsPadProcedureComponent,
       },
+      id: {
+        title: this.headerFields[10],
+        type: 'string',
+      },
       name: {
         title: this.headerFields[1],
         type: 'string',
@@ -121,10 +126,12 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id && row.open_date) {
-            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
-            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
-            var diff = Math.abs(b - a) + (row.location.discharge_date == "0000-00-00 00:00:00" && !row.close_date ? 1 : 0);
-            row.quantity = diff;
+            let a = Math.floor((new Date(row.open_date).getTime()));
+            let b = Math.floor((row.close_date ? new Date(row.close_date).getTime() : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())));
+            let rest = b - a;
+            let diff = Math.abs(Math.floor((rest) / (1000 * 60 * 60 * 24)));
+            let resul = diff + 1;
+            row.quantity = resul;
           }
           if (row.quantity) {
             this.q = row.quantity;
@@ -149,10 +156,12 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id && row.open_date) {
-            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
-            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
-            var diff = Math.abs(b - a) + (row.location.discharge_date == "0000-00-00 00:00:00" && !row.close_date ? 1 : 0);
-            row.quantity = diff;
+            let a = Math.floor((new Date(row.open_date).getTime()));
+            let b = Math.floor((row.close_date ? new Date(row.close_date).getTime() : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())));
+            let rest = b - a;
+            let diff = Math.abs(Math.floor((rest) / (1000 * 60 * 60 * 24)));
+            let resul = diff + 1;
+            row.quantity = resul;
           }
           if (row.quantity) {
             this.q = row.quantity;
@@ -168,6 +177,12 @@ export class BillingPadProcedureComponent implements OnInit {
           if (row.assigned_management_plan != null) {
             if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
               return this.datePipe.transform4(row.assigned_management_plan.execution_date);
+            } else {
+              return 'Sin ejecutar';
+            }
+          } else if (row.applications != null) {
+            if (row.applications.application_hour) {
+              return this.datePipe.transform4(row.applications.updated_at);
             } else {
               return 'Sin ejecutar';
             }
@@ -211,6 +226,10 @@ export class BillingPadProcedureComponent implements OnInit {
         },
         renderComponent: ActionsPadProcedureComponent,
       },
+      id: {
+        title: this.headerFields[10],
+        type: 'string',
+      },
       name: {
         title: this.headerFields[1],
         type: 'string',
@@ -224,10 +243,12 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id && row.open_date) {
-            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
-            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
-            var diff = Math.abs(b - a) + (row.location.discharge_date == "0000-00-00 00:00:00" && !row.close_date ? 1 : 0);
-            row.quantity = diff;
+            let a = Math.floor((new Date(row.open_date).getTime()));
+            let b = Math.floor((row.close_date ? new Date(row.close_date).getTime() : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())));
+            let rest = b - a;
+            let diff = Math.abs(Math.floor((rest) / (1000 * 60 * 60 * 24)));
+            let resul = diff + 1;
+            row.quantity = resul;
           }
           if (row.quantity) {
             this.q = row.quantity;
@@ -252,10 +273,12 @@ export class BillingPadProcedureComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           this.q = 1;
           if (row.location_id && row.open_date) {
-            var a = Math.floor((new Date(row.open_date).getTime()) / (1000 * 60 * 60 * 24));
-            var b = Math.floor((row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : (row.close_date ? new Date(row.close_date).getTime() : new Date().getTime())) / (1000 * 60 * 60 * 24));
-            var diff = Math.abs(b - a) + (row.location.discharge_date == "0000-00-00 00:00:00" && !row.close_date ? 1 : 0);
-            row.quantity = diff;
+            let a = Math.floor((new Date(row.open_date).getTime()));
+            let b = Math.floor((row.close_date ? new Date(row.close_date).getTime() : (row.location.discharge_date != "0000-00-00 00:00:00" ? new Date(row.location.discharge_date).getTime() : new Date().getTime())));
+            let rest = b - a;
+            let diff = Math.abs(Math.floor((rest) / (1000 * 60 * 60 * 24)));
+            let resul = diff + 1;
+            row.quantity = resul;
           }
           if (row.quantity) {
             this.q = row.quantity;
@@ -291,6 +314,12 @@ export class BillingPadProcedureComponent implements OnInit {
           if (row.assigned_management_plan != null) {
             if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
               return this.datePipe.transform4(row.assigned_management_plan.execution_date);
+            } else {
+              return 'Sin ejecutar';
+            }
+          } else if (row.applications != null) {
+            if (row.applications.application_hour) {
+              return this.datePipe.transform4(row.applications.updated_at);
             } else {
               return 'Sin ejecutar';
             }

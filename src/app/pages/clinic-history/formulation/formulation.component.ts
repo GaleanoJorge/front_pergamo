@@ -45,7 +45,6 @@ export class FormulationComponent implements OnInit {
         title: 'Acciones',
         type: 'custom',
         valuePrepareFunction: (value, row) => {
-
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
@@ -98,7 +97,11 @@ export class FormulationComponent implements OnInit {
         width: 'string',
         valuePrepareFunction(value, row) {
           if (value) {
-            return value;
+            if (row.oxigen_administration_way_id) {
+              return value + ' l/min';
+            } else {
+              return value;
+            }
           } else {
             return 'No aplica'
           }
@@ -108,9 +111,10 @@ export class FormulationComponent implements OnInit {
         title: this.headerFields[4],
         width: 'string',
         valuePrepareFunction(value, row) {
-          if (value) {
+          if (row.oxigen_administration_way) {
+            return row.oxigen_administration_way.name;
+          } else if (value) {
             return value.name;
-
           } else {
             return 'No aplica'
           }

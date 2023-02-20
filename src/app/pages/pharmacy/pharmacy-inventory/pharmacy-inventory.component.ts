@@ -118,18 +118,9 @@ export class PharmacyInventoryComponent implements OnInit {
       }
     });
 
-    // await this.perPharmaS.GetCollection({ type:2 }).then(x => {
-    //   this.pharmacy_stock = x;
-    // });
-
-
     await this.permisoPharmaS.GetPharmacyUserId(this.user.id).then(x => {
       this.pharmacy_stock = x;
     });
-
-    
-
-
   }
 
   RefreshData() {
@@ -147,10 +138,12 @@ export class PharmacyInventoryComponent implements OnInit {
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
       this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '&product=' + true, 'pharmacy_lot_stock');
-
+      this.title = 'INVENTARIO DE: ' + this.my_pharmacy_id;     
     }else{
       this.pharmacy = pharmacy;
       this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '&product=' + true, 'pharmacy_lot_stock');
+      let aaa = (this.pharmacy_stock.find(item => {return item.pharmacy_stock_id==this.pharmacy}).pharmacy.name);
+      this.title = 'INVENTARIO DE: ' + aaa;
     }
     // this.RefreshData();
   }
@@ -162,6 +155,7 @@ export class PharmacyInventoryComponent implements OnInit {
         title: 'ENVIAR MEDICAMENTO',
         data: data,
         my_pharmacy_id: this.my_pharmacy_id,
+        pharmacy: this.pharmacy,
         saved: this.RefreshData.bind(this),
       },
     });
@@ -189,5 +183,14 @@ export class PharmacyInventoryComponent implements OnInit {
     });
   }
 
+  Inventory() {
+    this.invS.ViewInventory({type:1, pharmacy_stock_id : this.pharmacy}).then(x => {
+      this.toastService.success('', x.message);
+      window.open(x.url, '_blank');
+
+    }).catch(x => {
+      this.isSubmitted = false;
+    });
+  }
 
 }

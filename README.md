@@ -43,18 +43,6 @@ Herramienta gestión de health and life ips.
 https://phoenixnap.com/kb/install-latest-node-js-and-nmp-on-ubuntu#:~:text=Install%20a%20Specific%20Version,-Nvm%20is%20a&text=To%20install%20a%20particular%20version,the%20number%20of%20the%20version.&text=This%20will%20list%20all%20installed,the%20default%20and%20stable%20versions.
 
 ---
-
-## Libreria mobiscroll calendar
-
--- user - password 
-   gi.desarrollador3@hlips.com.co - coordesa*2021
-# instalar CLI
---  npm install -g @mobiscroll/cli --save 
-# configurar entorno de ejecución 
--- mobiscroll config angular - You will be prompted to log in with your mobiscroll account
-# library link
--- https://demo.mobiscroll.com/calendar/week-select
-
 ## License
 
 Copyright Health and life ips 2021

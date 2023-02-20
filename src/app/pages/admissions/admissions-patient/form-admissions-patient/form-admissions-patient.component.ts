@@ -19,6 +19,7 @@ import { CopayCategoryComponent } from '../../../scheduling/copay_category/copay
 import { CopayParametersService } from '../../../../business-controller/copay-parameters.service';
 import { CurrencyPipe } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ServicesBriefcase } from '../../../../models/services-briefcase';
 
 @Component({
   selector: 'ngx-form-admissions-patient',
@@ -56,7 +57,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public diagnosis: any[] = [];
   public briefcase: any[] = [];
   public categories: any[] = [];
-  public procedures: any[] = [];
   public copay_value = null;
   public show_diagnostic: boolean = false;
   public show_inputs: boolean = false;
@@ -69,6 +69,9 @@ export class FormAdmissionsPatientComponent implements OnInit {
   public regime: any[];
   public route;
   public show_cats: boolean = false;
+  public procedure: any;
+  public filteredProcedureOptions$: any[] = [];
+  public filteredProcedureOptionsApplied: any[] = [];
   readonly MAX_VALUE_FILE_SIZE: Number = 1000000;
 
   constructor(
@@ -91,7 +94,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
     private regimeS: TypeBriefcaseService,
     private copayCategoryS: CopayParametersService,
     private currency: CurrencyPipe
-  ) {}
+  ) { }
 
   async ngOnInit() {
     if (!this.data) {
@@ -117,7 +120,6 @@ export class FormAdmissionsPatientComponent implements OnInit {
     this.form = this.formBuilder.group({
       diagnosis_id: [
         this.data.diagnosis_id,
-        Validators.compose([Validators.required]),
       ],
       admission_route_id: [
         {
@@ -161,7 +163,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       has_caregiver: [this.data.has_caregiver, Validators.compose([Validators.required])],
       regime_id: [this.data.regime_id, Validators.compose([Validators.required])],
       category: [''],
-      copay: [{value: '', disabled: true}],
+      copay: [{ value: '', disabled: true }, Validators.compose([Validators.required])],
       eps: [this.data.eps],
     });
     if (this.campus_id == null) {
@@ -181,7 +183,10 @@ export class FormAdmissionsPatientComponent implements OnInit {
       .then((x) => {
         this.eps = x;
       });
-    // this.DiagnosisS.GetCollection().then(x => {
+
+    // this.DiagnosisS.GetCollection({
+    //   all:1
+    // }).then(x => {
     //   this.diagnosis = x;
     //   this.loading = false;
     // });
@@ -222,6 +227,38 @@ export class FormAdmissionsPatientComponent implements OnInit {
       this.form.get('eps').setValue(this.data.eps_id);
       this.ShowDiagnostic(1);
     }
+
+    this.form.controls.procedure_id.valueChanges.subscribe(value => {
+      this.filterProcedures(value);
+    })
+
+  }
+
+  private filterProcedures(value) {
+
+    this.filteredProcedureOptionsApplied = this.filteredProcedureOptions$.filter((procedure) => (procedure.manual_price.procedure.code + ' - ' + procedure.manual_price.own_code + ' - ' + procedure.manual_price.name).includes(value.toUpperCase()));
+
+  }
+
+  onSelectionChange($event) {
+    this.procedure = this.filteredProcedureOptions$.find(
+      (item) => item.manual_price.name == this.form.value.procedure_id.split(' - ')[2]
+    );
+    if (this.procedure == null) {
+      return;
+    }
+    let idProcedure = this.procedure.id;
+    if (idProcedure != '' && this.ambolatory) {
+      this.getCategories(idProcedure);
+
+      this.form
+        .get('category')
+        .setValue(this.data.copay_id);
+
+      // this.form
+      // .get('copay')
+      // .setValue(this.data.copay_value);
+    }
   }
 
   close() {
@@ -230,6 +267,11 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
   save() {
     this.isSubmitted = true;
+    if (this.form.controls.scope_of_attention_id.value == 2) {
+      this.form.controls.diagnosis_id.setErrors(null);
+      this.form.controls.diagnosis_id.setValidators([]);
+      this.form.controls.diagnosis_id.updateValueAndValidity();
+    }
     if (!this.form.invalid) {
       this.loading = true;
       if (this.data.id && !this.ambolatory) {
@@ -245,7 +287,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
           contract_id: this.form.controls.contract_id.value,
           briefcase_id: this.form.controls.briefcase_id.value,
           regime_id: this.form.controls.regime_id.value,
-          procedure_id: this.form.controls.procedure_id.value,
+          procedure_id: this.procedure.id,
           auth_number: this.form.controls.procedure_id.value,
           file_auth: this.form.controls.procedure_id.value,
           campus_id: this.campus_id,
@@ -273,28 +315,33 @@ export class FormAdmissionsPatientComponent implements OnInit {
           });
       } else {
         if (this.admissions_id == 0) {
-          this.AdmissionsS.Save({
-            admission_id: this.admission_id,
-            briefcase_id: this.form.controls.briefcase_id.value,
-            diagnosis_id: this.diagnosis_id,
-            procedure_id: this.form.controls.procedure_id.value,
-            admission_route_id: this.form.controls.admission_route_id.value,
-            scope_of_attention_id:
-              this.form.controls.scope_of_attention_id.value,
-            program_id: this.form.controls.program_id.value,
-            flat_id: this.form.controls.flat_id.value,
-            regime_id: this.form.controls.regime_id.value,
-            pavilion_id: this.form.controls.pavilion_id.value,
-            bed_id: this.form.controls.bed_id.value,
-            contract_id: this.form.controls.contract_id.value,
-            auth_number: this.form.controls.auth_number.value,
-            file_auth: this.form.value.file_auth,
-            campus_id: this.campus_id,
-            patient_id: this.user_id,
-            ambulatory_data: this.ambolatory ? this.data.id : null,
-            copay_id: this.form.controls.category.value,
-            copay_value: this.copay_value,
-          })
+          let formData = new FormData();
+          formData.append('admission_id', this.admission_id);
+          formData.append('briefcase_id', this.form.controls.briefcase_id.value);
+          formData.append('diagnosis_id', this.diagnosis_id);
+          formData.append('procedure_id', (this.form.controls.admission_route_id.value == 1) ? this.procedure.id : null);
+          formData.append('admission_route_id', this.form.controls.admission_route_id.value);
+          formData.append('scope_of_attention_id', this.form.controls.scope_of_attention_id.value);
+          formData.append('program_id', this.form.controls.program_id.value);
+          formData.append('flat_id', this.form.controls.flat_id.value);
+          formData.append('regime_id', this.form.controls.regime_id.value);
+          formData.append('pavilion_id', this.form.controls.pavilion_id.value);
+          formData.append('bed_id', this.form.controls.bed_id.value);
+          formData.append('contract_id', this.form.controls.contract_id.value);
+          formData.append('auth_number', this.form.controls.auth_number.value);
+          formData.append('file_auth', this.form.controls.file_auth.value);
+          formData.append('campus_id', this.campus_id);
+          formData.append('patient_id', this.user_id);
+          formData.append('ambulatory_data', this.ambolatory ? this.data.id : null);
+          formData.append('copay_id', this.form.controls.category.value);
+          formData.append('copay_value', this.copay_value);
+          formData.forEach((entry, key) => {
+            let value = formData.get(key);
+            if(formData.get(key) == "undefined" || formData.get(key) == "null"){
+              formData.delete(key);
+            }
+          });
+          this.AdmissionsS.Save(formData)
             .then((x) => {
               this.toastService.success('', x.message);
               if (this.form.controls.has_caregiver.value != true) {
@@ -339,26 +386,16 @@ export class FormAdmissionsPatientComponent implements OnInit {
     }
   }
 
-  public diagnosticConut = 0;
-
   searchDiagnostic($event) {
-    this.diagnosticConut++;
-    if (this.diagnosticConut == 3) {
-      this.diagnosticConut = 0;
-      if ($event.length >= 3) {
-        this.DiagnosisS.GetCollection({
-          search: $event,
-        }).then((x) => {
-          this.diagnosis = x;
-        });
-      } else {
-        this.DiagnosisS.GetCollection({
-          search: '',
-        }).then((x) => {
-          this.diagnosis = x;
-        });
-      }
+
+    if ($event.length >= 3) {
+      this.DiagnosisS.GetCollection({
+        search: $event,
+      }).then((x) => {
+        this.diagnosis = x;
+      });
     }
+
   }
   // async save() {
 
@@ -446,6 +483,10 @@ export class FormAdmissionsPatientComponent implements OnInit {
     }
   }
 
+  getCompleteName(item) {
+    return item.manual_price.procedure.code + " - " + item.manual_price.own_code + " - " + item.manual_price.name;
+  }
+
   showCaregiver() {
     if (this.form.controls.has_caregiver.value == true) {
       this.toastService.warning(
@@ -472,6 +513,12 @@ export class FormAdmissionsPatientComponent implements OnInit {
       if (val === '') {
         this.program = [];
       } else {
+        if (val == 1) {
+          this.form.controls.auth_number.setValidators(Validators.compose([Validators.required]));
+        } else {
+          this.form.controls.auth_number.setValidators([]);
+          this.form.controls.auth_number.updateValueAndValidity();
+        }
         this.ambit = val;
         this.GetProgram(val).then();
       }
@@ -524,7 +571,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       if (val === '') {
         this.briefcase = [];
       } else {
-        this.GetBriefcase(val).then();
+        this.GetBriefcase(val);
         // if (this.ambolatory) {
         //   this.GetCategories(val).then();
         // }
@@ -546,77 +593,66 @@ export class FormAdmissionsPatientComponent implements OnInit {
       }
     });
 
-    this.form.get('briefcase_id').valueChanges.subscribe((val) => {
+    this.form.controls.briefcase_id.valueChanges.subscribe((val) => {
       if (val === '') {
-        this.procedures = [];
+        this.filteredProcedureOptionsApplied = [];
       } else if (this.form.value.admission_route_id == 1) {
-        this.Getprocedures(val).then();
+        this.Getprocedures(val);
       } else {
-        this.Getprocedures(val).then();
+        this.Getprocedures(val);
       }
-      if (
-        val == (this.data.briefcase_id == '' ? null : this.data.briefcase_id)
-      ) {
-        // this.form
-        //   .get('procedure_id')
-        //   .patchValue(this.data.services_briefcase.manual_price.procedure_id);
-        // this.form.patchValue({
-        //   procedures: this.data.medical_diary.procedure_id,
-        // });
-      } else {
-        this.form.patchValue({
-          procedures: '',
-        });
-      }
+      // if (
+      //   val == (this.data.briefcase_id == '' ? null : this.data.briefcase_id)
+      // ) {
+      //   this.Getprocedures(val);
+      //   this.form
+      //   .get('procedure_id')
+      //   .patchValue(this.getCompleteName(this.data.services_briefcase));
+      //   this.onSelectionChange(null);
+      //   this.form.patchValue({
+      //     procedures: this.data.medical_diary.procedure_id,
+      //   });
+      // } else {
+      //   this.form.patchValue({
+      //     procedures: '',
+      //   });
+      // }
     });
-
-    this.form.get('procedure_id').valueChanges.subscribe((val) => {
-      // var aux = this.categories.find((item) => item.id == val);
-      if (val != '' && this.ambolatory) {
-        this.getCategories(val);
-
-        this.form
-        .get('category')
-        .setValue(this.data.copay_id);
-
-        // this.form
-        // .get('copay')
-        // .setValue(this.data.copay_value);
-      }
-    });
-
 
   }
 
-  async getCategories(procedure_id){
-    this.toastService.info('','Calculando posible tarifa')
+  async getCategories(procedure_id) {
+    this.toastService.info('', 'Calculando posible tarifa')
     await this.copayCategoryS.GetCollection({
       procedure_id: procedure_id,
       status_id: 1,
     }).then((x) => {
-      if(x.length > 0){
+      if (x.length > 0) {
         this.show_cats = true;
+        this.form.controls.category.setValidators(Validators.compose([Validators.required]));
         this.categories = x;
       } else {
         this.show_cats = false;
+        this.form.controls.category.clearValidators();
+        this.form.controls.category.setErrors(null);
       }
     });
 
     this.form.get('category').valueChanges.subscribe((val) => {
-      if(val != ''){
-        var localCat  = this.categories.find(item => item.id == val);
-        if(localCat.payment_type == 2){
-          
-          var localproc = this.procedures.find(
-            (item) => item.id == this.form.value.procedure_id
+      if (val != '') {
+        var localCat = this.categories.find(item => item.id == val);
+        if (localCat.payment_type_id == 2) {
+
+          var localproc = this.filteredProcedureOptions$.find(
+            (item) => item.manual_price.name == this.form.value.procedure_id.split(' - ')[2]
           );
-          if(localproc){
-            this.copay_value = localproc.value*localCat.value;
+          if (localproc) {
+            this.copay_value = localproc.value * localCat.value;
             this.form.patchValue({
               copay: this.currency.transform(this.copay_value),
             })
           }
-        }else {
+        } else {
           this.copay_value = localCat.value;
           this.form.patchValue({
             copay: this.currency.transform(this.copay_value),
@@ -626,11 +662,12 @@ export class FormAdmissionsPatientComponent implements OnInit {
     });
 
     this.form
-    .get('category')
-    .setValue(this.data.copay_id);
+      .get('category')
+      .setValue(this.data.copay_id);
   }
 
   admissionRouteChanged(val) {
+    this.show_auth_inputs = false;
     // console.log(val);
     this.route = val;
     if (val === '') {
@@ -654,7 +691,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         this.form.controls.procedure_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.flat_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.pavilion_id.setValidators(Validators.compose([Validators.required]));
-        this.form.controls.auth_number.setValidators(Validators.compose([Validators.required]));
+
         // this.form.controls.file_auth.setValidators(Validators.compose([Validators.required]));
         this.form.controls.bed_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.has_caregiver.setValue(false);
@@ -669,8 +706,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
         this.form.controls.pavilion_id.updateValueAndValidity();
         this.form.controls.bed_id.setValidators([]);
         this.form.controls.bed_id.updateValueAndValidity();
-        this.form.controls.auth_number.setValidators([]);
-        this.form.controls.auth_number.updateValueAndValidity();
+
         this.form.controls.file_auth.setValidators([]);
         this.form.controls.file_auth.updateValueAndValidity();
       }
@@ -704,17 +740,30 @@ export class FormAdmissionsPatientComponent implements OnInit {
   }
 
   saveCode(e): void {
-    var localidentify = this.diagnosis.find((item) => item.name == e);
+    if (this.diagnosis) {
+      var localidentify = this.diagnosis.find((item) => item.name == e);
 
-    if (localidentify) {
-      this.diagnosis_id = localidentify.id;
+      if (localidentify) {
+        this.diagnosis_id = localidentify.id;
+      } else {
+        this.diagnosis_id = null;
+        if (this.form.controls.scope_of_attention_id.value != 2) {
+          this.toastService.warning(
+            '',
+            'Debe seleccionar un diagnostico de la lista'
+          );
+          this.form.controls.diagnosis_id.setErrors({ incorrect: true });
+        }
+      }
     } else {
       this.diagnosis_id = null;
-      this.toastService.warning(
-        '',
-        'Debe seleccionar un diagnostico de la lista'
-      );
-      this.form.controls.diagnosis_id.setErrors({ incorrect: true });
+      if (this.form.controls.scope_of_attention_id.value != 2) {
+        this.toastService.warning(
+          '',
+          'Debe seleccionar un diagnostico de la lista'
+        );
+        this.form.controls.diagnosis_id.setErrors({ incorrect: true });
+      }
     }
   }
 
@@ -758,7 +807,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   }
 
   GetBed(pavilion_id, ambit) {
-    if(this.ambolatory){
+    if (this.ambolatory) {
       return this.BedS.GetBedByPavilion(pavilion_id, ambit, proc, this.ambolatory ? { office: this.data.medical_diary.office_id, patient_id: this.user_id, } : {
         patient_id: this.user_id,
       }).then(x => {
@@ -770,12 +819,12 @@ export class FormAdmissionsPatientComponent implements OnInit {
         } else {
           this.toastService.warning('', 'No se encontraron camas disponibles para la localización y el procedimiento seleccionado')
         }
-  
+
         return Promise.resolve(true);
       });
     }
     if ((!pavilion_id || pavilion_id === '') || (!this.data.eps ? (!this.form.controls.procedure_id.value || this.form.controls.procedure_id.value === '') : false) || (!ambit || ambit === '')) return Promise.resolve(false);
-    var proc =  this.data.eps ? 0 : this.procedures.find(item => item.id == this.form.controls.procedure_id.value).manual_price.procedure_id;
+    var proc = this.data.eps ? 0 : this.filteredProcedureOptions$.find(item => item.manual_price.name == this.form.controls.procedure_id.value.split(" - ")[2]).manual_price.procedure_id;
     return this.BedS.GetBedByPavilion(pavilion_id, ambit, proc, this.ambolatory ? { office: this.data.medical_diary.office_id, patient_id: this.user_id, } : {
       patient_id: this.user_id,
     }).then(x => {
@@ -789,14 +838,14 @@ export class FormAdmissionsPatientComponent implements OnInit {
     });
   }
 
-  async GetBriefcase(contract_id) {
+  GetBriefcase(contract_id) {
     if (!contract_id || contract_id === '') return Promise.resolve(false);
-    return await this.BriefcaseS.GetBriefcaseByContract(contract_id).then(
+    this.BriefcaseS.GetBriefcaseByContract(contract_id).then(
       (x) => {
         this.briefcase = x;
         if (
           contract_id ==
-            (this.data.contract_id == '' ? null : this.data.contract_id) &&
+          (this.data.contract_id == '' ? null : this.data.contract_id) &&
           this.ambolatory
         ) {
           this.form.get('briefcase_id').patchValue(this.data.briefcase_id);
@@ -821,8 +870,11 @@ export class FormAdmissionsPatientComponent implements OnInit {
             'Tipo de contrato sin categorias asociadas'
           );
           this.show_cats = false;
+          this.form.controls.category.clearValidators();
+          this.form.controls.category.setErrors(null);
         } else {
           this.show_cats = true;
+          this.form.controls.category.setValidators(Validators.compose([Validators.required]));
         }
         return Promise.resolve(true);
       });
@@ -830,21 +882,34 @@ export class FormAdmissionsPatientComponent implements OnInit {
 
   Getprocedures(briefcase_id) {
     if (!briefcase_id || briefcase_id === '') return Promise.resolve(false);
-    return this.ServiceBriefcaseS.GetProcedureByBriefcase(briefcase_id, {
+    this.ServiceBriefcaseS.GetProcedureByBriefcase(briefcase_id, {
       cups_selected_id: this.ambolatory
         ? this.data.services_briefcase.manual_price.procedure_id
         : null,
     }).then((x) => {
-      this.procedures = x;
+      this.filteredProcedureOptions$ = x;
+      this.filteredProcedureOptionsApplied = this.filteredProcedureOptions$;
       if (
         briefcase_id ==
-          (this.data.briefcase_id == '' ? null : this.data.briefcase_id) &&
+        (this.data.briefcase_id == '' ? null : this.data.briefcase_id) &&
         this.ambolatory
       ) {
         // this.form
         //   .get('procedure_id')
         //   .patchValue(this.data.services_briefcase.id);
       }
+
+      //
+      this.form
+        .get('procedure_id')
+        .patchValue(this.getCompleteName(this.data.services_briefcase));
+      this.form.patchValue({
+        procedures: this.data.medical_diary.procedure_id,
+      });
+
+      this.onSelectionChange(null);
+      //
+
       return Promise.resolve(true);
     });
   }
@@ -857,7 +922,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
     switch (option) {
       case 1:
         this.form.patchValue({
-          file_auth: file,
+          file_auth: files[0],
         });
         break;
     }

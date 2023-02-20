@@ -1,7 +1,7 @@
 <form [formGroup]="form">
 
   <hr/>
-  <nb-accordion>
+  <nb-accordion (click)="goto($event)">
     <nb-accordion-item>
      <nb-accordion-item-header class="row justify-content-center" >PATRONES FUNCIONALES</nb-accordion-item-header>
      <nb-accordion-item-body>
@@ -17,11 +17,12 @@
    <hr/>
    <nb-accordion>
     <nb-accordion-item>
-     <nb-accordion-item-header class="row justify-content-center" >PATRONES INTEGRALES</nb-accordion-item-header>chintpat
+     <nb-accordion-item-header class="row justify-content-center">PATRONES INTEGRALES</nb-accordion-item-header>
      <nb-accordion-item-body>
     
-      <ngx-table-int-pat-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chintpat" [data]="chintpat" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+      <ngx-table-int-pat-m-ot *ngIf="this.show1" [record_id]="record_id" [type_record_id]="type_record_id"  [data]="chintpat" (messageEvent)="inputMessage($event)" [has_input]="has_input">
       </ngx-table-int-pat-m-ot>
+      <!-- *ngIf="chintpat" -->
  
 
       <br/>
@@ -31,11 +32,12 @@
    <hr/>
    <nb-accordion>
     <nb-accordion-item>
-     <nb-accordion-item-header class="row justify-content-center" >PATRONES DE MOVIMIENTO</nb-accordion-item-header>
+     <nb-accordion-item-header class="row justify-content-center">PATRONES DE MOVIMIENTO</nb-accordion-item-header>
      <nb-accordion-item-body>
      
-      <ngx-table-mov-pat-m-ot [record_id]="record_id" [type_record_id]="type_record_id" *ngIf="chmovpat" [data]="chmovpat" (messageEvent)="inputMessage($event)" [has_input]="has_input">
+      <ngx-table-mov-pat-m-ot *ngIf="this.show2" [record_id]="record_id" [type_record_id]="type_record_id" [data]="chmovpat" (messageEvent)="inputMessage($event)" [has_input]="has_input">
       </ngx-table-mov-pat-m-ot>
+      <!-- *ngIf="chmovpat" -->
 
      </nb-accordion-item-body>
     </nb-accordion-item>

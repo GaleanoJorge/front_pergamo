@@ -6,9 +6,11 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { MedicalDiaryDaysService } from '../../../../business-controller/medical_diary_days.service';
 import { MedicalStatusService } from '../../../../business-controller/medical_status.service';
 import { ReasonCancelService } from '../../../../business-controller/reason-cancel.service';
+import { RelationshipService } from '../../../../business-controller/relationship.service';
 import { RoleBusinessService } from '../../../../business-controller/role-business.service';
 import { StatusBusinessService } from '../../../../business-controller/status-business.service';
 import { DateFormatPipe } from '../../../../pipe/date-format.pipe';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'ngx-form-confirm-disabled',
@@ -36,6 +38,10 @@ export class FormConfirmDisabledComponent implements OnInit {
   public status: any[] = [];
   public reason_cancel: any[] = [];
 
+  public input = false;
+
+  public relationships = [];
+
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
@@ -47,8 +53,9 @@ export class FormConfirmDisabledComponent implements OnInit {
     private reasonCancelS: ReasonCancelService,
     public datePipe: DateFormatPipe,
     private medicalDiaryDaysS: MedicalDiaryDaysService,
-
-    private roleS: RoleBusinessService
+    private authService: AuthService,
+    private roleS: RoleBusinessService,
+    private relationshipS: RelationshipService
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +87,10 @@ export class FormConfirmDisabledComponent implements OnInit {
         this.reason_cancel = x;
       });
 
+      this.relationshipS.GetCollection().then((relationships) => {
+        this.relationships = relationships;
+      })
+
       this.form = this.formBuilder.group({
         star_hour: [{ value: this.data.start_hour, disabled: true }],
         finish_hour: [{ value: this.data.finish_hour, disabled: true }],
@@ -98,6 +109,9 @@ export class FormConfirmDisabledComponent implements OnInit {
         ],
         reason_cancel_id: [null, Validators.compose([Validators.required])],
         cancel_description: [null],
+        relative_name: [null],
+        relationship_id: [null],
+        familiar_cancel: [false]
       });
 
       this.onChanges();
@@ -118,6 +132,17 @@ export class FormConfirmDisabledComponent implements OnInit {
         this.textConfirm = 'Activar agendamiento';
         this.title = `Inactivar agendamiento de: ${this.data.start_time} ${this.data.finish_time} del ${this.data.start_date + this.data.finish_date} \n para ${this.data.procedure.name}`;
       }
+    }
+    
+  }
+  eventSelections(input) {
+    this.input = input;
+    if(this.input){
+      this.form.controls.relative_name.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.relationship_id.setValidators(Validators.compose([Validators.required]));
+    }else{
+      this.form.controls.relative_name.clearValidators();
+      this.form.controls.relationship_id.clearValidators();
     }
   }
 
@@ -155,12 +180,15 @@ export class FormConfirmDisabledComponent implements OnInit {
             status_id: 5,
             reason_cancel_id: this.form.controls.reason_cancel_id.value,
             cancel_description: this.form.controls.cancel_description.value,
+            user_cancel_id: this.authService.GetUser().id,
+            relative_name: this.form.controls.relative_name.value,
+            relationship_id: this.form.controls.relationship_id.value
           })
           .then((x) => {
             this.toastrService.success('', x.message);
             this.dialogRef.close();
             if (this.CancelScheduling) {
-              this.CancelScheduling();
+              this.CancelScheduling(this.data);
             }
           })
           .catch((x) => {

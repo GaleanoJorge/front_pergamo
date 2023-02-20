@@ -228,20 +228,32 @@ export class FormPadComplementaryComponent implements OnInit {
   saveCode(e, type_search): void {
 
     if (type_search) {
-      var localidentify = this.diagnosis.find(item => item.name == e);
-
-      if (localidentify) {
-        this.diagnosis_id = localidentify.id;
+      if (this.diagnosis) {
+        var localidentify = this.diagnosis.find(item => item.name == e);
+  
+        if (localidentify) {
+          this.diagnosis_id = localidentify.id;
+        } else {
+          this.diagnosis_id = null;
+          this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+          this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
+        }
       } else {
         this.diagnosis_id = null;
         this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
         this.form.controls.diagnosis_id.setErrors({ 'incorrect': true });
       }
     } else {
-      var localidentify = this.profesionals.find(item => item.nombre_completo == e);
-
-      if (localidentify) {
-        this.profesional_id = localidentify.id;
+      if (this.profesionals) {
+        var localidentify = this.profesionals.find(item => item.nombre_completo == e);
+  
+        if (localidentify) {
+          this.profesional_id = localidentify.id;
+        } else {
+          this.profesional_id = null;
+          this.toastService.warning('', 'Debe seleccionar un profesional de la lista');
+          this.form.controls.profesional_user_id.setErrors({ 'incorrect': true });
+        }
       } else {
         this.profesional_id = null;
         this.toastService.warning('', 'Debe seleccionar un profesional de la lista');

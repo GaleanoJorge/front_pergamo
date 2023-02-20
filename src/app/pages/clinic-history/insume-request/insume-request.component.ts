@@ -19,8 +19,12 @@ export class InsumeRequestComponent implements OnInit {
   @Input() record_id: any;
   @Input() user: any;
   @Input() admissions_id: any;
+  @Input() admissions: any;
   @Input() type_record_id;
   @Input() has_input: boolean = false;
+  @Input() pavilion_only: boolean = false;
+  @Input() pavilion_id;
+  @Input() scope_of_attention_id;
   @Output() messageEvent = new EventEmitter<any>();
   
   public isSubmitted = false;
@@ -74,6 +78,9 @@ export class InsumeRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.admissions_id && this.admissions) {
+      this.admissions_id = this.admissions['id'];
+    }
   }
 
   RefreshData() {

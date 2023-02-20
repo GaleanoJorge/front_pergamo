@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card style="max-height: 700px">
   <nb-card-header>
     <span class="h5">{{ title }}</span>
   </nb-card-header>
@@ -32,17 +32,40 @@
           </div>
           <div class="col-md-12">
             <label for="reason_cancel_id" class="form-text text-muted font-weight-bold">Motivo de cancelación:</label>
-            <nb-select id="reason_cancel_id" fullWidth selected="this.data.reason_cancel_id" formControlName="reason_cancel_id" reason_cancel_id
+            <nb-select id="reason_cancel_id" fullWidth selected="this.data.reason_cancel_id"
+              formControlName="reason_cancel_id" reason_cancel_id
               status="{{ isSubmitted && form.controls.reason_cancel_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
               <nb-option value="">Seleccione...</nb-option>
               <nb-option *ngFor="let item of reason_cancel" [value]="item.id">{{ item.name }}</nb-option>
             </nb-select>
           </div>
-          <div *ngIf="this.form.controls.reason_cancel_id.value == 3" class="col-md-12">
+          <div class="col-md-12">
             <label for="cancel_description" class="form-text text-muted font-weight-bold">Observación:</label>
-            <input type="text" nbInput id="cancel_description" formControlName="cancel_description" cancel_description fullWidth
-            status="{{ isSubmitted && form.controls.cancel_description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <input type="text" nbInput id="cancel_description" formControlName="cancel_description" cancel_description
+              fullWidth
+              status="{{ isSubmitted && form.controls.cancel_description.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
           </div>
+
+          <div class="col-md-12" style="margin-top: 10px">
+            <nb-checkbox formControlName="familiar_cancel" familiar_cancel id="familiar_cancel"
+              (checkedChange)="eventSelections($event)">¿Cancela un familiar?</nb-checkbox>
+          </div>
+
+          <div *ngIf="this.input" class="col-md-12">
+            <label for="relative_name" class="form-text text-muted font-weight-bold">Nombre del familiar:</label>
+            <input type="text" nbInput id="relative_name" formControlName="relative_name" relative_name
+              fullWidth
+              status="{{ isSubmitted && form.controls.relative_name.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          </div>
+          <div *ngIf="this.input" class="col-md-12">
+            <label for="relationship_id" class="form-text text-muted font-weight-bold">Parentesco:</label>
+            <nb-select id="relationship_id" fullWidth selected="this.data.relationship_id" formControlName="relationship_id" relationship_id
+              status="{{ isSubmitted && form.controls.relationship_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option *ngFor="let item of relationships" [value]="item.id">{{ item.name }}</nb-option>
+            </nb-select>
+          </div>
+
         </div>
       </form>
     </div>
@@ -69,7 +92,7 @@
       [disabled]="loading">{{textConfirm }}</button>
     <button *ngIf="this.desable_cancel" nbButton status="danger" class="ml-1" type="button" (click)="toggleActivity()"
       [disabled]="loading">{{textConfirm }}</button>
-      <button *ngIf="this.desable_agend" nbButton status="danger" class="ml-1" type="button" (click)="toggleScheduling()"
+    <button *ngIf="this.desable_agend" nbButton status="danger" class="ml-1" type="button" (click)="toggleScheduling()"
       [disabled]="loading">{{textConfirm }}</button>
   </nb-card-footer>
 </nb-card>

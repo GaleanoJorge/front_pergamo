@@ -61,7 +61,9 @@ import { ReasonCancelComponent } from './reason-cancel/reason-cancel.component';
 import { FormReasonCancelComponent } from './reason-cancel/form-reason-cancel/form-reason-cancel.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { MbscModule } from '@mobiscroll/angular';
+import { FormTransferScheduleComponent } from './transfer-schedule/form-transfer-schedule/form-transfer-schedule.component';
+import { TransferScheduleComponent } from './transfer-schedule/transfer-schedule.component';
+import { ActionsSemaphoreComponent } from './assistencial-view/actions-semaphore.component';
 
 
 
@@ -95,7 +97,6 @@ import { MbscModule } from '@mobiscroll/angular';
     NbDatepickerModule,
     NbSpinnerModule,
     ScheduleModule,
-    MbscModule,
   ],
   declarations: [
 
@@ -132,6 +133,7 @@ import { MbscModule } from '@mobiscroll/angular';
     ActionsDaysComponent,
     NonWorkingDaysComponent,
     FormNonWorkingDaysComponent,
+    ActionsSemaphoreComponent,
     
     MedicalDiaryComponent,
     ActionsMedicalDiaryComponent,
@@ -143,6 +145,9 @@ import { MbscModule } from '@mobiscroll/angular';
     FormPatientComponent,
     
     SchedulingComponent,
+
+    TransferScheduleComponent,
+    FormTransferScheduleComponent
   ],
   exports: [
 

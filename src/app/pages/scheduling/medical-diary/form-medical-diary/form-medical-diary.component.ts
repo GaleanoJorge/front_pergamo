@@ -18,14 +18,8 @@ import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ProcedureService } from '../../../../business-controller/procedure.service';
 import { FlatService } from '../../../../business-controller/flat.service';
-import { setOptions , localeEs } from '@mobiscroll/angular';
 import { itemHighlight } from '@syncfusion/ej2/maps';
 
-setOptions({
-  locale: localeEs,
-  theme: 'auto',
-  themeVariant: 'light'
-});
 
 @Component({
   selector: 'ngx-form-medical-diary',
@@ -59,6 +53,9 @@ export class FormMedicalDiaryComponent implements OnInit {
   public min_time_1: any;
   public max_time: any;
   public calendar_array: string[] = [];
+  
+  private pavilion_selected;
+  private flat_selected;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
@@ -72,7 +69,7 @@ export class FormMedicalDiaryComponent implements OnInit {
     private AuthS: AuthService,
     private flatS: FlatService,
     private procedureS: ProcedureService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (!this.data) {
@@ -96,10 +93,9 @@ export class FormMedicalDiaryComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       // days_id: [[this.data.days_id], Validators.compose([Validators.required])],
-      flat_id: [this.data.flat_id, Validators.compose([Validators.required])],
+      flat_id: [this.data.flat_id],
       pavilion_id: [
         this.data.pavilion_id,
-        Validators.compose([Validators.required]),
       ],
       office_id: [
         this.data.office_id,
@@ -141,6 +137,15 @@ export class FormMedicalDiaryComponent implements OnInit {
       this.flats = x;
     });
 
+    this.form.controls.office_id.valueChanges.subscribe(value => {
+      this.PavilionS.GetPavilionByBed(value).then(pavilion => {
+        this.pavilion_selected = pavilion;
+      });
+      this.flatS.GetFlatByBed(value).then(flat => {
+        this.flat_selected = flat;
+      })
+    })
+
     // this.bedS
     //   .GetOfficeBycampus({
     //     status_bed_id: 1,
@@ -161,6 +166,7 @@ export class FormMedicalDiaryComponent implements OnInit {
 
     // this.inputFormControl = new FormControl();
     this.onChanges();
+
   }
 
   private filter(value: string): string[] {
@@ -173,12 +179,9 @@ export class FormMedicalDiaryComponent implements OnInit {
     );
   }
 
-  onChange(event: any): void { 
-    // console.log(event);
-    this.calendar_array = event.valueText.replaceAll('/','-').split(', ').sort();
-    this.calendar_array = event.value.sort().map((date) => {
-      return date.toISOString().split('T')[0];
-    });
+  onChange(event: any): void {
+    //this.calendar_array = event.valueText.replaceAll('/','-').split(', ').sort();
+    this.calendar_array = event.map((date) => { return date.replaceAll('/', '-') });
   }
 
   onFilter() {
@@ -188,6 +191,14 @@ export class FormMedicalDiaryComponent implements OnInit {
         startWith(''),
         map((filterString) => this.filter(filterString))
       );
+  }
+
+  receiveMessage($event) {
+    if ($event != null) {
+      this.onChange($event);
+    }
+    let dateRanges = this.convertDates(this.calendar_array);
+    this.GetOffice(this.form.controls.flat_id.value === '' ? null : this.form.controls.flat_id.value, this.form.controls.pavilion_id.value === '' ? null : this.form.controls.pavilion_id.value, dateRanges);
   }
 
   onChanges() {
@@ -233,11 +244,11 @@ export class FormMedicalDiaryComponent implements OnInit {
     this.form.get('finish_time').valueChanges.subscribe((val) => {
       if (val !== '') {
         // this.pavilions = [];
-        this.min_time_1 = new Date(this.min+'T'+this.min_time).getTime();
-        this.max_time = new Date(this.min+'T'+val).getTime();
-        if(this.max_time <= this.min_time_1){
-          this.form.controls.finish_time.setErrors({'incorrect': true });
-        }else{
+        this.min_time_1 = new Date(this.min + 'T' + this.min_time).getTime();
+        this.max_time = new Date(this.min + 'T' + val).getTime();
+        if (this.max_time <= this.min_time_1) {
+          this.form.controls.finish_time.setErrors({ 'incorrect': true });
+        } else {
           this.form.controls.finish_time.setErrors(null);
         }
       } else {
@@ -259,18 +270,18 @@ export class FormMedicalDiaryComponent implements OnInit {
       this.form.patchValue({
         pavilion_id: '',
       });
+      let dateRanges = this.convertDates(this.calendar_array);
+      this.GetOffice(val === '' ? null : this.form.controls.flat_id.value, null, dateRanges);
     });
 
     this.form.get('pavilion_id').valueChanges.subscribe((val) => {
-      if (val === '') {
-        this.offices = [];
-      } else {
-        this.GetOffice(val).then();
-      }
-      this.form.patchValue({
-        office_id: '',
-      });
+      let dateRanges = this.convertDates(this.calendar_array);
+      this.GetOffice(this.form.controls.flat_id.value === '' ? null : this.form.controls.flat_id.value, val === '' ? null : this.form.controls.pavilion_id.value, dateRanges);
     });
+  }
+
+  private convertDates(dates) {
+    return dates.map(date => { return { "startDate": date + " " + this.form.controls.start_time.value, "finishDate": date + " " + this.form.controls.finish_time.value } });
   }
 
   GetPavilion(flat_id, job = false) {
@@ -283,18 +294,25 @@ export class FormMedicalDiaryComponent implements OnInit {
     });
   }
 
-  GetOffice(pavilion_id) {
-    if (!pavilion_id || pavilion_id === '') return Promise.resolve(false);
-    return this.bedS
-      .GetOfficeByPavilion({
-        status_bed_id: 1,
-        pavilion_id: pavilion_id,
-        assistance_id: this.assistance_id,
-      })
+  GetOffice(flat_id, pavilion_id, dateRanges) {
+    if (dateRanges.length == 0 || this.form.controls.start_time.value == null || this.form.controls.finish_time.value == null) {
+      return;
+    }
+    let data = {
+      flatId: flat_id,
+      pavilionId: pavilion_id,
+      dateRanges: JSON.stringify(dateRanges)
+    };
+    if (flat_id == null) {
+      delete data.flatId;
+    }
+    if (pavilion_id == null) {
+      delete data.pavilionId;
+    }
+    this.bedS
+      .getAvailableConsultories(data)
       .then((x) => {
         this.offices = x;
-
-        return Promise.resolve(true);
       });
   }
 
@@ -320,15 +338,32 @@ export class FormMedicalDiaryComponent implements OnInit {
 
   save() {
     this.isSubmitted = true;
+    let inputDates = document.getElementById("selectedValues");
+    if(this.calendar_array.length == 0){
+      inputDates.style.borderColor = "darkred";
+      return;
+    }else{
+      inputDates.style.borderColor = "lightseagreen";
+    }
+    let currentDateString = new Date().toISOString().split('T')[0];
+    if(this.calendar_array.includes(currentDateString)){
+      let minimumDate = new Date();
+      let selectedMinimumDate = new Date(currentDateString + 'T' +  this.form.controls.start_time.value);
+      if(selectedMinimumDate < minimumDate){
+        this.toastService.warning('', "No puede seleccionar una fecha anterior a la actual");
+        return;
+      }
+    }
 
-    if (!this.form.invalid && this.calendar_array.length > 0) {
+    if (!this.form.invalid) {
       this.loading = true;
-      console.log(this.calendar_array);
       if (this.data.id) {
         this.MedicalDiaryS.Update({
           id: this.data.id,
           assistance_id: this.assistance_id,
           // weekdays: this.form.controls.days_id.value,
+          flat_id: this.flat_selected.id,
+          pavilion_id: this.pavilion_selected.id,
           office_id: this.form.controls.office_id.value,
           procedure_id: this.procedure_id,
           // start_date: this.form.controls.start_date.value,
@@ -357,8 +392,8 @@ export class FormMedicalDiaryComponent implements OnInit {
           assistance_id: this.assistance_id,
           // weekdays: this.form.controls.days_id.value,
           campus_id: +localStorage.getItem('campus'),
-          flat_id: this.form.controls.flat_id.value,
-          pavilion_id: this.form.controls.pavilion_id.value,
+          flat_id: this.flat_selected.id,
+          pavilion_id: this.pavilion_selected.id,
           office_id: this.form.controls.office_id.value,
           procedure_id: this.procedure_id,
           // start_date: this.form.controls.start_date.value,

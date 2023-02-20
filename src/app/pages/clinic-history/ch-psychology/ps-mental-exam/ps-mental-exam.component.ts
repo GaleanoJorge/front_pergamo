@@ -41,6 +41,8 @@ export class PsMentalExamComponent implements OnInit {
   public int = 0;
   public user;
   public messageError = null;
+  public show1 = false;
+  public show2 = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -87,4 +89,18 @@ export class PsMentalExamComponent implements OnInit {
       this.messageEvent.emit(true);
     }
   }
+
+  filterStepper($event){
+    return $event.target.textContent;
+  }
+
+  goto($event) {
+    let selectedAccordion =  this.filterStepper($event);
+    if (selectedAccordion == 'Funciones de Relación') {
+      this.show1 = true;
+    } else if (selectedAccordion == 'Funciones Intelectivas') {
+      this.show2 = true;
+    }
+
+}
 }

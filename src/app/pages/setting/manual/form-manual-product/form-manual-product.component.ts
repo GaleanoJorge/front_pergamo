@@ -82,7 +82,7 @@ export class FormManualProductComponent implements OnInit {
         this.data.price_type_id,
         Validators.compose([Validators.required]),
       ],
-      product_id: [this.data.procedure_id],
+      product_id: [this.data.procedure_id, Validators.compose([Validators.required])],
       description: [this.data.description],
       patient_id: [this.data.patient_id],
     });
@@ -118,6 +118,46 @@ export class FormManualProductComponent implements OnInit {
         startWith(''),
         map((filterString) => this.filter(filterString))
       );
+  }
+
+  fillGenericName($event){
+    
+    var filter = this.product_gen.find((product) => product.description == $event);
+    if (filter) {
+      this.product_id = filter.id;
+      this.form.controls.name.setValue($event);
+    } else {
+      this.product_id;
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+      this.form.controls.name.setErrors({ incorrect: true });
+      this.form.controls.name.setValue('');
+    }
+  }
+
+  checkProduct($event, value) {
+    if ($event.relatedTarget != null && $event.relatedTarget.className.includes("productAutocompleteOption")) {
+      return;
+    }
+    if (this.form.controls.product_id.value == null || this.form.controls.product_id.value == '') {
+      return;
+    }
+    var filter = this.product_gen.find((productOne) => productOne.description == value);
+    if (!filter) {
+      this.form.controls.product_id.setValue('');
+    }
+  }
+
+  checkPatient($event, value) {
+    if ($event.relatedTarget != null && $event.relatedTarget.className.includes("patientDatalistOption")) {
+      return;
+    }
+    if (this.form.controls.patient_id.value == null || this.form.controls.patient_id.value == '') {
+      return;
+    }
+    var filter = this.patient.find((patientOne) => patientOne.identification == value);
+    if (!filter) {
+      this.form.controls.patient_id.setValue('');
+    }
   }
 
   private filter(value: string): string[] {

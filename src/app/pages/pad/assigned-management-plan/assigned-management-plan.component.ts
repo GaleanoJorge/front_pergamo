@@ -87,6 +87,7 @@ export class AssignedManagementPlanComponent implements OnInit {
             'refresh': this.RefreshData.bind(this),
             'openEF':this.NewChRecord.bind(this),
             'currentRole': this.currentRole.role_type_id,
+            'role': this.currentRole.id,
             'edit': this.EditAssigned.bind(this),
           };
         },

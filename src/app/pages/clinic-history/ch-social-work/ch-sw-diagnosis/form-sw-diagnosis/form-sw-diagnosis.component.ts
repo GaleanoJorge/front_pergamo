@@ -142,12 +142,20 @@ export class FormSwDiagnosisComponent implements OnInit {
   }
   
   saveCode(e, valid): void {
-    var localidentify = this.diagnosis.find(item => item.name == e);
-
-    if (localidentify) {
-      if (valid == 1) {
-        var localidentify = this.ch_diagnosis.find(item => item.diagnosis.name == e);
-        this.ch_diagnosis_id = localidentify.id;
+    if ( this.diagnosis && this.ch_diagnosis) {
+      var localidentify = this.diagnosis.find(item => item.name == e);
+  
+      if (localidentify) {
+        if (valid == 1) {
+          var localidentify = this.ch_diagnosis.find(item => item.diagnosis.name == e);
+          this.ch_diagnosis_id = localidentify.id;
+        }
+      } else {
+        if (valid == 1) {
+          this.ch_diagnosis_id = null;
+          // this.toastService.warning('', 'Debe seleccionar un diagnostico de la lista');
+          this.form.controls.ch_diagnosis_id.setErrors({ 'incorrect': true });
+        }
       }
     } else {
       if (valid == 1) {

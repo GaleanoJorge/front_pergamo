@@ -6,6 +6,7 @@ import { UserChangeService } from '../../../business-controller/user-change.serv
 import { ChReasonConsultationService } from '../../../business-controller/ch-reason-consultation.service';
 import { ChVitalSignsService } from '../../../business-controller/ch-vital-signs.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { ActionsPExamComponent } from './actions.component';
 
 
 @Component({
@@ -37,6 +38,8 @@ export class NursingPhysicalExamComponent implements OnInit {
   public saveEntry: any = 0;
   public loading: boolean = false;
   public tableData: any = null;
+  public user;
+  public dialog;
 
   public settings = {
     pager: {
@@ -44,6 +47,20 @@ export class NursingPhysicalExamComponent implements OnInit {
       perPage: 30,
     },
     columns: {
+      actions: {
+        title: 'Acciones',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+            'user': this.user,
+            'refresh': this.RefreshData.bind(this),
+            'closeDialog': this.closeDialog.bind(this),
+          };
+        },
+        renderComponent: ActionsPExamComponent,
+      },
       created_at: {
         title: this.headerFields[0],
         type: 'string',
@@ -74,15 +91,15 @@ export class NursingPhysicalExamComponent implements OnInit {
   async ngOnInit() {
     console.log(this.has_input)
   }
+  
+  closeDialog() {
+    this.dialog.close();
+  }
 
   RefreshData() {
     this.table.refresh();
   }
   
-
-  // ngAfterViewChecked(){
-  //   this.tableData = this.table.source.data.length == 0 ? null: this.table.source.data;
-  // }
 
   receiveMessage($event) {
     if (this.type_record_id == 1) {

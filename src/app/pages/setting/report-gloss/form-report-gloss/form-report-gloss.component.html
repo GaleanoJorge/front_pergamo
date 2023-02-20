@@ -1,0 +1,90 @@
+<form [formGroup]="form">
+  <div>
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        <label class="form-text text-muted font-weight-bold center-text-center"
+          >PRÓXIMAMENTE PODRÁ GENERARSE</label
+        >
+      </div>
+
+      <!-- <div class="col-12 col-sm-12 col-md-12">
+        <label for="gloss_id" class="form-text text-muted font-weight-bold">Selecciona GLOSA:</label>
+        <input
+          fullWidth
+          nbInput
+          list="codes"
+          (change)="saveCode($event.target.value)"
+          id="gloss_id"
+          formControlName="gloss_id"
+          gloss_id
+          type="text"
+          required
+          status="{{isSubmitted && form.controls.gloss_id.errors? 'danger': isSubmitted? 'success': 'basic'}}"/>
+        <datalist id="codes" *ngIf="gloss">
+          <option *ngFor="let item of gloss" [value]="item.name">{{ item.name }}</option>
+        </datalist>
+      </div> -->
+
+      <!-- <div class="col-md-6">
+        <div class="form-group">
+          <label for="form" class="form-text text-muted font-weight-bold">Estado Glosa:</label>
+          <nb-select
+            class="form-text"
+            id="status"
+            formControlName="status"
+            fullWidth
+            status
+            status="{{ isSubmitted && form.controls.status.errors ? 'danger': isSubmitted ? 'success': 'basic' }}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option value="ACEPTADO">PATIENT</nb-option>
+            <nb-option value="ENVIO PATIENT">ENVIO PATIENT</nb-option>
+            <nb-option value="ENVIO PARCIAL">ENVIO PARCIAL</nb-option>
+            <nb-option value="ACEPTADO FARMACIA">DEVUELTO FARMACIA</nb-option>
+            <nb-option value="ACEPTADO FARMACIA">DEVUELTO PACIENTE</nb-option>
+            <nb-option value="ACEPTADO FARMACIA">ENVIO FARMACIA</nb-option>
+            <nb-option value="ACEPTADO FARMACIA">ENVIO PARCIAL FARMACIA</nb-option>
+            <nb-option value="ACEPTADO">SOLICITADO FARMACIA</nb-option>
+            <nb-option value="ACEPTADO">SOLICITADO</nb-option>
+            <nb-option value="ACEPTADO">DAÑADO</nb-option>
+          </nb-select>
+        </div>
+      </div> -->
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold align">Fecha inicial:</label>
+        <input
+          nbInput
+          type="date"
+          [max]="today"
+          fullWidth
+          id="initial_report"
+          formControlName="initial_report"
+          initial_report
+          status="{{ isSubmitted && form.controls.initial_report.errors ? 'danger': isSubmitted ? 'success': 'basic' }}"/>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold align">Fecha final:</label>
+        <input
+          nbInput
+          type="date"
+          [max]="today"
+          (change)="onDatechange1($event)"
+          fullWidth
+          id="final_report"
+          formControlName="final_report"
+          final_report
+          status="{{ isSubmitted && form.controls.final_report.errors ? 'danger': isSubmitted ? 'success': 'basic' }}"/>
+      </div>
+    </div>
+
+    <div class="div-send">
+      <button
+        [disabled]="disabled"
+        type="submit"
+        nbButton
+        status="success"
+        (click)="exportAsXLSX()">DESCARGAR</button>
+    </div>
+  </div>
+</form>

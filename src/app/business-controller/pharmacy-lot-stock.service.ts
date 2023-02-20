@@ -78,6 +78,21 @@ export class PharmacyLotStockService {
         throw x.message;
       });
   }
+  updateInvAdjustment(pharmacy_lot_stock: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('pharmacy_lot_stock/updateInvAdjustment', pharmacy_lot_stock.id);
+    servObj.data = pharmacy_lot_stock;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('pharmacy_lot_stock', id);
@@ -111,4 +126,39 @@ export class PharmacyLotStockService {
         throw x.message;
       });
   }
+
+  getPharmacyId(): Promise<PharmacyLotStock[]> {
+    let servObj = new ServiceObject('pharmacy_lot_stock/pharmacies/');
+
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.pharmacy_lot_stock = <PharmacyLotStock[]>servObj.data.pharmacy_lot_stock;
+
+        return Promise.resolve(this.pharmacy_lot_stock);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  ViewInventory(params = {}): any {
+    let servObj = new ServiceObject('viewInventory');
+    return this.webAPI.GetAction(servObj, params)
+    .then(x => {
+      servObj = <ServiceObject>x;
+      if (!servObj.status)
+        throw new Error(servObj.message);
+
+      return Promise.resolve(servObj);
+    })
+    .catch(x => {
+      throw x.message;
+    });
+  }
+
+  
 }

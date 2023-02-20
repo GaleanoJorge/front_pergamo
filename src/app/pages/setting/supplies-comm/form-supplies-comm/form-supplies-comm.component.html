@@ -32,7 +32,7 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="unit_packing" class="form-text text-muted font-weight-bold">Unidades por empaque:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="unit_packing"
+          <input type='number'  oninput="this.value = this.value.toUpperCase()" nbInput fullWidth id="unit_packing"
             formControlName="unit_packing" unit_packing
             status="{{ isSubmitted && form.controls.unit_packing.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
@@ -91,7 +91,7 @@
 
         <div class="col-12 col-sm-12 col-md-6">
           <label for="refrigeration" class="form-text text-muted font-weight-bold">Vida utíl en meses:</label>
-          <input oninput="this.value = this.value.toUpperCase()" nbInput id="useful_life" fullWidth
+          <input  type='number'  oninput="this.value = this.value.toUpperCase()" nbInput id="useful_life" fullWidth
             formControlName="useful_life" useful_life type="number" min="0" pattern="^[0-9]+"
             status="{{ isSubmitted && form.controls.useful_life.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>

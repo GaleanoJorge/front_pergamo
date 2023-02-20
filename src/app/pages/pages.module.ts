@@ -29,6 +29,7 @@ import { BaseListComponent } from './components/base-list/base-list.component';
 import { BaseTableComponent } from './components/base-table/base-table.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { ChRecordSelectComponent } from './clinic-history/ch-record-list/ch-record-select/ch-record-select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StatusFieldComponent } from './components/status-field/status-field.component';
 import { BaseFormComponent } from './components/base-form/base-form.component';
@@ -60,6 +61,7 @@ import { AgreementPackageComponent } from './components/form-users/agreement-pac
 import { AdmissionsListComponent } from './admissions/admissions-list/admissions-list.component';
 import { DateFormatPipe } from '../pipe/date-format.pipe';
 import { CurrencyPipe } from '@angular/common';
+import { MulticalendarComponent } from './components/multicalendar/multicalendar.component';
 //import { ReferenceComponent } from './reference/reference.component';
 
 
@@ -112,6 +114,7 @@ import { CurrencyPipe } from '@angular/common';
     BaseListComponent,
     BaseTableComponent,
     ConfirmDialogComponent,
+    ChRecordSelectComponent,
     StatusFieldComponent,
     BaseFormComponent,
     FormUsersComponent,
@@ -123,6 +126,7 @@ import { CurrencyPipe } from '@angular/common';
     AmountWorkLocationComponent,
     SelectWorkLocationComponent,
     WorkLocationPackageComponent,
+    MulticalendarComponent,
     BillingPadComponent,
    // ReferenceComponent,
     SelectUsersCampusComponent,
@@ -145,6 +149,7 @@ import { CurrencyPipe } from '@angular/common';
     SelectWorkLocationComponent,
     SelectUsersCampusComponent,
     WorkLocationPackageComponent,
+    MulticalendarComponent,
     UsersCampusComponent,
     WebSpeachComponent,
     InsumeRequestComponent,

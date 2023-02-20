@@ -44,7 +44,7 @@
               {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
-        
+
         <div class="col-md-6">
           <label for="eps" class="form-text text-muted font-weight-bold">EPS / Asegurador:</label>
           <nb-select [selected]="this.data.eps" formControlName="eps" id="eps" fullWidth
@@ -74,15 +74,19 @@
               {{ (item.name).toUpperCase() }}</nb-option>
           </nb-select>
         </div>
-        <div class="col-md-6" *ngIf="this.form.value.admission_route_id==1 || this.form.value.scope_of_attention_id == 2">
+        <div class="col-md-6"
+          *ngIf="this.form.value.admission_route_id==1 || this.form.value.scope_of_attention_id == 2">
           <label for="procedure_id" class="form-text text-muted font-weight-bold">Procedimientos del portafolio:</label>
-          <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id" fullWidth
-            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <input fullWidth formControlName="procedure_id" nbInput type="text" placeholder="Selecciona procedimiento"
+            status="{{ isSubmitted && form.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"
+            [nbAutocomplete]="profControl" />
+
+          <nb-autocomplete #profControl (selectedChange)="onSelectionChange($event)">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
-              [value]="item.id">
-              {{ item.manual_price.own_code }} - {{ item.manual_price.name }}</nb-option>
-          </nb-select>
+            <nb-option *ngFor="let item of filteredProcedureOptionsApplied" [value]="this.getCompleteName(item)">
+              {{ item.manual_price.procedure.code }} - {{ item.manual_price.own_code }} - {{ item.manual_price.name }}
+            </nb-option>
+          </nb-autocomplete>
         </div>
         <div class="col-12 col-sm-12 col-md-6">
           <label for="regime" class="form-text text-muted font-weight-bold">Régimen:</label>
@@ -94,10 +98,8 @@
           </nb-select>
         </div>
         <div class="col-md-6" *ngIf="this.show_cats">
-          <label *ngIf="this.categories[0].payment_type == 1" for="category" class="form-text text-muted font-weight-bold">Cuota moderadora:</label>
-          <label *ngIf="this.categories[0].payment_type == 2" for="category" class="form-text text-muted font-weight-bold">Copago:</label>
-          <label *ngIf="this.categories[0].payment_type == 3
-          " for="category" class="form-text text-muted font-weight-bold">CUPS exento:</label>
+          <label for="category_id"
+            class="form-text text-muted font-weight-bold">{{categories[0].payment_type.name}}:</label>
           <nb-select [selected]="this.data.category" formControlName="category" id="category" fullWidth
             status="{{ isSubmitted && form.controls.category.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
@@ -107,8 +109,7 @@
         </div>
         <div class="col-md-6" *ngIf="this.show_cats">
           <label for="copay" class="form-text text-muted font-weight-bold">Valor:</label>
-          <input type="text" nbInput id="copay" formControlName="copay" copay
-            fullWidth>
+          <input type="text" nbInput id="copay" formControlName="copay" copay fullWidth>
         </div>
         <div class="col-md-6" *ngIf="this.show_inputs">
           <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
@@ -140,14 +141,13 @@
         </div>
         <div class="col-md-6" *ngIf="this.show_auth_inputs">
           <label for="auth_number" class="form-text text-muted font-weight-bold">Número de autorización:</label>
-          <input nbInput fullWidth id="auth_number"
-            formControlName="auth_number" auth_number
+          <input nbInput fullWidth id="auth_number" formControlName="auth_number" auth_number
             status="{{ isSubmitted && form.controls.auth_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
         </div>
         <div class="col-md-6" *ngIf="this.show_auth_inputs">
           <label for="bed" class="form-text text-muted font-weight-bold">Archivo de autorización:</label>
-          <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="file" nbInput fullWidth
-                (change)="changeImage($event.target.files, 1)" />
+          <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="file_auth" formControlName="file_auth" nbInput fullWidth
+            (change)="changeImage($event.target.files, 1)" />
         </div>
         <div class="col-md-6" *ngIf="this.form.value.scope_of_attention_id != 2">
           <label for="has_caregiver" class="form-text text-muted font-weight-bold">¿Tiene algún acompañante/responsable?

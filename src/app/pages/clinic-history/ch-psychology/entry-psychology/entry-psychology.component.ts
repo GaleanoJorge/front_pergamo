@@ -56,6 +56,13 @@ export class EntryPsychologyComponent implements OnInit {
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
+  public show1 = false;
+  public show2 = false;
+  public show3 = false;
+  public show4 = false;
+  public show5 = false;
+  public show6 = false;
+  public show7 = false;
 
 
   constructor(
@@ -97,6 +104,34 @@ export class EntryPsychologyComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.messageEvent.emit($event);
+    }
+  }
+
+  filterStepper($event){
+    return $event.target.textContent;
+  }
+
+
+  goto($event) {
+    let selectedStep =  this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Ex. Mental') {
+      this.show1 = true;
+    } else if (selectedStep == '3' || selectedStep == 'Pensamiento') {
+      this.show2 = true;
+    } else if (selectedStep == '4' || selectedStep == 'Lenguaje') {
+      this.show3 = true;
+    }
+    else if (selectedStep == '5' || selectedStep == 'Esfera Afectiva"') {
+      this.show4 = true;
+    }
+    else if (selectedStep == '6' || selectedStep == 'Fun. Sintesís') {
+      this.show5 = true;
+    }
+    else if (selectedStep == '7' || selectedStep == 'V. Multiaxial') {
+      this.show6 = true;
+    }
+    else if (selectedStep == '8' || selectedStep == 'Intervención') {
+      this.show7 = true;
     }
   }
 

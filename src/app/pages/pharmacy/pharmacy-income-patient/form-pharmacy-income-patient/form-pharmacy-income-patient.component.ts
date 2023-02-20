@@ -18,6 +18,7 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
   @Input() parentData: any;
   @Input() type: boolean = null;
   @Input() my_pharmacy_id: any = null;
+  @Input() pharmacy: any = null;
 
   public form: FormGroup;
   public isSubmitted: boolean = false;
@@ -47,7 +48,7 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
 
   async ngOnInit() {
     this.user = this.authService.GetUser();
-    if (this.data.services_briefcase.manual_price.supplies_id != null) {
+    if (this.data.product_supplies_id != null) {
       this.title = 'INSUMO COMERCIAL:';
       this.parentData = {
         selectedOptions: [],
@@ -113,8 +114,7 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
             id: this.data.id,
             observation: this.form.controls.observation.value,
             status: 'ACEPTADO FARMACIA',
-            own_pharmacy_stock_id: this.my_pharmacy_id,
-            // request_pharmacy_stock_id: this.data.own_pharmacy_stock_id,
+            own_pharmacy_stock_id: this.pharmacy == null ? this.my_pharmacy_id : this.my_pharmacy_id != this.pharmacy ? this.pharmacy : this.my_pharmacy_id,
             pharmacy_lot_stock_id: JSON.stringify(this.selectedOptions),
           }).then(x => {
             this.toastService.success('', x.message);
@@ -132,7 +132,7 @@ export class FormPharmacyIncomePatientComponent implements OnInit {
           this.pharProdReqS.Save({
             observation: this.form.controls.observation.value,
             status: 'ACEPTADO',
-            own_pharmacy_stock_id: this.my_pharmacy_id,
+            own_pharmacy_stock_id: this.pharmacy == null ? this.my_pharmacy_id : this.my_pharmacy_id != this.pharmacy ? this.pharmacy : this.my_pharmacy_id,
             request_pharmacy_stock_id: this.data.request_pharmacy_stock_id,
           }).then(x => {
             this.toastService.success('', x.message);

@@ -178,7 +178,7 @@ export class ConsentsInformedComponent implements OnInit {
       this.roles = x;
     }).catch(x => { });
     this.user_logged= this.authService.GetUser().id;
-      this.title = "Consentimientos Informados";
+      this.title = "Documentos adjuntos";
       this.entity="consents_informed_by_admissions/"+this.admission_id;
    
     if (this.admissions) {

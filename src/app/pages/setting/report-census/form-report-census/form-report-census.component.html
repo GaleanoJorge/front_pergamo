@@ -1,0 +1,59 @@
+<form [formGroup]="form">
+  <div>
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        <label class="form-text text-muted font-weight-bold center-text-center">GENERACIÓN DE REPORTE CENSO</label>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-12">
+        <label for="campus" class="form-text text-muted font-weight-bold">Sede:</label>
+        <nb-select formControlName="campus_id" id="campus_id" fullWidth (change)="saveCampus($event.target.value)"
+          status="{{ isSubmitted && form.controls.campus_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.campus_id }}" *ngFor="let item of campus" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+
+      <!-- <div class="col-12 col-sm-12 col-md-4">
+        <label for="flat" class="form-text text-muted font-weight-bold">Piso:</label>
+        <nb-select formControlName="flat_id" id="flat_id" fullWidth
+          status="{{ isSubmitted && form.controls.flat_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.flat_id }}" *ngFor="let item of flat_category" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-4">
+        <label for="pavilion" class="form-text text-muted font-weight-bold">Pabellón:</label>
+        <nb-select formControlName="pavilion_id" id="pavilion_id" fullWidth (change)="savePavilion($event.target.value)"
+          status="{{ isSubmitted && form.controls.pavilion_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+          <nb-option value="">Seleccione...</nb-option>
+          <nb-option selected="{{ item.id == data.pavilion_id }}" *ngFor="let item of pavilion_category" [value]="item.id">
+            {{ item.name }}</nb-option>
+        </nb-select>
+      </div> -->
+
+      <!-- <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold align">Apartir de:</label>
+        <input nbInput type="date" [max]="today" (change)="onDatechange1($event)" fullWidth id="initial_report"
+          formControlName="initial_report" initial_report
+          status="{{isSubmitted && form.controls.initial_report.errors? 'danger' : isSubmitted? 'success' : 'basic'}}" />
+      </div> -->
+
+      <!-- <div class="col-12 col-sm-12 col-md-4">
+        <label class="form-text text-muted font-weight-bold align">Fecha Final:</label>
+        <input nbInput type="date" [max]="today" (change)="onDatechange1($event)" fullWidth id="final_report"
+          formControlName="final_report" final_report
+          status="{{isSubmitted && form.controls.final_report.errors? 'danger' : isSubmitted? 'success' : 'basic'}}" />
+      </div> -->
+    </div>
+
+    <div class="div-send">
+      <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsPDF()">PDF</button>
+      <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsXLSX()">EXCEL</button>
+      <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsPDFGeneral()" style="float: right">GENERAL</button>
+    </div>
+  </div>
+</form>

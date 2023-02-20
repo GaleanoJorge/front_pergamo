@@ -50,11 +50,12 @@ export class RespiratoryTherapyListComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public currentRole: any;
-  public show: any;
   public signatureImage: string;
   public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false;
-
+  public show1 = false;
+  public show2 = false;
+  
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
   }
@@ -174,7 +175,7 @@ export class RespiratoryTherapyListComponent implements OnInit {
           }
           return Promise.resolve(true);
         }).catch(x => {
-          this.toastService.danger('', x);
+          this.showToast(10000, x);
           return Promise.resolve(false);
         });
         return Promise.resolve(response);
@@ -189,6 +190,13 @@ export class RespiratoryTherapyListComponent implements OnInit {
       return false;
     }
 
+  }
+
+  showToast(duration, m) {
+    this.toastService.warning(
+        '',
+        m,
+        { duration });
   }
 
 
@@ -221,11 +229,11 @@ export class RespiratoryTherapyListComponent implements OnInit {
     console.log(e.tabTitle);
     switch (e.tabTitle) {
       case "INGRESO": {
-        this.show = 1;
+        this.show1 = true;
         break;
       }
       case "REGULAR": {
-        this.show = 2;
+        this.show2 = true;
         break;
       }
     }

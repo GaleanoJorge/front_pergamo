@@ -17,7 +17,6 @@ export class EditPatientComponent implements OnInit {
   public loading = true;
   public data = null;
 
-
   @ViewChild('form') form: FormUsersComponent;
 
   constructor(

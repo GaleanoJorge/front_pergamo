@@ -82,13 +82,20 @@ export class FormValorationOTComponent implements OnInit {
   }
 
   saveCode(e): void {
-    var localidentify = this.diagnosis.find(item => item.name == e);
-    if (localidentify) {
-      this.ch_diagnosis_id = localidentify.id;
+    if (this.diagnosis) {
+      var localidentify = this.diagnosis.find(item => item.name == e);
+  
+      if (localidentify) {
+        this.ch_diagnosis_id = localidentify.id;
+      } else {
+        this.ch_diagnosis_id = null;
+        this.toastService.warning('', 'Debe seleccionar un item de la lista');
+        this.form.controls.ch_diagnosis_id.setErrors({ 'incorrect': true });
+      }
     } else {
       this.ch_diagnosis_id = null;
-      this.form.controls.ch_diagnosis_id.setErrors({ 'incorrect': true });
       this.toastService.warning('', 'Debe seleccionar un item de la lista');
+      this.form.controls.ch_diagnosis_id.setErrors({ 'incorrect': true });
     }
   }
 

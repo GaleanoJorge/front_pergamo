@@ -1,0 +1,39 @@
+<input fullWidth nbInput type="text" id="selectedValues" class="date-values" readonly />
+<div style="min-width: 300px; width: 300px; position:absolute; z-index:9; font-family: 'arial';">
+  <div id="parent" class="container" style="display:none; background-color: rgba(111, 209, 214, 0.9);">
+    <div class="row header-row" style="background-color: #54bcc1;">
+      <div class="col-xs previous">
+        <a id="previous" (click)="previous()">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="card-header month-selected col-sm" id="monthAndYear">
+      </div>
+      <div class="col-sm">
+        <select class="form-control col-xs-6" name="month" id="month" (change)="change()"></select>
+      </div>
+      <div class="col-sm">
+        <select class="form-control col-xs-6" name="year" id="year" (change)="change()"></select>
+      </div>
+      <div class="col-xs next">
+        <a id="next" (click)="next()">
+          <i class="fa fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+    <table id="calendar" style="text-align: center; background-color: white;">
+      <thead>
+        <tr>
+          <th>D</th>
+          <th>L</th>
+          <th>M</th>
+          <th>X</th>
+          <th>J</th>
+          <th>V</th>
+          <th>S</th>
+        </tr>
+      </thead>
+      <tbody id="calendarBody"></tbody>
+    </table>
+  </div>
+</div>

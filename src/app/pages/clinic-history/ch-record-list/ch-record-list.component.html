@@ -6,7 +6,7 @@
     <ngx-base-table [title]="title" [subtitle]="subtitle" customData="ch_record" [settings]="settings"
       [entity]="this.entity" [messageToltip]="messageToltip">
       <div title *ngIf="user">
-        <p class="parrafo" ><b>CÉDULA:</b> {{user.identification}} </p>
+        <p class="parrafo" ><b>IDENTIFICACIÓN:</b> {{user.identification}} </p>
         <p class="parrafo"><b>NOMBRE:</b>  {{user.nombre_completo}}</p>
         <p class="parrafo"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}} </p>
         <p class="parrafo" ><b>EDAD:</b> {{user.age}} </p>
@@ -37,7 +37,7 @@
       <div actions>
         <div class="actions">
           <button nbButton (click)="back()" >Volver</button>
-          <button *ngIf="showButtom==true"  nbButton status="danger" (click)="NewChRecord()">Crear</button>
+          <button *ngIf="showButtom==true"  nbButton status="danger" (click)="CreateChRecord()">Crear</button>
         </div>
         <div class="actions" >
           <div *ngIf="user && ((this.currentRole.id == 8 || this.currentRole.id == 9) && this.actual_location.flat)" class="actions" style="margin-top: 5px;">

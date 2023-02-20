@@ -80,7 +80,7 @@ export class FormProductComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.compose([Validators.required])],
       factory_id: [this.data.factory_id, Validators.compose([Validators.required])],
-      product_generic_id: [this.product_id, Validators.compose([Validators.required])],
+      product_generic_id: [this.data.product_generic ? this.data.product_generic.description : this.data.product_generic_id, Validators.compose([Validators.required])],
       invima_registration: [this.data.invima_registration, Validators.compose([Validators.required])],
       invima_status_id: [this.data.invima_status_id, Validators.compose([Validators.required])],
       sanitary_registration_id: [this.data.sanitary_registration_id, Validators.compose([Validators.required])],
@@ -156,7 +156,6 @@ export class FormProductComponent implements OnInit {
     }
   }
 
-
   save() {
     this.isSubmitted = true;
     if (!this.form.invalid) {
@@ -166,7 +165,7 @@ export class FormProductComponent implements OnInit {
           id: this.data.id,
           name: this.form.controls.name.value,
           factory_id: this.form.controls.factory_id.value,
-          product_generic_id: this.product_id,
+          product_generic_id: this.data.product_generic_id,
           invima_registration: this.form.controls.invima_registration.value,
           invima_status_id: this.form.controls.invima_status_id.value,
           sanitary_registration_id: this.form.controls.sanitary_registration_id.value,

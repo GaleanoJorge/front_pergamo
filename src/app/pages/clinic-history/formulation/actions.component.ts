@@ -5,6 +5,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AdmissionsService } from '../../../business-controller/admissions.service';
 import { ChRecordService } from '../../../business-controller/ch_record.service';
 import { ChFormulationService } from '../../../business-controller/ch-formulation.service';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   template: `
@@ -13,12 +14,20 @@ import { ChFormulationService } from '../../../business-controller/ch-formulatio
     <button nbTooltip="Formula médica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewFormulation()" >
       <nb-icon icon="file-add"></nb-icon>
     </button>
-    <button nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
+    <button *ngIf="!this.value.data.suspended" nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
     </button>
-    <button *ngIf="this.value.data.product_generic || this.value.data.product_supplies" nbTooltip="Duplicar Formulación" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="showFormulations(formulations)">
+    <button *ngIf="!this.value.data.suspended && (this.value.data.product_generic || this.value.data.product_supplies)" nbTooltip="Duplicar Formulación" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="showFormulations(formulations)">
         <nb-icon icon="copy-outline"></nb-icon>
     </button>
+    <button *ngIf="!this.value.data.suspended && this.value.data.oxigen_administration_way_id" nbTooltip="Suspender" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="ConfirmDialog(this.value.data)">
+        <nb-icon icon="close-outline"></nb-icon>
+    </button>
+
+    <div *ngIf="this.value.data.suspended" style=" background-color: #FF0000; " nbTooltip="Suspendido" 
+      class = "cuadro" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost >
+        
+    </div>
 
   </div>
 
@@ -29,7 +38,7 @@ import { ChFormulationService } from '../../../business-controller/ch-formulatio
           this.value.data.product_generic.description :
           this.value.data.product_supplies.description }}</nb-card-header>
         <nb-card-body>
-          <div class="col-md-12">
+          <div *ngIf="this.value.data.medical_formula == 0" class="col-md-12">
 
             <label for="send_formulation" class="form-text text-muted font-weight-bold">ENVIAR SOLICITUD A
               FARMACIA</label>
@@ -48,11 +57,12 @@ import { ChFormulationService } from '../../../business-controller/ch-formulatio
     </form>
   </ng-template>
   `,
+  styleUrls: ['./formulation.component.scss'],
 })
 export class ActionsFormulationComponent implements ViewCell {
   @Input() value: any;    // This hold the cell value
   @Input() rowData: any;  // This holds the entire row object
-  
+
   public dialog;
   public status: boolean;
   public medical: boolean;
@@ -196,5 +206,29 @@ export class ActionsFormulationComponent implements ViewCell {
         this.loading = false;
         this.toastService.danger('', x);
       });
+  }
+
+  ConfirmDialog(data) {
+    this.dialogService.open(ConfirmDialogComponent, {
+      context: {
+        title: 'Suspender Medicamento',
+        textConfirm: 'Suspender',
+        body: 'Este proceso es irreversible, ¿estas seguro?\nSe suspenderán todas las formulaciones de este medicamento',
+        name: data.name,
+        data: data,
+        delete: this.suspendFormulation.bind(this),
+      },
+    });
+  }
+
+  suspendFormulation(data) {
+    return this.ChFormulationS.SuspendFormulations(data.id, {}).then(x => {
+      if (this.value.refresh) {
+        this.value.refresh();
+      }
+      return Promise.resolve(x.message);
+    }).catch((x) => {
+      throw x;
+    });
   }
 }

@@ -46,7 +46,6 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
   public user;
   public nameForm: String;
   public movieForm: String;
-  public show: any;
   public signatureImage: string;
   public currentRole: any;
   public own_user;
@@ -81,6 +80,10 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
+  public show = [];
+  public show1 = false;
+  public show2 = false;
+  public show3 = false;
 
 
   constructor(
@@ -121,7 +124,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
     this.chRecord.GetCollection({
       record_id: this.record_id
     }).then(x => {
-      this.redo = x[0]['assigned_management_plan'] ? x[0]['assigned_management_plan']['redo'] == 0 ? false : true: false;
+      this.redo = x[0]['assigned_management_plan'] ? x[0]['assigned_management_plan']['redo'] == 0 ? false : true : false;
       this.has_input = x[0]['has_input']; // se añade el resultado de la variable has_input
       if (this.has_input == true) { // si tiene ingreso se pone como true la variable que valida si ya se realizó el registro de ingreso para dejar finalizar la HC
         this.input_done = true;
@@ -136,85 +139,85 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
     }
 
 
-    this.ChEValorationFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chftvaloration = x;
+    // this.ChEValorationFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chftvaloration = x;
 
-    });
+    // });
 
-    this.ChEValorationTherFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chftvalorationTher = x;
+    // this.ChEValorationTherFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chftvalorationTher = x;
 
-    });
+    // });
 
-    this.ChEPainFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chpain = x;
+    // this.ChEPainFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chpain = x;
 
-    });
+    // });
 
-    this.ChESysIntegumentaryFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chsysintegumentary = x;
+    // this.ChESysIntegumentaryFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chsysintegumentary = x;
 
-    });
+    // });
 
-    this.ChESysMusculoskeletalFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chsysmusculoskeletal = x;
+    // this.ChESysMusculoskeletalFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chsysmusculoskeletal = x;
 
-    });
+    // });
 
-    this.ChEMuscularStrengthFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chmuscularstrength = x;
+    // this.ChEMuscularStrengthFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chmuscularstrength = x;
 
-    });
+    // });
 
-    this.ChESensibilityFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chsensibility = x;
+    // this.ChESensibilityFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chsensibility = x;
 
-    });
+    // });
 
-    this.ChEMuscularToneFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chmusculartone = x;
+    // this.ChEMuscularToneFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chmusculartone = x;
 
-    });
+    // });
 
-    this.ChEReflectionFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chreflection = x;
+    // this.ChEReflectionFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chreflection = x;
 
-    });
+    // });
 
-    this.ChEFlexibilityFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chflexibility = x;
+    // this.ChEFlexibilityFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chflexibility = x;
 
-    });
+    // });
 
-    this.ChEBalanceFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chbalance = x;
+    // this.ChEBalanceFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chbalance = x;
 
-    });
+    // });
 
-    this.ChEPositionFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chposition = x;
+    // this.ChEPositionFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chposition = x;
 
-    });
+    // });
 
-    this.ChEMarchFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chmarch = x;
+    // this.ChEMarchFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chmarch = x;
 
-    });
+    // });
 
-    this.ChEDiagnosisFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chdiagnosis = x;
+    // this.ChEDiagnosisFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chdiagnosis = x;
 
-    });
+    // });
 
-    this.ChETherGoalsFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chthergoals = x;
+    // this.ChETherGoalsFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chthergoals = x;
 
-    });
+    // });
 
-    this.ChEWeeklyFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chweekly = x;
+    // this.ChEWeeklyFTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chweekly = x;
 
-    });
+    // });
 
 
 
@@ -304,7 +307,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
   // }
 
   async finish(firm) {
-    if(this.admission.location[this.admission.location.length -1].admission_route_id != 1 ? !this.redo ? this.signatureImage!=null : true : true){
+    if (this.admission.location[this.admission.location.length - 1].admission_route_id != 1 ? !this.redo ? this.signatureImage != null : true : true) {
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');
@@ -312,11 +315,11 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
       formData.append('role', this.currentRole);
       formData.append('user_id', this.own_user.id);
       formData.append('firm_file', this.signatureImage);
-      
+
       try {
 
         let response;
-        
+
         response = await this.chRecord.UpdateCH(formData, this.record_id).then(x => {
           this.location.back();
           this.toastService.success('', x.message);
@@ -326,7 +329,7 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
           }
           return Promise.resolve(true);
         }).catch(x => {
-          this.toastService.danger('', x);
+          this.showToast(10000, x);
           return Promise.resolve(false);
         });
         return Promise.resolve(response);
@@ -336,11 +339,18 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
         this.loading = false;
         throw new Error(response);
       }
-    }else{
+    } else {
       this.toastService.danger('Debe diligenciar la firma');
       return false;
     }
 
+  }
+
+  showToast(duration, m) {
+    this.toastService.warning(
+      '',
+      m,
+      { duration });
   }
 
   RefreshData() {
@@ -360,16 +370,16 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
 
   tablock(e) {
     switch (e.tabTitle) {
-      case "INGRESO 1": {
-        this.show = 1;
+      case "INGRESO PARTE 1": {
+        this.show1 = true;
         break;
       }
-      case "INGRESO 2": {
-        this.show = 2;
+      case "INGRESO PARTE 2": {
+        this.show2 = true;
         break;
       }
       case "NOTA REGULAR": {
-        this.show = 3;
+        this.show3 = true;
         break;
       }
     }
@@ -390,5 +400,69 @@ export class ClinicHistoryPhysicTherapy implements OnInit {
   inputMessage($event) {
     this.input_done = true;
   }
-}
 
+  filterStepper($event) {
+    return $event.target.textContent;
+  }
+
+
+  goto1($event) {
+    let selectedStep = this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Antecedentes') {
+      this.show[1] = true;
+    } else if (selectedStep == '3' || selectedStep == 'Signos Vitales') {
+      this.show[2] = true;
+    } else if (selectedStep == '4' || selectedStep == 'Valoración Terapéutica') {
+      this.show[3] = true;
+    } else if (selectedStep == '5' || selectedStep == 'Dolor') {
+      this.show[4] = true;
+    }else if (selectedStep == '6' || selectedStep == 'Sistema Tegumentario') {
+      this.show[5] = true;
+    } else if (selectedStep == '7' || selectedStep == 'Sistema Musculoesqueletico') {
+      this.show[6] = true;
+    } else if (selectedStep == '8' || selectedStep == 'Fuerza Muscular') {
+      this.show[7] = true;
+    } else if (selectedStep == '9' || selectedStep == 'Sensibilidad') {
+      this.show[8] = true;
+  }
+
+}
+  goto2($event) {
+    let selectedStep = this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Reflejos') {
+      this.show[9] = true;
+    } else if (selectedStep == '3' || selectedStep == 'Flexibilidad') {
+      this.show[10] = true;
+    } else if (selectedStep == '4' || selectedStep == 'Equilibrio') {
+      this.show[11] = true;
+    } else if (selectedStep == '5' || selectedStep == 'Postura (Observación)') {
+      this.show[12] = true;
+    }else if (selectedStep == '6' || selectedStep == 'Marcha') {
+      this.show[13] = true;
+    } else if (selectedStep == '7' || selectedStep == 'Diagnostico CIF') {
+      this.show[14] = true;
+    } else if (selectedStep == '8' || selectedStep == 'Objetivos Terapeuticos') {
+      this.show[15] = true;
+    } else if (selectedStep == '9' || selectedStep == 'Sesiones Semanales') {
+      this.show[16] = true;
+  }
+}
+  gotoR($event) {
+    let selectedStep = this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Signos Vitales') {
+      this.show[17] = true;
+    } else if (selectedStep == '3' || selectedStep == 'Objetivos Terapeuticos') {
+      this.show[18] = true;
+    } else if (selectedStep == '4' || selectedStep == 'Intervencion') {
+      this.show[19] = true;
+    } else if (selectedStep == '5' || selectedStep == 'Materiales') {
+      this.show[20] = true;
+    }else if (selectedStep == '6' || selectedStep == 'Diagnostico CIF') {
+      this.show[21] = true;
+    } else if (selectedStep == '7' || selectedStep == 'Sesiones Mensuales') {
+      this.show[22] = true;
+    } else if (selectedStep == '8' || selectedStep == 'Recomendaciones') {
+      this.show[23] = true;
+    } 
+}
+}

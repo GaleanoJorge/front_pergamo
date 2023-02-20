@@ -2,38 +2,74 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper [linear]="linearMode">
+        <nb-stepper #stepper [linear]="linearMode" (click)="goto($event)">
 
           <nb-step [stepControl]="nameForm" label="Valoración">
-            <ngx-ps-assessment [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-assessment>
+            <ngx-ps-assessment [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"
+              [type_record_id]="type_record_id"></ngx-ps-assessment>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Ex. Mental">
-            <ngx-ps-mental-exam [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-mental-exam>
+            <div class="row" *ngIf="this.show1">
+              <div class="col-md-12">
+                <ngx-ps-mental-exam [record_id]="record_id" (messageEvent)="receiveMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-ps-mental-exam>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Pensamiento">
-            <ngx-ps-thought [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-thought>
+            <div class="row" *ngIf="this.show2">
+              <div class="col-md-12">
+                <ngx-ps-thought [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"
+                  [type_record_id]="type_record_id"></ngx-ps-thought>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Lenguaje">
-            <ngx-ps-language [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-language>
+            <div class="row" *ngIf="this.show3">
+              <div class="col-md-12">
+                <ngx-ps-language [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"
+                  [type_record_id]="type_record_id"></ngx-ps-language>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Esfera Afectiva">
-            <ngx-ps-sphere [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-sphere>
+            <div class="row" *ngIf="this.show4">
+              <div class="col-md-12">
+                <ngx-ps-sphere [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"
+                  [type_record_id]="type_record_id"></ngx-ps-sphere>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Fun. Sintesís">
-            <ngx-ps-synthesis [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-synthesis>
+            <div class="row" *ngIf="this.show5">
+              <div class="col-md-12">
+                <ngx-ps-synthesis [record_id]="record_id" (messageEvent)="receiveMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-ps-synthesis>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="V. Multiaxial">
-            <ngx-ps-multiaxial [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-multiaxial>
+            <div class="row" *ngIf="this.show6">
+              <div class="col-md-12">
+                <ngx-ps-multiaxial [record_id]="record_id" (messageEvent)="receiveMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-ps-multiaxial>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Intervención">
-            <ngx-ps-intervention [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-ps-intervention>
+            <div class="row" *ngIf="this.show7">
+              <div class="col-md-12">
+                <ngx-ps-intervention [record_id]="record_id" (messageEvent)="receiveMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-ps-intervention>
+              </div>
+            </div>
           </nb-step>
 
 

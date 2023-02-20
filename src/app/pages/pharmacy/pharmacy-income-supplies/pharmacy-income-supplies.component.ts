@@ -5,7 +5,7 @@ import { PharmacyProductRequestService } from '../../../business-controller/phar
 import { UserPharmacyStockService } from '../../../business-controller/user-pharmacy-stock.service';
 import { AuthService } from '../../../services/auth.service';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component'; 
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { ActionsSupComponent } from './actions.component';
 import { FormPharmacyIncomeSuppliesComponent } from './form-pharmacy-income-supplies/form-pharmacy-income-supplies.component';
 
@@ -25,11 +25,12 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
   public headerFields: any[] = ['CONSECUTIVO', 'INSUMO ENVIADO POR', 'INSUMO GENERICO', 'CANTIDAD A RECIBIR'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
-  public validator ;
+  public validator;
   public user;
   public my_pharmacy_id;
   public entity;
   public pharmacy_stock;
+  public pharmacy;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -95,7 +96,7 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
     this.invS.GetPharmacyByUserId(this.user.id, {}).then(x => {
       if (x.length > 0) {
         this.my_pharmacy_id = x[0].id;
-        this.entity = 'pharmacy_product_request?product=' + 2 + '&status=ENVIADO FARMACIA'  + '&request_pharmacy_stock_id=' + x[0].id ;
+        this.entity = 'pharmacy_product_request?product=' + 2 + '&status=ENVIADO FARMACIA' + '&request_pharmacy_stock_id=' + x[0].id;
         this.title = 'ACEPTAR INSUMOS ENVIADOS A:  ' + x[0]['name'];
       }
     });
@@ -115,12 +116,14 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
   }
 
   ChangePharmacy(pharmacy) {
-    if(pharmacy==0){
-      this.table.changeEntity('pharmacy_product_request?product=' + 2 + '&status=ENVIADO FARMACIA'  + '&own_pharmacy_stock_id=' + this.my_pharmacy_id,'pharmacy_product_request');
-
-    }else{
-
-      this.table.changeEntity('pharmacy_product_request?product=' + 2 + '&status=ENVIADO FARMACIA'  + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+    if (pharmacy == 0) {
+      this.table.changeEntity('pharmacy_product_request?product=' + 2 + '&status=ENVIADO FARMACIA' + '&request_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
+      this.title = 'ACEPTAR INSUMOS ENVIADOS A: ' + this.my_pharmacy_id;
+    } else {
+      this.pharmacy = pharmacy;
+      this.table.changeEntity('pharmacy_product_request?product=' + 2 + '&status=ENVIADO FARMACIA' + '&request_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+      let aaa = (this.pharmacy_stock.find(item => { return item.pharmacy_stock_id == this.pharmacy }).pharmacy.name);
+      this.title = 'ACEPTAR INSUMOS ENVIADOS A: ' + aaa;
     }
     // this.RefreshData();
   }
@@ -132,6 +135,7 @@ export class PharmacyIncomeSuppliesComponent implements OnInit {
         title: 'Aceptar Insumo',
         data: data,
         my_pharmacy_id: this.my_pharmacy_id,
+        pharmacy: this.pharmacy,
         saved: this.RefreshData.bind(this),
       },
     });

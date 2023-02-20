@@ -1,22 +1,20 @@
-import {Injectable} from '@angular/core';
-import {WebAPIService} from './web-api.service';
-import {ServiceObject} from '../models/service-object';
-import {Auth} from '../models/auth';
-import {UserOrigin} from '../models/user-origin';
-import {Origin} from '../models/origin';
-import {User} from '../models/user';
+import { Injectable } from '@angular/core';
+import { WebAPIService } from './web-api.service';
+import { ServiceObject } from '../models/service-object';
+import { Auth } from '../models/auth';
+import { UserOrigin } from '../models/user-origin';
+import { Origin } from '../models/origin';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-
   private token: Auth;
   // private tokenMipres: AuthMiPres;
   private userOrigin: UserOrigin;
 
-  constructor(private webAPI: WebAPIService) {
-  }
+  constructor(private webAPI: WebAPIService) {}
 
   // Login(username, password): Promise<ServiceObject> {
   //   var token = null;
@@ -30,7 +28,6 @@ export class AuthService {
   //         throw new Error(servObj.message);
   //         this.SaveToken(servObj.data);
 
-
   //       return Promise.resolve(servObj);
   //     })
   //     .catch(x => {
@@ -40,50 +37,51 @@ export class AuthService {
 
   Login(username, password): Promise<ServiceObject> {
     var servObj = new ServiceObject('login');
-    servObj.data = {username: username, password: password};
-    return this.webAPI.Login(servObj)
-      .then(x => {
+    servObj.data = { username: username, password: password };
+    return this.webAPI
+      .Login(servObj)
+      .then((x) => {
         servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
+        if (!servObj.status) throw new Error(servObj.message);
 
         this.SaveToken(servObj.data);
         return Promise.resolve(servObj);
       })
-      .catch(x => {
+      .catch((x) => {
         throw x.status == 401 ? x.error.msg : 'Error en el servidor';
       });
   }
 
   Profile(username, password): Promise<ServiceObject> {
     var servObjPRO = new ServiceObject('oauth2.0/profile');
-    return this.webAPI.profileCAS(servObjPRO)
-      .then(x => {
-
+    return this.webAPI
+      .profileCAS(servObjPRO)
+      .then((x) => {
         servObjPRO = <ServiceObject>x;
 
-
         return Promise.resolve(servObjPRO);
-      }).catch(x => {
+      })
+      .catch((x) => {
         throw x.status == 401 ? x.error.msg : 'Error en el servidor';
       });
-
   }
 
   APIToken(username, password, id): Promise<ServiceObject> {
     var servObjAPI = new ServiceObject('loginJWH');
-    servObjAPI.data = {id: id, username: username, password: password};
+    servObjAPI.data = { id: id, username: username, password: password };
     console.log(servObjAPI);
-    return this.webAPI.LoginAPI(servObjAPI).then(x => {
-      servObjAPI = <ServiceObject>x;
-      this.SaveToken(servObjAPI.data);
+    return this.webAPI
+      .LoginAPI(servObjAPI)
+      .then((x) => {
+        servObjAPI = <ServiceObject>x;
+        this.SaveToken(servObjAPI.data);
 
-      return Promise.resolve(servObjAPI);
-    }).catch(x => {
-      throw x.status == 401 ? x.error.msg : 'Error en el servidor';
-    });
-
-  }
+        return Promise.resolve(servObjAPI);
+      })
+      .catch((x) => {
+        throw x.status == 401 ? x.error.msg : 'Error en el servidor';
+      });
+  }z
 
   // APITokenMipress(token_type?): Promise<ServiceObject> {
   //   var servObjAPI = new ServiceObject('GenerarToken');
@@ -102,16 +100,16 @@ export class AuthService {
 
   ResetPassword(username: string): Promise<ServiceObject> {
     var servObj = new ServiceObject('forgot');
-    servObj.data = {username: username};
-    return this.webAPI.PostAction(servObj)
-      .then(x => {
+    servObj.data = { username: username };
+    return this.webAPI
+      .PostAction(servObj)
+      .then((x) => {
         servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
+        if (!servObj.status) throw new Error(servObj.message);
 
         return Promise.resolve(x);
       })
-      .catch(x => {
+      .catch((x) => {
         throw x.message;
       });
   }
@@ -134,7 +132,7 @@ export class AuthService {
   // }
 
   GetToken(): Auth {
-
+    
     this.token = {
       access_token: localStorage.getItem('access_token'),
       token_type: localStorage.getItem('token_type'),
@@ -204,15 +202,15 @@ export class AuthService {
   ResetPasswordForToken(data) {
     let servObj = new ServiceObject('public/password/reset');
     servObj.data = data;
-    return this.webAPI.PostAction(servObj)
-      .then(x => {
+    return this.webAPI
+      .PostAction(servObj)
+      .then((x) => {
         servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
+        if (!servObj.status) throw new Error(servObj.message);
 
         return Promise.resolve(x);
       })
-      .catch(x => {
+      .catch((x) => {
         throw x;
       });
   }

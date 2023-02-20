@@ -61,6 +61,7 @@ export class FormUsersComponent implements OnInit {
   @Input() isStudent = null;
   @Input() isTH = null;
   @Input() edit_own_info: boolean = false;
+  @Input() isCheckingIn = false;
   @Output() messageEvent = new EventEmitter<any>();
 
 
@@ -138,7 +139,7 @@ export class FormUsersComponent implements OnInit {
   public own_user: any = null;
   public int = 0;
 
-
+  
 
 
   constructor(
@@ -572,6 +573,10 @@ export class FormUsersComponent implements OnInit {
       this.form.controls['identification'].disable();
     }
 
+    if(this.isCheckingIn){
+      this.form.controls.email.setValidators(Validators.compose([Validators.required]));
+    }
+
     this.onChanges();
 
   }
@@ -965,9 +970,6 @@ export class FormUsersComponent implements OnInit {
 
         this.form.get('num2').setValidators(Validators.required);
         this.form.controls.num2.updateValueAndValidity();
-
-        this.form.get('residence_address_cardinality').setValidators(Validators.required);
-        this.form.controls.residence_address_cardinality.updateValueAndValidity();
         //this.form.get('inability_id').updateValueAndValidity();
       } else {
 
@@ -1000,9 +1002,6 @@ export class FormUsersComponent implements OnInit {
 
         this.form.controls.num2.clearValidators();
         this.form.controls.num2.setErrors(null);
-
-        this.form.controls.residence_address_cardinality.clearValidators();
-        this.form.controls.residence_address_cardinality.setErrors(null);
 
       }
     });

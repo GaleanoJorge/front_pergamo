@@ -23,7 +23,17 @@ export class PharmacyRequestPatientComponent implements OnInit {
 
   public title: string = 'MEDICAMENTOS SOLICITADOS';
   public subtitle: string = '';
-  public headerFields: any[] = ['CONSECUTIVO', 'SOLICITANTE', 'NOMBRE PACIENTE', 'DOCUMENTO PACIENTE', 'PRODUCTO', 'CANTIDAD', 'FECHA DE SOLICITUD'];
+  public headerFields: any[] = [
+    /*00*/'CONSECUTIVO',
+    /*01*/'SOLICITANTE',
+    /*02*/'NOMBRE PACIENTE',
+    /*03*/'DOCUMENTO PACIENTE',
+    /*04*/'PRODUCTO',
+    /*05*/'CANTIDAD',
+    /*06*/'FECHA DE SOLICITUD',
+    /*07*/'SEDE',
+    /*08*/'PABELLÓN',
+  ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]},${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -31,6 +41,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
   public my_pharmacy_id;
   public entity;
   public pharmacy_stock;
+  public pharmacy;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public settings = {
@@ -71,14 +82,44 @@ export class PharmacyRequestPatientComponent implements OnInit {
         title: this.headerFields[2],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return value.patients.nombre_completo;
+          if (value) {
+            return value.patients.nombre_completo;
+          } else {
+            return '--';
+          }
         },
       },
       identification: {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return row.admissions.patients.identification;
+          if (row.admissions) {
+            return row.admissions.patients.identification;
+          } else {
+            return '--';
+          }
+        },
+      },
+      campus: {
+        title: this.headerFields[7],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.pavilion) {
+            return row.pavilion.flat.campus.name;
+          } else {
+            return '--';
+          }
+        },
+      },
+      pavilion: {
+        title: this.headerFields[8],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.pavilion) {
+            return row.pavilion.name;
+          } else {
+            return '--';
+          }
         },
       },
       services_briefcase: {
@@ -87,6 +128,8 @@ export class PharmacyRequestPatientComponent implements OnInit {
         valuePrepareFunction: (value, row) => {
           if (value != null) {
             return value.manual_price.name;
+          } else if (row.product_supplies == null) {
+            return row.product_generic.description;
           } else {
             return row.product_supplies.description;
           }
@@ -137,10 +180,12 @@ export class PharmacyRequestPatientComponent implements OnInit {
   ChangePharmacy(pharmacy) {
     if (pharmacy == 0) {
       this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
-
+      this.title = 'SOLICITUDES DE MEDICAMENTOS A: ' + this.my_pharmacy_id;
     } else {
-
+      this.pharmacy = pharmacy;
       this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+      let aaa = (this.pharmacy_stock.find(item => {return item.pharmacy_stock_id==this.pharmacy}).pharmacy.name);
+      this.title = 'SOLICITUDES DE MEDICAMENTOS A: ' + aaa;
     }
     // this.RefreshData();
   }
@@ -163,6 +208,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
         data: data,
         user: this.user,
         my_pharmacy_id: this.my_pharmacy_id,
+        pharmacy: this.pharmacy,
         saved: this.RefreshData.bind(this),
       },
     });

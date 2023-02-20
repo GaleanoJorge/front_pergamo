@@ -15,6 +15,8 @@ export class ChNutritionRegularNoneComponent implements OnInit {
   @Input() data: any = null;
   @Input() user_id: any = null;
   @Input() record_id: any = null;
+  @Input() nutrition: boolean = false;
+
 
   linearMode = false;
   public form: FormGroup;
@@ -24,6 +26,9 @@ export class ChNutritionRegularNoneComponent implements OnInit {
   public loading: boolean = false;
   public messageError = null;
   public weight: any = null;
+  public show1 = false;
+  public show2 = false;
+  public show3 = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,5 +43,20 @@ export class ChNutritionRegularNoneComponent implements OnInit {
     if (event.name === 'weight') {
       this.weight = event.value;
     }
+  }
+  filterStepper($event) {
+    return $event.target.textContent;
+  }
+
+
+  goto($event) {
+    let selectedStep = this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Cálculos de Nutrición Parenteral') {
+      this.show1 = true;
+    } else if (selectedStep == '3' || selectedStep == 'Análisis e Interpretación') {
+      this.show2 = true;
+    } else if (selectedStep == '4' || selectedStep == 'Recomendaciones / Educación"') {
+      this.show3 = true;
+    } 
   }
 }

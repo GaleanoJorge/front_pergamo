@@ -7,7 +7,7 @@
       entity="ch_record/byInterconsultation/{{admissions_id}}/{{ch_interconsultation_id}}?user_id={{own_user.id}}"
       [messageToltip]="messageToltip">
       <div title *ngIf="user">
-        <p class="parrafo"><b>CÉDULA:</b> {{user.identification}} </p>
+        <p class="parrafo"><b>IDENTIFICACIÓN:</b> {{user.identification}} </p>
         <p class="parrafo"><b>NOMBRE:</b> {{user.nombre_completo}}</p>
         <p class="parrafo"><b>FECHA DE NACIMIENTO:</b> {{this.datePipe.transform3(user.birthday)}} </p>
         <p class="parrafo"><b>EDAD:</b> {{user.age}} </p>
@@ -43,7 +43,7 @@
         </div>
 
         <div *ngIf=" this.currentRole.role_type_id == 1 || this.currentRole.id == 8 || this.currentRole.id == 9" class="actions" style="margin-top: 5px;">
-          <button nbButton status="info" (click)="suppliesView()">Suministros</button>
+          <button nbButton status="info" (click)="suppliesView()">Suministros a paciente</button>
         </div>
 
       </div>

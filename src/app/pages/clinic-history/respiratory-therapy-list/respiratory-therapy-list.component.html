@@ -2,7 +2,7 @@
   <div content>
     <div class="row" *ngIf="user">
     <div class="col-md-6" title *ngIf="user">
-      <p class="parrafo" *ngIf="user"><b>CÉDULA: </b> {{user.identification}} </p>
+      <p class="parrafo" *ngIf="user"><b>IDENTIFICACIÓN: </b> {{user.identification}} </p>
       <p class="parrafo" *ngIf="user"><b>NOMBRE: </b> {{this.user.firstname + ' ' + this.user.lastname}}</p>
       <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO: </b> {{this.datePipe.transform3(user.birthday)}} </p>
       <p class="parrafo" *ngIf="user"><b>EDAD: </b> {{user.age}} </p>
@@ -14,14 +14,14 @@
     <nb-tabset *ngIf="user" fullWidth class="tabset" (changeTab)="tablock($event)">
 
       <nb-tab tabTitle="INGRESO">
-        <div *ngIf="this.show == 1">
+        <div *ngIf="this.show1">
           <ngx-entry-respiratory-therapy (messageEvent)="inputMessage($event)" [has_input]="has_input" [user]="user" [admissions]="admission" [record_id]="record_id"  [type_record_id]="1">
           </ngx-entry-respiratory-therapy>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="REGULAR">
-        <div *ngIf="this.show == 2">
+        <div *ngIf="this.show2">
           <ngx-regular-respiratory-therapy [record_id]="record_id" [admissions]="admission"  [user]="user"  [type_record_id]="3">
           </ngx-regular-respiratory-therapy>
         </div>
