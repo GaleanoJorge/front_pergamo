@@ -667,6 +667,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   }
 
   admissionRouteChanged(val) {
+    this.show_auth_inputs = false;
     // console.log(val);
     this.route = val;
     if (val === '') {

@@ -50,6 +50,23 @@ export class PatientService {
       });
   }
 
+  GetPatientsWitnLaboratories(params = {}): Promise<Patient[]> {
+    // console.log(identification);
+    let servObj = new ServiceObject(params ? 'GetPatientsWithLaboratory?pagination=false' : 'GetPatientsWithLaboratory');
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.patients = <Patient[]>servObj.data.patients;
+        return Promise.resolve(this.patients);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   GetByAdmission(identification: {}): Promise<Patient[]> {
     // console.log(identification);
     var servObj = new ServiceObject("user/byAdmission/2");

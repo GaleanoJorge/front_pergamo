@@ -67,6 +67,7 @@ export class AuthorizationListComponent implements OnInit {
     'Fecha de creación',
     'Tipo de atención',
     'Fecha de ejecución',
+    'Cantidad'
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
