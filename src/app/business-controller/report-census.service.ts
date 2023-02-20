@@ -69,7 +69,20 @@ export class ReportCensusService {
     });
   }
 
-  ExportCensus(id, params = {}): any {
+  exportCensusGeneral(): any {
+    let servObj = new ServiceObject('report_censusPDFGeneral');
+    return this.webAPI.GetAction(servObj).then(x => {
+      servObj = <ServiceObject>x;
+      if (!servObj.status)
+        throw new Error(servObj.message);
+      return Promise.resolve(servObj);
+    }).catch(x => {
+      throw x.message;
+    });
+  }
+
+  //? Trae todo el response()->json
+  exportCensusPdf(id, params = {}): any {
     let servObj = new ServiceObject('report_censusPDF/export', id);
     return this.webAPI.GetAction(servObj, params).then(x => {
       servObj = <ServiceObject>x;
@@ -81,12 +94,13 @@ export class ReportCensusService {
     });
   }
 
-  //? Export con varios parámetros
-  GetExportCensus(id, params = {}): Promise<ReportCensus[]> {
+  //?Trae la consulta directamente
+  exportCensusExcel(id, params = {}): Promise<ReportCensus[]> {
     let servObj = new ServiceObject('report_censusEXCEL/export', id);
     return this.webAPI.GetAction(servObj, params).then(x => {
       servObj = <ServiceObject>x;
-      if (!servObj.status) throw new Error(servObj.message);
+      if (!servObj.status)
+        throw new Error(servObj.message);
       this.report_census = <ReportCensus[]>servObj.data.report_census;
       return Promise.resolve(this.report_census);
     }).catch((x) => {
@@ -99,7 +113,7 @@ export class ReportCensusService {
     //? Creando libro y hojas con propiedades
     let workbook = new Workbook();
     workbook.creator = 'Fabian Cabieles';
-    let worksheet = workbook.addWorksheet("Censo", {
+    let worksheet = workbook.addWorksheet("Censo Hospitalario", {
       properties: { tabColor: { argb: '54BCC1' } },
       //? Congela 1ra Fila
       views: [{ state: 'frozen', ySplit: 1 }],
@@ -108,7 +122,7 @@ export class ReportCensusService {
     });
 
     //? Personalizando Encabezados
-    worksheet.autoFilter = 'A1:L1';
+    worksheet.autoFilter = 'A1:M1';
     worksheet.getRow(1).height = 60;
     worksheet.getRow(1).font = { name: 'Open Sans', color: { argb: '6C757D' }, size: 11, bold: true };
     worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
@@ -124,6 +138,7 @@ export class ReportCensusService {
     };
     worksheet.columns = [
       { header: 'Prio', key: 'id', width: 7, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
+      { header: 'Pabellón', key: 'pavilion', width: 12, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Cama', key: 'bed', width: 10, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Documento e Ingreso', key: 'identification', width: 22, style: { numFmt: '0', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Paciente', key: 'patient', width: 34, style: { alignment: { vertical: 'middle', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
@@ -150,7 +165,16 @@ export class ReportCensusService {
     //? Escritura de Libro
     workbook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], { type: EXCEL_TYPE2 });
-      FileSaver.saveAs(blob, excelFileName + '-' + new Date().valueOf() + EXCEL_EXTENSION);
+      //* Forma 1
+      let date = new Date().toISOString().split('T')[0];
+      //* Forma 2
+      let date2 = new Date().toISOString().slice(0, 10);
+      //* Hora
+      let hora = new Date().getTime();
+      let horas = new Date().getHours();
+      let minutos = new Date().getMinutes();
+      let segundos = new Date().getSeconds();
+      FileSaver.saveAs(blob, excelFileName + date + '_' + horas + '-' + minutos + '-' + segundos + ']' + EXCEL_EXTENSION);
     });
   }
 }
