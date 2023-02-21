@@ -283,11 +283,19 @@ export class AuthorizationListComponent implements OnInit {
           }
         }
       },
-      assigned_management_plan: {
+      execution_date: {
         title: this.headerFields[13],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.assigned_management_plan != null) {
+          if(row.ch_laboratory){
+            let laboratoryRegisters = row.ch_laboratory.user_ch_laboratory;
+            let interpretedRegister = laboratoryRegisters.find(element => element.laboratory_status_id == 5);
+            if(interpretedRegister){
+              return this.datePipe.transform4(interpretedRegister.created_at);
+            }
+            return 'Sin ejecutar';
+          }
+          else if (row.assigned_management_plan != null) {
             if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
               return this.datePipe.transform4(row.assigned_management_plan.execution_date);
             } else {
