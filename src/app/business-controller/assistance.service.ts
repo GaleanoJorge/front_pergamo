@@ -81,6 +81,21 @@ export class AssistanceService {
       });
   }
 
+  DisableSchedule(data: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('disable_schedule');
+    servObj.data = data;
+    return this.webAPI.GetAction(servObj, data)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Save(assistance: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('assistance');
     servObj.data = assistance;
@@ -127,4 +142,5 @@ export class AssistanceService {
         throw x.message;
       });
   }
+
 }

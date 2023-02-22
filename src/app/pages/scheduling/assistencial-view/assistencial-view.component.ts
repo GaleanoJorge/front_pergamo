@@ -13,6 +13,8 @@ import { ActionsAssistencialComponent } from './actions-assistencial.component';
 import { MedicalDiaryDaysService } from '../../../business-controller/medical_diary_days.service';
 import { FormConfirmDisabledComponent } from '../copay_category/form-confirm-disabled/form-confirm-disabled.component';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActionsSemaphoreComponent } from './actions-semaphore.component';
 
 @Component({
   selector: 'ngx-assistencial-view',
@@ -42,11 +44,24 @@ export class AssistencialViewComponent implements OnInit {
   public dialog;
   public user;
   public entity = '';
+  public form: FormGroup;
+  public semaphore: string = null;
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
 
   public settings = {
     columns: {
+      semaphore: {
+        title: '',
+        type: 'custom',
+        valuePrepareFunction: (value, row) => {
+          // DATA FROM HERE GOES TO renderComponent
+          return {
+            'data': row,
+          };
+        },
+        renderComponent: ActionsSemaphoreComponent,
+      },
       select: {
         title: '',
         type: 'custom',
@@ -142,7 +157,7 @@ export class AssistencialViewComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Cuotas moderadoras y copagos',
+      name: 'Agenda asistencial',
       route: '../../scheduling/non-working-days',
     },
   ];
@@ -157,8 +172,9 @@ export class AssistencialViewComponent implements OnInit {
     private medicalDiaryDaysS: MedicalDiaryDaysService,
     private authS: AuthService,
     private ChangeDetectorRef: ChangeDetectorRef,
-    private deleteConfirmService: NbDialogService
-  ) {}
+    private deleteConfirmService: NbDialogService,
+    private formBuilder: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
     this.user = this.authS.GetUser();
@@ -168,11 +184,30 @@ export class AssistencialViewComponent implements OnInit {
       : (this.entity = null);
     this.title = `Atenciones para: ${this.user.lastname} ${this.user.middlelastname[0]}. ${this.user.firstname}`;
 
-    this.ChangeDetectorRef.detectChanges();
+    //this.ChangeDetectorRef.detectChanges();
+
+    let b = new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + (+(new Date().getDate()) >= 10 ? new Date().getDate() : ('0'+new Date().getDate()));
+
+    this.form = this.formBuilder.group({
+      start_date: [b, []],
+      finish_date: [b, []],
+    });
+
+    this.form.get('start_date').valueChanges.subscribe(val => {
+      this.changeEntity();
+    });
+    this.form.get('finish_date').valueChanges.subscribe(val => {
+      this.changeEntity();
+    });
+    this.entity = `${this.entity}&init_date=${this.form.controls.start_date.value}&finish_date=${this.form.controls.finish_date.value}`, 'medical_diary_days';
   }
 
   RefreshData() {
     this.table.refresh();
+  }
+
+  changeEntity() {
+    this.table.changeEntity(`${this.entity}&init_date=${this.form.controls.start_date.value}&finish_date=${this.form.controls.finish_date.value}`, 'medical_diary_days');
   }
 
   NewCopayParameters() {
@@ -235,10 +270,7 @@ export class AssistencialViewComponent implements OnInit {
   }
 
   cancel(data) {
-    this.medicalDiaryDaysS.ChangeStatus(data.id, 5).then((x) => {
-      this.toastrService.success('', x.message);
-      this.RefreshData();
-    });
+    this.RefreshData();
   }
 
   ChangeState(data) {

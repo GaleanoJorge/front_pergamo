@@ -30,7 +30,7 @@ export class PharmacyIncomeComponent implements OnInit {
   public validator;
   public user;
   public my_pharmacy_id;
-  // public most: boolean = false;
+  public pharmacy;
   public entity;
   public pharmacy_stock;
 
@@ -48,9 +48,6 @@ export class PharmacyIncomeComponent implements OnInit {
           return {
             'data': row,
             'edit': this.EditInv.bind(this),
-            // 'returned': this.Returned.bind(this),
-
-            // 'delete': this.DeletePharInventary.bind(this),
           };
         },
         renderComponent: ActionsIncoComponent,
@@ -59,12 +56,12 @@ export class PharmacyIncomeComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
       },
-      request_pharmacy_stock: {
+      own_pharmacy_stock: {
         title: this.headerFields[1],
         type: 'string',
         valuePrepareFunction: (value, row) => {
           if (value) {
-            return value.name + ' - ' + row.request_pharmacy_stock.campus.name;
+            return value.name + ' - ' + row.own_pharmacy_stock.campus.name;
           } else {
             return row.user_request_pad.firstname + " " + row.user_request_pad.lastname;
           }
@@ -136,11 +133,13 @@ export class PharmacyIncomeComponent implements OnInit {
 
   ChangePharmacy(pharmacy) {
     if (pharmacy == 0) {
-      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '&status=ENVIADO FARMACIA' + '&own_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
-
+      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '&status=ENVIADO FARMACIA' + '&request_pharmacy_stock_id=' + this.my_pharmacy_id, 'pharmacy_product_request');
+      this.title = 'ACEPTAR MEDICAMENTOS ENVIADOS A: ' + this.my_pharmacy_id;
     } else {
-
-      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '&status=ENVIADO FARMACIA' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+      this.pharmacy = pharmacy;
+      this.table.changeEntity('pharmacy_product_request?product=' + 1 + '&status=ENVIADO FARMACIA' + '&request_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
+      let aaa = (this.pharmacy_stock.find(item => { return item.pharmacy_stock_id == this.pharmacy }).pharmacy.name);
+      this.title = 'ACEPTAR MEDICAMENTOS ENVIADOS A: ' + aaa;
     }
     // this.RefreshData();
   }
@@ -152,6 +151,7 @@ export class PharmacyIncomeComponent implements OnInit {
         title: 'Aceptar Medicamento',
         data: data,
         my_pharmacy_id: this.my_pharmacy_id,
+        pharmacy: this.pharmacy,
         saved: this.RefreshData.bind(this),
       },
     });

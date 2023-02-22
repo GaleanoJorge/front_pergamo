@@ -103,7 +103,7 @@ export class RecommendationsEvoComponent implements OnInit {
             return "";
           } else if (this.nutrition) {
             return value.substr(0, 137);
-          } else {
+          } else if (this. medicine || this.enfermeryreco) {
             return value;
           }
         },

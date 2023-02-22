@@ -132,10 +132,12 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
   ChangePharmacy(pharmacy) {
     if(pharmacy==0){
       this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.my_pharmacy_id + '&product=' + false, 'pharmacy_lot_stock');
-
+      this.title = 'INVENTARIO DE: ' + this.my_pharmacy_id;
     }else{
       this.pharmacy = pharmacy;
       this.table.changeEntity('pharmacy_lot_stock?pharmacy_stock_id=' + this.pharmacy + '&product=' + false, 'pharmacy_lot_stock');
+      let aaa = (this.pharmacy_stock.find(item => {return item.pharmacy_stock_id==this.pharmacy}).pharmacy.name);
+      this.title = 'INVENTARIO DE: ' + aaa;
     }
     // this.RefreshData();
   }
@@ -147,6 +149,7 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
         title: 'ENVIAR INSUMO',
         data: data,
         my_pharmacy_id: this.my_pharmacy_id,
+        pharmacy: this.pharmacy,
         saved: this.RefreshData.bind(this),
       },
     });
@@ -177,7 +180,7 @@ export class PharmacyInventorySuppliesComponent implements OnInit {
   }
 
   Inventory() {
-    this.invS.ViewInventory({type:2}).then(x => {
+    this.invS.ViewInventory({type:2, pharmacy_stock_id : this.pharmacy}).then(x => {
 
       //this.loadingDownload = false;
       this.toastService.success('', x.message);

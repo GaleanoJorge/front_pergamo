@@ -127,9 +127,27 @@ export class PharmacyLotStockService {
       });
   }
 
-  ViewInventory(type: any={}): any {
+  getPharmacyId(): Promise<PharmacyLotStock[]> {
+    let servObj = new ServiceObject('pharmacy_lot_stock/pharmacies/');
+
+    return this.webAPI.GetAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        this.pharmacy_lot_stock = <PharmacyLotStock[]>servObj.data.pharmacy_lot_stock;
+
+        return Promise.resolve(this.pharmacy_lot_stock);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
+  ViewInventory(params = {}): any {
     let servObj = new ServiceObject('viewInventory');
-    return this.webAPI.GetAction(servObj,type)
+    return this.webAPI.GetAction(servObj, params)
     .then(x => {
       servObj = <ServiceObject>x;
       if (!servObj.status)

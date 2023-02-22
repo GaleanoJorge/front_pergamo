@@ -1,0 +1,138 @@
+import { Component, OnInit, Input, TemplateRef, ViewChild, EventEmitter, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChReasonConsultationService } from '../../../../business-controller/ch-reason-consultation.service';
+import { ChPhysicalExamService } from '../../../../business-controller/ch_physical_exam.service';
+import { ChVitalSignsService } from '../../../../business-controller/ch-vital-signs.service';
+import { ChDiagnosisService } from '../../../../business-controller/ch-diagnosis.service';
+import { UserChangeService } from '../../../../business-controller/user-change.service';
+import { ChRecordService } from '../../../../business-controller/ch_record.service';
+import { BaseTableComponent } from '../../../components/base-table/base-table.component';
+
+@Component({
+  selector: 'ngx-orders-medical',
+  templateUrl: './orders-medical.component.html',
+  styleUrls: ['./orders-medical.component.scss'],
+})
+export class OrdersMedicalComponent implements OnInit {
+
+  @ViewChild(BaseTableComponent) table: BaseTableComponent;
+  @Input() data: any = null;
+  @Input() admission: any = null;
+  @Output() messageEvent = new EventEmitter<any>();
+
+  //@Input() vital: any;
+  linearMode = false;
+  public messageError = null;
+  public title;
+  public routes = [];
+  public user_id;
+  public chreasonconsultation: any[];
+  public physical: any[];
+  public chvitsigns: any[];
+  public chdiagnosis: any[];
+  public nameForm: String;
+  public movieForm: String;
+  public admissions_id;
+
+
+  public record_id;
+  public isSubmitted: boolean = false;
+  public form: FormGroup;
+  public all_changes: any[];
+  public saveEntry: any = 0;
+  public loading: boolean = false;
+
+  public show1 = false;
+  public show2 = false;
+
+
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private chreasonconsultS: ChReasonConsultationService,
+    private chvitalSignsS: ChVitalSignsService,
+    public userChangeS: UserChangeService,
+    private chRecord: ChRecordService,
+    
+
+
+  ) {
+
+  }
+
+  async ngOnInit() {
+    this.record_id = this.route.snapshot.params.id;
+
+    this.chRecord.GetCollection({record_id: this.record_id}).then(x => {
+      this.admissions_id=x;
+     
+    });
+
+    if (!this.data) {
+      this.data = {
+        ch_diagnosis_id: '',
+      };
+    }
+
+    // await this.chreasonconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chreasonconsultation = x;
+    // });
+    // await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chvitsigns = x;
+    // });
+    // await this.chdiagnosisS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chdiagnosis = x;
+    // });
+    // await this.chphysicalS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.physical = x;
+    // });
+
+    this.form = this.formBuilder.group({
+      ch_entry_review_system_id: [this.data.ch_entry_review_system_id, Validators.compose([Validators.required])],//el que es ciclico
+      diagnosis_id: [this.data.diagnosis_id, Validators.compose([Validators.required])],
+      ch_diagnosis_id: [this.data.ch_diagnosis_id, Validators.compose([Validators.required])],
+      ch_diagnosis_class_id: [this.data.ch_diagnosis_class_id, Validators.compose([Validators.required])],
+      ch_diagnosis_type_id: [this.data.ch_diagnosis_type_id, Validators.compose([Validators.required])],
+      ch_vital_hydration_id: [this.data.ch_vital_hydration_id, Validators.compose([Validators.required])],
+      ch_vital_ventilated_id: [this.data.ch_vital_ventilated_id, Validators.compose([Validators.required])],
+      ch_vital_temperature_id: [this.data.ch_vital_temperature_id, Validators.compose([Validators.required])],
+      ch_vital_neurological_id: [this.data.ch_vital_neurological_id, Validators.compose([Validators.required])],
+      ch_vital_signs_id: [this.data.ch_vital_signs_id, Validators.compose([Validators.required])],
+      ch_entry_id: [this.data.ch_entry_id, Validators.compose([Validators.required])],
+
+    });
+  }
+  async save() {
+    this.isSubmitted = true;
+    if (!this.form.invalid && this.saveEntry) {
+      this.loading = true;
+      if (this.data.id) { }
+      await this.chreasonconsultS.Update({});
+      await this.chvitalSignsS.Update({});
+    }
+  }
+
+  
+  receiveMessage($event) {
+    if ($event == true) {
+      this.messageEvent.emit($event);
+    }
+  }
+
+  filterStepper($event){
+    return $event.target.textContent;
+  }
+
+
+  goto($event) {
+    let selectedStep =  this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Interconsulta') {
+      this.show1 = true;
+    } else if (selectedStep == '3' || selectedStep == 'Plan manejo') {
+      this.show2 = true;
+    }
+
+}
+}

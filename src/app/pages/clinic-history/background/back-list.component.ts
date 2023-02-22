@@ -83,18 +83,18 @@ export class BackListComponent implements OnInit {
       };
     }
 
-    await this.chreasonconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chreasonconsultation = x;
-    });
-    await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chvitsigns = x;
-    });
-    await this.chdiagnosisS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chdiagnosis = x;
-    });
-    await this.chphysicalS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.physical = x;
-    });
+    // await this.chreasonconsultS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chreasonconsultation = x;
+    // });
+    // await this.chvitalSignsS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chvitsigns = x;
+    // });
+    // await this.chdiagnosisS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chdiagnosis = x;
+    // });
+    // await this.chphysicalS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.physical = x;
+    // });
 
     this.form = this.formBuilder.group({
       ch_entry_review_system_id: [this.data.ch_entry_review_system_id, Validators.compose([Validators.required])],//el que es ciclico
@@ -184,16 +184,6 @@ export class BackListComponent implements OnInit {
       
   }
 
-  saveMcEa() {
-  }
-  saveRxSystem() {
-  }
-  saveExFisic() {
-  }
-  saveVitalSgns() {
-  }
-  saveDiagnostic() {
-  }
 
   receiveMessage($event) {
     if ($event == true) {

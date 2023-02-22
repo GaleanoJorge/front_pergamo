@@ -1,5 +1,5 @@
 <nb-card class="vh-100 text-center" [nbSpinner]="loading">
-  <nb-card-header style="text-align:left">Transferencia de agenda</nb-card-header>
+  <nb-card-header style="text-align:left">{{this.title}}</nb-card-header>
   <nb-card-body class="justify-content-center">
 
     <form style="margin-bottom: 15px; padding-left:15%" [formGroup]="form" (ngSubmit)="submit($event)">
@@ -65,8 +65,11 @@
         <div class="col-md-5">
           <button type="submit" name="calendarButton" nbButton>Mostrar calendario</button>
         </div>
-        <div class="col-md-5">
+        <div *ngIf="!isDisable" class="col-md-5">
           <button type="submit" name="scheduleButton" nbButton>Transferir agendas</button>
+        </div>
+        <div *ngIf="isDisable" class="col-md-5">
+          <button type="submit" name="disableButton" nbButton>Bloquear agendas</button>
         </div>
       </div>
 

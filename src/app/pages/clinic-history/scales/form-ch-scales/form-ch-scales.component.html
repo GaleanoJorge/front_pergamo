@@ -1,12 +1,10 @@
 <form [formGroup]="form">
   <div class="row" class="accordion">
-    <nb-accordion multi>
+    <nb-accordion multi (click)="goto($event)">
       <!-- NORTON -->
       <nb-accordion-item
         *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false :  this.medical ? true : false">
-        <nb-accordion-item-header>
-          Escala Norton
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Norton</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA DE NORTON</legend>
@@ -137,7 +135,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-norton [refresh1]="refresh1">
+            <ngx-ch-scale-norton *ngIf="this.show1" [refresh1]="refresh1">
 
             </ngx-ch-scale-norton>
 
@@ -148,9 +146,7 @@
       <!-- GLASGOW -->
       <nb-accordion-item
         *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : this.medical ? true : false">
-        <nb-accordion-item-header>
-          Escala Glasgow
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Glasgow</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA DE GLASGOW</legend>
@@ -240,7 +236,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-glasgow [refresh2]="refresh2">
+            <ngx-ch-scale-glasgow *ngIf="this.show2" [refresh2]="refresh2">
 
             </ngx-ch-scale-glasgow>
 
@@ -251,9 +247,7 @@
       <!-- BARTHEL -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>10) ? false : this.respiratory ? false : (this.medical && this.ageScale>10) ? true : false">
-        <nb-accordion-item-header>
-          Escala Barthel
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Barthel</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA DE BARTHEL</legend>
@@ -484,7 +478,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-barthel [refresh3]="refresh3">
+            <ngx-ch-scale-barthel *ngIf="this.show3" [refresh3]="refresh3">
 
             </ngx-ch-scale-barthel>
 
@@ -495,9 +489,7 @@
       <!-- PAYETTE-->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>60) ? true : this.respiratory ? false : (this.medical && this.ageScale>60) ? true : false">
-        <nb-accordion-item-header>
-          Escala Payette
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Payette</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA PAYETTE</legend>
@@ -708,7 +700,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-payette [refresh4]="refresh4">
+            <ngx-ch-scale-payette *ngIf="this.show4" [refresh4]="refresh4">
 
             </ngx-ch-scale-payette>
 
@@ -719,9 +711,7 @@
       <!-- FRAGILIDAD -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>65) ? true : this.respiratory ? false : (this.medical && this.ageScale>65) ? true  : false">
-        <nb-accordion-item-header>
-          Escala Fragilidad
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Fragilidad</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA FRAGILIDAD</legend>
@@ -845,7 +835,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-fragility [refresh5]="refresh5">
+            <ngx-ch-scale-fragility *ngIf="this.show5" [refresh5]="refresh5">
 
             </ngx-ch-scale-fragility>
 
@@ -856,9 +846,7 @@
       <!-- NEWS -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true : false">
-        <nb-accordion-item-header>
-          Escala News
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala News</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA NEWS</legend>
@@ -1044,7 +1032,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-news [refresh7]="refresh7">
+            <ngx-ch-scale-news *ngIf="this.show6" [refresh7]="refresh7">
 
             </ngx-ch-scale-news>
 
@@ -1055,9 +1043,7 @@
       <!-- PaP -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
-        <nb-accordion-item-header>
-          Escala PaP
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala PaP</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA PaP SCORE O INICE PRONÓSTICO DE SUPERVIVENCIA </legend>
@@ -1189,7 +1175,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-pap [refresh8]="refresh8">
+            <ngx-ch-scale-pap *ngIf="this.show7" [refresh8]="refresh8">
 
             </ngx-ch-scale-pap>
 
@@ -1200,9 +1186,7 @@
       <!-- HAMILTON -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
-        <nb-accordion-item-header>
-          Escala Hamilton
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Hamilton</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA HAMILTON</legend>
@@ -1678,7 +1662,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-hamilton [refresh9]="refresh9">
+            <ngx-ch-scale-hamilton  *ngIf="this.show8" [refresh9]="refresh9">
 
             </ngx-ch-scale-hamilton>
 
@@ -1689,9 +1673,7 @@
       <!-- CAM -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
-        <nb-accordion-item-header>
-          Escala CAM
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala CAM</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA CAM (CONFUSION ASSESMENT METHOD)</legend>
@@ -1792,7 +1774,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-cam [refresh10]="refresh10">
+            <ngx-ch-scale-cam  *ngIf="this.show9" [refresh10]="refresh10">
 
             </ngx-ch-scale-cam>
 
@@ -1804,9 +1786,7 @@
       <!-- FAC -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>10) ? false : this.respiratory ? false : (this.medical && this.ageScale>10) ? true  : false">
-        <nb-accordion-item-header>
-          Escala FAC
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala FAC</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set col-lg-12">
             <legend class="prue1 center">ESCALA FAC (VALORACIÓN FUNCIONAL DE LA MARCHA)</legend>
@@ -1846,7 +1826,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-fac [refresh11]="refresh11">
+            <ngx-ch-scale-fac *ngIf="this.show10" [refresh11]="refresh11">
 
             </ngx-ch-scale-fac>
 
@@ -1857,9 +1837,7 @@
       <!-- CRUZ ROJA -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>10) ? false : this.respiratory ? false : (this.medical && this.ageScale>10) ? true : false">
-        <nb-accordion-item-header>
-          Escala Cruz roja
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Cruz roja</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set col-lg-12">
             <legend class="prue1 center">ESCALA CRUZ ROJA</legend>
@@ -1898,7 +1876,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-red-cross [refresh12]="refresh12">
+            <ngx-ch-scale-red-cross *ngIf="this.show11" [refresh12]="refresh12">
 
             </ngx-ch-scale-red-cross>
 
@@ -1909,9 +1887,7 @@
       <!--KARNOFSKY  -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>16) ? false : this.respiratory ? false : (this.medical && this.ageScale>16) ? true  : false">
-        <nb-accordion-item-header>
-          Escala Karnofsky
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Karnofsky</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set col-lg-12">
             <legend class="prue1 center">ESCALA KARNOFSKY</legend>
@@ -1984,7 +1960,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-karnofsky [refresh13]="refresh13">
+            <ngx-ch-scale-karnofsky *ngIf="this.show12" [refresh13]="refresh13">
 
             </ngx-ch-scale-karnofsky>
           </fieldset>
@@ -2035,7 +2011,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-ecog [refresh14]="refresh14">
+            <ngx-ch-scale-ecog *ngIf="this.show13" [refresh14]="refresh14">
 
             </ngx-ch-scale-ecog>
 
@@ -2046,9 +2022,7 @@
       <!-- NUTRICIONAL PEDIATRICO -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale<15) ? true : this.respiratory ? false : (this.medical && this.ageScale<15) ? true : false">
-        <nb-accordion-item-header>
-          Escala Nutricional Pediátrico
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Nutricional Pediátrico</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">TAMIZAJE NUTRICIONAL PEDIÁTRICO</legend>
@@ -2176,7 +2150,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-pediatric-nutrition [refresh15]="refresh15">
+            <ngx-ch-scale-pediatric-nutrition *ngIf="this.show14" [refresh15]="refresh15">
 
             </ngx-ch-scale-pediatric-nutrition>
 
@@ -2187,9 +2161,7 @@
       <!-- ESAS -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
-        <nb-accordion-item-header>
-          Escala ESAS
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala ESAS</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set col-lg-12">
             <legend class="prue1 center">ESCALA ESAS</legend>
@@ -2482,7 +2454,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-esas [refresh16]="refresh16">
+            <ngx-ch-scale-esas *ngIf="this.show15" [refresh16]="refresh16">
 
             </ngx-ch-scale-esas>
           </fieldset>
@@ -2492,9 +2464,7 @@
       <!--FLACC  -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
-        <nb-accordion-item-header>
-          Escala FLACC
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala FLACC</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA FLACC</legend>
@@ -2617,7 +2587,7 @@
 
             </div>
 
-            <ngx-ch-scale-flacc [refresh17]="refresh17">
+            <ngx-ch-scale-flacc *ngIf="this.show16"[refresh17]="refresh17">
 
             </ngx-ch-scale-flacc>
           </fieldset>
@@ -2627,9 +2597,7 @@
       <!-- PPI -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
-        <nb-accordion-item-header>
-          Escala PPI
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala PPI</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA PPI</legend>
@@ -2747,7 +2715,7 @@
 
             </div>
 
-            <ngx-ch-scale-ppi [refresh18]="refresh18">
+            <ngx-ch-scale-ppi *ngIf="this.show17" [refresh18]="refresh18">
 
             </ngx-ch-scale-ppi>
           </fieldset>
@@ -2758,9 +2726,7 @@
       <!-- ZARIT -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? true : false">
-        <nb-accordion-item-header>
-          Escala Zarit
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Zarit</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA ZARIT</legend>
@@ -3255,7 +3221,7 @@
 
             </div>
 
-            <ngx-ch-scale-zarit [refresh19]="refresh19">
+            <ngx-ch-scale-zarit *ngIf="this.show18" [refresh19]="refresh19">
 
             </ngx-ch-scale-zarit>
           </fieldset>
@@ -3265,9 +3231,7 @@
       <!-- DOLOR ADULTOS -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>7) ? false : (this.respiratory && this.ageScale>7) ? true  : this.medical ? false : false ">
-        <nb-accordion-item-header>
-          Escala Dolor Adultos
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Dolor Adultos</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set col-lg-12">
             <legend class="prue1 center">ESCALA DOLOR ADULTOS</legend>
@@ -3325,7 +3289,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-pain [refresh20]="refresh20">
+            <ngx-ch-scale-pain *ngIf="this.show19" [refresh20]="refresh20">
 
             </ngx-ch-scale-pain>
 
@@ -3336,9 +3300,7 @@
       <!-- WONG BAKER -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale<7) ? false : (this.respiratory && this.ageScale<7) ? true  : this.medical ? false : false">
-        <nb-accordion-item-header>
-          Escala Wong Baker
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Wong Baker</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set col-lg-12">
             <legend class="prue1 center">ESCALA WONG BAKER</legend>
@@ -3388,7 +3350,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-wong [refresh21]="refresh21">
+            <ngx-ch-scale-wong *ngIf="this.show20" [refresh21]="refresh21">
 
             </ngx-ch-scale-wong>
 
@@ -3400,9 +3362,7 @@
       <!-- PFEIFFER -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
-        <nb-accordion-item-header>
-          Escala Pfeiffer
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Pfeiffer</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA PFEIFFER</legend>
@@ -3602,7 +3562,7 @@
 
           </fieldset>
 
-          <ngx-ch-scale-pfeiffer [refresh22]="refresh22">
+          <ngx-ch-scale-pfeiffer *ngIf="this.show21" [refresh22]="refresh22">
 
           </ngx-ch-scale-pfeiffer>
         </nb-accordion-item-body>
@@ -3611,9 +3571,7 @@
       <!-- J.H.DOWNTON -->
       <nb-accordion-item
         *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
-        <nb-accordion-item-header>
-          Escala J.H.Downton
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala J.H.Downton</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA DE RIESGO DE CAÍDAS (J.H.DOWNTON)</legend>
@@ -3739,7 +3697,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-jh-downton [refresh23]="refresh23">
+            <ngx-ch-scale-jh-downton *ngIf="this.show22" [refresh23]="refresh23">
 
             </ngx-ch-scale-jh-downton>
           </fieldset>
@@ -3750,9 +3708,7 @@
       <!-- MINI TAMIZAJE-->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : (this.nutrition && this.ageScale>15 && this.ageScale<59) ? true : this.respiratory ? false : (this.medical && this.ageScale>15 && this.ageScale<59) ? true : false">
-        <nb-accordion-item-header>
-          Mini-Tamizaje Nutricional Adultos
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Mini-Tamizaje Nutricional Adultos</nb-accordion-item-header>
 
         <nb-accordion-item-body>
           <fieldset class="field_set">
@@ -3957,7 +3913,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-screening [refresh24]="refresh24">
+            <ngx-ch-scale-screening *ngIf="this.show23" [refresh24]="refresh24">
 
             </ngx-ch-scale-screening>
 
@@ -3968,9 +3924,7 @@
       <!--PPS -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
-        <nb-accordion-item-header>
-          Escala PPS
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala PPS</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set col-lg-12">
             <legend class="prue1 center">ESCALA PPS</legend>
@@ -4170,7 +4124,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-pps [refresh25]="refresh25">
+            <ngx-ch-scale-pps *ngIf="this.show24" [refresh25]="refresh25">
 
             </ngx-ch-scale-pps>
 
@@ -4182,9 +4136,7 @@
       <!-- BRADEN -->
       <nb-accordion-item
         *ngIf="this.enfermery ? true : this.nutrition ? false : this.respiratory ? false : this.medical ? true : false">
-        <nb-accordion-item-header>
-          Escala Braden
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Braden</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA BRADEN</legend>
@@ -4349,7 +4301,7 @@
               </div>
             </div>
 
-            <ngx-ch-scale-braden [refresh26]="refresh26">
+            <ngx-ch-scale-braden *ngIf="this.show25" [refresh26]="refresh26">
 
             </ngx-ch-scale-braden>
 
@@ -4360,9 +4312,7 @@
       <!-- LAWTON -->
       <nb-accordion-item
         *ngIf="this.enfermery ? false : this.nutrition ? false : this.respiratory ? false : this.medical ? false : false">
-        <nb-accordion-item-header>
-          Escala Lawton
-        </nb-accordion-item-header>
+        <nb-accordion-item-header>Escala Lawton</nb-accordion-item-header>
         <nb-accordion-item-body>
           <fieldset class="field_set">
             <legend class="prue1 center">ESCALA LAWTON</legend>
@@ -4613,7 +4563,7 @@
 
             </div>
 
-            <ngx-ch-scale-lawton [refresh27]="refresh27">
+            <ngx-ch-scale-lawton *ngIf="this.show26" [refresh27]="refresh27">
 
             </ngx-ch-scale-lawton>
 

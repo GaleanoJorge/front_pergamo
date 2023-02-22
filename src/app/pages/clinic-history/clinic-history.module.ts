@@ -31,8 +31,7 @@ import { DateFormatPipe } from '../../pipe/date-format.pipe';
 
 import { Actions5Component } from './ch-record-list/actions.component';
 import { FormClinicHistoryComponent } from './clinic-history-list/form-clinic-history/form-clinic-history.component';
-import { FormReasonConsultationComponent } from './entry-clinic-history/form-reason-consultation/form-reason-consultation.component';
-import { Actions6Component } from './entry-clinic-history/actions.component';
+import { Actions6Component } from './clinic-history-list/entry-clinic-history/actions.component';
 import { ClinicHistoryListComponent } from './clinic-history-list/clinic-history-list.component';
 import { ClinicHistoryComponent } from './clinic-history.component';
 import { ChRecordListComponent } from './ch-record-list/ch-record-list.component';
@@ -40,39 +39,25 @@ import { Actions4Component } from './clinic-history-list/actions.component';
 import { FormsignsComponent } from './signs/form-signs/form-signs.component';
 import { Actions1Component } from './signs/actions.component';
 import { SignsListComponent } from './signs/signs.component';
-import { EntryClinicHistoryComponent } from './entry-clinic-history/entry-clinic-history.component';
-import { SystemExamComponent } from './system-exam/system-exam.component';
-import { OrdersMedicalComponent } from './medical-orders/orders-medical.component';
-import { FormOrdersMedicalComponent } from './medical-orders/form-orders-medical/form-orders-medical.component';
-import { FormSystemExamComponent } from './system-exam/form-system-exam/form-system-exam.component';
 import { PadModule } from '../pad/pad.module';
 import { FormBackgroundComponent } from './background/back/form-background/form-background.component';
 
 import { FormPhysicalExamComponent } from './physical-exam/form-physical-exam/form-physical-exam.component';
 import { PhysicalExamComponent } from './physical-exam/physical-exam.component';
 import { Actions3Component } from './physical-exam/actions.component';
-import { Actions7Component } from './system-exam/actions.component';
-import { DiagnosticListComponent } from './diagnostic/diagnostic.component';
-import { Actions2Component } from './diagnostic/actions.component';
-import { FormDiagnosticComponent } from './diagnostic/form-diagnostic/form-diagnostic.component';
+import { Actions7Component } from './clinic-history-list/entry-clinic-history/system-exam/actions.component';
+import { Actions2Component } from './clinic-history-list/entry-clinic-history/diagnostic/actions.component';
 
 import { FormBackGynecoComponent } from './background/back-gyneco/form-back-gyneco/form-back-gyneco.component';
 import { BackgGynecoComponent } from './background/back-gyneco/back-gyneco.component';
 import { Actions9Component } from './background/back-gyneco/actions.component';
 import { BackListComponent } from './background/back-list.component';
-import { EvoSoapComponent } from './evo-soap/evo-soap.component';
-import { FormEvoSoapComponent } from './evo-soap/form-evo-soap/form-evo-soap.component';
-import { Actions10Component } from './evo-soap/actions.component';
+import { Actions10Component } from './clinic-history-list/evolution-list/evo-soap/actions.component';
 import { FormPhysicalExamEvoComponent } from './physical-exam-evo/form-physical-exam-evo/form-physical-exam-evo.component';
 import { PhysicalExamEvoComponent } from './physical-exam-evo/physical-exam-evo.component';
 import { Actions11Component } from './physical-exam-evo/actions.component';
-import { EvolutionListComponent } from './evolution-list/evolution-list.component';
-import { FormDiagnosticEvoComponent } from './diagnostic-evo/form-diagnostic-evo/form-diagnostic-evo.component';
-import { Actions13Component } from './diagnostic-evo/actions.component';
-import { DiagnosticEvoComponent } from './diagnostic-evo/diagnostic-evo.component';
-import { FormDietsEvoComponent } from './diets-evo/form-diets-evo/form-diets-evo.component';
-import { Actions14Component } from './diets-evo/actions.component';
-import { DietsEvoComponent } from './diets-evo/diets-evo.component';
+import { Actions13Component } from './clinic-history-list/evolution-list/diagnostic-evo/actions.component';
+import { Actions14Component } from './clinic-history-list/evolution-list/diets-evo/actions.component';
 import { FormRecommendationsEvoComponent } from './recommendations-evo/form-recommendations-evo/form-recommendations-evo.component';
 import { Actions15Component } from './recommendations-evo/actions.component';
 import { RecommendationsEvoComponent } from './recommendations-evo/recommendations-evo.component';
@@ -81,13 +66,6 @@ import { FormulationComponent } from './formulation/formulation.component';
 
 import { BackgroundComponent } from './background/back/background.component';
 import { Actions8Component } from './background/back/actions.component';
-import { FormFailedComponent } from './failed/form-failed/form-failed.component';
-import { FailedComponent } from './failed/failed.component';
-import { FormPatientExitComponent } from './patient-exit/form-patient-exit/form-patient-exit.component';
-import { FormChMedicalOrdersComponent } from './ch-medical-orders/form-ch-medical-orders/form-ch-medical-orders.component';
-import { ChMedicalOrdersComponent } from './ch-medical-orders/ch-medical-orders.component';
-import { FormChInterconsultationComponent } from './ch-interconsultation/form-ch-interconsultation/form-ch-interconsultation.component';
-import { ChInterconsultationComponent } from './ch-interconsultation/ch-interconsultation.component';
 import { FormChScalesComponent } from './scales/form-ch-scales/form-ch-scales.component';
 import { ChHistoricScalesComponent } from './scales/ch-historic-scales/ch-historic-scales.component';
 import { ChScaleBarthelComponent } from './scales/ch-scale-barthel/ch-scale-barthel.component';
@@ -119,11 +97,7 @@ import { ChScaleLawtonComponent } from './scales/ch-scale-lawton/ch-scale-lawton
 import { ClinicHistoryNursingListComponent } from './clinic-history-nursing-list/clinic-history-nursing-list.component';
 import { FormClinicHistoryNursingComponent } from './clinic-history-nursing-list/form-clinic-history-nursing/form-clinic-history-nursing.component';
 import { ActionsNursingComponent } from './clinic-history-nursing-list/actionsNursing.component';
-import { ActionsNursing2Component } from './entry-clinic-history-nursing/actions.component';
-import { FormReasonConsultationNursingComponent } from './entry-clinic-history-nursing/form-reason-consultation-nursing/form-reason-consultation-nursing.component';
-import { EntryClinicHistoryNursingComponent } from './entry-clinic-history-nursing/entry-clinic-history-nursing.component';
-import { SkinValorationComponent } from './skin-valoration/skin-valoration.component';
-import { FormSkinValorationComponent } from './skin-valoration/form-skin-valoration/form-skin-valoration.component';
+import { ActionsNursing2Component } from './clinic-history-nursing-list/entry-clinic-history-nursing/actions.component';
 
 import { ChNutritionListComponent } from './ch-nutrition-list/ch-nutrition-list.component';
 import { ChNutritionInputComponent } from './ch-nutrition-list/ch-nutrition-input/ch-nutrition-input.component';
@@ -132,82 +106,21 @@ import { FormAnalysisAndInterpretationComponent } from './ch-nutrition-list/ch-n
 import { FormClinicHistoryLanguageComponent } from './clinic-history-language-list/form-clinic-history-language/form-clinic-history-language.component';
 import { ClinicHistoryLanguageListComponent } from './clinic-history-language-list/clinic-history-language-list.component';
 import { ActionsLanguageComponent } from './clinic-history-language-list/actionslanguage.component';
-import { FormLanguageAssessmentComponent } from './language-assessment/form-language-assessment/form-language-assessment.component';
 
-import { LanguageListComponent } from './language-list/language-list.component';
-import { FormLanguageEvolutionComponent } from './language-evolution/form-language-evolution/form-language-evolution.component';
-import { RegularLanguageListComponent } from './regularlanguage-list/regularlanguage-list.component';
-import { FormLanguageAssessmentRegularComponent } from './language-assessment-regular/form-language-assessment-regular/form-language-assessment-regular.component';
-import { FormLanguageConceptComponent } from './language-concept/form-language-concept/form-language-concept.component';
-import { FormLanguageMaterialusedComponent } from './language-materialused/form-language-materialused/form-language-materialused.component';
-import { LanguageMaterialusedComponent } from './language-materialused/language-materialused.component';
-import { FormLanguageInterventionComponent } from './language-intervention/form-language-intervention/form-language-intervention.component';
-import { FormLanguageEvoDiagnosisComponent } from './language-evo-diagnosis/form-language-evo-diagnosis/form-language-evo-diagnosis.component';
-import { FormLanguageRegSessionsComponent } from './language-reg-sessions/form-language-reg-sessions/form-language-reg-sessions.component';
-import { FormLanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/form-language-therapeutic-goals/form-language-therapeutic-goals.component';
 import { DrugApplicationComponent } from './drug-application/drug-application.component';
 import { FormDrugApplicationComponent } from './drug-application/form-drug-application/form-drug-application.component';
-import { NurseringMedicationComponent } from './nursering-medication/nursering-medication.component';
-import { FormNurseringMedicationComponent } from './nursering-medication/form-nursering-medication/form-nursering-medication.component';
 import { MedicationOrderComponent } from './medication-order/medication-order.component';
 import { FormMedicationOrderComponent } from './medication-order/form-medication-order/form-medication-order.component';
-import { NurseringNotesComponent } from './nursering-notes/nursering-notes.component';
-import { FormNurseringNotesComponent } from './nursering-notes/form-nursering-notes/form-nursering-notes.component';
-import { NotesDescriptionComponent } from './notes-description/notes-description.component';
-import { FormNotesDescriptionComponent } from './notes-description/form-notes-description/form-notes-description.component';
-import { CarePlanComponent } from './care-plan/care-plan.component';
-import { FormCarePlanComponent } from './care-plan/form-care-plan/form-care-plan.component';
-import { NursingProcedureComponent } from './nursing-procedure/nursing-procedure.component';
-import { FormNursingProcedureComponent } from './nursing-procedure/form-nursing-procedure/form-nursing-procedure.component';
 import { FormRespiratoryTherapyComponent } from './respiratory-therapy-list/form-respiratory-therapy/form-respiratory-therapy.component';
-import { EntryRespiratoryTherapyComponent } from './entry-respiratory-therapy/entry-respiratory-therapy.component';
-import { FormReasonConsultationRespiratoryTherapyComponent } from './entry-respiratory-therapy/form-reason-consultation-respiratory-therapy/form-reason-consultation-respiratory-therapy.component';
 import { ActionsRespiratoryTherapyComponent } from './respiratory-therapy-list/actionsRespiratoryTherapy.component';
-import { ActionsRespiratoryTherapy2Component } from './entry-respiratory-therapy/actions.component';
+import { ActionsRespiratoryTherapy2Component } from './respiratory-therapy-list/entry-respiratory-therapy/actions.component';
 import { RespiratoryTherapyListComponent } from './respiratory-therapy-list/respiratory-therapy-list.component';
-import { FormChOxygenTherapyComponent } from './oxygen-therapy/form-oxygen-therapy.component';
-import { RegularRespiratoryTherapyComponent } from './regular-respiratory-therapy/regular-respiratory-therapy.component';
-import { FormSessionsTherapyComponent } from './sessions-therapy/form-sessions-therapy.component';
-import { OxygenTherapyComponent } from './oxygen-therapy/oxygen-therapy.component';
+import { OxygenTherapyComponent } from './respiratory-therapy-list/entry-respiratory-therapy/oxygen-therapy/oxygen-therapy.component';
 import { FormDiagnosisCifTherapyComponent } from './diagnosis-cif-therapy/form-diagnosis-cif-therapy.component';
-import { SessionsTherapyComponent } from './sessions-therapy/sessions-therapy.component';
 import { FormNutritionBackgroundComponent } from './ch-nutrition-list/ch-nutrition-input/form-nutrition-background/form-nutrition-background.component';
 import { NursingPhysicalExamComponent } from './nursing-physical-exam/nursing-physical-exam.component';
 import { FormNursingPhysicalExamComponent } from './nursing-physical-exam/form-nursing-physical-exam/form-nursing-physical-exam.component';
-import { ReasonConsultationRespiratoryTherapyComponent } from './entry-respiratory-therapy/form-reason-consultation-respiratory-therapy/reason-consultation-respiratory-therapy.component';
-import { FormLanguageOstomiesComponent } from './language-ostomies/form-language-ostomies/form-language-ostomies.component';
-import { LanguageOstomiesComponent } from './language-ostomies/language-ostomies.component';
-import { FormLanguageSwallowingComponent } from './language-swallowing/form-language-swallowing/form-language-swallowing.component';
-import { LanguageSwallowingComponent } from './language-swallowing/language-swallowing.component';
-import { FormLanguageAlterationsComponent } from './language-alterations/form-language-alterations/form-language-alterations.component';
-import { LanguageAlterationsComponent } from './language-alterations/language-alterations.component';
-import { FormLanguageHearingComponent } from './language-hearing/form-language-hearing/form-language-hearing.component';
-import { LanguageHearingComponent } from './language-hearing/language-hearing.component';
-import { FormLanguageLinguisticComponent } from './language-linguistic/form-language-linguistic/form-language-linguistic.component';
-import { LanguageLinguisticComponent } from './language-linguistic/language-linguistic.component';
-import { LanguageCommunicationComponent } from './language-communication/language-communication.component';
-import { FormLanguageOrofacialComponent } from './language-orofacial/form-language-orofacial/form-language-orofacial.component';
-import { LanguageOrofacialComponent } from './language-orofacial/language-orofacial.component';
-import { FormLanguageSpeechComponent } from './language-speech/form-language-speech/form-language-speech.component';
-import { LanguageSpeechComponent } from './language-speech/language-speech.component';
-import { FormLanguageTestsComponent } from './language-tests/form-language-tests/form-language-tests.component';
-import { LanguageTestsComponent } from './language-tests/language-tests.component';
-import { FormLanguageCognitiveComponent } from './language-cognitive/form-language-cognitive/form-language-cognitive.component';
-import { LanguageCognitiveComponent } from './language-cognitive/language-cognitive.component';
-import { LanguageAssessmentComponent } from './language-assessment/language-assessment.component';
-import { LanguageAssessmentRegularComponent } from './language-assessment-regular/language-assessment-regular.component';
-import { LanguageRegSessionsComponent } from './language-reg-sessions/language-reg-sessions.component';
-import { FormChInabilityComponent } from './ch-inability/form-ch-inability/form-ch-inability.component';
-import { ChInabilityComponent } from './ch-inability/ch-inability.component';
-import { FormLanguageCommunicationComponent } from './language-communication/form-language-communication/form-language-communication.component';
-import { LanguageInterventionComponent } from './language-intervention/language-intervention.component';
-import { ChMedicalCertificateComponent } from './ch-medical-certificate/ch-medical-certificate.component';
-import { FormChMedicalCertificateComponent } from './ch-medical-certificate/form-ch-medical-certificate/form-ch-medical-certificate.component';
-import { LanguageConceptComponent } from './language-concept/language-concept.component';
-import { FormChOstomiesComponent } from './ch-ostomies/form-ch-ostomies/form-ch-ostomies.component';
-import { ChOstomiesComponent } from './ch-ostomies/ch-ostomies.component';
-import { ChApComponent } from './ch-ap/ch-ap.component';
-import { FormChApComponent } from './ch-ap/form-ch-ap/form-ch-ap.component';
+
 import { FormRNValorationOtComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-valoration-ot/form-r-n-valoration-ot/form-r-n-valoration-ot.component';
 import { RNValorationOtComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-valoration-ot/r-n-valoration-ot.component';
 import { Actions31Component } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-valoration-ot/actions.component';
@@ -217,17 +130,6 @@ import { FormRNMaterialsOTComponent } from './entry-clinic-history-occupational-
 import { RNMaterialsOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-metarials-ot/r-n-materials-ot.component';
 import { ForRNmWeeklyOTComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/form-r-n-weekly-ot/form-r-n-weekly-ot.component';
 import { RNWeeklyOtComponent } from './entry-clinic-history-occupational-therapy/regular-note-therapy-occupational/r-n-weekly-ot/r-n-weekly-ot.component';
-import { FormaObjectivesTherapyComponent } from './objectives-therapy/form-objectives-therapy/form-objectives-therapy.component';
-import { ObjectivesTherapyComponent } from './objectives-therapy/objectives-therapy.component';
-import { AuscultacionTherapyComponent } from './auscultacion-therapy/auscultacion-therapy.component';
-import { FormAuscultacionTherapyComponent } from './auscultacion-therapy/form-auscultacion-therapy/form-auscultacion-therapy.component';
-import { FormaDiagnosticTherapyComponent } from './diagnostic-therapy/form-diagnostic-therapy/form-diagnostic-therapy.component';
-import { FormAssessmentTherapyComponent } from './assessment-therapy/form-assessment-therapy/form-assessment-therapy.component';
-import { FormAssTherapyRespiratoryComponent } from './ass-therapy-respiratory/form-ass-therapy-respiratory/form-ass-therapy-respiratory.component';
-import { AssTherapyRespiratoryComponent } from './ass-therapy-respiratory/ass-therapy-respiratory.component';
-import { SignsRespiratoryComponent } from './signs-respiratory/signs-respiratory.component';
-import { IspectionTherapyComponent } from './ispection-therapy/ispection-therapy.component';
-import { FormIspectionTherapyComponent } from './ispection-therapy/from-inspection-therapy/form-ispection-therapy.component';
 import { FormSwFamilyComponent } from './ch-social-work/sw-family/form-sw-family/form-sw-family.component';
 import { SwFamilyComponent } from './ch-social-work/sw-family/sw-family.component';
 import { FormSwNursingComponent } from './ch-social-work/sw-nursing/form-sw-nursing/form-sw-nursing.component';
@@ -261,22 +163,12 @@ import { FormSwDiagnosisComponent } from './ch-social-work/ch-sw-diagnosis/form-
 
 import { ActionsAplicationsComponent } from './drug-application/actions.component';
 import { ClinicHistoryOccupationalTherapy } from './entry-clinic-history-occupational-therapy/ch-occupational-therapy.component';
-import { FormChPositionComponent } from './ch-position/form-ch-position/form-ch-position.component';
-import { ChPositionComponent } from './ch-position/ch-position.component';
-import { ChOxigenComponent } from './ch-oxigen/ch-oxigen.component';
-import { FormChOxigenComponent } from './ch-oxigen/form-ch-oxigen/form-ch-oxigen.component';
-import { ChHairValorationComponent } from './ch-hair-valoration/ch-hair-valoration.component';
-import { FormChHairValorationComponent } from './ch-hair-valoration/form-ch-hair-valoration/form-ch-hair-valoration.component';
-import { Actions25Component } from './failed/actions25.component';
+import { Actions25Component } from './clinic-history-list/failed/actions25.component';
 import { InsumeApplicationComponent } from './insume-application/insume-application.component';
 import { FormInsumeApplicationComponent } from './insume-application/form-insume-application/form-insume-application.component';
 import { ActionsInsumeComponent } from './insume-application/actions.component';
-import { FormLiquidControlDelComponent } from './liquid-control/form-liquid-control-del/form-liquid-control-del.component';
-import { LiquidControlComponent } from './liquid-control/liquid-control.component';
-import { FormLiquidControlAdmComponent } from './liquid-control/form-liquid-control-adm/form-liquid-control-adm.component';
 import { ClinicHistoryPhysicTherapy } from './entry-clinic-history-physical-therapy/ch-physic-therapy.component';
 import { ConfirmDialogCHComponent } from './clinic-history-list/confirm-dialog/confirm-dialog.component';
-import { DiagnosticTherapyComponent } from './diagnostic-therapy/diagnostic-therapy.component';
 import { FormValorationFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/valoration-ft/form-valoration-ft/form-valoration-ft.component';
 import { TableValorationFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/valoration-ft/table-valoration-ft.component';
 import { FormValorationTherFTComponent } from './entry-clinic-history-physical-therapy/entry-physical-therapy/valoration-ther-ft/form-valoration-ther-ft/form-valoration-ther-ft.component';
@@ -323,10 +215,7 @@ import { FormNRWeeklyFTComponent } from './entry-clinic-history-physical-therapy
 import { TableNRWeeklyFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-weekly-ft/table-nr-weekly-ft.component';
 import { FormNRDiagnosisFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-diagnosis-ft/form-nr-diagnosis-ft/form-nr-diagnosis-ft.component';
 import { TableNRDiagnosisFTComponent } from './entry-clinic-history-physical-therapy/regular-physical-therapy/nr-diagnosis-ft/table-nr-diagnosis-ft.component';
-import { FormChNursingNoteComponent } from './ch-nursing-note/form-ch-nursing-note/form-ch-nursing-note.component';
-import { ChNursingNoteComponent } from './ch-nursing-note/ch-nursing-note.component';
 import { TableValorationOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/valoration-ot/table-valoration-ot.component';
-import { LanguageTherapeuticGoalsComponent } from './language-therapeutic-goals/language-therapeutic-goals.component';
 import { SwDiagnosisComponent } from './ch-social-work/ch-sw-diagnosis/sw-diagnosis.component';
 import { ActionsSWComponent } from './ch-social-work/ch-sw-support-network/actions.component';
 import { TableDisTactilelMOTComponent } from './entry-clinic-history-occupational-therapy/entry-therapy-occupational/motor-skills/dis-tactile-m-ot/table-dis-tactile-m-ot.component';
@@ -405,16 +294,131 @@ import { PsOperationalizationComponent } from './ch-psychology/ps-operationaliza
 import { PsAwarenessComponent } from './ch-psychology/ps-awareness/ps-awareness.component';
 import { PsObjectivesComponent } from './ch-psychology/ps-objectives/ps-objectives.component';
 import { ActionsFormulationComponent } from './formulation/actions.component';
-import { ActionsMedicalOrderComponent } from './ch-medical-orders/actions.component';
-import { ActionsInabilityComponent } from './ch-inability/actions.component';
-import { ActionsCertificateComponent } from './ch-medical-certificate/actions.component';
-import { ActionsInterconsultationComponent } from './ch-interconsultation/actions.component';
+import { ActionsMedicalOrderComponent } from './clinic-history-list/medical-orders/ch-medical-orders/actions.component';
+import { ActionsInabilityComponent } from './clinic-history-list/ch-inability/actions.component';
+import { ActionsCertificateComponent } from './clinic-history-list/ch-medical-certificate/actions.component';
+import { ActionsInterconsultationComponent } from './clinic-history-list/medical-orders/ch-interconsultation/actions.component';
 import { ChSwEducationComponent } from './ch-social-work/ch-sw-education/ch-sw-education.component';
 import { FormTracingComponent } from './tracing/form-tracing/form-tracing.component';
 import { TracingComponent } from './tracing/tracing.component';
 import { TracingListComponent } from './tracing-list/tracing-list.component';
 import { FormTracingListComponent } from './tracing-list/form-tracing-list/form-tracing-list.component';
 import { ActionsPExamComponent } from './nursing-physical-exam/actions.component';
+import { InformedConsentsComponent } from './informed-consents/informed-consents.component';
+import { ActionsInformedComponent } from './informed-consents/actions.component';
+import { FormInformedConsentsComponent } from './informed-consents/form-informed-consents/form-informed-consents.component';
+import { Actions23Component } from './informed-consents/actions2.component';
+import { EntryRespiratoryTherapyComponent } from './respiratory-therapy-list/entry-respiratory-therapy/entry-respiratory-therapy.component';
+import { AssessmentTherapyComponent } from './respiratory-therapy-list/entry-respiratory-therapy/assessment-therapy/assessment-therapy.component';
+import { FomrAssessmentComponent } from './respiratory-therapy-list/entry-respiratory-therapy/assessment-therapy/assessment/form-assessment/form-assessment.component';
+import { IspectionComponent } from './respiratory-therapy-list/entry-respiratory-therapy/assessment-therapy/ispection/ispection.component';
+import { FormIspectionComponent } from './respiratory-therapy-list/entry-respiratory-therapy/assessment-therapy/ispection/form-ispection/form-ispection.component';
+import { FormAuscultacionComponent } from './respiratory-therapy-list/entry-respiratory-therapy/assessment-therapy/auscultacion/form-auscultacion/form-auscultacion.component';
+import { AuscultacionComponent } from './respiratory-therapy-list/entry-respiratory-therapy/assessment-therapy/auscultacion/auscultacion.component';
+import { DiagnosticAidsComponent } from './respiratory-therapy-list/entry-respiratory-therapy/assessment-therapy/diagnostic-aids/diagnostic-aids.component';
+import { FormaDiagnosticAidsComponent } from './respiratory-therapy-list/entry-respiratory-therapy/assessment-therapy/diagnostic-aids/form-diagnostic-aids/form-diagnostic-aids.component';
+import { FormObjectivesTherapyComponent } from './respiratory-therapy-list/entry-respiratory-therapy/objectives/form-objectives-therapy/form-objectives-therapy.component';
+import { ObjectivesTherapyComponent } from './respiratory-therapy-list/entry-respiratory-therapy/objectives/objectives-therapy.component';
+import { FormOxygenTherapyComponent } from './respiratory-therapy-list/entry-respiratory-therapy/oxygen-therapy/form-oxygen-therapy/form-oxygen-therapy.component';
+import { RegularRespiratoryTherapyComponent } from './respiratory-therapy-list/regular-respiratory-therapy/regular-respiratory-therapy.component';
+import { SessionsTherapyComponent } from './respiratory-therapy-list/entry-respiratory-therapy/sessions/sessions-therapy.component';
+import { FormSessionsTherapyComponent } from './respiratory-therapy-list/entry-respiratory-therapy/sessions/form-sessions-therapy/form-sessions-therapy.component';
+import { SignsRespiratoryComponent } from './respiratory-therapy-list/entry-respiratory-therapy/assessment-therapy/assessment/signs-respiratory/signs-respiratory.component';
+import { AssessmentComponent } from './respiratory-therapy-list/entry-respiratory-therapy/assessment-therapy/assessment/assessment.component';
+import { ReasonConsultationRTComponent } from './respiratory-therapy-list/entry-respiratory-therapy/reason-consultation-respiratory-therapy/reason-consultation-rt.component';
+import { FormReasonConsultationRTComponent } from './respiratory-therapy-list/entry-respiratory-therapy/reason-consultation-respiratory-therapy/form-reason-consultation/form-reason-consultation-rt.component';
+import { FormReasonConsultationComponent } from './clinic-history-list/entry-clinic-history/form-reason-consultation/form-reason-consultation.component';
+import { EntryClinicHistoryComponent } from './clinic-history-list/entry-clinic-history/entry-clinic-history.component';
+import { SystemExamComponent } from './clinic-history-list/entry-clinic-history/system-exam/system-exam.component';
+import { FormSystemExamComponent } from './clinic-history-list/entry-clinic-history/system-exam/form-system-exam/form-system-exam.component';
+import { FormDiagnosticComponent } from './clinic-history-list/entry-clinic-history/diagnostic/form-diagnostic/form-diagnostic.component';
+import { DiagnosticListComponent } from './clinic-history-list/entry-clinic-history/diagnostic/diagnostic.component';
+import { ChApComponent } from './clinic-history-list/entry-clinic-history/ch-ap/ch-ap.component';
+import { FormChApComponent } from './clinic-history-list/entry-clinic-history/ch-ap/form-ch-ap/form-ch-ap.component';
+import { EvolutionListComponent } from './clinic-history-list/evolution-list/evolution-list.component';
+import { EvoSoapComponent } from './clinic-history-list/evolution-list/evo-soap/evo-soap.component';
+import { FormEvoSoapComponent } from './clinic-history-list/evolution-list/evo-soap/form-evo-soap/form-evo-soap.component';
+import { DiagnosticEvoComponent } from './clinic-history-list/evolution-list/diagnostic-evo/diagnostic-evo.component';
+import { FormDiagnosticEvoComponent } from './clinic-history-list/evolution-list/diagnostic-evo/form-diagnostic-evo/form-diagnostic-evo.component';
+import { FormDietsEvoComponent } from './clinic-history-list/evolution-list/diets-evo/form-diets-evo/form-diets-evo.component';
+import { DietsEvoComponent } from './clinic-history-list/evolution-list/diets-evo/diets-evo.component';
+import { OrdersMedicalComponent } from './clinic-history-list/medical-orders/orders-medical.component';
+import { FormChMedicalOrdersComponent } from './clinic-history-list/medical-orders/ch-medical-orders/form-ch-medical-orders/form-ch-medical-orders.component';
+import { ChMedicalOrdersComponent } from './clinic-history-list/medical-orders/ch-medical-orders/ch-medical-orders.component';
+import { ChInterconsultationComponent } from './clinic-history-list/medical-orders/ch-interconsultation/ch-interconsultation.component';
+import { FormChInterconsultationComponent } from './clinic-history-list/medical-orders/ch-interconsultation/form-ch-interconsultation/form-ch-interconsultation.component';
+import { ChInabilityComponent } from './clinic-history-list/ch-inability/ch-inability.component';
+import { FormChInabilityComponent } from './clinic-history-list/ch-inability/form-ch-inability/form-ch-inability.component';
+import { ChMedicalCertificateComponent } from './clinic-history-list/ch-medical-certificate/ch-medical-certificate.component';
+import { FormChMedicalCertificateComponent } from './clinic-history-list/ch-medical-certificate/form-ch-medical-certificate/form-ch-medical-certificate.component';
+import { FailedComponent } from './clinic-history-list/failed/failed.component';
+import { FormFailedComponent } from './clinic-history-list/failed/form-failed/form-failed.component';
+import { FormPatientExitComponent } from './clinic-history-list/patient-exit/form-patient-exit/form-patient-exit.component';
+import { EntryClinicHistoryNursingComponent } from './clinic-history-nursing-list/entry-clinic-history-nursing/entry-clinic-history-nursing.component';
+import { FormReasonConsultationNursingComponent } from './clinic-history-nursing-list/entry-clinic-history-nursing/form-reason-consultation-nursing/form-reason-consultation-nursing.component';
+import { FormChNursingNoteComponent } from './clinic-history-nursing-list/ch-nursing-note/form-ch-nursing-note/form-ch-nursing-note.component';
+import { ChNursingNoteComponent } from './clinic-history-nursing-list/ch-nursing-note/ch-nursing-note.component';
+import { SkinValorationComponent } from './clinic-history-nursing-list/skin-valoration/skin-valoration.component';
+import { FormSkinValorationComponent } from './clinic-history-nursing-list/skin-valoration/form-skin-valoration/form-skin-valoration.component';
+import { NurseringNotesComponent } from './clinic-history-nursing-list/nursering-notes/nursering-notes.component';
+import { FormNurseringNotesComponent } from './clinic-history-nursing-list/nursering-notes/form-nursering-notes/form-nursering-notes.component';
+import { NotesDescriptionComponent } from './clinic-history-nursing-list/nursering-notes/notes-description/notes-description.component';
+import { FormNotesDescriptionComponent } from './clinic-history-nursing-list/nursering-notes/notes-description/form-notes-description/form-notes-description.component';
+import { NursingProcedureComponent } from './clinic-history-nursing-list/nursering-notes/nursing-procedure/nursing-procedure.component';
+import { FormNursingProcedureComponent } from './clinic-history-nursing-list/nursering-notes/nursing-procedure/form-nursing-procedure/form-nursing-procedure.component';
+import { LiquidControlComponent } from './clinic-history-nursing-list/nursering-notes/liquid-control/liquid-control.component';
+import { FormLiquidControlAdmComponent } from './clinic-history-nursing-list/nursering-notes/liquid-control/form-liquid-control-adm/form-liquid-control-adm.component';
+import { FormLiquidControlDelComponent } from './clinic-history-nursing-list/nursering-notes/liquid-control/form-liquid-control-del/form-liquid-control-del.component';
+import { CarePlanComponent } from './clinic-history-nursing-list/nursering-notes/care-plan/care-plan.component';
+import { FormCarePlanComponent } from './clinic-history-nursing-list/nursering-notes/care-plan/form-care-plan/form-care-plan.component';
+import { NurseringMedicationComponent } from './clinic-history-nursing-list/nursering-medication/nursering-medication.component';
+import { FormNurseringMedicationComponent } from './clinic-history-nursing-list/nursering-medication/form-nursering-medication/form-nursering-medication.component';
+import { ChPositionComponent } from './clinic-history-nursing-list/entry-clinic-history-nursing/form-reason-consultation-nursing/ch-position/ch-position.component';
+import { FormChPositionComponent } from './clinic-history-nursing-list/entry-clinic-history-nursing/form-reason-consultation-nursing/ch-position/form-ch-position/form-ch-position.component';
+import { ChHairValorationComponent } from './clinic-history-nursing-list/entry-clinic-history-nursing/form-reason-consultation-nursing/ch-hair-valoration/ch-hair-valoration.component';
+import { FormChHairValorationComponent } from './clinic-history-nursing-list/entry-clinic-history-nursing/form-reason-consultation-nursing/ch-hair-valoration/form-ch-hair-valoration/form-ch-hair-valoration.component';
+import { FormChOstomiesComponent } from './clinic-history-nursing-list/entry-clinic-history-nursing/form-reason-consultation-nursing/ch-ostomies/form-ch-ostomies/form-ch-ostomies.component';
+import { ChOstomiesComponent } from './clinic-history-nursing-list/entry-clinic-history-nursing/form-reason-consultation-nursing/ch-ostomies/ch-ostomies.component';
+import { ChOxigenComponent } from './clinic-history-nursing-list/nursering-notes/ch-oxigen/ch-oxigen.component';
+import { FormChOxigenComponent } from './clinic-history-nursing-list/nursering-notes/ch-oxigen/form-ch-oxigen/form-ch-oxigen.component';
+import { LanguageListComponent } from './clinic-history-language-list/language-list/language-list.component';
+import { FormLanguageAssessmentComponent } from './clinic-history-language-list/language-list/language-assessment/form-language-assessment/form-language-assessment.component';
+import { LanguageAssessmentComponent } from './clinic-history-language-list/language-list/language-assessment/language-assessment.component';
+import { FormLanguageEvolutionComponent } from './clinic-history-language-list/language-list/form-language-evolution/form-language-evolution.component';
+import { FormLanguageOstomiesComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-ostomies/form-language-ostomies/form-language-ostomies.component';
+import { LanguageOstomiesComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-ostomies/language-ostomies.component';
+import { FormLanguageSwallowingComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-swallowing/form-language-swallowing/form-language-swallowing.component';
+import { LanguageSwallowingComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-swallowing/language-swallowing.component';
+import { FormLanguageAlterationsComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-alterations/form-language-alterations/form-language-alterations.component';
+import { LanguageAlterationsComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-alterations/language-alterations.component';
+import { FormLanguageHearingComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-hearing/form-language-hearing/form-language-hearing.component';
+import { LanguageHearingComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-hearing/language-hearing.component';
+import { FormLanguageLinguisticComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-linguistic/form-language-linguistic/form-language-linguistic.component';
+import { LanguageLinguisticComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-linguistic/language-linguistic.component';
+import { FormLanguageCommunicationComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-communication/form-language-communication/form-language-communication.component';
+import { LanguageCommunicationComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-communication/language-communication.component';
+import { FormLanguageCognitiveComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-cognitive/form-language-cognitive/form-language-cognitive.component';
+import { LanguageCognitiveComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-cognitive/language-cognitive.component';
+import { FormLanguageOrofacialComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-orofacial/form-language-orofacial/form-language-orofacial.component';
+import { LanguageOrofacialComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-orofacial/language-orofacial.component';
+import { FormLanguageSpeechComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-speech/form-language-speech/form-language-speech.component';
+import { LanguageSpeechComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-speech/language-speech.component';
+import { FormLanguageTestsComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-tests/form-language-tests/form-language-tests.component';
+import { LanguageTestsComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-tests/language-tests.component';
+import { FormLanguageTherapeuticGoalsComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-therapeutic-goals/form-language-therapeutic-goals/form-language-therapeutic-goals.component';
+import { LanguageTherapeuticGoalsComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-therapeutic-goals/language-therapeutic-goals.component';
+import { FormLanguageEvoDiagnosisComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-evo-diagnosis/form-language-evo-diagnosis/form-language-evo-diagnosis.component';
+import { FormLanguageRegSessionsComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-reg-sessions/form-language-reg-sessions/form-language-reg-sessions.component';
+import { LanguageRegSessionsComponent } from './clinic-history-language-list/language-list/form-language-evolution/language-reg-sessions/language-reg-sessions.component';
+import { RegularLanguageListComponent } from './clinic-history-language-list/regularlanguage-list/regularlanguage-list.component';
+import { FormLanguageAssessmentRegularComponent } from './clinic-history-language-list/regularlanguage-list/language-assessment-regular/form-language-assessment-regular/form-language-assessment-regular.component';
+import { FormLanguageMaterialusedComponent } from './clinic-history-language-list/regularlanguage-list/language-materialused/form-language-materialused/form-language-materialused.component';
+import { LanguageMaterialusedComponent } from './clinic-history-language-list/regularlanguage-list/language-materialused/language-materialused.component';
+import { FormLanguageInterventionComponent } from './clinic-history-language-list/regularlanguage-list/language-intervention/form-language-intervention/form-language-intervention.component';
+import { LanguageAssessmentRegularComponent } from './clinic-history-language-list/regularlanguage-list/language-assessment-regular/language-assessment-regular.component';
+import { LanguageInterventionComponent } from './clinic-history-language-list/regularlanguage-list/language-intervention/language-intervention.component';
+import { FormLanguageConceptComponent } from './clinic-history-language-list/regularlanguage-list/language-concept/form-language-concept/form-language-concept.component';
+import { LanguageConceptComponent } from './clinic-history-language-list/regularlanguage-list/language-concept/language-concept.component';
 
 
 @NgModule({
@@ -657,25 +661,25 @@ import { ActionsPExamComponent } from './nursing-physical-exam/actions.component
       
     RespiratoryTherapyListComponent,
     FormRespiratoryTherapyComponent,
-    FormAssessmentTherapyComponent,
-    FormAssTherapyRespiratoryComponent,
-    AssTherapyRespiratoryComponent,
+    AssessmentTherapyComponent,
+    FomrAssessmentComponent,
+    AssessmentComponent,
     SignsRespiratoryComponent,
     EntryRespiratoryTherapyComponent,
-    FormReasonConsultationRespiratoryTherapyComponent,
-    ReasonConsultationRespiratoryTherapyComponent,
+    FormReasonConsultationRTComponent,
+    ReasonConsultationRTComponent,
     ActionsRespiratoryTherapyComponent,
     ActionsRespiratoryTherapy2Component,
 
-    FormIspectionTherapyComponent,
-    IspectionTherapyComponent,
-    FormAuscultacionTherapyComponent,
-    AuscultacionTherapyComponent,
-    FormaDiagnosticTherapyComponent,
-    DiagnosticTherapyComponent,
-    FormaObjectivesTherapyComponent,
+    FormIspectionComponent,
+    IspectionComponent,
+    FormAuscultacionComponent,
+    AuscultacionComponent,
+    FormaDiagnosticAidsComponent,
+    DiagnosticAidsComponent, 
+    FormObjectivesTherapyComponent,
     ObjectivesTherapyComponent,
-    FormChOxygenTherapyComponent,
+    FormOxygenTherapyComponent,
     OxygenTherapyComponent,
 
     RegularRespiratoryTherapyComponent,
@@ -694,6 +698,10 @@ import { ActionsPExamComponent } from './nursing-physical-exam/actions.component
     FormReasonConsultationComponent,
     EntryClinicHistoryComponent,
     ChRecordListComponent,
+    InformedConsentsComponent,
+    ActionsInformedComponent,
+    FormInformedConsentsComponent,
+    Actions23Component,
     FormsignsComponent,
     SignsListComponent,
     Actions1Component,
@@ -707,7 +715,6 @@ import { ActionsPExamComponent } from './nursing-physical-exam/actions.component
     FormPhysicalExamComponent,
     PhysicalExamComponent,
     Actions3Component,
-    FormOrdersMedicalComponent,
     FormSystemExamComponent,
     SystemExamComponent,
     Actions7Component,
@@ -791,7 +798,6 @@ import { ActionsPExamComponent } from './nursing-physical-exam/actions.component
 
     FormChMedicalOrdersComponent,
     ChMedicalOrdersComponent,
-    FormOrdersMedicalComponent,
     OrdersMedicalComponent,
 
     // historia nutricion
@@ -854,7 +860,6 @@ import { ActionsPExamComponent } from './nursing-physical-exam/actions.component
     FormChInabilityComponent,
     ChInabilityComponent,
     LanguageInterventionComponent,
-    ChMedicalCertificateComponent,
     ChMedicalCertificateComponent,
     FormChMedicalCertificateComponent,
     LanguageConceptComponent,

@@ -26,7 +26,11 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
     <nb-icon icon="folder-add-outline"></nb-icon>
     </button> 
 
-    <a *ngIf="value.currentRole == 2 && (firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
+    <a *ngIf="(value.currentRole == 2) && (firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17) " nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
+    <nb-icon icon="folder-add-outline"></nb-icon>
+  </a>
+
+  <a *ngIf="(value.role == 23 ) && (today >= value.data.start_date && today <= value.data.finish_date && value.data.management_plan.type_of_attention_id==20) " nbTooltip="Registro Seguimiento" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
     <nb-icon icon="folder-add-outline"></nb-icon>
   </a>
 

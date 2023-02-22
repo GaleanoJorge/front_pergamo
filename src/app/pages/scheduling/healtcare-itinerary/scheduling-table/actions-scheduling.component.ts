@@ -30,7 +30,7 @@ import { ViewCell } from 'ng2-smart-table';
       </button>
 
       <button
-        *ngIf="this.rowData.medical_status_id == 3"
+        *ngIf="this.rowData.medical_status_id == 3 && !complete"
         nbTooltip="Facturar"
         nbTooltipPlacement="top"
         nbTooltipStatus="primary"
@@ -66,7 +66,7 @@ import { ViewCell } from 'ng2-smart-table';
       </button>
 
       <button
-        *ngIf="complete"
+        *ngIf="this.rowData.medical_status_id != 5 && complete"
         nbTooltip="Completar datos de paciente"
         nbTooltipPlacement="top"
         nbTooltipStatus="primary"
@@ -113,7 +113,7 @@ export class ActionsSchedulingComponent implements ViewCell {
 
   ngOnInit() {
     if (this.rowData.patient) {
-      if (this.rowData.patient.email == null) {
+      if (this.rowData.patient.email == null || this.rowData.patient.email == '') {
         this.complete = true;
         this.route =
           '/pages/admissions/patient/' + this.rowData.patient.id + '/edit';

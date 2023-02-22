@@ -121,7 +121,17 @@ export class FormManualProductComponent implements OnInit {
   }
 
   fillGenericName($event){
-    this.form.controls.name.setValue($event);
+    
+    var filter = this.product_gen.find((product) => product.description == $event);
+    if (filter) {
+      this.product_id = filter.id;
+      this.form.controls.name.setValue($event);
+    } else {
+      this.product_id;
+      this.toastService.warning('', 'Debe seleccionar un item de la lista');
+      this.form.controls.name.setErrors({ incorrect: true });
+      this.form.controls.name.setValue('');
+    }
   }
 
   checkProduct($event, value) {

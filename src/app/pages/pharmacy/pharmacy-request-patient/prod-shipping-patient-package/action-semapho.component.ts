@@ -8,8 +8,8 @@ import { ViewCell } from 'ng2-smart-table';
   <div class="d-flex justify-content-center" >
     <div class = "cuadro" nbTooltip="{{this.tooltip}}"
      [style]="
-     this.semaphore == 1 ? 'background-color:red;' : 
-     this.semaphore == 2 ? 'background-color: yellow;' :
+     this.semaphore == 1 ? 'background-color:yellow;' : 
+     this.semaphore == 2 ? 'background-color: #90EE90;' :
      'background-color: #green' ">
     </div>
   </div>
@@ -21,7 +21,7 @@ export class ActionSemaphoComponent implements ViewCell {
   @Input() rowData: any;  // This holds the entire row object
 
   public semaphore: any;
-  public tooltip: any;
+  public tooltip;
 
   constructor(
   ) {
@@ -29,11 +29,10 @@ export class ActionSemaphoComponent implements ViewCell {
 
   async ngOnInit() {
     if (this.value.data.expiration_date <= "2025-01-01") {
+     // this.tooltip = 'proximo a vencer';
       this.semaphore = 1;
-      this.tooltip = 'proximo a vencer';
-    } else
+    } else if (this.value.data.expiration_date > "2025-01-01")
       this.semaphore = 2;
-    this.tooltip = 'lejos de vencer';
+  //  this.tooltip = 'lejos de vencer';
   }
-
 }

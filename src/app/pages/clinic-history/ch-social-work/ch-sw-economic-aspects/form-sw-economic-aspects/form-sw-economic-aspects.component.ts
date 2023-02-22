@@ -30,6 +30,8 @@ export class FormChSwEconomicAspectsComponent implements OnInit {
   public disabled: boolean = false;
   public total: number = 0;
   public expensesTotal = null;
+  public show1 = false;
+  public show2 = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -103,6 +105,17 @@ export class FormChSwEconomicAspectsComponent implements OnInit {
     }
   }
 
- 
+  filterStepper($event){
+    return $event.target.textContent;
+  }
 
+  goto($event) {
+    let selectedAccordion =  this.filterStepper($event);
+    if (selectedAccordion == 'Ingresos') {
+      this.show1 = true;
+    } else if (selectedAccordion == 'Egresos') {
+      this.show2 = true;
+    }
+
+   }
 }

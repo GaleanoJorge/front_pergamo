@@ -52,7 +52,10 @@ export class SchedulingTableComponent implements OnInit {
     'Inicio',
     'Finalización',
     'Piso',
-    'Pabellon'
+    'Pabellon',
+    'Motivo de cancelación',
+    'Observación de cancelación',
+    'Usuario cancelación'
   ];
   public routes = [];
   public row;
@@ -219,6 +222,39 @@ export class SchedulingTableComponent implements OnInit {
       finish_hour: {
         title: this.headerFields[8],
         type: 'string',
+      },
+      'reason_cancel': {
+        title: this.headerFields[11],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(value){
+            return value.name;
+          } else {
+            return 'N/A';
+          }
+        },
+      },
+      'user_cancel': {
+        title: this.headerFields[13],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(value){
+            return ((value.firstname == null) ? '' : value.firstname) + ' ' + ((value.middlefirstname == null) ? '' : value.middlefirstname) + ' ' + ((value.lastname == null) ? '' : value.lastname) + ' ' + ((value.middlelastname == null) ? '' : value.middlelastname);;
+          } else {
+            return 'N/A';
+          }
+        },
+      },
+      cancel_description: {
+        title: this.headerFields[12],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(value){
+            return value;
+          } else {
+            return 'N/A';
+          }
+        },
       },
     },
   };
@@ -455,6 +491,7 @@ export class SchedulingTableComponent implements OnInit {
       context: {
         id: data.patient.id,
         saved: this.RefreshData.bind(this),
+        is_checking_in: true
       },
     });
   }

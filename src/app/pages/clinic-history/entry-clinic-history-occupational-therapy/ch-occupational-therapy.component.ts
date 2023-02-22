@@ -49,7 +49,6 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public chdiagnosis: any[];
   public nameForm: String;
   public movieForm: String;
-  public show: any;
   public redo = false;
   public signatureImage: string;
   public currentRole: any;
@@ -67,6 +66,10 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   public saveEntry: any = 0;
   public loading: boolean = false;
   public admission;
+  public show1 = false;
+  public show2 = false;
+  public show3 = false;
+  public show = [];
 
 
   constructor(
@@ -113,39 +116,39 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
       };
     }
     
-     this.ChEValorationOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chvaloration = x;
+    //  this.ChEValorationOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chvaloration = x;
       
-    });
+    // });
 
-     this.ChRNValorationOTS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chrnvaloration = x;
+    //  this.ChRNValorationOTS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chrnvaloration = x;
       
-    });
-     this.ChEOccHistoryOTServiceS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chocuupationalhistory = x;
+    // });
+    //  this.ChEOccHistoryOTServiceS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chocuupationalhistory = x;
       
-    });
-     this.ChEPastOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chpast = x;
+    // });
+    //  this.ChEPastOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chpast = x;
       
-    });
-     this.ChEDailyActivitiesOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chdailyactivities = x;
+    // });
+    //  this.ChEDailyActivitiesOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chdailyactivities = x;
       
-    });
+    // });
 
 
 
-     this.ChRNTherapeuticObjOTS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.rntherapeutic = x;
+    //  this.ChRNTherapeuticObjOTS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.rntherapeutic = x;
       
-    });
+    // });
 
-     this.ChRNMaterialsOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.chrnmaterials = x;
+    //  this.ChRNMaterialsOTService.GetCollection({ ch_record_id: this.record_id }).then(x => {
+    //   this.chrnmaterials = x;
       
-    });
+    // });
 
 
     this.form = this.formBuilder.group({
@@ -278,15 +281,15 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   tablock(e) {
     switch (e.tabTitle) {
       case "INGRESO PARTE 1": {
-        this.show = 1;
+        this.show1 = true;
         break;
       }
       case "INGRESO PARTE 2": {
-        this.show = 2;
+        this.show2 = true;
         break;
       }
       case "NOTA REGULAR": {
-        this.show = 3;
+        this.show3 = true;
         break;
       }
     }
@@ -307,5 +310,60 @@ export class ClinicHistoryOccupationalTherapy implements OnInit {
   inputMessage($event) {
     this.input_done = true;
   }
-}
 
+  filterStepper($event) {
+    return $event.target.textContent;
+  }
+
+
+  goto1($event) {
+    let selectedStep = this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Signos Vitales') {
+      this.show[1] = true;
+    } else if (selectedStep == '3' || selectedStep == 'Historia Ocupacional') {
+      this.show[2] = true;
+    } else if (selectedStep == '4' || selectedStep == 'Antecedentes Ocupacionales') {
+      this.show[3] = true;
+    } else if (selectedStep == '5' || selectedStep == 'Actividades Vida Diaria') {
+      this.show[4] = true;
+    }else if (selectedStep == '6' || selectedStep == 'Habilidades Motoras') {
+      this.show[5] = true;
+    } else if (selectedStep == '7' || selectedStep == 'Conciencia Térmica') {
+      this.show[6] = true;
+    }
+  }
+  goto2($event) {
+    let selectedStep = this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Discriminación Tactil') {
+      this.show[7] = true;
+    } else if (selectedStep == '3' || selectedStep == 'Agudeza') {
+      this.show[8] = true;
+    } else if (selectedStep == '4' || selectedStep == 'Componente Vestibular') {
+      this.show[9] = true;
+    } else if (selectedStep == '5' || selectedStep == 'Examen Mental') {
+      this.show[10] = true;
+    }else if (selectedStep == '6' || selectedStep == 'Interacción') {
+      this.show[11] = true;
+    } else if (selectedStep == '7' || selectedStep == 'Valoración Diaria') {
+      this.show[12] = true;
+    } else if (selectedStep == '8' || selectedStep == 'Sesiones') {
+      this.show[13] = true;
+    } 
+}
+  gotoR($event) {
+    let selectedStep = this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Signos Vitales') {
+      this.show[14] = true;
+    } else if (selectedStep == '3' || selectedStep == 'Valoración diaria') {
+      this.show[15] = true;
+    } else if (selectedStep == '4' || selectedStep == 'Intervención') {
+      this.show[16] = true;
+    } else if (selectedStep == '5' || selectedStep == 'Materiales') {
+      this.show[17] = true;
+    }else if (selectedStep == '6' || selectedStep == 'Sesiones') {
+      this.show[18] = true;
+    } else if (selectedStep == '7' || selectedStep == 'Recomendaciones') {
+      this.show[19] = true;
+    } 
+}
+}

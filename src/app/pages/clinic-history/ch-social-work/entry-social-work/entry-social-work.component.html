@@ -2,50 +2,101 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper [linear]="linearMode">
+        <nb-stepper #stepper [linear]="linearMode" (click)="goto($event)">
 
           <nb-step [stepControl]="nameForm" label="Diagnóstico">
-            <ngx-sw-diagnosis [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-sw-diagnosis>
+            <ngx-sw-diagnosis [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"
+              [type_record_id]="type_record_id"></ngx-sw-diagnosis>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Familia">
-            <ngx-sw-family [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-sw-family>
+            <div class="row" *ngIf="this.show1">
+              <div class="col-md-12">
+                <ngx-sw-family [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"
+                  [type_record_id]="type_record_id"></ngx-sw-family>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="S.Enfermeria">
-            <ngx-sw-nursing [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-sw-nursing>
+            <div class="row" *ngIf="this.show2">
+              <div class="col-md-12">
+                <ngx-sw-nursing [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"
+                  [type_record_id]="type_record_id"></ngx-sw-nursing>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Hist. Ocupacional">
-            <ngx-occupational-history [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-occupational-history>
+            <div class="row" *ngIf="this.show3">
+              <div class="col-md-12">
+                <ngx-occupational-history [record_id]="record_id" (messageEvent)="receiveMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-occupational-history>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Dinámica Familiar">
-            <ngx-sw-family-dynamics [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-sw-family-dynamics>
+            <div class="row" *ngIf="this.show4">
+              <div class="col-md-12">
+                <ngx-sw-family-dynamics [record_id]="record_id" (messageEvent)="receiveMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-sw-family-dynamics>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Factores de Riesgo">
-            <ngx-sw-risk-factors [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-sw-risk-factors>
+            <div class="row" *ngIf="this.show5">
+              <div class="col-md-12">
+                <ngx-sw-risk-factors [record_id]="record_id" (messageEvent)="receiveMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-sw-risk-factors>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Vivienda">
-            <ngx-sw-housing [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-sw-housing>
+            <div class="row" *ngIf="this.show6">
+              <div class="col-md-12">
+                <ngx-sw-housing [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"
+                  [type_record_id]="type_record_id"></ngx-sw-housing>
+              </div>
+            </div>
           </nb-step>
-         
+
           <nb-step [stepControl]="nameForm" label="Económia">
-            <ngx-sw-economic-aspects [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-sw-economic-aspects>
+            <div class="row" *ngIf="this.show7">
+              <div class="col-md-12">
+                <ngx-sw-economic-aspects [record_id]="record_id" (messageEvent)="receiveMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-sw-economic-aspects>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Conflicto armado">
-            <ngx-sw-armed-conflict [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"></ngx-sw-armed-conflict>
+            <div class="row" *ngIf="this.show8">
+              <div class="col-md-12">
+                <ngx-sw-armed-conflict [record_id]="record_id" (messageEvent)="receiveMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-sw-armed-conflict>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Red de apoyo">
-            <ngx-sw-support-network [type_record_id]="type_record_id" [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input" ></ngx-sw-support-network>
+            <div class="row" *ngIf="this.show9">
+              <div class="col-md-12">
+                <ngx-sw-support-network [type_record_id]="type_record_id" [record_id]="record_id"
+                  (messageEvent)="receiveMessage($event)" [has_input]="has_input"></ngx-sw-support-network>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Reco. / Educ.">
-            <ngx-ch-sw-education [record_id]="record_id" (messageEvent)="receiveMessage($event)" [has_input]="has_input" [type_record_id]="type_record_id" ></ngx-ch-sw-education>
+            <div class="row" *ngIf="this.show10">
+              <div class="col-md-12">
+                <ngx-ch-sw-education [record_id]="record_id" (messageEvent)="receiveMessage($event)"
+                  [has_input]="has_input" [type_record_id]="type_record_id"></ngx-ch-sw-education>
+              </div>
+            </div>
           </nb-step>
 
           <nb-step [hidden]="true">
