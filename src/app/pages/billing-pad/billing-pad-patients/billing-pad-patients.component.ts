@@ -239,7 +239,7 @@ export class BillingPadPatientsComponent implements OnInit {
   }
 
   async generatePdf() {
-    await this.getAdmissions();
+    await this.getAdmissions(); 
     this.BillingPadS.GeneratePdfMu({
       id: 0,
       billing_type: 'PREFACTURA',
