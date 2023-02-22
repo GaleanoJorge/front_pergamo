@@ -38,6 +38,7 @@ export class BillingAdmissionsPadListComponent implements OnInit {
   public currentRole;
   public settings;
   public briefcase_id;
+  public patient_id;
 
 
   public settings1 = {
@@ -178,6 +179,7 @@ export class BillingAdmissionsPadListComponent implements OnInit {
       }
     } else {
       this.briefcase_id = this.activatedRoute.snapshot.params.briefcase_id;
+      this.patient_id = this.activatedRoute.snapshot.params.patient_id;
       this.settings = this.settings1;
       this.route = 1;
       this.entity = 'billing_pad/getEnabledAdmissions/0';

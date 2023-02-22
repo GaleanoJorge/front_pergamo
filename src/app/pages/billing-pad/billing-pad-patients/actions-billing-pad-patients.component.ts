@@ -6,14 +6,14 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
 @Component({
     template: `
     <div class="d-flex justify-content-center">
-      <a nbTooltip="Pacientes" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/billing-pad/billing-pad-patient/' + value.data.id">
+      <a nbTooltip="Admiciones" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/billing-pad/billing-pad-admissions/' + value.briefcase_id+'/'+this.value.data.id">
         <nb-icon icon="options-2-outline"></nb-icon>
       </a>
     </div>
   `,
-    styleUrls: ['./billing-pad-briefcase.component.scss'],
+    styleUrls: ['./billing-pad-patients.component.scss'],
 })
-export class ActionsBillingPadBriefcaseComponent implements ViewCell {
+export class ActionsBillingPadPatientsComponent implements ViewCell {
     @Input() value: any;    // This hold the cell value
     @Input() rowData: any;  // This holds the entire row object
 

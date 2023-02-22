@@ -29,6 +29,7 @@ export class FormContractComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public isSubmitted: boolean = false;
+  public show_pgp_details: boolean = false;
   public regime: any[];
 
   constructor(
@@ -68,10 +69,13 @@ export class FormContractComponent implements OnInit {
         discount: '',
         observations: '',
         objective: '',
+        min_attention: '',
+        max_attention: '',
+        discount_rate: '',
       };
     }
 
-    this.companyS.GetCollection().then(x => {
+    this.companyS.GetCollection({ eps: 1, company_category_id: 1 }).then(x => {
       this.company = x;
     });
     this.TypeContractS.GetCollection().then(x => {
@@ -123,7 +127,50 @@ export class FormContractComponent implements OnInit {
       discount: [this.data.discount],
       observations: [this.data.observations],
       objective: [this.data.objective],
+      min_attention: [this.data.min_attention],
+      max_attention: [this.data.max_attention],
+      discount_rate: [this.data.discount_rate],
     });
+
+    this.onChange();
+  }
+
+  onChange() {
+    this.form.get('type_contract_id').valueChanges.subscribe(val => {
+      if (val == 5) {
+        this.show_pgp_details = true;
+        this.form.controls.min_attention.setValidators([Validators.required]);
+        this.form.controls.min_attention.updateValueAndValidity();
+        this.form.controls.max_attention.setValidators([Validators.required]);
+        this.form.controls.max_attention.updateValueAndValidity();
+        this.form.controls.discount_rate.setValidators([Validators.required]);
+        this.form.controls.discount_rate.updateValueAndValidity();
+      } else {
+        this.show_pgp_details = false;
+        this.form.controls.min_attention.setValidators([]);
+        this.form.controls.min_attention.updateValueAndValidity();
+        this.form.patchValue({min_attention: ''});
+        this.form.controls.max_attention.setValidators([]);
+        this.form.controls.max_attention.updateValueAndValidity();
+        this.form.patchValue({max_attention: ''});
+        this.form.controls.discount_rate.setValidators([]);
+        this.form.controls.discount_rate.updateValueAndValidity();
+        this.form.patchValue({discount_rate: ''});
+      }
+    });
+  }
+
+  addPercentSign() {
+    if (this.form.controls.type_contract_id.value == 5 && !this.form.controls.discount_rate.value.includes("%") && this.form.controls.discount_rate.value != "") {
+      let valueInput = document.getElementById("discount_rate") as HTMLInputElement;
+      valueInput.value = this.form.controls.discount_rate.value + "%";
+    }
+  }
+
+  removePercentSign(){
+    let currentValue = this.form.controls.discount_rate.value;
+    currentValue = currentValue.replace("%","");
+    this.form.controls.discount_rate.setValue(currentValue);
   }
 
   close() {
@@ -159,6 +206,9 @@ export class FormContractComponent implements OnInit {
             discount: this.form.controls.discount.value,
             observations: this.form.controls.observations.value,
             objective: this.form.controls.objective.value,
+            min_attention: this.form.controls.min_attention.value,
+            max_attention: this.form.controls.max_attention.value,
+            discount_rate: this.form.controls.discount_rate.value,
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();
@@ -189,6 +239,9 @@ export class FormContractComponent implements OnInit {
             discount: this.form.controls.discount.value,
             observations: this.form.controls.observations.value,
             objective: this.form.controls.objective.value,
+            min_attention: this.form.controls.min_attention.value,
+            max_attention: this.form.controls.max_attention.value,
+            discount_rate: this.form.controls.discount_rate.value,
           }).then(x => {
             this.toastService.success('', x.message);
             this.close();
