@@ -238,6 +238,20 @@ export class BillingPadPatientsComponent implements OnInit {
 
   }
 
+  async generatePdf() {
+    await this.getAdmissions();
+    this.BillingPadS.GeneratePdfMu({
+      id: 0,
+      billing_type: 'PREFACTURA',
+      admissions: JSON.stringify(this.admissions),
+    }).then(x => {
+      this.toastS.success('Archivo generado con exito', 'Exito');
+      window.open(x['url'], '_blank');
+    }).catch(x => {
+      this.toastS.danger('Error al generar archivo: ' + x, 'Error');
+    });
+  }
+
   back() {
     this.location.back();
 
