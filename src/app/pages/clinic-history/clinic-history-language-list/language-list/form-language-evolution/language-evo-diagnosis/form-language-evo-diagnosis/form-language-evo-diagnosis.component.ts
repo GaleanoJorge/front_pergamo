@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +10,7 @@ import { ChRecordService } from '../../../../../../../business-controller/ch_rec
   templateUrl: './form-language-evo-diagnosis.component.html',
   styleUrls: ['./form-language-evo-diagnosis.component.scss'],
 })
-export class FormLanguageEvoDiagnosisComponent implements OnInit {
+export class FormLanguageEvoDiagnosisComponent implements OnInit, OnChanges {
   @Input() title: string;
   @Input() data: any = null;
   @Output() messageEvent = new EventEmitter<any>();
@@ -26,8 +26,6 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit {
   public therapeutic_diagnosis_id: any[];
   public diagnosis_id;
 
-  
-
   constructor(
 
     private formBuilder: FormBuilder,
@@ -37,6 +35,20 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit {
     private route: ActivatedRoute
   ) {
 
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+
+    this.form = this.formBuilder.group({
+      text: [this.data[0] ? this.data[0].text : this.data.text , Validators.compose([Validators.required]),],
+    });
+    
+    if (!this.data.text) {   
+      this.form.controls.text.disable();
+      this.disabled = true;
+    } else { 
+      this.form.controls.text.enable();
+      this.disabled = false;
+    }
   }
 
   ngOnInit(): void {
@@ -48,12 +60,11 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit {
       };
     }
 
-
     this.form = this.formBuilder.group({
       text: [this.data[0] ? this.data[0].text : this.data.text , Validators.compose([Validators.required]),],
     });
 
-    if (this.data.text != '') {   
+    if (!this.data.text) {   
       this.form.controls.text.disable();
       this.disabled = true;
     } else { 
@@ -95,6 +106,7 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit {
             if (this.saved) {
               this.saved();
             }
+            this.disabled = true;
           }).catch(x => {
             if (this.form.controls.has_caregiver.value == true) {
               this.isSubmitted = true;
