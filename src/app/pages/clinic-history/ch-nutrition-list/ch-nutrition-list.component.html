@@ -14,28 +14,34 @@
     <nb-tabset fullWidth class="tabset" (changeTab)="tablock($event)">
 
       <nb-tab tabTitle="INGRESO">
-        <div *ngIf="this.show == 1">
+        <div *ngIf="this.show1">
           <ngx-ch-nutrition-input [data]="this.user" [record_id]="this.record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input">
           </ngx-ch-nutrition-input>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="NOTA REGULAR">
-        <div *ngIf="this.show == 2">
+        <div *ngIf="this.show2">
           <ngx-ch-nutrition-regular-note [data]="this.user" [record_id]="this.record_id">
           </ngx-ch-nutrition-regular-note>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="ESCALAS">
-        <div *ngIf="this.show == 3">
+        <div *ngIf="this.show3">
           <ngx-form-ch-scales [data]="this.user" [record_id]="this.record_id" [nutrition]="true" [age]="user">
           </ngx-form-ch-scales>
         </div>
       </nb-tab>
 
+      <nb-tab tabTitle="FORMULACIÓN">
+        <div *ngIf="this.show4">
+          <ngx-formulation [record_id]="record_id" [user]="this.user.id" [admission]="admission"></ngx-formulation>
+        </div>
+      </nb-tab>
+
       <nb-tab *ngIf="this.show_failed" tabTitle="FALLIDA">
-        <div *ngIf="this.show == 9">
+        <div *ngIf="this.show9">
           <ngx-failed (messageEvent)="receiveMessage($event)" [record_id]="record_id"></ngx-failed>
         </div>
       </nb-tab>

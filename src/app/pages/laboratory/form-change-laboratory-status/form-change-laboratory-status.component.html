@@ -1,0 +1,29 @@
+<nb-card style="max-height: 700px">
+  <nb-card-header>
+    <span class="h5">{{ title }}</span>
+  </nb-card-header>
+  <nb-card-body>
+    <div>
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col-md-12">
+            <label for="observation" class="form-text text-muted font-weight-bold">Observación:</label>
+            <textarea cols="80" rows="4" nbInput formControlName="observation" id="observation" observation fullWidth
+              placeholder="Observación"
+              status="{{ isSubmitted && form.controls.observation.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"></textarea>
+          </div>
+          <div class="col-md-12" *ngIf="this.status == 3">
+            <label for="laboratory_file" class="form-text text-muted font-weight-bold">Archivo de laboratorio:</label>
+            <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="laboratory_file"
+              formControlName="laboratory_file" nbInput fullWidth (change)="loadFile($event.target.files)" 
+              status="{{ isSubmitted && form.controls.laboratory_file.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"/>
+          </div>
+        </div>
+      </form>
+    </div>
+  </nb-card-body>
+  <nb-card-footer class="d-flex justify-content-end">
+    <button nbButton (click)="close()" type="button">Cerrar</button>
+    <button nbButton status="danger" class="ml-1" disabled="{{ loading }}" (click)="save()">Actualizar</button>
+  </nb-card-footer>
+</nb-card>

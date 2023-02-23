@@ -2,21 +2,29 @@
   <div content>
     <nb-card>
       <nb-card-body>
-        <nb-stepper #stepper [linear]="linearMode"> 
-    
+        <nb-stepper #stepper [linear]="linearMode" (click)="goto($event)">
+
           <nb-step [stepControl]="nameForm" label="Nota regular">
             <ngx-sw-support-network [record_id]="record_id" [type_record_id]="type_record_id"></ngx-sw-support-network>
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Intervención">
-            <ngx-ps-intervention [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-intervention>
+            <div class="row" *ngIf="this.show1">
+              <div class="col-md-12">
+                <ngx-ps-intervention [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-intervention>
+              </div>
+            </div>
           </nb-step>
-          
+
           <nb-step [stepControl]="nameForm" label="Recomendaciones / Educación">
-            <ngx-ch-sw-education [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ch-sw-education>
-          </nb-step>       
-        
-         
+            <div class="row" *ngIf="this.show2">
+              <div class="col-md-12">
+                <ngx-ch-sw-education [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ch-sw-education>
+              </div>
+            </div>
+          </nb-step>
+
+
           <nb-step [hidden]="true">
 
             <div class="step-container">

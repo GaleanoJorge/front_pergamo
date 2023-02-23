@@ -50,11 +50,12 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public currentRole: any;
-  public show: any;  
   public signatureImage: string;
   public admissions_id;
   public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
+  public show1 = false;
+  public show2 = false;
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -224,11 +225,11 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
     console.log(e.tabTitle);
     switch (e.tabTitle) {
       case "INGRESO": {
-        this.show = 1;
+        this.show1 = true;
         break;
       }
       case "REGULAR": {
-        this.show = 2;
+        this.show2 = true;
         break;
       }
     }
