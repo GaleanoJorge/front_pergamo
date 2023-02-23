@@ -229,7 +229,7 @@ export class ChRecordListComponent implements OnInit {
 
   CreateChRecord() {
     let userData = JSON.parse(localStorage.getItem('user'));
-    if (+localStorage.getItem('role_id') == 14 && userData.assistance[0].assistance_special.length > 1) {
+    if (+localStorage.getItem('role_id') == 14 && userData.assistance.length > 1 && userData.assistance[0].assistance_special.length > 1) {
       this.dialogFormService.open(ChRecordSelectComponent, {
         context: {
           title: 'Creación de historia clínica',
@@ -238,7 +238,7 @@ export class ChRecordListComponent implements OnInit {
         }
       })
     }else{
-      this.selectedSpeciality = userData.assistance[0].assistance_special.length > 0 ? userData.assistance[0].assistance_special[0].specialty_id : null;
+      this.selectedSpeciality = userData.assistance.length > 1 && userData.assistance[0].assistance_special.length > 0 ? userData.assistance[0].assistance_special[0].specialty_id : null;
       this.NewChRecord();
     }
   }
