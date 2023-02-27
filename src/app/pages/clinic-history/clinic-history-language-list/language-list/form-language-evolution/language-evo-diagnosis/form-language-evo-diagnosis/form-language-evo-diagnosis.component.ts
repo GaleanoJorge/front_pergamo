@@ -70,7 +70,7 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit, OnChanges {
     } else { 
       this.form.controls.text.enable();
       this.disabled = false;
-    }
+    }//Miguel estuvo aquí
   }
 
   async save() {
