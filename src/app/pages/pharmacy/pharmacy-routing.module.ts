@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BillingRequestPharmacyComponent } from './billing-request-pharmacy/billing-request-pharmacy.component';
 import { PharmaLotStockTabComponent } from './pharma-lot-stock-tab/pharma-lot-stock-tab.component';
+import { PharmacyBulkLoadComponent } from './pharmacy-bulk-load/pharmacy-bulk-load.component';
 import { PharmacyInventoryAdjustmentComponent } from './pharmacy-inventory-adjustment/pharmacy-inventory-adjustment.component';
 import { PharmacyRequestPatientsComponent } from './pharmacy-request-patients/pharmacy-request-patients.component';
 import { PharmacyRequestComponent } from './pharmacy-request/pharmacy-request.component';
@@ -44,6 +45,10 @@ const routes: Routes = [{
     {
       path: 'pharmacy-inventory-adjustment',
       component: PharmacyInventoryAdjustmentComponent,
+    },
+    {
+      path: 'pharmacy-bulk-load',
+      component: PharmacyBulkLoadComponent,
     }
   ],
 }];

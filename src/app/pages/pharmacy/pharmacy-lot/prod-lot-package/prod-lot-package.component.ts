@@ -226,7 +226,8 @@ export class ProdLotPackageComponent implements OnInit {
       var diet = {
         billing_stock_id: row.id,
         amount_total: 0,
-        // amount_total: +row.amount_unit,
+        amount_unit: row.amount_unit,
+        iva: row.iva,
         lot: 0,
         expiration_date: 0,
         billing_id: this.billing_stock_id,
@@ -300,10 +301,7 @@ export class ProdLotPackageComponent implements OnInit {
       i++
     });
     this.selectedOptions = mientras;
-    this.messageEvent.emit({
-      selected: this.selectedOptions,
-      pharmacy_id: this.pharmacy_stock_id,
-    });
+    this.messageEvent.emit(this.selectedOptions);
   }
 
 
