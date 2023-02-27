@@ -77,7 +77,7 @@ export class ReportRipsService {
       servObj = <ServiceObject>x;
       if (!servObj.status)
         throw new Error(servObj.message);
-      this.report_rips = <ReportRips[]>servObj.data.report_rips;
+      this.report_rips = <ReportRips[]>servObj.data.report_rips.rips;
       return Promise.resolve(this.report_rips);
     }).catch(x => {
       throw x.message;
