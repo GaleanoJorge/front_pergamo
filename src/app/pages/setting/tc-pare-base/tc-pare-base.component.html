@@ -1,0 +1,20 @@
+<ngx-base-list
+  [messageError]="messageError"
+  [routes]="routes">
+  <div content>
+
+    <ngx-base-table [title]="title"
+                    [subtitle]="subtitle" [settings]="settings"
+                    entity="pare_base_tc/?pagination=true"
+                    customData='pare_base_tc'
+                    [messageToltip]="messageToltip"
+                    >
+      <div actions>
+        <div class="file-select" id="src-file1" [nbSpinner]="loading2">
+          <input class="file" accept=".xlsx" type="file" id="file" file fullWidth (change)="saveFile($event)" />
+        </div>
+      </div>
+    </ngx-base-table>
+
+  </div>
+</ngx-base-list>

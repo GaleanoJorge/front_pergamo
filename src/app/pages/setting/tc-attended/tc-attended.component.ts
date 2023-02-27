@@ -1,28 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from '../sectional-council/actions.component';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { TcBillingService } from '../../../business-controller/tc-billing.service';
 import * as XLSX from 'ts-xlsx';
+import { TcAttendedService } from '../../../business-controller/tc-attended.service';
 
 @Component({
-  selector: 'ngx-tc-billing',
-  templateUrl: './tc-billing.component.html',
-  styleUrls: ['./tc-billing.component.scss']
+  selector: 'ngx-tc-attended',
+  templateUrl: './tc-attended.component.html',
+  styleUrls: ['./tc-attended.component.scss']
 })
-export class TcBillingComponent implements OnInit {
+export class TcAttendedComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
   public loading2: boolean = false;
   public arrayBuffer: any;
   public file: File;
-  public title: string = 'FACTURACIÓN';
+  public title: string = 'ATENDIDAS';
   public subtitle: string = 'REGISTROS';
-  public headerFields: any[] = ['CONSECUTIVO', 'FECHA', 'REALIZADA POR', 'VALOR',
-    'ENTIDAD', 'SUCURSAL', 'PROCEDIMIETOS', 'DOCTOR', 'DETALLES', 'PERIODO', 'CONSECUTIVO2', 'AMBITO', 'SEDE', 'AÑO'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[4]}, ${this.headerFields[5]}`;
+  public headerFields: any[] = ['Phone', 'Status', 'Agente', 'Date & Time', 'Duration(Seg)', 'Uniqueid', 'Cedula/RUC', 'First Name', 'Last Name', 'Observaciones', 'Cola'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -33,60 +30,48 @@ export class TcBillingComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      consecutive: {
+      phone: {
         title: this.headerFields[0],
         type: 'string',
       },
-      date: {
+      status_call: {
         title: this.headerFields[1],
         type: 'string',
       },
-      made_by: {
+      agent: {
         title: this.headerFields[2],
         type: 'string',
       },
-      value: {
+      date_time: {
         title: this.headerFields[3],
         type: 'string',
       },
-      entity: {
+      duration_seg: {
         title: this.headerFields[4],
         type: 'string',
       },
-      branch_office: {
+      uniqueid: {
         title: this.headerFields[5],
         type: 'string',
       },
-      procedures: {
+      cedula_RUC: {
         title: this.headerFields[6],
         type: 'string',
       },
-      doctor: {
+      first_name: {
         title: this.headerFields[7],
         type: 'string',
       },
-      details: {
+      last_name: {
         title: this.headerFields[8],
         type: 'string',
       },
-      period: {
+      observations: {
         title: this.headerFields[9],
         type: 'string',
       },
-      consecutive2: {
+      fila: {
         title: this.headerFields[10],
-        type: 'string',
-      },
-      ambit: {
-        title: this.headerFields[11],
-        type: 'string',
-      },
-      campus: {
-        title: this.headerFields[12],
-        type: 'string',
-      },
-      year: {
-        title: this.headerFields[13],
         type: 'string',
       }
     },
@@ -94,16 +79,16 @@ export class TcBillingComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Facturación',
-      route: '../../setting/tc-billing',
+      name: 'Atendidas',
+      route: '../../setting/tc-attended',
     },
   ];
 
   constructor(
+    private TcAttendedS: TcAttendedService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
-    private TcBillingS: TcBillingService,
   ) {
   }
 
@@ -141,7 +126,7 @@ export class TcBillingComponent implements OnInit {
   async uploadDocumentInfo(lectura) {
     try {
       let response;
-      response = await this.TcBillingS.SaveFile(lectura);
+      response = await this.TcAttendedS.SaveFile(lectura);
       this.loading2 = false;
       this.toastrService.success('', response.message);
       this.RefreshData();
@@ -150,5 +135,8 @@ export class TcBillingComponent implements OnInit {
       throw new Error(e);
     }
   }
-
 }
+
+
+
+

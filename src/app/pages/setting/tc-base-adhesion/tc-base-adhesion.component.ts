@@ -1,28 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NbToastrService, NbDialogService } from '@nebular/theme';
-import { ActionsComponent } from '../sectional-council/actions.component';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { TcBillingService } from '../../../business-controller/tc-billing.service';
 import * as XLSX from 'ts-xlsx';
+import { TcBaseAdhesionService } from '../../../business-controller/tc-base-adhesion.service';
 
 @Component({
-  selector: 'ngx-tc-billing',
-  templateUrl: './tc-billing.component.html',
-  styleUrls: ['./tc-billing.component.scss']
+  selector: 'ngx-tc-base-adhesion',
+  templateUrl: './tc-base-adhesion.component.html',
+  styleUrls: ['./tc-base-adhesion.component.scss']
 })
-export class TcBillingComponent implements OnInit {
+export class TcBaseAdhesionComponent implements OnInit {
 
   public isSubmitted = false;
   public messageError: string = null;
   public loading2: boolean = false;
   public arrayBuffer: any;
   public file: File;
-  public title: string = 'FACTURACIÓN';
+  public title: string = 'BASE ADHERENCIA';
   public subtitle: string = 'REGISTROS';
-  public headerFields: any[] = ['CONSECUTIVO', 'FECHA', 'REALIZADA POR', 'VALOR',
-    'ENTIDAD', 'SUCURSAL', 'PROCEDIMIETOS', 'DOCTOR', 'DETALLES', 'PERIODO', 'CONSECUTIVO2', 'AMBITO', 'SEDE', 'AÑO'];
-  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[4]}, ${this.headerFields[5]}`;
+  public headerFields: any[] = ['Agent', 'Name', 'Date init', 'Date end', 'Total Login'];
+  public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
 
@@ -33,60 +30,24 @@ export class TcBillingComponent implements OnInit {
       perPage: 10,
     },
     columns: {
-      consecutive: {
+      agent: {
         title: this.headerFields[0],
         type: 'string',
       },
-      date: {
+      name: {
         title: this.headerFields[1],
         type: 'string',
       },
-      made_by: {
+      date_init: {
         title: this.headerFields[2],
         type: 'string',
       },
-      value: {
+      date_end: {
         title: this.headerFields[3],
         type: 'string',
       },
-      entity: {
+      total_login: {
         title: this.headerFields[4],
-        type: 'string',
-      },
-      branch_office: {
-        title: this.headerFields[5],
-        type: 'string',
-      },
-      procedures: {
-        title: this.headerFields[6],
-        type: 'string',
-      },
-      doctor: {
-        title: this.headerFields[7],
-        type: 'string',
-      },
-      details: {
-        title: this.headerFields[8],
-        type: 'string',
-      },
-      period: {
-        title: this.headerFields[9],
-        type: 'string',
-      },
-      consecutive2: {
-        title: this.headerFields[10],
-        type: 'string',
-      },
-      ambit: {
-        title: this.headerFields[11],
-        type: 'string',
-      },
-      campus: {
-        title: this.headerFields[12],
-        type: 'string',
-      },
-      year: {
-        title: this.headerFields[13],
         type: 'string',
       }
     },
@@ -94,16 +55,16 @@ export class TcBillingComponent implements OnInit {
 
   public routes = [
     {
-      name: 'Facturación',
-      route: '../../setting/tc-billing',
+      name: 'Abandonos',
+      route: '../../setting/tc-base-adhesion',
     },
   ];
 
   constructor(
+    private TcBaseAdhesionS: TcBaseAdhesionService,
     private toastrService: NbToastrService,
     private dialogFormService: NbDialogService,
     private deleteConfirmService: NbDialogService,
-    private TcBillingS: TcBillingService,
   ) {
   }
 
@@ -141,7 +102,7 @@ export class TcBillingComponent implements OnInit {
   async uploadDocumentInfo(lectura) {
     try {
       let response;
-      response = await this.TcBillingS.SaveFile(lectura);
+      response = await this.TcBaseAdhesionS.SaveFile(lectura);
       this.loading2 = false;
       this.toastrService.success('', response.message);
       this.RefreshData();
@@ -150,5 +111,8 @@ export class TcBillingComponent implements OnInit {
       throw new Error(e);
     }
   }
-
 }
+
+
+
+

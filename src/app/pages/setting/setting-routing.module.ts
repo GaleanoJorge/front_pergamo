@@ -158,6 +158,13 @@ import { FormReportBillingComponent } from './report-billing/form-report-billing
 import { FormReportGlossComponent } from './report-gloss/form-report-gloss/form-report-gloss.component';
 import { FormReportCensusComponent } from './report-census/form-report-census/form-report-census.component';
 import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adjustment.component';
+import { TcQuitComponent } from './tc-quit/tc-quit.component';
+import { TcAttendedComponent } from './tc-attended/tc-attended.component';
+import { TcBaseAdhesion } from '../../models/tc-base-adhesion';
+import { TcAssistantComponent } from './tc-assistant/tc-assistant.component';
+import { TcServiceLevelComponent } from './tc-service-level/tc-service-level.component';
+import { TcBaseAdhesionComponent } from './tc-base-adhesion/tc-base-adhesion.component';
+import { TcPareBaseComponent } from './tc-pare-base/tc-pare-base.component';
 
 const routes: Routes = [{
   path: '',
@@ -890,6 +897,36 @@ const routes: Routes = [{
     {
       path: 'pharmacy-adjustment',
       component: PharmacyAdjustmentComponent,
+    }
+    ,
+    {
+      path: 'tc-quit',
+      component: TcQuitComponent,
+    }
+    ,
+    {
+      path: 'tc-assistant',
+      component: TcAssistantComponent,
+    }
+    ,
+    {
+      path: 'tc-attended',
+      component: TcAttendedComponent ,
+    }
+    ,
+    {
+      path: 'tc-pare-base',
+      component: TcPareBaseComponent,
+    }
+    ,
+    {
+      path: 'tc-service-level',
+      component: TcServiceLevelComponent ,
+    }
+    ,
+    {
+      path: 'tc-base-adhesion',
+      component: TcBaseAdhesionComponent,
     }
   ],
 }];
