@@ -1,13 +1,12 @@
+import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Workbook } from 'exceljs';
 import * as FileSaver from 'file-saver';
-import * as XLSX from 'xlsx';
 import { ReportBilling } from '../models/report_billing';
 import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-const EXCEL_TYPE2 = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 const EXCEL_EXTENSION = '.xlsx';
 
 @Injectable({
@@ -119,8 +118,8 @@ export class ReportBillingService {
       { header: 'Número de Factura', key: 'num_billing', width: 18, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 }, } },
       { header: 'Fecha de Facturación', key: 'billing_date', width: 20, style: { numFmt: 'd/mm/yyyy h:mm', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Tipo de Identificación', key: 'it', width: 22, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
-      { header: 'Paciente', key: 'patient', width: 28, style: { alignment: { vertical: 'middle', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Identificación del Paciente', key: 'identification', width: 22, style: { numFmt: '#', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
+      { header: 'Paciente', key: 'patient', width: 28, style: { alignment: { vertical: 'middle', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Total Facturado', key: 'billing_value', width: 20, style: { numFmt: '"$"#,##0.00;[Red]\-"$"#,##0.00', alignment: { vertical: 'middle', horizontal: 'center', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
     ];
     for (let x1 of json['h1']) {
@@ -155,8 +154,8 @@ export class ReportBillingService {
       { header: 'Número de Factura', key: 'num_billing', width: 18, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Fecha de Facturación', key: 'billing_date', width: 20, style: { numFmt: 'd/mm/yyyy h:mm', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Tipo de Identificación', key: 'it', width: 22, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
-      { header: 'Paciente', key: 'patient', width: 28, style: { alignment: { vertical: 'middle', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Identificación del Paciente', key: 'identification', width: 22, style: { numFmt: '#', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
+      { header: 'Paciente', key: 'patient', width: 28, style: { alignment: { vertical: 'middle', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Total Facturado', key: 'billing_value', width: 20, style: { numFmt: '"$"#,##0.00;[Red]\-"$"#,##0.00', alignment: { vertical: 'middle', horizontal: 'center', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Valor del Procedimiento', key: 'manual_value', width: 24, style: { numFmt: '"$"#,##0.00;[Red]\-"$"#,##0.00', alignment: { vertical: 'middle', horizontal: 'center', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Cantidad', key: 'quantity', width: 16, style: { numFmt: '0', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
@@ -195,8 +194,8 @@ export class ReportBillingService {
       { header: 'Consecutivo', key: 'conse', width: 18, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Fecha de Facturación', key: 'billing_date', width: 20, style: { numFmt: 'd/mm/yyyy h:mm', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Tipo de Identificación', key: 'it', width: 22, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
-      { header: 'Paciente', key: 'patient', width: 28, style: { alignment: { vertical: 'middle', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Identificación de Paciente', key: 'identification', width: 22, style: { numFmt: '#', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
+      { header: 'Paciente', key: 'patient', width: 28, style: { alignment: { vertical: 'middle', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Total Facturado', key: 'billing_value', width: 20, style: { numFmt: '"$"#,##0.00;[Red]\-"$"#,##0.00', alignment: { vertical: 'middle', horizontal: 'center', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Valor del Procedimiento', key: 'manual_value', width: 24, style: { numFmt: '"$"#,##0.00;[Red]\-"$"#,##0.00', alignment: { vertical: 'middle', horizontal: 'center', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Cantidad', key: 'quantity', width: 16, style: { numFmt: '0', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
@@ -215,8 +214,9 @@ export class ReportBillingService {
     worksheet3.getCell('D1').note = '[CC], [CE], [PA], [RC], [TI], [AS], [MS]';
 
     workbook.xlsx.writeBuffer().then((data) => {
-      let blob = new Blob([data], { type: EXCEL_TYPE2 });
-      FileSaver.saveAs(blob, excelFileName + '-' + new Date().valueOf() + EXCEL_EXTENSION);
+      let blob = new Blob([data], { type: EXCEL_TYPE });
+      let today = formatDate(new Date(), 'hh-mm-ss a', 'es');
+      FileSaver.saveAs(blob, excelFileName + today + ']' + EXCEL_EXTENSION);
     });
   }
 }

@@ -4,9 +4,9 @@ import { Workbook } from 'exceljs';
 import { ReportCensus } from '../models/report-census';
 import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
+import { formatDate } from '@angular/common';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-const EXCEL_TYPE2 = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 const EXCEL_EXTENSION = '.xlsx';
 
 @Injectable({
@@ -164,17 +164,10 @@ export class ReportCensusService {
 
     //? Escritura de Libro
     workbook.xlsx.writeBuffer().then((data) => {
-      let blob = new Blob([data], { type: EXCEL_TYPE2 });
-      //* Forma 1
-      let date = new Date().toISOString().split('T')[0];
-      //* Forma 2
-      let date2 = new Date().toISOString().slice(0, 10);
-      //* Hora
-      let hora = new Date().getTime();
-      let horas = new Date().getHours();
-      let minutos = new Date().getMinutes();
-      let segundos = new Date().getSeconds();
-      FileSaver.saveAs(blob, excelFileName + date + '_' + horas + '-' + minutos + '-' + segundos + ']' + EXCEL_EXTENSION);
+      let blob = new Blob([data], { type: EXCEL_TYPE });
+      const format = 'hh-mm-ss a';
+      const formattedDate = formatDate(new Date(), format, 'es');
+      FileSaver.saveAs(blob, excelFileName + formattedDate + ']' + EXCEL_EXTENSION);
     });
   }
 }

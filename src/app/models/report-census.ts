@@ -6,7 +6,7 @@ export class ReportCensus extends MainClass {
   id: number;
   initial_report: string;
   final_report: string;
-  location_id: string;
+  campus_id: string;
   status: string;
   user_id: string;
 }
