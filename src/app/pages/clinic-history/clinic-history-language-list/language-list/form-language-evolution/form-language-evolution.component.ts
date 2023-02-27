@@ -30,7 +30,7 @@ export class FormLanguageEvolutionComponent implements OnInit {
 
   public admissions_id;
   public check1;
-  public cifdiagnosistl: any[];
+  public cifdiagnosistl: any[] = [];
   public saveEntry: any = 0;
   //public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
@@ -62,9 +62,10 @@ export class FormLanguageEvolutionComponent implements OnInit {
         text:'',
       };
     }
-    // await this.CifDiagnosisTlS.GetCollection({ch_record_id: this.record_id,}).then((x) => {
-    //   this.cifdiagnosistl = x;
-    // });
+   
+    this.CifDiagnosisTlS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.cifdiagnosistl = x;
+    });
 
     this.form = this.formBuilder.group({
     
