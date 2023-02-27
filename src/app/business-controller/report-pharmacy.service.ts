@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { Workbook } from 'exceljs';
-import * as XLSX from 'xlsx';
 import { ReportPharmacy } from '../models/report-pharmacy';
 import { ServiceObject } from '../models/service-object';
 import { WebAPIService } from '../services/web-api.service';
+import { formatDate } from '@angular/common';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-const EXCEL_TYPE2 = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 const EXCEL_EXTENSION = '.xlsx';
 
 @Injectable({
@@ -158,8 +157,10 @@ export class ReportPharmacyService {
 
     //? Escritura de Libro
     workbook.xlsx.writeBuffer().then((data) => {
-      let blob = new Blob([data], { type: EXCEL_TYPE2 });
-      FileSaver.saveAs(blob, excelFileName + '-' + new Date().valueOf() + EXCEL_EXTENSION);
+      let blob = new Blob([data], { type: EXCEL_TYPE });
+      const format = 'hh-mm-ss a';
+      const formattedDate = formatDate(new Date(), format, 'es');
+      FileSaver.saveAs(blob, excelFileName + formattedDate + ']' + EXCEL_EXTENSION);
     });
   }
 }
