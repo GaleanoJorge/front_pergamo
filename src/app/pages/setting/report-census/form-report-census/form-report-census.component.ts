@@ -128,7 +128,8 @@ export class FormReportCensusComponent implements OnInit {
       },).then((x) => {
         if (x.length > 0) {
           this.toastService.success('', 'Reporte Censo Hospitalario Generado Exitosamente');
-          this.ReportCensusS.exportAsExcelFile(x, 'reporte_censo_hospitalario_[');
+          this.ReportCensusS.exportAsExcelFile(x, 'reporte_censo_hospitalario_del_[' + 
+          this.today + '][');
         } else {
           this.toastService.warning('', 'Sin Camas en esta Sede');
         }

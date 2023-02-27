@@ -9,6 +9,7 @@ import { UserBusinessService } from '../../../../business-controller/user-busine
   templateUrl: './form-report-rips.component.html',
   styleUrls: ['./form-report-rips.component.scss'],
 })
+
 export class FormReportRipsComponent implements OnInit {
   @Input() title: string;
   @Output() messageEvent = new EventEmitter<any>();
@@ -63,27 +64,35 @@ export class FormReportRipsComponent implements OnInit {
       this.company_id = localidentify.id;
     } else {
       this.company_id = null;
-      this.toastService.warning('', 'Selecciona una EPS de la lista');
+      this.toastService.warning('', 'Seleccione EPS en lista');
     }
   }
 
   exportAsXLSX(): void {
+    this.isSubmitted = true;
     if (!this.form.invalid) {
       this.excelService
         .GetExportRips(this.company_id, {
           id: this.company_id,
+          company_id: this.company_id,
           initial_report: this.form.controls.initial_report.value,
           final_report: this.form.controls.final_report.value,
         })
         .then((x) => {
-          // if (x.length > 0) {
-          this.excelService.exportAsExcelFile(x, 'reporte_rips_de_[' +
-            this.form.controls.initial_report.value + ']_a_[' +
-            this.form.controls.final_report.value + ']');
-          // } else {
-          //   this.toastService.warning('', 'No Existen Registros');
-          // }
+          if (x.length > 0) {
+            this.excelService.exportAsExcelFile(x, 'reporte_rips_' +
+              this.form.controls.company_id.value + '_entre_[' +
+              this.form.controls.initial_report.value + ']-[' +
+              this.form.controls.final_report.value + ']_del_[' +
+              this.today + '][');
+          } else {
+            this.toastService.warning('', 'No Existen Registros');
+          }
+        }).catch(x => {
+          this.isSubmitted = false;
         });
+    } else {
+      this.toastService.warning('', 'Seleccione EPS y Rango de Fechas');
     }
   }
 

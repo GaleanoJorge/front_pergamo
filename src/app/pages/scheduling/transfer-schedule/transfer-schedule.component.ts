@@ -325,6 +325,7 @@ export class TransferScheduleComponent implements OnInit {
               context: {
                 title: "Confirmación de bloqueo de agendas",
                 delete: this.disableSchedule.bind(this),
+                textConfirm: "Bloquear"
               },
             })
             break;

@@ -165,7 +165,11 @@ export class PahListComponent implements OnInit {
         title: this.headerFields[8],
         type: 'string',
         valuePrepareFunction(value, row) {
-          return row.admissions[row.admissions.length - 1].diagnosis.code  + ' - ' + row.admissions[row.admissions.length - 1].diagnosis.name;
+          if (row.admissions[row.admissions.length - 1].diagnosis) {
+            return row.admissions[row.admissions.length - 1].diagnosis.code  + ' - ' + row.admissions[row.admissions.length - 1].diagnosis.name;
+          } else {
+            return 'SIN DIAGNÓSTICO';
+          }
         },
       },
       procedure: {
