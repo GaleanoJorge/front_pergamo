@@ -84,7 +84,7 @@ export class FormReportBillingComponent implements OnInit {
         initial_report: this.form.controls.initial_report.value,
         final_report: this.form.controls.final_report.value,
       }).then((x) => {
-        if (x.length > 0) {
+        if (x.h1.length > 0 || x.h2.length > 0 || x.h3.length > 0) {
           this.ReportBillingS.exportAsExcelFile(x, 'reporte_facturación_' +
             this.form.controls.company_id.value + '_entre_[' +
             this.form.controls.initial_report.value + ']-[' +
