@@ -4,6 +4,7 @@ import { BaseTableComponent } from '../../components/base-table/base-table.compo
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 import { ActionsFileComponent } from './actions-file.component';
 import { ActionsSemaphoreComponent } from './actions-semaphore.component';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'ngx-laboratory-list',
@@ -22,6 +23,7 @@ export class LaboratoryListComponent implements OnInit {
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
   public data = [];
+  public currentRole;
 
   public semaphore = [
     { id: (0+1), color: "#FF7000", name: "Laboratorio ordenado" },
@@ -53,7 +55,8 @@ export class LaboratoryListComponent implements OnInit {
           // DATA FROM HERE GOES TO renderComponent
           return {
             'data': row,
-            'refreshData': this.refreshData.bind(this)
+            'refreshData': this.refreshData.bind(this),
+            'currentRole': this.currentRole
           };
         },
         renderComponent: Actions2Component,
@@ -230,14 +233,17 @@ export class LaboratoryListComponent implements OnInit {
   }
 
   constructor(
-
     private datePipe: DateFormatPipe,
-
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
-
+    let own_user = this.authService.GetUser();
+    let curr = this.authService.GetRole();
+    this.currentRole = own_user.roles.find(x => {
+      return x.id == curr;
+    });
   }
 
   changeSemaphore($event: any) {
