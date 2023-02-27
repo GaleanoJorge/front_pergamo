@@ -15,6 +15,7 @@ import { filter, pairwise } from 'rxjs/operators';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 
 
+
 @Component({
   selector: 'ngx-clinic-history-list',
   templateUrl: './clinic-history-list.component.html',
@@ -53,13 +54,20 @@ export class ClinicHistoryListComponent implements OnInit {
   public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
   public currentRole: any;
-  public show: any;
   public is_failed: any = false;
   public signatureImage: string;
   public firm_file: string;
   public previousUrl: string;
   public int=0;
-
+  public show1 = false;
+  public show2 = false;
+  public show3 = false;
+  public show4 = false;
+  public show5 = false;
+  public show6 = false;
+  public show7 = false;
+  public show8 = false;
+  public show9 = false;
 
 
   toggleLinearMode() {
@@ -245,41 +253,41 @@ export class ClinicHistoryListComponent implements OnInit {
     console.log(e.tabTitle);
     switch (e.tabTitle) {
       case "INGRESO": {
-        this.show = 1;
+        this.show1 = true;
         break;
       }
       case "EVOLUCIÓN": {
-        this.show = 2;
+        this.show2 = true;
         break;
       }
       case "ESCALAS": {
-        this.show = 3;
+        this.show3 = true;
         break;
       }
       case "FORMULACIÓN": {
-        this.show = 4;
+        this.show4 = true;
         break;
       }
       case "ORDENES MEDICAS": {
-        this.show = 5;
+        this.show5 = true;
         break;
       }
       case "INCAPACIDAD": {
-        this.show = 6;
+        this.show6 = true;
         break;
       }
       case "CERTIFICADO MEDICO": {
-        this.show = 7;
+        this.show7 = true;
         break;
       }
     
       case "FALLIDA": {
-        this.show = 8;
+        this.show8 = true;
         break;
       }
       
       case "SALIDA": {
-        this.show = 9;
+        this.show9 = true;
         break;
       }
     }

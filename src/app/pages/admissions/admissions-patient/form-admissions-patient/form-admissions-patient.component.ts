@@ -163,7 +163,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
       has_caregiver: [this.data.has_caregiver, Validators.compose([Validators.required])],
       regime_id: [this.data.regime_id, Validators.compose([Validators.required])],
       category: [''],
-      copay: [{ value: '', disabled: true } , Validators.compose([Validators.required])],
+      copay: [{ value: '', disabled: true }, Validators.compose([Validators.required])],
       eps: [this.data.eps],
     });
     if (this.campus_id == null) {
@@ -270,7 +270,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
     if (this.form.controls.scope_of_attention_id.value == 2) {
       this.form.controls.diagnosis_id.setErrors(null);
       this.form.controls.diagnosis_id.setValidators([]);
-        this.form.controls.diagnosis_id.updateValueAndValidity();
+      this.form.controls.diagnosis_id.updateValueAndValidity();
     }
     if (!this.form.invalid) {
       this.loading = true;
@@ -315,28 +315,33 @@ export class FormAdmissionsPatientComponent implements OnInit {
           });
       } else {
         if (this.admissions_id == 0) {
-          this.AdmissionsS.Save({
-            admission_id: this.admission_id,
-            briefcase_id: this.form.controls.briefcase_id.value,
-            diagnosis_id: this.diagnosis_id,
-            procedure_id: (this.form.controls.admission_route_id.value == 1) ? this.procedure.id : null,
-            admission_route_id: this.form.controls.admission_route_id.value,
-            scope_of_attention_id:
-              this.form.controls.scope_of_attention_id.value,
-            program_id: this.form.controls.program_id.value,
-            flat_id: this.form.controls.flat_id.value,
-            regime_id: this.form.controls.regime_id.value,
-            pavilion_id: this.form.controls.pavilion_id.value,
-            bed_id: this.form.controls.bed_id.value,
-            contract_id: this.form.controls.contract_id.value,
-            auth_number: this.form.controls.auth_number.value,
-            file_auth: this.form.value.file_auth,
-            campus_id: this.campus_id,
-            patient_id: this.user_id,
-            ambulatory_data: this.ambolatory ? this.data.id : null,
-            copay_id: this.form.controls.category.value,
-            copay_value: this.copay_value,
-          })
+          let formData = new FormData();
+          formData.append('admission_id', this.admission_id);
+          formData.append('briefcase_id', this.form.controls.briefcase_id.value);
+          formData.append('diagnosis_id', this.diagnosis_id);
+          formData.append('procedure_id', (this.form.controls.admission_route_id.value == 1) ? this.procedure.id : null);
+          formData.append('admission_route_id', this.form.controls.admission_route_id.value);
+          formData.append('scope_of_attention_id', this.form.controls.scope_of_attention_id.value);
+          formData.append('program_id', this.form.controls.program_id.value);
+          formData.append('flat_id', this.form.controls.flat_id.value);
+          formData.append('regime_id', this.form.controls.regime_id.value);
+          formData.append('pavilion_id', this.form.controls.pavilion_id.value);
+          formData.append('bed_id', this.form.controls.bed_id.value);
+          formData.append('contract_id', this.form.controls.contract_id.value);
+          formData.append('auth_number', this.form.controls.auth_number.value);
+          formData.append('file_auth', this.form.controls.file_auth.value);
+          formData.append('campus_id', this.campus_id);
+          formData.append('patient_id', this.user_id);
+          formData.append('ambulatory_data', this.ambolatory ? this.data.id : null);
+          formData.append('copay_id', this.form.controls.category.value);
+          formData.append('copay_value', this.copay_value);
+          formData.forEach((entry, key) => {
+            let value = formData.get(key);
+            if(formData.get(key) == "undefined" || formData.get(key) == "null"){
+              formData.delete(key);
+            }
+          });
+          this.AdmissionsS.Save(formData)
             .then((x) => {
               this.toastService.success('', x.message);
               if (this.form.controls.has_caregiver.value != true) {
@@ -662,6 +667,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
   }
 
   admissionRouteChanged(val) {
+    this.show_auth_inputs = false;
     // console.log(val);
     this.route = val;
     if (val === '') {
@@ -916,7 +922,7 @@ export class FormAdmissionsPatientComponent implements OnInit {
     switch (option) {
       case 1:
         this.form.patchValue({
-          file_auth: file,
+          file_auth: files[0],
         });
         break;
     }

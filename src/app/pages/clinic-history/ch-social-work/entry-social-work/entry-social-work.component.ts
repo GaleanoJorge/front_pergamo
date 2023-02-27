@@ -57,6 +57,16 @@ export class EntrySocialWorkComponent implements OnInit {
   public all_changes: any[];
   public saveEntry: any = 0;
   public loading: boolean = false;
+  public show1 = false;
+  public show2 = false;
+  public show3 = false;
+  public show4 = false;
+  public show5 = false;
+  public show6 = false;
+  public show7 = false;
+  public show8 = false;
+  public show9 = false;
+  public show10 = false;
 
 
   constructor(
@@ -171,6 +181,43 @@ export class EntrySocialWorkComponent implements OnInit {
   receiveMessage($event) {
     if ($event == true) {
       this.messageEvent.emit($event);
+    }
+  }
+
+  filterStepper($event){
+    return $event.target.textContent;
+  }
+
+
+  goto($event) {
+    let selectedStep =  this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Familia') {
+      this.show1 = true;
+    } else if (selectedStep == '3' || selectedStep == 'S.Enfermeria') {
+      this.show2 = true;
+    } else if (selectedStep == '4' || selectedStep == 'Hist. Ocupacional') {
+      this.show3 = true;
+    }
+    else if (selectedStep == '5' || selectedStep == 'Dinámica Familiar') {
+      this.show4 = true;
+    }
+    else if (selectedStep == '6' || selectedStep == 'Factores de Riesgo') {
+      this.show5 = true;
+    }
+    else if (selectedStep == '7' || selectedStep == 'Vivienda') {
+      this.show6 = true;
+    }
+    else if (selectedStep == '8' || selectedStep == 'Económia') {
+      this.show7 = true;
+    }
+    else if (selectedStep == '9' || selectedStep == 'Conflicto armado') {
+      this.show8 = true;
+    }
+    else if (selectedStep == '10' || selectedStep == 'Red de apoyo') {
+      this.show9= true;
+    }
+    else if (selectedStep == '11' || selectedStep == 'Reco. / Educ.') {
+      this.show10= true;
     }
   }
 

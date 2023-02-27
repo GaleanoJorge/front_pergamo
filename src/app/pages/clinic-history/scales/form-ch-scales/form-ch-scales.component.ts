@@ -32,6 +32,33 @@ export class FormChScalesComponent implements OnInit {
   public showTable;
   public isSelected: any = 200;
   public ageScale: number;
+  public show1 = false;
+  public show2 = false;
+  public show3 = false;
+  public show4 = false;
+  public show5 = false;
+  public show6 = false;
+  public show7 = false;
+  public show8 = false;
+  public show9 = false;
+  public show10 = false;
+  public show11 = false;
+  public show12 = false;
+  public show13 = false;
+  public show14 = false;
+  public show15 = false;
+  public show16 = false;
+  public show17 = false;
+  public show18 = false;
+  public show19 = false;
+  public show20 = false;
+  public show21 = false;
+  public show22 = false;
+  public show23 = false;
+  public show24 = false;
+  public show25 = false;
+  public show26 = false;
+
   public arrayDefinitionsFac =
     [
       {
@@ -3433,6 +3460,91 @@ export class FormChScalesComponent implements OnInit {
     var ageDifMs = Date.now() - date.getTime();
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+
+  filterStepper($event){
+    return $event.target.textContent;
+  }
+
+  goto($event) {
+    let selectedAccordion =  this.filterStepper($event);
+    if (selectedAccordion == 'Escala Norton') {
+      this.show1 = true;
+    } else if (selectedAccordion == 'Escala Glasgow') {
+      this.show2 = true;
+    }
+    else if (selectedAccordion == 'Escala Barthel') {
+      this.show3 = true;
+    }
+    else if (selectedAccordion == 'Escala Payette') {
+      this.show4 = true;
+    }
+    else if (selectedAccordion == 'Escala Fragilidad') {
+      this.show5 = true;
+    }
+    else if (selectedAccordion == 'Escala News') {
+      this.show6 = true;
+    }
+    else if (selectedAccordion == 'Escala PaP') {
+      this.show7 = true;
+    }
+    else if (selectedAccordion == 'Escala Hamilton') {
+      this.show8 = true;
+    }
+    else if (selectedAccordion == 'Escala CAM') {
+      this.show9 = true;
+    }
+    else if (selectedAccordion == 'Escala FAC') {
+      this.show10 = true;
+    }
+    else if (selectedAccordion == 'Escala Cruz roja') {
+      this.show11 = true;
+    }
+    else if (selectedAccordion == 'Escala Karnofsky') {
+      this.show12 = true;
+    }
+    else if (selectedAccordion == 'Escala ECOG') {
+      this.show13 = true;
+    }
+    else if (selectedAccordion == 'Escala Nutricional Pediátrico') {
+      this.show14 = true;
+    }
+    else if (selectedAccordion == 'Escala ESAS') {
+      this.show15 = true;
+    }
+    else if (selectedAccordion == 'Escala FLACC') {
+      this.show16 = true;
+    }
+    else if (selectedAccordion == 'Escala PPI') {
+      this.show17 = true;
+    }
+    else if (selectedAccordion == 'Escala Zarit') {
+      this.show18 = true;
+    }
+    else if (selectedAccordion == 'Escala Dolor Adultos') {
+      this.show19 = true;
+    }
+    else if (selectedAccordion == 'Escala Wong Baker') {
+      this.show20 = true;
+    }
+    else if (selectedAccordion == 'Escala Pfeiffer') {
+      this.show21 = true;
+    }
+    else if (selectedAccordion == 'Escala J.H.Downton') {
+      this.show22 = true;
+    }
+    else if (selectedAccordion == 'Mini-Tamizaje Nutricional Adultos') {
+      this.show23 = true;
+    }
+    else if (selectedAccordion == 'Escala PPS') {
+      this.show24 = true;
+    }
+    else if (selectedAccordion == 'Escala Braden') {
+      this.show25 = true;
+    }
+    else if (selectedAccordion == 'Escala Lawton') {
+      this.show26 = true;
+    }
   }
 }
 

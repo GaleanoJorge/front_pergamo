@@ -2,7 +2,7 @@
   <div content>
     <div class="row" *ngIf="user">
       <div title *ngIf="user" class="col-md-6">
-        <p class="parrafo" *ngIf="user"><b>CÉDULA: </b> {{user.identification}} </p>
+        <p class="parrafo" *ngIf="user"><b>IDENTIFICACIÓN: </b> {{user.identification}} </p>
         <p class="parrafo" *ngIf="user"><b>NOMBRE: </b> {{this.user.firstname + ' ' + this.user.lastname}}</p>
         <p class="parrafo" *ngIf="user"><b>FECHA DE NACIMIENTO: </b> {{this.datePipe.transform3(user.birthday)}} </p>
         <p class="parrafo" *ngIf="user"><b>EDAD: </b> {{user.age}} </p>
@@ -14,14 +14,14 @@
     <nb-tabset *ngIf="user" fullWidth class="tabset" (changeTab)="tablock($event)">
 
       <nb-tab tabTitle="INGRESO">
-        <div *ngIf="this.show == 1">
+        <div *ngIf="this.show1">
           <ngx-entry-psychology [data]="null" [has_input]="has_input" (messageEvent)="inputMessage($event)" [record_id]="record_id" [type_record_id]="1">
           </ngx-entry-psychology>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="REGULAR">
-        <div *ngIf="this.show == 2">
+        <div *ngIf="this.show2">
           <ngx-regular-psychology [data]="null" [record_id]="record_id" [type_record_id]="3">
           </ngx-regular-psychology>
         </div>

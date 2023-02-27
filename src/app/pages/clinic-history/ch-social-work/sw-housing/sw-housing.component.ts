@@ -41,6 +41,9 @@ export class SwHousingComponent implements OnInit {
   public int = 0;
   public user;
   public messageError = null;
+  public show1 = false;
+  public show2 = false;
+  public show3 = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -57,7 +60,7 @@ export class SwHousingComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.own_user = this.authService.GetUser();
-    
+
     if (!this.data || this.data.length == 0) {
       this.data = {
       };
@@ -115,7 +118,7 @@ export class SwHousingComponent implements OnInit {
   // }
 
   async finish(firm) {
-    if(this.signatureImage!=null){
+    if (this.signatureImage != null) {
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');
@@ -123,11 +126,11 @@ export class SwHousingComponent implements OnInit {
       formData.append('role', this.currentRole);
       formData.append('user_id', this.own_user.id);
       formData.append('firm_file', this.signatureImage);
-      
+
       try {
-        
+
         let response;
-        
+
         response = await this.chRecord.UpdateCH(formData, this.record_id).then(x => {
           this.location.back();
           this.toastService.success('', x.message);
@@ -147,15 +150,31 @@ export class SwHousingComponent implements OnInit {
         this.loading = false;
         throw new Error(response);
       }
-    }else{
+    } else {
       this.toastService.danger('Debe diligenciar la firma');
       return false;
     }
-      
+
   }
 
   // recibe la señal de que se realizó un registro en alguna de las tablas de ingreso
   inputMessage($event) {
     this.input_done = true;
+  }
+
+  filterStepper($event) {
+    return $event.target.textContent;
+  }
+
+  goto($event) {
+    let selectedAccordion = this.filterStepper($event);
+    if (selectedAccordion == 'Aspectos de la vivienda') {
+      this.show1 = true;
+    } else if (selectedAccordion == 'Condición Vivienda') {
+      this.show2 = true;
+    }
+    else if (selectedAccordion == 'Condiciones Higiene Vivienda') {
+      this.show3 = true;
+    }
   }
 }

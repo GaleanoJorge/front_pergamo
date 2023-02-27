@@ -49,7 +49,8 @@ export class EntryFormMotorSkillsOTComponent implements OnInit {
   public chcommunication: any[];
   public chassessment: any[];
   public chweekly: any[];
-  public show: any;
+  public show1 = true;
+  public show2 = true;
 
 
   constructor(
@@ -221,6 +222,18 @@ export class EntryFormMotorSkillsOTComponent implements OnInit {
       this.messageEvent.emit($event);
     }
   }
+
+  filterStepper($event){
+    return $event.target.textContent;
+  }
+
+  goto($event) {
+    let selectedAccordion =  this.filterStepper($event);
+    if (selectedAccordion == 'PATRONES INTEGRALES') {
+      this.show1 = true;
+    } else if (selectedAccordion == 'PATRONES DE MOVIMIENTO') {
+      this.show2 = true;
+    }
 }
 
-
+}

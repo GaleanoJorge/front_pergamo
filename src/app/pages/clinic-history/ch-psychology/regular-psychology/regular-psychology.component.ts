@@ -35,6 +35,10 @@ export class RegularPsychologyComponent implements OnInit {
   public form: FormGroup;
   public all_changes: any[];
   public saveEntry: any = 0;
+  public show1=false;
+  public show2=false;
+  public show3=false;
+  public show4=false;
 
 
   constructor(
@@ -59,6 +63,24 @@ export class RegularPsychologyComponent implements OnInit {
   }
   async save() {
   }
+
+  filterStepper($event){
+    return $event.target.textContent;
+  }
+
+
+  goto($event) {
+    let selectedStep =  this.filterStepper($event);
+    if (selectedStep == '2' || selectedStep == 'Operacionalización') {
+      this.show1 = true;
+    } else if (selectedStep == '3' || selectedStep == 'Estado Conciencia') {
+      this.show2 = true;
+    } else if (selectedStep == '4' || selectedStep == 'Objetivos') {
+      this.show3 = true;
+    }
+    else if (selectedStep == '5' || selectedStep == 'Recomendaciones') {
+      this.show4 = true;
+    }
 }
 
-
+}

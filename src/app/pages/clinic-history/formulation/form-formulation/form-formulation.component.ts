@@ -12,6 +12,7 @@ import { PharmacyProductRequestService } from '../../../../business-controller/p
 import { AuthService } from '../../../../services/auth.service';
 import { UserChangeService } from '../../../../business-controller/user-change.service';
 import { ProductSuppliesService } from '../../../../business-controller/product-supplies.service';
+import { OxigenAdministrationWayService } from '../../../../business-controller/oxigen-administration-way.service';
 
 @Component({
   selector: 'ngx-form-formulation',
@@ -56,6 +57,66 @@ export class FormFormulationComponent implements OnInit {
   public own_user: any = null;
   public loadAuxData;
   public product_supplies_id;
+  public oxigen_administration_way: any = null;
+  public is_oxigen: boolean = false;
+  public administration_hours = [
+    { id: 0, name: 0 },
+    { id: 1, name: 1 },
+    { id: 2, name: 2 },
+    { id: 3, name: 3 },
+    { id: 4, name: 4 },
+    { id: 5, name: 5 },
+    { id: 6, name: 6 },
+    { id: 7, name: 7 },
+    { id: 8, name: 8 },
+    { id: 9, name: 9 },
+    { id: 10, name: 10 },
+    { id: 11, name: 11 },
+    { id: 12, name: 12 },
+  ];
+  public administration_minutes = [
+    { id: 0, name: 0 },
+    { id: 5, name: 5 },
+    { id: 10, name: 10 },
+    { id: 15, name: 15 },
+    { id: 20, name: 20 },
+    { id: 25, name: 25 },
+    { id: 30, name: 30 },
+    { id: 35, name: 35 },
+    { id: 40, name: 40 },
+    { id: 45, name: 45 },
+    { id: 50, name: 50 },
+    { id: 55, name: 55 },
+  ];
+  public oxigen_flow = [
+    { id: 0, name: 0 },
+    { id: 0.25, name: 0.25 },
+    { id: 0.5, name: 0.5 },
+    { id: 1, name: 1 },
+    { id: 2, name: 2 },
+    { id: 3, name: 3 },
+    { id: 4, name: 4 },
+    { id: 5, name: 5 },
+    { id: 6, name: 6 },
+    { id: 7, name: 7 },
+    { id: 8, name: 8 },
+    { id: 9, name: 9 },
+    { id: 10, name: 10 },
+    { id: 11, name: 11 },
+    { id: 12, name: 12 },
+    { id: 13, name: 13 },
+    { id: 14, name: 14 },
+    { id: 15, name: 15 },
+    { id: 20, name: 20 },
+    { id: 25, name: 25 },
+    { id: 30, name: 30 },
+    { id: 35, name: 35 },
+    { id: 40, name: 40 },
+    { id: 45, name: 45 },
+    { id: 50, name: 50 },
+    { id: 55, name: 55 },
+    { id: 60, name: 60 },
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -71,6 +132,7 @@ export class FormFormulationComponent implements OnInit {
     public userChangeS: UserChangeService,
     private authService: AuthService,
     private productSuppliesS: ProductSuppliesService,
+    private OxigenAdministrationWayS: OxigenAdministrationWayService,
   ) {
   }
 
@@ -148,6 +210,8 @@ export class FormFormulationComponent implements OnInit {
       observation: [this.data.observation],
       product_supplies_id: [this.data.product_supplies_id],
       num_supplies: [this.data.num_supplies],
+      oxigen_administration_way_id: [''],
+      oxigen_flow: [''],
     });
     this.show_all = true;
 
@@ -163,7 +227,7 @@ export class FormFormulationComponent implements OnInit {
       await this.ChFormulationS.Save({
         required: this.form.controls.required.value,
         administration_route_id: this.form.controls.administration_route_id.value,
-        dose: this.form.controls.dose.value,
+        dose: this.is_oxigen ? this.form.controls.oxigen_flow.value : this.form.controls.dose.value,
         hourly_frequency_id: this.form.controls.hourly_frequency_id.value,
         medical_formula: this.form.controls.required.value == 'medicine' ? this.form.controls.medical_formula.value : 1,
         number_mipres: this.form.controls.number_mipres.value,
@@ -171,6 +235,7 @@ export class FormFormulationComponent implements OnInit {
         outpatient_formulation: this.form.controls.outpatient_formulation.value,
         product_generic_id: this.form.controls.required.value == 'medicine' ? this.product_id : null,
         treatment_days: this.form.controls.treatment_days.value,
+        oxigen_administration_way_id: this.form.controls.oxigen_administration_way_id.value,
         type_record_id: 5,
         ch_record_id: this.record_id,
         services_briefcase_id: this.form.controls.required.value == 'medicine' ? this.service_briefcase_id : null,
@@ -258,13 +323,20 @@ export class FormFormulationComponent implements OnInit {
         this.form.patchValue({ outpatient_formulation: '' });
         this.form.patchValue({ number_mipres: '' });
         this.form.patchValue({ observation: '' });
+        this.form.patchValue({ oxigen_administration_way_id: '' });
+        this.form.patchValue({ oxigen_flow: '' });
 
         this.form.controls.product_supplies_id.clearValidators();
         this.form.controls.product_supplies_id.setErrors(null);
         this.form.controls.num_supplies.clearValidators();
         this.form.controls.num_supplies.setErrors(null);
+        this.form.controls.oxigen_administration_way_id.clearValidators();
+        this.form.controls.oxigen_administration_way_id.setErrors(null);
+        this.form.controls.oxigen_flow.clearValidators();
+        this.form.controls.oxigen_flow.setErrors(null);
 
       } else {
+        this.is_oxigen = false;
         this.form.controls.product_supplies_id.setValidators(Validators.compose([Validators.required]));
         this.form.controls.num_supplies.setValidators(Validators.compose([Validators.required]));
         this.form.patchValue({ product_supplies_id: '' });
@@ -290,6 +362,10 @@ export class FormFormulationComponent implements OnInit {
         this.form.controls.number_mipres.setErrors(null);
         this.form.controls.observation.clearValidators();
         this.form.controls.observation.setErrors(null);
+        this.form.controls.oxigen_administration_way_id.clearValidators();
+        this.form.controls.oxigen_administration_way_id.setErrors(null);
+        this.form.controls.oxigen_flow.clearValidators();
+        this.form.controls.oxigen_flow.setErrors(null);
 
       };
     });
@@ -344,6 +420,7 @@ export class FormFormulationComponent implements OnInit {
     this.product = this.product_gen.find(item => (!this.show ? item.description : item.manual_price.product.description) == e);
 
     if (this.product) {
+      this.oxigen_identification(this.product.manual_price.product.nom_product_id);
       this.service_briefcase_id = this.show ? this.product.id : null;
       this.product_id = this.show ? this.product.manual_price.product.id : this.product.id;
       if (identificator == 1) {
@@ -352,6 +429,7 @@ export class FormFormulationComponent implements OnInit {
         this.form.controls.product_id.setErrors(null);
       }
     } else {
+      this.oxigen_identification(0);
       this.service_briefcase_id = null;
       this.product_id = null;
       this.toastService.warning('', 'Debe seleccionar un Medicamento de la lista');
@@ -362,10 +440,55 @@ export class FormFormulationComponent implements OnInit {
       }
 
     }
-    this.valor = this.getConcentration((this.show ? this.product.manual_price.product.product_dose_id == 2 : this.product.product_dose_id == 2) ? (this.show ? this.product.manual_price.product.dose : this.product.dose) : (this.show ? this.product.manual_price.product.drug_concentration.value : this.product.drug_concentration.value));
-    this.unidad = this.product.product_dose_id == 2 ? this.numerador_measurement_units(this.show ? this.product.manual_price.product.multidose_concentration.name : this.product.multidose_concentration.name) :
-      this.numerador_measurement_units(this.show ? this.product.manual_price.product.measurement_units.code : this.product.measurement_units.code);
+    
+    
     this.onChangesFormulation(1, e)
+  }
+
+  oxigen_identification(val) {
+    //identificar si el medicamento es oxigeno
+    if (val == 301) {
+      this.is_oxigen = true;
+      this.form.controls.oxigen_administration_way_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.oxigen_flow.setValidators(Validators.compose([Validators.required]));
+
+      this.form.controls.dose.clearValidators();
+      this.form.controls.dose.setErrors(null);
+      this.form.controls.administration_route_id.clearValidators();
+      this.form.controls.administration_route_id.setErrors(null);
+      this.form.controls.hourly_frequency_id.clearValidators();
+      this.form.controls.hourly_frequency_id.setErrors(null);
+      this.form.controls.treatment_days.clearValidators();
+      this.form.controls.treatment_days.setErrors(null);
+      this.valor = '';
+      this.unidad = 'l/min';
+      if (this.oxigen_administration_way == null) {
+        this.OxigenAdministrationWayS.GetCollection().then(x => {
+          this.oxigen_administration_way = x;
+        });
+      }
+    } else {
+      this.is_oxigen = false;
+      this.form.controls.dose.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.administration_route_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.hourly_frequency_id.setValidators(Validators.compose([Validators.required]));
+      this.form.controls.treatment_days.setValidators(Validators.compose([Validators.required]));
+
+      this.form.patchValue({ oxigen_administration_way_id: '' });
+      this.form.patchValue({ oxigen_flow: '' });
+
+      this.form.controls.product_supplies_id.clearValidators();
+      this.form.controls.product_supplies_id.setErrors(null);
+      this.form.controls.num_supplies.clearValidators();
+      this.form.controls.num_supplies.setErrors(null);
+      this.form.controls.oxigen_administration_way_id.clearValidators();
+      this.form.controls.oxigen_administration_way_id.setErrors(null);
+      this.form.controls.oxigen_flow.clearValidators();
+      this.form.controls.oxigen_flow.setErrors(null);
+      this.valor = this.getConcentration((this.show ? this.product.manual_price.product.product_dose_id == 2 : this.product.product_dose_id == 2) ? (this.show ? this.product.manual_price.product.dose : this.product.dose) : (this.show ? this.product.manual_price.product.drug_concentration.value : this.product.drug_concentration.value));
+      this.unidad = this.product.product_dose_id == 2 ? this.numerador_measurement_units(this.show ? this.product.manual_price.product.multidose_concentration.name : this.product.multidose_concentration.name) :
+        this.numerador_measurement_units(this.show ? this.product.manual_price.product.measurement_units.code : this.product.measurement_units.code);
+    }
   }
   // readProductGen(x) {
   //   var r = [];

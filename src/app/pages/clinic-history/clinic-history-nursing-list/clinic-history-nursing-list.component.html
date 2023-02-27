@@ -2,7 +2,7 @@
   <div content>
     <div class="row" *ngIf="user">
       <div class="col-md-6" title *ngIf="user">
-        <p class="parrafo" *ngIf="user"><b>CÉDULA:</b> {{user.identification}} </p>
+        <p class="parrafo" *ngIf="user"><b>IDENTIFICACIÓN:</b> {{user.identification}} </p>
         <p class="parrafo" *ngIf="user"><b>NOMBRE:</b> <span>{{this.user.firstname}}</span> &nbsp; <span
             *ngIf="this.user.middlefirstname">{{this.user.middlefirstname}}</span> &nbsp;
           <span>{{this.user.lastname}}</span> &nbsp; <span
@@ -66,7 +66,7 @@
   <nb-tabset *ngIf="user" class="tabset" (changeTab)="tablock($event)">
 
     <nb-tab tabTitle="INGRESO" *ngIf="is_pad != 17 || ch_record[0]['admissions']['location'].at(-1).scope_of_attention_id == 1">
-      <div *ngIf="this.show == 1">
+      <div *ngIf="this.show1">
         <ngx-entry-clinic-history-nursing [data]="null" [record_id]="this.record_id" [type_record_id]="1"
           [has_input]="this.has_input" [admission]="admission">
         </ngx-entry-clinic-history-nursing>
@@ -74,20 +74,20 @@
     </nb-tab>
 
     <nb-tab tabTitle="NOTA DE ENFERMERÍA">
-      <div *ngIf="this.show == 2">
+      <div *ngIf="this.show2">
         <ngx-nursering-notes [record_id]="record_id" [type_record_id]="3" [admission]="admission" [is_pad]="is_pad">
         </ngx-nursering-notes>
       </div>
     </nb-tab>
 
     <nb-tab tabTitle="VALORACIÓN DE LA PIEL" *ngIf="is_pad != 17 || ch_record[0]['admissions']['location'].at(-1).scope_of_attention_id == 1">
-      <div *ngIf="this.show == 3">
+      <div *ngIf="this.show3">
         <ngx-skin-valoration [record_id]="this.record_id" [type_record_id]="3"></ngx-skin-valoration>
       </div>
     </nb-tab>
 
     <nb-tab tabTitle="ESCALAS" *ngIf="is_pad != 17 || ch_record[0]['admissions']['location'].at(-1).scope_of_attention_id == 1">
-      <div *ngIf="this.show == 4">
+      <div *ngIf="this.show4">
 
         <ngx-form-ch-scales [enfermery]="true" [record_id]="this.record_id">
         </ngx-form-ch-scales>
@@ -96,7 +96,7 @@
     </nb-tab>
 
     <nb-tab *ngIf="ch_record[0]['assigned_management_plan']" tabTitle="APLICACIÓN DE MEDICAMENTOS">
-      <div *ngIf="this.show == 5">
+      <div *ngIf="this.show5">
 
         <ngx-nursering-medication [data]="null" [record_id]="this.record_id" [type_record_id]="9" (messageEvent)="reloadAplication($event)">
         </ngx-nursering-medication>

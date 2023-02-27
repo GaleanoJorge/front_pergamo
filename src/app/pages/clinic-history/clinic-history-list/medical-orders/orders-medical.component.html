@@ -1,0 +1,33 @@
+<nb-card>
+  <nb-card-body>
+    <nb-stepper #stepper [linear]="linearMode" (click)="goto($event)">
+
+      <nb-step [stepControl]="nameForm" label="Ordenes Medicas">
+        <div class="row">
+          <div class="col-md-12">
+            <ngx-ch-medical-orders [record_id]="record_id" [admission]="admission"></ngx-ch-medical-orders>
+          </div>
+        </div>
+      </nb-step>
+      <nb-step [stepControl]="nameForm" label="Interconsulta">
+        <div class="row" *ngIf="this.show1">
+          <div class="col-md-12">
+            <ngx-ch-interconsultation [record_id]="record_id"></ngx-ch-interconsultation>
+          </div>
+        </div>
+      </nb-step>
+
+      <nb-step [stepControl]="nameForm" label="Plan manejo">
+        <div class="row" *ngIf="this.show2">
+          <div class="col-md-12" *ngIf="this.admissions_id">
+            <ngx-management-pad [admissions]="this.admissions_id[0].admissions_id"
+              [patient]="this.admissions_id[0].admissions.patient_id" medical=1 title="Plan de manejo">
+            </ngx-management-pad>
+          </div>
+        </div>
+
+      </nb-step>
+
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

@@ -6,7 +6,7 @@ import { ViewCell } from 'ng2-smart-table';
   template: `
     <div class="d-flex justify-content-center">
       <button
-        *ngIf="this.rowData.medical_status_id == 4 && this.rowData.ch_record_count == 0"
+        *ngIf="this.rowData.medical_status_id == 4 && this.rowData.exist_ch_record == 0"
         nbTooltip="No atendida"
         nbTooltipPlacement="top"
         nbTooltipStatus="primary"
@@ -16,7 +16,7 @@ import { ViewCell } from 'ng2-smart-table';
         <nb-icon icon="person-delete-outline"></nb-icon>
       </button>
       <button
-      *ngIf="this.rowData.medical_status_id == 4 && this.rowData.ch_record_count == 0"
+      *ngIf="this.rowData.medical_status_id == 4 && (this.rowData.exist_ch_record == 0 || this.rowData.exist_finalized_ch_record == 0)"
       nbTooltip="Registrar historia clínica"
       nbTooltipPlacement="top"
       nbTooltipStatus="primary"
