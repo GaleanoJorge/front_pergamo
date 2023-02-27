@@ -420,6 +420,7 @@ export class FormFormulationComponent implements OnInit {
     this.product = this.product_gen.find(item => (!this.show ? item.description : item.manual_price.product.description) == e);
 
     if (this.product) {
+      this.oxigen_identification(this.product.manual_price.product.nom_product_id);
       this.service_briefcase_id = this.show ? this.product.id : null;
       this.product_id = this.show ? this.product.manual_price.product.id : this.product.id;
       if (identificator == 1) {
@@ -428,6 +429,7 @@ export class FormFormulationComponent implements OnInit {
         this.form.controls.product_id.setErrors(null);
       }
     } else {
+      this.oxigen_identification(0);
       this.service_briefcase_id = null;
       this.product_id = null;
       this.toastService.warning('', 'Debe seleccionar un Medicamento de la lista');
@@ -439,8 +441,13 @@ export class FormFormulationComponent implements OnInit {
 
     }
     
+    
+    this.onChangesFormulation(1, e)
+  }
+
+  oxigen_identification(val) {
     //identificar si el medicamento es oxigeno
-    if (e.includes('OXIGENO')) {
+    if (val == 301) {
       this.is_oxigen = true;
       this.form.controls.oxigen_administration_way_id.setValidators(Validators.compose([Validators.required]));
       this.form.controls.oxigen_flow.setValidators(Validators.compose([Validators.required]));
@@ -482,7 +489,6 @@ export class FormFormulationComponent implements OnInit {
       this.unidad = this.product.product_dose_id == 2 ? this.numerador_measurement_units(this.show ? this.product.manual_price.product.multidose_concentration.name : this.product.multidose_concentration.name) :
         this.numerador_measurement_units(this.show ? this.product.manual_price.product.measurement_units.code : this.product.measurement_units.code);
     }
-    this.onChangesFormulation(1, e)
   }
   // readProductGen(x) {
   //   var r = [];

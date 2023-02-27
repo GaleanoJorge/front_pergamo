@@ -15,8 +15,9 @@
             </div>
           </div>
 
-          <div class="col-md-6" title >
-            <p class="parrafo"><b>Sistema de administración: </b> {{this.pharmacy_product_request.at(-1).ch_formulation.oxigen_administration_way.name}} </p>
+          <div class="col-md-6" title>
+            <p class="parrafo"><b>Sistema de administración: </b>
+              {{this.pharmacy_product_request.at(-1).ch_formulation.oxigen_administration_way.name}} </p>
             <p class="parrafo"><b>Caudal en l/min: </b> {{this.pharmacy_product_request.at(-1).ch_formulation.dose}}</p>
           </div>
 
@@ -29,6 +30,17 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <div class="col-md-12">
+            <label for="briefcase_oxigen_id" class="form-text text-muted font-weight-bold">Diagnóstico:</label>
+            <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="briefcase_oxigen_id"
+              formControlName="briefcase_oxigen_id" briefcase_oxigen_id type="text" required
+              status="{{ isSubmitted && form.controls.briefcase_oxigen_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+            <datalist id="codes">
+              <option *ngFor="let item of briefcase_oxigen" [value]="item.manual_price.product.description">{{item.manual_price.product.description}}
+              </option>
+            </datalist>
           </div>
 
 

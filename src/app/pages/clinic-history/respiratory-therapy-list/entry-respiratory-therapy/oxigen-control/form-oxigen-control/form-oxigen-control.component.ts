@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { OxigenAdministrationWayService } from '../../../../../../business-controller/oxigen-administration-way.service';
 import { OxigenControlService } from '../../../../../../business-controller/oxigen-control.service';
+import { ServicesBriefcaseService } from '../../../../../../business-controller/services-briefcase.service';
 
 
 @Component({
@@ -25,6 +26,8 @@ export class FormOxigenControlComponent implements OnInit {
   public rips_typefile: any[];
   public isSubmitted: boolean = false;
   public saved: any = null;
+  public briefcase_oxigen: any = null;
+  public briefcase_oxigen_id: any = null;
   public botton_title: string = 'Guardar';
   public prov_weight: number = 0;
   public prov_size: number = 0;
@@ -98,11 +101,20 @@ export class FormOxigenControlComponent implements OnInit {
     private OxigenControlS: OxigenControlService,
     private toastService: NbToastrService,
     private OxigenAdministrationWayS: OxigenAdministrationWayService,
+    private servicesBriefcaseS: ServicesBriefcaseService,
   ) {
   }
 
   ngOnInit(): void {
+
+    this.servicesBriefcaseS.GetByBriefcase({ type: '2', is_oxigen: true }, this.admissions.briefcase_id).then(x => {
+      if (x.length > 0) {
+        this.briefcase_oxigen = x;
+      }
+    });
+
     this.form = this.formBuilder.group({
+      briefcase_oxigen_id: ['', Validators.required],
       oxigen_flow: ['', Validators.required],
       duration_hours: ['', Validators.required],
       duration_minutes: ['', Validators.required],
@@ -114,6 +126,32 @@ export class FormOxigenControlComponent implements OnInit {
     });
 
 
+  }
+
+  saveCode(e): void {
+    if (this.briefcase_oxigen) {
+      var localidentify = this.briefcase_oxigen.find((item) => item.name == e);
+
+      if (localidentify) {
+        this.briefcase_oxigen_id = localidentify.id;
+      } else {
+        this.briefcase_oxigen_id = null;
+        this.toastService.warning(
+          '',
+          'Debe seleccionar un diagnostico de la lista'
+        );
+        this.form.controls.briefcase_oxigen_id.setErrors({ incorrect: true });
+        
+      }
+    } else {
+      this.briefcase_oxigen_id = null;
+      this.toastService.warning(
+        '',
+        'Debe seleccionar un diagnostico de la lista'
+      );
+      this.form.controls.briefcase_oxigen_id.setErrors({ incorrect: true });
+      
+    }
   }
 
   save() {
@@ -130,7 +168,7 @@ export class FormOxigenControlComponent implements OnInit {
         oxigen_administration_way_id: this.form.controls.oxigen_administration_way_id.value,
         admissions_id: this.admissions.id,
         ch_interconsultation_id: this.route.snapshot.params.id2,
-        services_briefcase_id: this.pharmacy_product_request.at(-1).services_briefcase_id,
+        services_briefcase_id: this.briefcase_oxigen_id,
         product_com_id: this.pharmacy_product_request.at(-1).pharmacy_request_shipping.pharmacy_lot_stock.billing_stock.product_id,
         pharmacy_product_request_id: this.pharmacy_product_request.at(-1).id,
       }).then(x => {
