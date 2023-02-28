@@ -429,6 +429,8 @@ import { TcServiceLevelComponent } from './tc-service-level/tc-service-level.com
 import { TcQuitComponent } from './tc-quit/tc-quit.component';
 import { TcPareBaseComponent } from './tc-pare-base/tc-pare-base.component';
 
+import { ReportExternalQueryComponent } from './report-external-query/report-external-query.component';
+import { FormReportExternalQueryComponent } from './report-external-query/form-report-external-query/form-report-external-query.component';
 
 @NgModule({
   imports: [
@@ -884,6 +886,8 @@ import { TcPareBaseComponent } from './tc-pare-base/tc-pare-base.component';
     FormReportBillingComponent,
     ReportGlossComponent,
     FormReportGlossComponent,
+    ReportExternalQueryComponent,
+    FormReportExternalQueryComponent,
     SuppliesMeasureComponent,
     FormSuppliesMeasureComponent,
   ],

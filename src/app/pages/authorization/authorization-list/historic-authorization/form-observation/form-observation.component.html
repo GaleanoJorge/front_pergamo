@@ -30,6 +30,16 @@
             </nb-toggle>
           </div>
           <div class="col-md-12" *ngIf="this.form.controls.copay.value">
+            <label for="category_id" class="form-text text-muted font-weight-bold">Categoría:</label>
+            <nb-select [selected]="this.data.category_id" formControlName="category_id" id="category_id" fullWidth
+              status="{{ isSubmitted && form.controls.category_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+              <nb-option value="">Seleccione...</nb-option>
+              <nb-option selected="{{ item.id == this.data.category_id }}" *ngFor="let item of categories"
+                [value]="item.id">
+                {{ item.payment_type.name }} - {{ item.category }} - {{ item.payment_type_id == 2 ? item.value * this.data.services_briefcase.value : item.value }}</nb-option>
+            </nb-select>
+          </div>
+          <div class="col-md-12" *ngIf="this.form.controls.copay.value">
             <label for="copay_value" class="form-text text-muted font-weight-bold">Valor de copago:</label>
             <input nbInput fullWidth id="copay_value"
               formControlName="copay_value" copay_value type="number"

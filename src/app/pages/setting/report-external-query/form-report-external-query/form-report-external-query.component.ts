@@ -1,17 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { CompanyService } from '../../../../business-controller/company.service';
-import { ReportBillingService } from '../../../../business-controller/report-billing.service';
+import { CampusService } from '../../../../business-controller/campus.service';
+import { ReportExternalQueryService } from '../../../../business-controller/report-external.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
+import { AuthService } from '../../../../services/auth.service';
 @Component({
-  selector: 'ngx-form-report-billing',
-  templateUrl: './form-report-billing.component.html',
-  styleUrls: ['./form-report-billing.component.scss'],
+  selector: 'ngx-form-report-external-query',
+  templateUrl: './form-report-external-query.component.html',
+  styleUrls: ['./form-report-external-query.component.scss'],
 })
-export class FormReportBillingComponent implements OnInit {
+export class FormReportExternalQueryComponent implements OnInit {
   @Input() title: string;
-  // @Output() messageEvent = new EventEmitter<any>();
   @Input() data: any = null;
   @Input() saved: any = null;
 
@@ -20,73 +20,75 @@ export class FormReportBillingComponent implements OnInit {
   public loading: boolean = false;
   public disabled: boolean = false;
   public user_id;
-  public company: any[];
-  public company_id;
-  // public entity;
-  // public customData;
+  public campus: any[];
+  public campus_id;
   public show: boolean = false;
+  public user;
 
   public today = null;
 
   constructor(
-    private ReportBillingS: ReportBillingService,
+    private ReportExternalQueryS: ReportExternalQueryService,
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
     private UserBusinessS: UserBusinessService,
-    private CompanyS: CompanyService
+    private authService: AuthService,
+    private CampusS: CampusService,
   ) { }
 
   async ngOnInit() {
-    //? Sin uso hasta el momento
-    // this.entity = this.entity;
-    // this.customData = this.customData;
     this.today = new Date();
     this.today = this.today.toISOString().split('T')[0];
     if (!this.data) {
       this.data = {
         initial_report: '',
         final_report: '',
-        company_id: '',
+        campus_id: '',
+        status: '',
       };
     }
 
     this.form = this.formBuilder.group({
-      initial_report: [this.data.initial_report, Validators.compose([Validators.required]),],
-      final_report: [this.data.final_report, Validators.compose([Validators.required]),],
-      company_id: [this.data.company_id, Validators.compose([Validators.required]),],
+      initial_report: [this.data.initial_report, Validators.compose([Validators.required])],
+      final_report: [this.data.final_report, Validators.compose([Validators.required])],
+      campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
+      status: [this.data.status, Validators.compose([Validators.required])],
+    });
+    this.user = this.authService.GetUser();
+
+    this.CampusS.GetCollection().then((x) => {
+      this.campus = x;
     });
 
-    await this.CompanyS.GetCollection({ company_category_id: 1 }).then((x) => {
-      this.company = x;
-    });
-    await this.UserBusinessS.GetUser().then((x) => {
+    this.UserBusinessS.GetUser().then((x) => {
       this.user_id = x;
     });
   }
 
   saveCode(e): void {
-    var localidentify = this.company.find((item) => item.name == e
-    );
+    var localidentify = this.campus.find((item) => item.name == e);
     if (localidentify) {
-      this.company_id = localidentify.id;
+      this.campus_id = localidentify.id;
     } else {
-      this.company_id = null;
-      this.toastService.warning('', 'Seleccione EPS en lista');
+      this.campus_id = null;
+      this.toastService.warning('', 'Seleccione Sede en Lista');
     }
   }
 
+  // Export Paso 1
   exportAsXLSX(): void {
     this.isSubmitted = true;
     if (!this.form.invalid) {
-      this.ReportBillingS.GetExportBilling(this.company_id, {
-        id: this.company_id,
-        company_id: this.company_id,
+      this.ReportExternalQueryS.GetExportPharmacy(this.campus_id, {
         initial_report: this.form.controls.initial_report.value,
         final_report: this.form.controls.final_report.value,
+        status: this.form.controls.status.value,
+        campus_id: this.campus_id,
       }).then((x) => {
-        if (x.h1.length > 0 || x.h2.length > 0 || x.h3.length > 0) {
-          this.ReportBillingS.exportAsExcelFile(x, 'reporte_facturación_' +
-            this.form.controls.company_id.value + '_entre_[' +
+        if (x.length > 0) {
+          this.ReportExternalQueryS.exportAsExcelFile(x, 'reporte_consulta_externa_' +
+            this.form.controls.campus_id.value + '_' +
+            this.form.controls.status.value + '_entre_[' +
             this.form.controls.initial_report.value + ']-[' +
             this.form.controls.final_report.value + ']_del_[' +
             this.today + '][');
@@ -97,7 +99,7 @@ export class FormReportBillingComponent implements OnInit {
         this.isSubmitted = false;
       });
     } else {
-      this.toastService.warning('', 'Seleccione EPS y Rango de Fechas');
+      this.toastService.warning('', 'Seleccione Sede, Estado y Rango de Fechas');
     }
   }
 

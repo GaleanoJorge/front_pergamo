@@ -165,6 +165,7 @@ import { TcAssistantComponent } from './tc-assistant/tc-assistant.component';
 import { TcServiceLevelComponent } from './tc-service-level/tc-service-level.component';
 import { TcBaseAdhesionComponent } from './tc-base-adhesion/tc-base-adhesion.component';
 import { TcPareBaseComponent } from './tc-pare-base/tc-pare-base.component';
+import { FormReportExternalQueryComponent } from './report-external-query/form-report-external-query/form-report-external-query.component';
 
 const routes: Routes = [{
   path: '',
@@ -897,6 +898,10 @@ const routes: Routes = [{
     {
       path: 'pharmacy-adjustment',
       component: PharmacyAdjustmentComponent,
+    },
+    {
+      path: 'report-external-query',
+      component: FormReportExternalQueryComponent,
     }
     ,
     {
