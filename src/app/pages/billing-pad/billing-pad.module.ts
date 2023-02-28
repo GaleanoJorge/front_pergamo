@@ -47,6 +47,9 @@ import { ActionsBillingPadBriefcaseComponent } from './billing-pad-briefcase/act
 import { ActionsSemaphoreAdmissionsListComponent } from './billing-pad-admissions-list/actions -semaphore-admissions-list.component';
 import { BillingPadPatientsComponent } from './billing-pad-patients/billing-pad-patients.component';
 import { ActionsBillingPadPatientsComponent } from './billing-pad-patients/actions-billing-pad-patients.component';
+import { BillingPadAllComponent } from './billing-pad-all/billing-pad-all.component';
+import { ActionsStatusAllComponent } from './billing-pad-all/actions-status-all.component';
+import { ActionsSemaphoreAllComponent } from './billing-pad-all/actions-semaphore-all.component';
 
 @NgModule({
   imports: [
@@ -99,6 +102,9 @@ import { ActionsBillingPadPatientsComponent } from './billing-pad-patients/actio
     ActionsSemaphoreAdmissionsListComponent,
     BillingPadPatientsComponent,
     ActionsBillingPadPatientsComponent,
+    BillingPadAllComponent,
+    ActionsStatusAllComponent,
+    ActionsSemaphoreAllComponent,
   ],
   providers: [
     DateFormatPipe,

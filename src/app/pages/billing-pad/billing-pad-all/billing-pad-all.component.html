@@ -1,0 +1,31 @@
+<ngx-base-list [messageError]="messageError">
+  <div content>
+    <ngx-base-table pager="false" [title]="title" [subtitle]="subtitle" [settings]="settings" [entity]="entity" customData="billing_pad"
+      [messageToltip]="messageToltip">
+      <div actions>
+        <form [formGroup]="form">
+          <div class="actions">
+            <!-- <div class="col-md-12"> -->
+              <nb-select style="margin-right: 10px; width: 250px" placeholder="Filtrar EPS" formControlName="company_id">
+                <nb-option >Todos los convenios</nb-option>
+                <nb-option *ngFor="let item of company" [value]="item.id">{{item.name}}</nb-option>
+              </nb-select>
+            <!-- </div> -->
+          </div>
+          <div class="actions">
+            <div class="col-md-6">
+              <label for="start_date" class="form-text text-muted font-weight-bold">Fecha de inicio:</label>
+              <input type="date" nbInput fullWidth id="start_date" formControlName="start_date" start_date
+                status="{{ isSubmitted && form.controls.start_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+            <div class="col-md-6">
+              <label for="finish_date" class="form-text text-muted font-weight-bold">Fecha de final:</label>
+              <input type="date" nbInput fullWidth id="finish_date" formControlName="finish_date" finish_date
+                status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </ngx-base-table>
+  </div>
+</ngx-base-list>
