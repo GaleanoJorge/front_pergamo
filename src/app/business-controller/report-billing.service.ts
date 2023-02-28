@@ -78,19 +78,30 @@ export class ReportBillingService {
   }
 
   // Facturación
-  GetExportBilling(id, params = {}): Promise<ReportBilling[]> {
+  // GetExportBilling(id, params = {}): Promise<ReportBilling[]> {
+  //   let servObj = new ServiceObject('report_billing/export', id);
+  //   return this.webAPI.GetAction(servObj, params)
+  //     .then((x) => {
+  //       servObj = <ServiceObject>x;
+  //       if (!servObj.status)
+  //         throw new Error(servObj.message);
+  //       this.report_billing = <ReportBilling[]>servObj.data;
+  //       return Promise.resolve(this.report_billing);
+  //     })
+  //     .catch((x) => {
+  //       throw x.message;
+  //     });
+  // }
+  GetExportBilling(id, params = {}): any {
     let servObj = new ServiceObject('report_billing/export', id);
-    return this.webAPI.GetAction(servObj, params)
-      .then((x) => {
-        servObj = <ServiceObject>x;
-        if (!servObj.status)
-          throw new Error(servObj.message);
-        this.report_billing = <ReportBilling[]>servObj.data.report_billing;
-        return Promise.resolve(this.report_billing);
-      })
-      .catch((x) => {
-        throw x.message;
-      });
+    return this.webAPI.GetAction(servObj, params).then(x => {
+      servObj = <ServiceObject>x;
+      if (!servObj.status)
+        throw new Error(servObj.message);
+      return Promise.resolve(servObj.data);
+    }).catch(x => {
+      throw x.message;
+    });
   }
   public exportAsExcelFile(json: any[], excelFileName: string): void {
     let workbook = new Workbook();

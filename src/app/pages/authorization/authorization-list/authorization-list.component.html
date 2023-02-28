@@ -56,8 +56,7 @@
 
             <div class="col-md-4">
               <label for="status_id" class="form-text text-muted font-weight-bold">Estado:</label>
-              <nb-select formControlName="status_id" id="status_id" fullWidth
-                placeholder="TODOS LOS REGISTROS"
+              <nb-select formControlName="status_id" id="status_id" fullWidth placeholder="TODOS LOS REGISTROS"
                 status="{{ isSubmitted && form.controls.type_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
                 <nb-option value="0">TODOS LOS REGISTROS</nb-option>
                 <nb-option value="P">PROYECTADOS</nb-option>
@@ -82,8 +81,8 @@
 
             <div class="col-md-4">
               <label for="id_number" class="form-text text-muted font-weight-bold">Número ID:</label>
-              <input  nbInput fullWidth id="id_number" placeholder="Número de documento"
-                formControlName="id_number" program_id
+              <input nbInput fullWidth id="id_number" placeholder="Número de documento" formControlName="id_number"
+                program_id
                 status="{{ isSubmitted && form.controls.id_number.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
             </div>
 
@@ -92,14 +91,14 @@
               <nb-select formControlName="scope_of_attention_id" id="scope_of_attention_id" fullWidth
                 placeholder="TODOS LOS REGISTROS"
                 status="{{ isSubmitted && form.controls.scope_of_attention_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-                <nb-option >TODOS LOS REGISTROS</nb-option>
+                <nb-option>TODOS LOS REGISTROS</nb-option>
                 <nb-option *ngFor="let item of scope_of_attention" [value]="item.id">{{item.name}}</nb-option>
               </nb-select>
             </div>
 
           </div>
 
-<!-- 
+          <!-- 
           <div class="col-md-12 filter">
             <button nbButton status="success" class="ml-1" disabled="{{ loading }}">Filtar</button>
           </div> -->
@@ -107,7 +106,7 @@
         </form>
 
         <ngx-base-table *ngIf="auth_status && company" (propagar)="onUserRowSelect($event)" [title]="title"
-          [subtitle]="subtitle"  [settings]="settings" [entity]="entity2" customData="authorization"
+          [subtitle]="subtitle" [settings]="settings" [entity]="entity2" customData="authorization"
           [messageToltip]="messageToltip">
 
           <div actions>
@@ -134,7 +133,8 @@
                 paquete</button>
             </div>
             <div class="actions" style="margin-top: 5px;">
-              <button nbButton status="danger" style="width: 100%;" (click)="SelectAll($event)">Seleccionar todas</button>
+              <button nbButton status="danger" style="width: 100%;" (click)="SelectAll($event)">Seleccionar
+                todas</button>
             </div>
             <!-- 
             <div class="actions" style=" margin-top: 5px;">
@@ -259,6 +259,16 @@
               </nb-toggle>
             </div>
             <div class="col-md-12" *ngIf="this.formMassive.controls.copay.value">
+              <label for="category_id" class="form-text text-muted font-weight-bold">Categoría:</label>
+              <nb-select [selected]="this.data.category_id" formControlName="category_id" id="category_id" fullWidth
+                status="{{ isSubmitted && formMassive.controls.category_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                <nb-option value="">Seleccione...</nb-option>
+                <nb-option selected="{{ item.id == this.data.category_id }}" *ngFor="let item of categories"
+                  [value]="item.id">
+                  {{ item.payment_type.name }} - {{ item.category }}</nb-option>
+              </nb-select>
+            </div>
+            <div class="col-md-12" *ngIf="this.formMassive.controls.copay.value">
               <label for="copay_value" class="form-text text-muted font-weight-bold">Valor de copago:</label>
               <input nbInput fullWidth id="copay_value" formControlName="copay_value" copay_value type="number"
                 status="{{ isSubmitted && formMassive.controls.copay_value.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
@@ -274,7 +284,7 @@
                   </div>
                   <input accept="image/jpeg,image/gif,image/png,application/pdf" type="file" id="file" nbInput fullWidth
                     (change)="changeImage($event.target.files, 1)"
-                    status="{{ isSubmitted && formMassive.controls.file_auth.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}"  />
+                    status="{{ isSubmitted && formMassive.controls.file_auth.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
                 </div>
               </div>
             </div>

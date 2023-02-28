@@ -282,12 +282,14 @@ export class FormFormulationComponent implements OnInit {
 
 
   onChangesFormulation(event, id) {
-    var presentmedic;
+    var presentmedic = 1;
     var dose = this.form.controls.dose.value;
     var hourly_frequency_id = this.form.controls.hourly_frequency_id.value != '' ? this.hourly_frequency_id.find(item => item.id == this.form.controls.hourly_frequency_id.value).value : 1;
     var treatment_days = this.form.controls.treatment_days.value;
     this.product = this.product_gen.find(item => (this.show ? item.manual_price.product.id : item.id) == this.product_id);
-    presentmedic = this.getConcentration((this.show ? this.product.manual_price.product.product_dose_id == 2 : this.product.product_dose_id == 2) ? (this.show ? this.product.manual_price.product.dose : this.product.dose) : (this.show ? this.product.manual_price.product.drug_concentration.value : this.product.drug_concentration.value));
+    if (this.product) {
+      presentmedic = this.getConcentration((this.show ? this.product.manual_price.product.product_dose_id == 2 : this.product.product_dose_id == 2) ? (this.show ? this.product.manual_price.product.dose : this.product.dose) : (this.show ? this.product.manual_price.product.drug_concentration.value : this.product.drug_concentration.value));
+    }
     // if (this.admission.location.at(-1).scope_of_attention_id == 1) {
     //   var elementos_x_aplicacion = dose / presentmedic;
     // } else {
@@ -420,7 +422,7 @@ export class FormFormulationComponent implements OnInit {
     this.product = this.product_gen.find(item => (!this.show ? item.description : item.manual_price.product.description) == e);
 
     if (this.product) {
-      this.oxigen_identification(this.product.manual_price.product.nom_product_id);
+      this.oxigen_identification(!this.input ? this.product.manual_price.product.nom_product_id : this.product.nom_product_id);
       this.service_briefcase_id = this.show ? this.product.id : null;
       this.product_id = this.show ? this.product.manual_price.product.id : this.product.id;
       if (identificator == 1) {
@@ -467,7 +469,7 @@ export class FormFormulationComponent implements OnInit {
           this.oxigen_administration_way = x;
         });
       }
-    } else {
+    } else if (this.product) {
       this.is_oxigen = false;
       this.form.controls.dose.setValidators(Validators.compose([Validators.required]));
       this.form.controls.administration_route_id.setValidators(Validators.compose([Validators.required]));

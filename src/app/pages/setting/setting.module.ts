@@ -422,6 +422,8 @@ import { FormPharmacyAdjustmentComponent } from './pharmacy-adjustment/form-phar
 import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adjustment.component';
 import { ReportCensusComponent } from './report-census/report-census.component';
 import { FormReportCensusComponent } from './report-census/form-report-census/form-report-census.component';
+import { ReportExternalQueryComponent } from './report-external-query/report-external-query.component';
+import { FormReportExternalQueryComponent } from './report-external-query/form-report-external-query/form-report-external-query.component';
 
 @NgModule({
   imports: [
@@ -871,6 +873,8 @@ import { FormReportCensusComponent } from './report-census/form-report-census/fo
     FormReportBillingComponent,
     ReportGlossComponent,
     FormReportGlossComponent,
+    ReportExternalQueryComponent,
+    FormReportExternalQueryComponent,
     SuppliesMeasureComponent,
     FormSuppliesMeasureComponent,
   ],
