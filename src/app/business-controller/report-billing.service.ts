@@ -126,7 +126,7 @@ export class ReportBillingService {
       ]
     };
     worksheet.columns = [
-      { header: 'Número de Factura', key: 'num_billing', width: 18, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 }, } },
+      { header: 'Número de Factura', key: 'num_billing', width: 20, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 }, } },
       { header: 'Fecha de Facturación', key: 'billing_date', width: 20, style: { numFmt: 'd/mm/yyyy h:mm', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Tipo de Identificación', key: 'it', width: 22, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Identificación del Paciente', key: 'identification', width: 22, style: { numFmt: '#', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
@@ -162,7 +162,7 @@ export class ReportBillingService {
       ]
     };
     worksheet2.columns = [
-      { header: 'Número de Factura', key: 'num_billing', width: 18, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
+      { header: 'Número de Factura', key: 'num_billing', width: 20, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Fecha de Facturación', key: 'billing_date', width: 20, style: { numFmt: 'd/mm/yyyy h:mm', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Tipo de Identificación', key: 'it', width: 22, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Identificación del Paciente', key: 'identification', width: 22, style: { numFmt: '#', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },

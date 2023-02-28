@@ -77,7 +77,7 @@ export class ReportRipsService {
       servObj = <ServiceObject>x;
       if (!servObj.status)
         throw new Error(servObj.message);
-      this.report_rips = <ReportRips[]>servObj.data.report_rips;
+      this.report_rips = <ReportRips[]>servObj.data;
       return Promise.resolve(this.report_rips);
     }).catch(x => {
       throw x.message;
@@ -109,7 +109,7 @@ export class ReportRipsService {
     };
     worksheet.columns = [
       { header: 'ID', key: 'abp_id', width: 10, style: { numFmt: '#', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
-      { header: 'Factura', key: 'billing', width: 14, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
+      { header: 'Factura', key: 'billing', width: 20, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Fecha de Factura', key: 'billing_date', width: 18, style: { numFmt: 'd/mm/yyyy H:mm', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Fecha de Servicio', key: 'service_date', width: 18, style: { numFmt: 'd/mm/yyyy H:mm', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Tipo de Identificación', key: 'it', width: 22, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
