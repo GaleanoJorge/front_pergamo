@@ -52,7 +52,7 @@ export class PharmacyInventoryAdjustmentComponent implements OnInit {
         title: this.headerFields[0],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          if (row.billing_stock.product) {
+          if (row.billing_stock.product != null) {
             return row.billing_stock.product.name + ' - ' + row.billing_stock.product.product_generic.description;
           } else {
             return row.billing_stock.product_supplies_com.name + ' - ' + row.billing_stock.product_supplies_com.product_supplies.description;
