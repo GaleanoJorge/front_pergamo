@@ -10,6 +10,7 @@ import { BillingPgpComponent } from './billing-pgp/billing-pgp.component';
 import { BillingPadBriefcaseComponent } from './billing-pad-briefcase/billing-pad-briefcase.component';
 import { BillingAdmissionsPadListComponent } from './billing-pad-admissions-list/billing-admissions-pad-list.component';
 import { BillingPadPatientsComponent } from './billing-pad-patients/billing-pad-patients.component';
+import { BillingPadAllComponent } from './billing-pad-all/billing-pad-all.component';
 
 
 const routes: Routes = [{
@@ -47,6 +48,10 @@ const routes: Routes = [{
     {
       path: 'billing-pad-patient/:briefcase_id',
       component: BillingPadPatientsComponent,
+    },
+    {
+      path: 'billing-pad-all',
+      component: BillingPadAllComponent,
     },
   ],
 }];
