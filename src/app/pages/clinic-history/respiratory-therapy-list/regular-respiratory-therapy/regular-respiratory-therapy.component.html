@@ -27,8 +27,17 @@
             </div>
           </nb-step>
 
-          <nb-step [stepControl]="nameForm" label="Destete de oxigeno">
+          <nb-step [stepControl]="nameForm" label="Control de oxigeno">
             <div class="row" *ngIf="this.show3">
+              <div class="col-md-12">
+                <ngx-table-oxigen-control [record_id]="record_id" [admissions]="admissions"
+                  [type_record_id]="type_record_id"></ngx-table-oxigen-control>
+              </div>
+            </div>
+          </nb-step>
+
+          <nb-step [stepControl]="nameForm" label="Destete de oxigeno">
+            <div class="row" *ngIf="this.show4">
               <div class="col-md-12">
                 <ngx-oxygen-therapy [record_id]="record_id" [type_record_id]="type_record_id"></ngx-oxygen-therapy>
               </div>
@@ -36,7 +45,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Pedido de insumos">
-            <div class="row" *ngIf="this.show4">
+            <div class="row" *ngIf="this.show5">
               <div class="col-md-12">
                 <ngx-insume-request [record_id]="record_id" [admissions]="admissions"
                   [user]="user"></ngx-insume-request>
@@ -45,7 +54,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Sesiones">
-            <div class="row" *ngIf="this.show5">
+            <div class="row" *ngIf="this.show6">
               <div class="col-md-12">
                 <ngx-sessions-therapy [record_id]="record_id" [type_record_id]="type_record_id"></ngx-sessions-therapy>
               </div>
@@ -53,7 +62,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Intervención">
-            <div class="row" *ngIf="this.show6">
+            <div class="row" *ngIf="this.show7">
               <div class="col-md-12">
                 <ngx-ps-intervention [record_id]="record_id" [type_record_id]="type_record_id"></ngx-ps-intervention>
               </div>
@@ -61,7 +70,7 @@
           </nb-step>
 
           <nb-step [stepControl]="nameForm" label="Recomendaciones">
-            <div class="row" *ngIf="this.show7">
+            <div class="row" *ngIf="this.show8">
               <div class="col-md-12">
                 <ngx-recommendations-evo [record_id]="record_id"
                   [type_record]="type_record_id"></ngx-recommendations-evo>

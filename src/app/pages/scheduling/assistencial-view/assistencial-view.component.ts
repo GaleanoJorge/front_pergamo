@@ -158,7 +158,7 @@ export class AssistencialViewComponent implements OnInit {
   public routes = [
     {
       name: 'Agenda asistencial',
-      route: '../../scheduling/non-working-days',
+      route: '../../scheduling/assitencial-view',
     },
   ];
 

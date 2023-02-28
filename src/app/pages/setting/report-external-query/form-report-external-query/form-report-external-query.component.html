@@ -1,0 +1,52 @@
+<form [formGroup]="form">
+  <div>
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        <label class="form-text text-muted font-weight-bold center-text-center">GENERACIÓN DE REPORTE CONSULTA EXTERNA</label>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label for="campus_id" class="form-text text-muted font-weight-bold">Sede:</label>
+        <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="campus_id"
+          formControlName="campus_id" campus_id type="text" required placeholder="Seleccione"
+          status="{{isSubmitted && form.controls.campus_id.errors? 'danger': isSubmitted? 'success': 'basic'}}" />
+        <datalist id="codes" *ngIf="campus">
+          <option *ngFor="let item of campus" [value]="item.name">{{ item.name }}</option>
+        </datalist>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="form" class="form-text text-muted font-weight-bold">Estado:</label>
+          <nb-select class="form-text" id="status" formControlName="status" fullWidth status
+            status="{{isSubmitted && form.controls.status.errors? 'danger' : isSubmitted? 'success' : 'basic'}}">
+            <nb-option value="">Seleccione...</nb-option>
+            <nb-option value="Reservada">RESERVADA</nb-option>
+            <nb-option value="Confirmada">CONFIRMADA</nb-option>
+            <nb-option value="facturada">FACTURADA</nb-option>
+            <nb-option value="Cancelada">CANCELADA</nb-option>
+            <nb-option value="Bloqueado">BLOQUEADA</nb-option>
+          </nb-select>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold align">Fecha Apertura:</label>
+        <input nbInput type="date" [max]="today" (change)="onDatechange1($event)" fullWidth id="initial_report"
+          formControlName="initial_report" initial_report
+          status="{{isSubmitted && form.controls.initial_report.errors? 'danger' : isSubmitted? 'success' : 'basic'}}" />
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-6">
+        <label class="form-text text-muted font-weight-bold align">Fecha Cierre:</label>
+        <input nbInput type="date" [max]="today" (change)="onDatechange1($event)" fullWidth id="final_report"
+          formControlName="final_report" final_report
+          status="{{isSubmitted && form.controls.final_report.errors? 'danger' : isSubmitted? 'success' : 'basic'}}" />
+      </div>
+    </div>
+
+    <div class="div-send">
+      <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsXLSX()" title="Formato Excel">DESCARGAR</button>
+    </div>
+  </div>
+</form>

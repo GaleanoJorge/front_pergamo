@@ -41,6 +41,7 @@ export class BillingPadProcedureComponent implements OnInit {
     /*07*/ 'VERIFICADO',
     /*08*/ 'CANTIDAD',
     /*09*/ 'VALOR UNITARIO',
+    /*10*/ 'ID',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}`;
   public icon: string = 'nb-star';
@@ -107,6 +108,10 @@ export class BillingPadProcedureComponent implements OnInit {
           };
         },
         renderComponent: ActionsPadProcedureComponent,
+      },
+      id: {
+        title: this.headerFields[10],
+        type: 'string',
       },
       name: {
         title: this.headerFields[1],
@@ -175,6 +180,12 @@ export class BillingPadProcedureComponent implements OnInit {
             } else {
               return 'Sin ejecutar';
             }
+          } else if (row.applications != null) {
+            if (row.applications.application_hour) {
+              return this.datePipe.transform4(row.applications.updated_at);
+            } else {
+              return 'Sin ejecutar';
+            }
           } else if (row.ch_interconsultation != null) {
             var a = row.ch_interconsultation.many_ch_record;
             var b = a.find(item => item.created_at == row.created_at)
@@ -214,6 +225,10 @@ export class BillingPadProcedureComponent implements OnInit {
           };
         },
         renderComponent: ActionsPadProcedureComponent,
+      },
+      id: {
+        title: this.headerFields[10],
+        type: 'string',
       },
       name: {
         title: this.headerFields[1],
@@ -299,6 +314,12 @@ export class BillingPadProcedureComponent implements OnInit {
           if (row.assigned_management_plan != null) {
             if (row.assigned_management_plan.execution_date != "0000-00-00 00:00:00") {
               return this.datePipe.transform4(row.assigned_management_plan.execution_date);
+            } else {
+              return 'Sin ejecutar';
+            }
+          } else if (row.applications != null) {
+            if (row.applications.application_hour) {
+              return this.datePipe.transform4(row.applications.updated_at);
             } else {
               return 'Sin ejecutar';
             }

@@ -170,7 +170,12 @@ const routes: Routes = [{
       path: 'scheduling',
       loadChildren: () => import('./scheduling/scheduling.module')
         .then(m => m.SchedulingModule),
-    }
+    },
+    {
+      path: 'laboratories',
+      loadChildren: () => import('./laboratory/laboratory.module')
+        .then(m => m.LaboratoryModule),
+    },
   ],
 }];
 

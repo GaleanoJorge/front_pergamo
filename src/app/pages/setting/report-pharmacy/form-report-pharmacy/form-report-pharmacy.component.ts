@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { PharmacyLotStockService } from '../../../../business-controller/pharmacy-lot-stock.service';
 import { PharmacyStockService } from '../../../../business-controller/pharmacy-stock.service';
 import { ReportPharmacyService } from '../../../../business-controller/report-pharmacy.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
@@ -35,7 +34,6 @@ export class FormReportPharmacyComponent implements OnInit {
     private UserBusinessS: UserBusinessService,
     private authService: AuthService,
     private PharmacyStockS: PharmacyStockService,
-    private PharmacyLotStockS: PharmacyLotStockService
   ) { }
 
   async ngOnInit() {
@@ -51,7 +49,7 @@ export class FormReportPharmacyComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      initial_report: [this.data.initial_report, Validators.compose([Validators.required]),],
+      initial_report: [this.data.initial_report, Validators.compose([Validators.required])],
       final_report: [this.data.final_report, Validators.compose([Validators.required])],
       pharmacy_stock_id: [this.data.pharmacy_stock_id, Validators.compose([Validators.required])],
       status: [this.data.status, Validators.compose([Validators.required])],
@@ -73,12 +71,13 @@ export class FormReportPharmacyComponent implements OnInit {
       this.pharmacy_stock_id = localidentify.id;
     } else {
       this.pharmacy_stock_id = null;
-      this.toastService.warning('', 'Selecciona una EPS de la lista');
+      this.toastService.warning('', 'Seleccione Farmacia en Lista');
     }
   }
 
   // Export Paso 1
   exportAsXLSX(): void {
+    this.isSubmitted = true;
     if (!this.form.invalid) {
       this.ReportPharmacyS.GetExportPharmacy(this.pharmacy_stock_id, {
         initial_report: this.form.controls.initial_report.value,
@@ -87,15 +86,20 @@ export class FormReportPharmacyComponent implements OnInit {
         pharmacy_stock_id: this.pharmacy_stock_id,
       }).then((x) => {
         if (x.length > 0) {
-        this.ReportPharmacyS.exportAsExcelFile(x, 'reporte_stock_' +
-          this.form.controls.pharmacy_stock_id.value + '_' +
-          this.form.controls.status.value + '_de_[' +
-          this.form.controls.initial_report.value + ']-[' +
-          this.form.controls.final_report.value + ']');
+          this.ReportPharmacyS.exportAsExcelFile(x, 'reporte_stock_' +
+            this.form.controls.pharmacy_stock_id.value + '_' +
+            this.form.controls.status.value + '_entre_[' +
+            this.form.controls.initial_report.value + ']-[' +
+            this.form.controls.final_report.value + ']_del_[' +
+            this.today + '][');
         } else {
           this.toastService.warning('', 'No Existen Registros');
         }
+      }).catch(x => {
+        this.isSubmitted = false;
       });
+    } else {
+      this.toastService.warning('', 'Seleccione Farmacia, Estado y Rango de Fechas');
     }
   }
 

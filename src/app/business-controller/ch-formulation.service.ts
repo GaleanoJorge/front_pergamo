@@ -44,6 +44,22 @@ export class ChFormulationService {
         throw x.message;
       });
   }
+  
+  SuspendFormulations(ch_formulation_id, ch_formulation: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('ch_formulation/suspendFormulations/' + ch_formulation_id);
+    servObj.data = ch_formulation;
+    return this.webAPI.PostAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
 
   Update(ch_formulation: any): Promise<ServiceObject> {
     let servObj = new ServiceObject('ch_formulation', ch_formulation.id);

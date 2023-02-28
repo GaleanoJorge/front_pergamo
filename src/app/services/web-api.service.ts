@@ -92,7 +92,7 @@ export class WebAPIService {
 
   async PutAction(serviceObject: ServiceObject): Promise<ServiceObject> {
     return this.httpClient
-      .put(`${this.endPoint}${serviceObject.entity}${(serviceObject.id ? ('/' + serviceObject.id) : '')}`, serviceObject.data)
+      .put(`${this.endPoint}${serviceObject.entity}${(serviceObject.id ? ('/' + serviceObject.id) : '')}`, serviceObject.data, )
       .toPromise()
       .then(x => {
         return Promise.resolve(<ServiceObject>x);

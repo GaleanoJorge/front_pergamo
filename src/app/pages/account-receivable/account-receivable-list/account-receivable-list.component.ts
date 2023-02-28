@@ -96,7 +96,11 @@ export class AccountReceivableListComponent implements OnInit {
         title: this.headerFields[3],
         type: 'string',
         valuePrepareFunction: (value, row) => {
-          return this.currency.transform(value);
+          if (row.status_bill_id == 2 || row.status_bill_id == 3) {
+            return this.currency.transform(value);
+          } else {
+            return this.currency.transform(row.calculated_value);
+          }
         },
 
       },

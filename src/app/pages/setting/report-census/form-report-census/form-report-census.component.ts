@@ -6,6 +6,8 @@ import { ReportCensusService } from '../../../../business-controller/report-cens
 import { CampusService } from '../../../../business-controller/campus.service';
 import { PavilionService } from '../../../../business-controller/pavilion.service';
 import { FlatService } from '../../../../business-controller/flat.service';
+import { AdmissionsService } from '../../../../business-controller/admissions.service';
+import { LocationService } from '../../../../business-controller/location.service';
 @Component({
   selector: 'ngx-form-report-census',
   templateUrl: './form-report-census.component.html',
@@ -27,6 +29,8 @@ export class FormReportCensusComponent implements OnInit {
   public pavilion_id;
   public location: any[];
   public location_id;
+  public admissions: any[];
+  public admissions_id;
   public flat: any[];
   public flat_id;
   public show: boolean = false;
@@ -42,7 +46,7 @@ export class FormReportCensusComponent implements OnInit {
     private UserBusinessS: UserBusinessService,
     private CampusS: CampusService,
     private PavilionS: PavilionService,
-    private FlatS: FlatService
+    private FlatS: FlatService,
   ) { }
 
   async ngOnInit() {
@@ -50,20 +54,12 @@ export class FormReportCensusComponent implements OnInit {
     this.today = this.today.toISOString().split('T')[0];
     if (!this.data) {
       this.data = {
-        initial_report: '',
-        final_report: '',
         campus_id: '',
-        flat_id: '',
-        pavilion_id: '',
       };
     }
 
     this.form = this.formBuilder.group({
-      initial_report: [this.data.initial_report, Validators.compose([Validators.required]),],
-      final_report: [this.data.final_report, Validators.compose([Validators.required])],
       campus_id: [this.data.campus_id, Validators.compose([Validators.required])],
-      flat_id: [this.data.flat_id, Validators.compose([Validators.required])],
-      pavilion_id: [this.data.pavilion_id, Validators.compose([Validators.required])],
     });
 
     this.CampusS.GetCollection().then((x) => {
@@ -94,15 +90,9 @@ export class FormReportCensusComponent implements OnInit {
     }
   }
 
-  //? Export PDF
-  exportAsPDF(): void {
-    this.ReportCensusS.ExportCensus(this.form.controls.campus_id.value, {
-      flat_id: this.form.controls.flat_id.value,
-      pavilion_id: this.form.controls.pavilion_id.value,
-      campus_id: this.form.controls.campus_id.value,
-      initial_report: this.form.controls.initial_report.value,
-      final_report: this.form.controls.final_report.value,
-    }).then(x => {
+  exportAsPDFGeneral(): void {
+    this.isSubmitted = true;
+    this.ReportCensusS.exportCensusGeneral().then(x => {
       this.toastService.success('', x.message);
       window.open(x.url);
     }).catch(x => {
@@ -110,24 +100,44 @@ export class FormReportCensusComponent implements OnInit {
     });
   }
 
-  //? Export Excel Parámetrizado
-  exportAsXLSX(): void {
+  exportAsPDF(): void {
+    this.isSubmitted = true;
     if (!this.form.invalid) {
-      this.ReportCensusS.GetExportCensus(this.form.controls.campus_id.value, {
-        flat_id: this.form.controls.flat_id.value,
-        pavilion_id: this.form.controls.pavilion_id.value,
+      this.ReportCensusS.exportCensusPdf(this.form.controls.campus_id.value, {
         campus_id: this.form.controls.campus_id.value,
-        initial_report: this.form.controls.initial_report.value,
-        final_report: this.form.controls.final_report.value,
+      }).then(x => {
+        if (x.ph.length > 0) {
+          this.toastService.success('', x.message);
+          window.open(x.url);
+        } else {
+          this.toastService.warning('', 'Sin Camas en esta Sede');
+        }
+      }).catch(x => {
+        this.isSubmitted = false;
+      });
+    } else {
+      this.toastService.warning('', 'Ingresa Sede');
+    }
+  }
+
+  exportAsXLSX(): void {
+    this.isSubmitted = true;
+    if (!this.form.invalid) {
+      this.ReportCensusS.exportCensusExcel(this.form.controls.campus_id.value, {
+        campus_id: this.form.controls.campus_id.value,
       },).then((x) => {
         if (x.length > 0) {
-          this.ReportCensusS.exportAsExcelFile(x, 'reporte_censo_[' +
-            this.form.controls.initial_report.value + ']_a_[' +
-            this.form.controls.final_report.value + ']');
+          this.toastService.success('', 'Reporte Censo Hospitalario Generado Exitosamente');
+          this.ReportCensusS.exportAsExcelFile(x, 'reporte_censo_hospitalario_del_[' + 
+          this.today + '][');
         } else {
-          this.toastService.warning('', 'No Existen Registros');
+          this.toastService.warning('', 'Sin Camas en esta Sede');
         }
+      }).catch(x => {
+        this.isSubmitted = false;
       });
+    } else {
+      this.toastService.warning('', 'Ingresa Sede');
     }
   }
 

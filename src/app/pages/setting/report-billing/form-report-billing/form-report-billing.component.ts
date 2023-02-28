@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { CompanyService } from '../../../../business-controller/company.service';
 import { ReportBillingService } from '../../../../business-controller/report-billing.service';
 import { UserBusinessService } from '../../../../business-controller/user-business.service';
-import { BillingService } from '../../../../business-controller/billing.service';
 @Component({
   selector: 'ngx-form-report-billing',
   templateUrl: './form-report-billing.component.html',
@@ -48,7 +47,6 @@ export class FormReportBillingComponent implements OnInit {
         initial_report: '',
         final_report: '',
         company_id: '',
-        status: '',
       };
     }
 
@@ -56,10 +54,9 @@ export class FormReportBillingComponent implements OnInit {
       initial_report: [this.data.initial_report, Validators.compose([Validators.required]),],
       final_report: [this.data.final_report, Validators.compose([Validators.required]),],
       company_id: [this.data.company_id, Validators.compose([Validators.required]),],
-      status: [this.data.status, Validators.compose([Validators.required])],
     });
 
-    await this.CompanyS.GetCollection().then((x) => {
+    await this.CompanyS.GetCollection({ company_category_id: 1 }).then((x) => {
       this.company = x;
     });
     await this.UserBusinessS.GetUser().then((x) => {
@@ -74,25 +71,33 @@ export class FormReportBillingComponent implements OnInit {
       this.company_id = localidentify.id;
     } else {
       this.company_id = null;
-      this.toastService.warning('', 'Selecciona una EPS de la lista');
+      this.toastService.warning('', 'Seleccione EPS en lista');
     }
   }
 
   exportAsXLSX(): void {
-    if (this.form.invalid) {
+    this.isSubmitted = true;
+    if (!this.form.invalid) {
       this.ReportBillingS.GetExportBilling(this.company_id, {
         id: this.company_id,
+        company_id: this.company_id,
         initial_report: this.form.controls.initial_report.value,
         final_report: this.form.controls.final_report.value,
       }).then((x) => {
-        // if (x.length > 0) {
-        this.ReportBillingS.exportAsExcelFile(x, 'reporte_facturación_[' +
-          this.form.controls.initial_report.value + ']_a_[' +
-          this.form.controls.final_report.value + ']');
-        // } else {
-        //   this.toastService.warning('', 'No Existen Registros');
-        // }
+        if (x.h1.length > 0 || x.h2.length > 0 || x.h3.length > 0) {
+          this.ReportBillingS.exportAsExcelFile(x, 'reporte_facturación_' +
+            this.form.controls.company_id.value + '_entre_[' +
+            this.form.controls.initial_report.value + ']-[' +
+            this.form.controls.final_report.value + ']_del_[' +
+            this.today + '][');
+        } else {
+          this.toastService.warning('', 'No Existen Registros');
+        }
+      }).catch(x => {
+        this.isSubmitted = false;
       });
+    } else {
+      this.toastService.warning('', 'Seleccione EPS y Rango de Fechas');
     }
   }
 

@@ -126,8 +126,7 @@
     <nb-accordion-item>
       <nb-accordion-item-header>Diagnostico Cif</nb-accordion-item-header>
       <nb-accordion-item-body>
-        <ngx-form-language-evo-diagnosis *ngIf="cifdiagnosistl && this.show[12]" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id"
-        [data]="cifdiagnosistl">
+        <ngx-form-language-evo-diagnosis *ngIf="this.show[12]"  [data]="this.cifdiagnosistl" [record_id]="record_id" (messageEvent)="inputMessage($event)" [has_input]="has_input"  [type_record_id]="type_record_id">
         </ngx-form-language-evo-diagnosis>
 
       </nb-accordion-item-body>

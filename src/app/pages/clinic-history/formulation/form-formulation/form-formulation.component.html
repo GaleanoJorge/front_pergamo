@@ -58,7 +58,7 @@
                     </datalist>
                   </div>
 
-                  <div class="col col-lg-6">
+                  <div class="col col-lg-6" *ngIf="!this.is_oxigen">
                     <label class="form-text text-muted font-weight-bold">{{this.product != null ?
                       this.product.product_dose_id == 2 ? "Presentación" : "Concentración" : ""}}</label>
                     <div class="row justify-content-center" style="margin-top: 25px;">
@@ -71,7 +71,7 @@
                     </div>
     
                   </div>
-                  <div class="col col-lg-6">
+                  <div class="col col-lg-6" *ngIf="!this.is_oxigen">
                     <label class="form-text text-muted font-weight-bold">Dosis por aplicación</label>
                     <div class="row" style="justify-content: center;">
                       <div class="asd">
@@ -85,7 +85,28 @@
                       </div>
                     </div>
                   </div>
-                  <div class="row" style="justify-content: center;">
+
+                  <div class="col col-lg-6" *ngIf="this.is_oxigen">
+                    <label for="oxigen_administration_way" class="form-text text-muted font-weight-bold">Sistema de administración:</label>
+                    <nb-select formControlName="oxigen_administration_way_id" id="oxigen_administration_way" fullWidth
+                      status="{{ isSubmitted && form.controls.oxigen_administration_way_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                      <nb-option value="">Seleccione...</nb-option>
+                      <nb-option *ngFor="let item of oxigen_administration_way" [value]="item.id">
+                        {{ item.name }}</nb-option>
+                    </nb-select>
+                  </div>
+
+                  <div class="col col-lg-6" *ngIf="this.is_oxigen">
+                    <label for="oxigen_flow" class="form-text text-muted font-weight-bold">Caudal en l/min:</label>
+                    <nb-select formControlName="oxigen_flow" id="oxigen_flow" fullWidth
+                      status="{{ isSubmitted && form.controls.oxigen_flow.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
+                      <nb-option value="">Seleccione...</nb-option>
+                      <nb-option *ngFor="let item of oxigen_flow" [value]="item.id">
+                        {{ item.name }}</nb-option>
+                    </nb-select>
+                  </div>
+
+                  <div class="row" style="justify-content: center;" *ngIf="!this.is_oxigen">
                     <div class="col-md-6">
                       <label class="form-text text-muted font-weight-bold">Vía de Admin.</label>
                       <nb-select [selected]="this.data.administration_route_id" formControlName="administration_route_id"
@@ -132,7 +153,7 @@
                 </div>
               </div>
 
-              <div class="row" style="justify-content: space-around;">
+              <div class="row" style="justify-content: space-around;" *ngIf="!this.is_oxigen">
                 <div class="col-md-4">
                   <button type="button" class="btn btn-info"><a class="btn" href="https://mipres.sispro.gov.co/"
                       target="_blank">Crear MIPRES</a></button>

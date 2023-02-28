@@ -65,6 +65,7 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
   public show5 = false;
   public show6 = false;
   public show7 = false;
+  public show8 = false;
 
 
   constructor(
@@ -222,16 +223,18 @@ export class EntryRespiratoryTherapyComponent implements OnInit {
       this.show1 = true;
     } else if (selectedStep == '3' || selectedStep == 'Signos Vitales') {
       this.show2 = true;
-    } else if (selectedStep == '4' || selectedStep == 'Destete de oxigeno') {
+    } else if (selectedStep == '4' || selectedStep == 'Control de oxigeno') {
       this.show3 = true;
-    } else if (selectedStep == '5' || selectedStep == 'Valoración Terapeutica') {
+    } else if (selectedStep == '5' || selectedStep == 'Destete de oxigeno') {
       this.show4 = true;
-    } else if (selectedStep == '6' || selectedStep == 'Objetivos') {
+    } else if (selectedStep == '6' || selectedStep == 'Valoración Terapeutica') {
       this.show5 = true;
-    } else if (selectedStep == '7' || selectedStep == 'Pedido de insumos') {
+    } else if (selectedStep == '7' || selectedStep == 'Objetivos') {
       this.show6 = true;
-    } else if (selectedStep == '8' || selectedStep == 'Sesiones') {
+    } else if (selectedStep == '8' || selectedStep == 'Pedido de insumos') {
       this.show7 = true;
+    } else if (selectedStep == '9' || selectedStep == 'Sesiones') {
+      this.show8 = true;
     }
   }
 }
