@@ -62,9 +62,8 @@
           <nb-step [stepControl]="nameForm" label="Diagnostico">
             <div class="row" *ngIf="this.show6">
               <div class="col-md-12">
-                <ngx-form-language-evo-diagnosis *ngIf="cifdiagnosistl" [record_id]="record_id"
+                <ngx-form-language-evo-diagnosis [record_id]="record_id"
                   [data]="cifdiagnosistl"></ngx-form-language-evo-diagnosis>
-
               </div>
             </div>
           </nb-step>
@@ -77,9 +76,11 @@
             </div>
           </nb-step>
 
-          <nb-step label="Recomendaciones">
+          <nb-step [stepControl]="nameForm" label="Recomendaciones">
             <div class="row" *ngIf="this.show8">
+              <div class="col-md-12">
               <ngx-recommendations-evo [record_id]="record_id" [type_record]="3"></ngx-recommendations-evo>
+            </div>
             </div>
           </nb-step>
 
