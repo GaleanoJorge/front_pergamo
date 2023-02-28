@@ -158,6 +158,7 @@ import { FormReportBillingComponent } from './report-billing/form-report-billing
 import { FormReportGlossComponent } from './report-gloss/form-report-gloss/form-report-gloss.component';
 import { FormReportCensusComponent } from './report-census/form-report-census/form-report-census.component';
 import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adjustment.component';
+import { FormReportExternalQueryComponent } from './report-external-query/form-report-external-query/form-report-external-query.component';
 
 const routes: Routes = [{
   path: '',
@@ -890,6 +891,10 @@ const routes: Routes = [{
     {
       path: 'pharmacy-adjustment',
       component: PharmacyAdjustmentComponent,
+    },
+    {
+      path: 'report-external-query',
+      component: FormReportExternalQueryComponent,
     }
   ],
 }];
