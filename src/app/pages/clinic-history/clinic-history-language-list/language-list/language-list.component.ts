@@ -38,7 +38,7 @@ export class LanguageListComponent implements OnInit {
   public chdiagnosis: any[];
   public nameForm: String;
   public movieForm: String;
-  
+
   public signatureImage: string;
   public currentRole: any;
   public own_user;
@@ -48,7 +48,7 @@ export class LanguageListComponent implements OnInit {
   public show2 = false;
   public show3 = false;
 
- 
+
   public isSubmitted: boolean = false;
   public form: FormGroup;
   public all_changes: any[];
@@ -68,8 +68,8 @@ export class LanguageListComponent implements OnInit {
     private location: Location,
     private deleteConfirmService: NbDialogService,
     private toastService: NbToastrService,
-    
-    
+
+
 
   ) {
 
@@ -99,7 +99,7 @@ export class LanguageListComponent implements OnInit {
 
     });
   }
-  
+
   public back(): void {
     this.location.back();
   }
@@ -122,7 +122,7 @@ export class LanguageListComponent implements OnInit {
   // }
 
   async finish(firm) {
-    if(this.signatureImage!=null){
+    if (this.signatureImage != null) {
       var formData = new FormData();
       formData.append('id', this.record_id,);
       formData.append('status', 'CERRADO');
@@ -130,11 +130,11 @@ export class LanguageListComponent implements OnInit {
       formData.append('role', this.currentRole);
       formData.append('user_id', this.own_user.id);
       formData.append('firm_file', this.signatureImage);
-      
+
       try {
-        
+
         let response;
-        
+
         response = await this.chRecord.UpdateCH(formData, this.record_id).then(x => {
           this.location.back();
           this.toastService.success('', x.message);
@@ -154,11 +154,11 @@ export class LanguageListComponent implements OnInit {
         this.loading = false;
         throw new Error(response);
       }
-    }else{
+    } else {
       this.toastService.danger('Debe diligenciar la firma');
       return false;
     }
-      
+
   }
 
 
@@ -175,13 +175,13 @@ export class LanguageListComponent implements OnInit {
     }
   }
 
-  filterStepper($event){
+  filterStepper($event) {
     return $event.target.textContent;
   }
 
 
   goto($event) {
-    let selectedStep =  this.filterStepper($event);
+    let selectedStep = this.filterStepper($event);
     if (selectedStep == '2' || selectedStep == 'Antecedentes') {
       this.show1 = true;
     } else if (selectedStep == '3' || selectedStep == 'Signos Vitales') {
@@ -189,5 +189,5 @@ export class LanguageListComponent implements OnInit {
     } else if (selectedStep == '4' || selectedStep == 'Evolución') {
       this.show3 = true;
     }
-}
+  }
 }

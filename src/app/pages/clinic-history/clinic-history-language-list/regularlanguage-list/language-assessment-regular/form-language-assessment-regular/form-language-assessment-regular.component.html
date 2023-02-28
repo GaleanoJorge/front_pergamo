@@ -5,10 +5,10 @@
       <div class="col-md-8">
         <div class="center">
           <label for="diagnosis_id" class="font-weight-bold center">Diagnóstico Médico</label>
-          <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes" (change)="saveCode($event.target.value)"
+          <input disabled="{{ isSubmitted }}" fullWidth nbInput list="codes2" (change)="saveCode($event.target.value)"
             id="diagnosis_id" formControlName="diagnosis_id" diagnosis_id type="text" required (ngModelChange)="this.searchDiagnostic($event)"
             status="{{ isSubmitted && form.controls.diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-          <datalist id="codes">
+          <datalist id="codes2">
             <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}} </option>
           </datalist>
         </div>

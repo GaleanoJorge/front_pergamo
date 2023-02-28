@@ -18,7 +18,7 @@
           TERAPÉUTICO:</label>
         <input disabled="{{ isSubmitted }}" placeholder="SELECCIONE UN DIAGNOSTICO" fullWidth nbInput (disabled)="this.has_input" list="codes"
           (change)="saveCode($event.target.value,2)" id="therapeutic_diagnosis_id"
-          formControlName="therapeutic_diagnosis_id" therapeutic_diagnosis_id type="text" required
+          formControlName="therapeutic_diagnosis_id" therapeutic_diagnosis_id type="text" required (ngModelChange)="this.searchDiagnostic($event)"
           status="{{ isSubmitted && form.controls.therapeutic_diagnosis_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
         <datalist id="codes">
           <option *ngFor="let item of diagnosis" [value]="item.name">{{ item.code }} - {{item.name}}
