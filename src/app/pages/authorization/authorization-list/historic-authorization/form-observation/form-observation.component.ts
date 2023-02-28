@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NbDialogRef, NbToastrService } from '@nebular/theme';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthorizationService } from '../../../../../business-controller/authorization.service';
+import { CopayParametersService } from '../../../../../business-controller/copay-parameters.service';
 
 @Component({
   selector: 'ngx-form-observation',
@@ -20,12 +21,14 @@ export class FormObservationComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public max: any;
+  public categories: any;
 
   constructor(
     protected dialogRef: NbDialogRef<any>,
     private formBuilder: FormBuilder,
     private toastService: NbToastrService,
-    private authorizationS: AuthorizationService
+    private authorizationS: AuthorizationService,
+    private copayCategoryS: CopayParametersService,
   ) {}
 
   ngOnInit(): void {
@@ -36,8 +39,16 @@ export class FormObservationComponent implements OnInit {
         copay: '',
         copay_value: '',
         file_auth: '',
+        category_id: '',
       };
     }
+
+    this.copayCategoryS.GetCollection({
+      services_briefcase_id: this.data.services_briefcase_id,
+      status_id: 1,
+    }).then((x) => {
+      this.categories = x;
+    });
 
     this.form = this.formBuilder.group({
       observation: [this.data.observation],
@@ -45,6 +56,7 @@ export class FormObservationComponent implements OnInit {
         this.data.auth_number,
         Validators.compose([Validators.required]),
       ],
+      category_id: [this.data.category_id],
       copay: [this.data.copay ? true : null],
       copay_value: [this.data.copay_value],
       file_auth: [null, Validators.compose([Validators.required])],
@@ -110,6 +122,7 @@ export class FormObservationComponent implements OnInit {
         formData.append('auth_number', data.auth_number.value == '' ? null : data.auth_number.value );
         formData.append('observation', data.observation.value);
         formData.append('copay', data.copay.value);
+        formData.append('category_id', data.category_id.value);
         formData.append('copay_value', data.copay_value.value);
         formData.append('file_auth', this.form.value.file_auth);
         formData.forEach((entry, key) => {

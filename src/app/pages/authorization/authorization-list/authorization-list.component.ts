@@ -40,6 +40,7 @@ import { TypeOfAttentionService } from '../../../business-controller/type-of-att
 import { AuthCheckComponent } from './auth-check.component';
 import { ScopeOfAttentionService } from '../../../business-controller/scope-of-attention.service';
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { CopayParametersService } from '../../../business-controller/copay-parameters.service';
 
 @Component({
   selector: 'ngx-authorization-list',
@@ -81,6 +82,7 @@ export class AuthorizationListComponent implements OnInit {
   public user;
   public dialog;
   public currentRole;
+  public categories;
 
   public today = null;
   public min_day = null;
@@ -148,6 +150,7 @@ export class AuthorizationListComponent implements OnInit {
     private ProgramS: ProgramService,
     private typeOfAttention: TypeOfAttentionService,
     private ScopeAtentionS: ScopeOfAttentionService,
+    private copayCategoryS: CopayParametersService,
   ) {}
 
   public settings = {
@@ -424,6 +427,7 @@ export class AuthorizationListComponent implements OnInit {
       selectedOptions: [],
       entity: '',
       customData: '',
+      category_id: '',
     };
 
     this.today = new Date();
@@ -440,8 +444,15 @@ export class AuthorizationListComponent implements OnInit {
       program_id: '',
       type_of_attention_id: '',
       id_number: null,
+      category_id: '',
       scope_of_attention_id: null,
     };
+
+    this.copayCategoryS.GetCollection({
+      status_id: 1,
+    }).then((x) => {
+      this.categories = x;
+    });
 
     this.form = this.formBuilder.group({
       status_id: [this.data.status_id],
@@ -462,6 +473,7 @@ export class AuthorizationListComponent implements OnInit {
         // Validators.compose([Validators.required]),
       ],
       auth_number: ['', Validators.compose([Validators.required])],
+      category_id: [''],
       copay: [
         null,
         // Validators.compose([Validators.required]),
@@ -925,6 +937,7 @@ export class AuthorizationListComponent implements OnInit {
         formData.append('auth_number', data.auth_number.value);
         formData.append('observation', data.observation.value);
         formData.append('copay', data.copay.value);
+        formData.append('category_id', data.category_id.value);
         formData.append('copay_value', data.copay_value.value);
         formData.append('authorizations', JSON.stringify(this.selectedOptions));
         formData.append('file_auth', this.formMassive.value.file_auth);
