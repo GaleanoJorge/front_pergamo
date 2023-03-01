@@ -108,6 +108,18 @@ export class ReportCensusService {
     });
   }
 
+  exportCensusExcelGeneral(): any {
+    let servObj = new ServiceObject('report_censusEXCELGeneral');
+    return this.webAPI.GetAction(servObj).then(x => {
+      servObj = <ServiceObject>x;
+      if (!servObj.status)
+        throw new Error(servObj.message);
+      return Promise.resolve(servObj.data.report_census);
+    }).catch(x => {
+      throw x.message;
+    });
+  }
+
   public exportAsExcelFile(json: any[], excelFileName: string): void {
     //! Exportación de Excel con ExcelJs
     //? Creando libro y hojas con propiedades
@@ -122,7 +134,7 @@ export class ReportCensusService {
     });
 
     //? Personalizando Encabezados
-    worksheet.autoFilter = 'A1:M1';
+    worksheet.autoFilter = 'A1:N1';
     worksheet.getRow(1).height = 60;
     worksheet.getRow(1).font = { name: 'Open Sans', color: { argb: '6C757D' }, size: 11, bold: true };
     worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
@@ -138,6 +150,7 @@ export class ReportCensusService {
     };
     worksheet.columns = [
       { header: 'Prio', key: 'id', width: 7, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
+      { header: 'Sede', key: 'campus', width: 18, style: { alignment: { vertical: 'middle', horizontal: 'center', wrapText: true }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Pabellón', key: 'pavilion', width: 12, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Cama', key: 'bed', width: 10, style: { alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
       { header: 'Documento e Ingreso', key: 'identification', width: 22, style: { numFmt: '0', alignment: { vertical: 'middle', horizontal: 'center' }, font: { name: 'Open Sans', color: { argb: '6C757D' }, size: 10 } } },
