@@ -79,13 +79,13 @@ import { ServicesBriefcaseService } from '../../../business-controller/services-
 
           <div class="col-md-12">
             <label for="procedure" class="form-text text-muted font-weight-bold">Procedimiento:</label>
-            <nb-select [selected]="this.data.procedure_id" formControlName="procedure_id" id="procedure_id" fullWidth
+            <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="procedure_id"
+              formControlName="procedure_id" procedure_id type="text" required
               status="{{ isSubmitted && form2.controls.procedure_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-              <nb-option value="">Seleccione...</nb-option>
-              <nb-option selected="{{ item.id == this.data.procedure_id }}" *ngFor="let item of procedures"
-                [value]="item.id">
-                {{ item.manual_price.own_code }} - {{ item.manual_price.name }}</nb-option>
-            </nb-select>
+            <datalist id="codes" *ngIf="procedures">
+              <option *ngFor="let item of procedures" [value]="item.manual_price.name">{{ item.manual_price.own_code }} -
+                {{item.manual_price.homologous_id}} </option>
+            </datalist>
           </div>
 
 
@@ -124,6 +124,7 @@ export class Actions3Component implements ViewCell {
   public isSubmitted: boolean = false;
   public data;
   public data2;
+  public procedure_id;
   public campus_id;
   public flat: any[];
   public pavilion: any[];
@@ -180,7 +181,7 @@ export class Actions3Component implements ViewCell {
       this.ServiceBriefcaseS.GetProcedureByBriefcase(this.value.data.location.at(-1).admissions.briefcase_id, {}).then((x) => {
         this.procedures = x;
         this.form2.patchValue({
-          procedure_id: this.value.data.location.at(-1).procedure_id,
+          procedure_id: this.value.data.location.at(-1).procedure.manual_price.name,
         });
       });
     }
@@ -221,14 +222,7 @@ export class Actions3Component implements ViewCell {
     });
 
     this.form2.get('procedure_id').valueChanges.subscribe(val => {
-      if (val === '') {
-        this.bed = [];
-      } else {
-        this.GetBed(this.form2.controls.pavilion_id.value, 1).then();
-      }
-      this.form2.patchValue({
-        bed_id: '',
-      });
+      
     });
   }
 
@@ -247,7 +241,7 @@ export class Actions3Component implements ViewCell {
 
   GetBed(pavilion_id, ambit) {
     if (this.traslate && ((!pavilion_id || pavilion_id === '') || (this.form2.controls.procedure_id.value === ''))) return Promise.resolve(false);
-    var proc = this.procedures.find(item => item.id == this.form2.controls.procedure_id.value).manual_price.procedure_id;
+    var proc = this.procedures.find(item => item.id == this.procedure_id).manual_price.procedure_id;
     return this.BedS.GetBedByPavilion(pavilion_id, ambit, proc).then(x => {
       this.bed = x;
       if (x.length == 0) {
@@ -256,6 +250,24 @@ export class Actions3Component implements ViewCell {
 
       return Promise.resolve(true);
     });
+  }
+
+  saveCode(e): void {
+    var localidentify = this.procedures.find(item => item.manual_price.name == e);
+
+    if (localidentify) {
+      this.procedure_id = localidentify.id;
+      this.form2.controls.procedure_id.setErrors(null);
+      this.GetBed(this.form2.controls.pavilion_id.value, 1).then();
+      this.form2.patchValue({
+        bed_id: '',
+      });
+    } else {
+      this.procedure_id = null;
+      this.bed = [];
+      this.toastService.warning('', 'Debe seleccionar un procedimiento de la lista');
+      this.form2.controls.procedure_id.setErrors({ 'incorrect': true });
+    }
   }
 
   ConfirmAction(dialog: TemplateRef<any>) {
@@ -277,7 +289,7 @@ export class Actions3Component implements ViewCell {
           id: this.value.data.id,
           status_bed_id: this.form.controls.status_bed_id.value,
           update: true,
-          procedure_id: this.form2.controls.procedure_id.value,
+          procedure_id: this.procedure_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.value.refresh();
@@ -309,7 +321,7 @@ export class Actions3Component implements ViewCell {
           flat_id: this.form2.controls.flat_id.value,
           pavilion_id: this.form2.controls.pavilion_id.value,
           bed_id: this.form2.controls.bed_id.value,
-          procedure_id: this.form2.controls.procedure_id.value,
+          procedure_id: this.procedure_id,
         }).then(x => {
           this.toastService.success('', x.message);
           this.value.refresh();
