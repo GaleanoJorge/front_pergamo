@@ -8,7 +8,7 @@ import { FormChangeLaboratoryStatus } from '../form-change-laboratory-status/for
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <button *ngIf="value.data.laboratory_status_id == 1" ngxCheckPerms="edit" nbTooltip="Tomar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.openDialog()">
+      <button *ngIf="value.data.laboratory_status_id == 1" ngxCheckPerms="update" nbTooltip="Tomar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.openDialog()">
         <nb-icon icon="clipboard-outline"></nb-icon>
       </button>
       <button *ngIf="value.data.laboratory_status_id == 2 && value.currentRole.role_type_id == 1" nbTooltip="Enviar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.openDialog()">
