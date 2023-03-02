@@ -332,6 +332,7 @@ export class Actions3Component implements ViewCell {
         }).catch(x => {
           this.isSubmitted = false;
           this.loading = false;
+          this.toastService.warning('', x);
         });
       }
     }
