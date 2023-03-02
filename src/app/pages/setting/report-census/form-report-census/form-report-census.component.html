@@ -53,7 +53,8 @@
     <div class="div-send">
       <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsPDF()">PDF</button>
       <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsXLSX()">EXCEL</button>
-      <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsPDFGeneral()" style="float: right" title="Formato PDF">GENERAL</button>
+      <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsXLSXGeneral()" style="float: right" title="Reporte General">EXCEL GENERAL</button>
+      <button [disabled]="disabled" type="submit" nbButton status="success" (click)="exportAsPDFGeneral()" style="float: right" title="Reporte General">PDF GENERAL</button>
     </div>
   </div>
 </form>
