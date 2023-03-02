@@ -11,10 +11,10 @@
         <p class="parrafo" *ngIf="user"><b>CELULAR:</b> {{user.phone}}</p>
         <p class="parrafo" *ngIf="user"><b>DIRECCIÓN:</b> {{user.residence_address}}</p>
         <p class="parrafo" *ngIf="user"><b>GÉNERO:</b> {{user.gender.name}}</p>
-        <p class="parrafo" *ngIf="user"><b>ASEGURADOR:</b> {{user.admissions[user.admissions.lenght-1].contract.company.name}}</p>
-        <p class="parrafo" *ngIf="user"><b>CONTRATO:</b> {{user.admissions[user.admissions.lenght-1].contract.name}}</p>
-        <p class="parrafo" *ngIf="user"><b>PORTAFOLIO:</b> {{user.admissions[user.admissions.lenght-1].briefcase.name}}</p>
-        <p class="parrafo" *ngIf="admissions1 && admissions1[admissions1.lenght-1].diagnosis"><b>DIAGNOSTICO:</b> {{admissions1[admissions1.lenght-1].diagnosis.code}} - {{admissions1[admissions1.lenght-1].diagnosis.name}} </p>
+        <p class="parrafo" *ngIf="user"><b>ASEGURADOR:</b> {{user.admissions.at(-1).contract.company.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>CONTRATO:</b> {{user.admissions.at(-1).contract.name}}</p>
+        <p class="parrafo" *ngIf="user"><b>PORTAFOLIO:</b> {{user.admissions.at(-1).briefcase.name}}</p>
+        <p class="parrafo" *ngIf="admissions1 && admissions1.at(-1).diagnosis"><b>DIAGNOSTICO:</b> {{admissions1.at(-1).diagnosis.code}} - {{admissions1.at(-1).diagnosis.name}} </p>
         <p class="parrafo" *ngIf="user.inability"><b>DISCAPACIDAD:</b> {{user.inability.name}}</p>
         <p class="parrafo" *ngIf="!user.inability"><b>DISCAPACIDAD:</b> SIN DISCAPACIDADES</p>
       </div>
