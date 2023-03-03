@@ -70,6 +70,9 @@ export class ActionsSemaphoreComponent implements ViewCell {
     } else if (this.rowData.location_id && this.rowData.open_date) {
       this.color = this.colors.verde;
       this.tooltip = "Ejecutado";
+    } else {
+      this.color = this.colors.verde;
+      this.tooltip = "Ejecutado";
     }
 
   }
