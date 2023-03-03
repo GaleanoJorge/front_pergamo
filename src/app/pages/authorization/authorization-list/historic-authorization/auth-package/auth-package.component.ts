@@ -111,7 +111,7 @@ export class AuthPackageComponent implements OnInit {
 
     this.isSubmitted = true;
     if (!this.selectedOptions.length) {
-      this.toastService.danger(null, 'Debe seleccionar al menos un Menú');
+      this.toastService.danger(null, 'Debe seleccionar al menos una autorización');
     } else {
       if (!this.form.invalid) {
         if (this.form.controls.quantity.value < 1) {
