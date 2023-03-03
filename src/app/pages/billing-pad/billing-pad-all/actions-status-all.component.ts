@@ -10,20 +10,20 @@ import { AuthService } from '../../../services/auth.service';
       <button *ngIf="value.data.billing_pad_status_id == 1" nbTooltip="PROCEDIMIENTOS" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/billing-pad/billing-pad-procedure/' + value.data.admissions_id + '/' + value.data.id">
         <nb-icon icon="archive-outline"></nb-icon>
       </button>
-      <button *ngIf="value.data.billing_pad_status_id != 1 && !value.data.billing_pad_mu_id" nbTooltip="VER FACTURACIÓN" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.show(value.data)">
+      <button *ngIf="value.data.billing_pad_status_id != 1 && !value.data.billing_pad_mu_id" nbTooltip="VER FACTURACIÓN" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.value.data.billing_type == 1 || this.value.data.billing_type == 2 ? value.show(value.data) : value.show_mu(value.data)">
           <nb-icon icon="file-text-outline"></nb-icon>
       </button>
-      <button *ngIf="this.curr == 1 && !value.data.billing_pad_mu_id  && value.data.billing_pad_status_id != 1" nbTooltip="REENVIAR .DAT" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.resend(value.data)">
+      <button *ngIf="this.curr == 1 && !value.data.billing_pad_mu_id  && value.data.billing_pad_status_id != 1" nbTooltip="REENVIAR .DAT" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.resend(this.value.data.billing_type, value.data)">
           <nb-icon icon="paper-plane-outline"></nb-icon>
       </button>
-      <button *ngIf="value.data.has_cancel == 0 && value.data.billing_pad_status_id == 2  && value.data.its_credit_note == null && value.role_permisos.includes(4) && !value.data.billing_pad_mu_id" nbTooltip="ANULAR FACTURA" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.cancel(value.data)">
+      <button *ngIf="value.data.has_cancel == 0 && value.data.billing_pad_status_id == 2  && value.data.its_credit_note == null && value.role_permisos.includes(4) && !value.data.billing_pad_mu_id" nbTooltip="ANULAR FACTURA" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.value.data.billing_type == 1 ? value.cancel(value.data) : this.value.data.billing_type == 2 ? value.cancel_pgp(value.data) : value.cancel_pgp(value.data)">
           <nb-icon icon="close-square-outline"></nb-icon>
       </button>
     </div>
   `,
-    styleUrls: ['./billing-admission.component.scss'],
+    styleUrls: ['./billing-pad-all.component.scss'],
 })
-export class ActionsBillingComponent implements ViewCell {
+export class ActionsStatusAllComponent implements ViewCell {
     @Input() value: any;    // This hold the cell value
     @Input() rowData: any;  // This holds the entire row object
 
@@ -34,15 +34,15 @@ export class ActionsBillingComponent implements ViewCell {
 
 
     constructor(
-        private dialogService: NbDialogService,
-        private authStatusS: AuthStatusService,
-        private authService: AuthService,
+      private dialogService: NbDialogService,
+      private authStatusS: AuthStatusService,
+      private authService: AuthService,
+
     ) {
     }
 
     async ngOnInit() {
-        this.curr = this.authService.GetRole();
-
+      this.curr = this.authService.GetRole();
     }
 
     ConfirmAction(dialog: TemplateRef<any>) {
