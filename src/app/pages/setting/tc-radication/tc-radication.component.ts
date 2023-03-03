@@ -20,7 +20,7 @@ export class TcRadicationComponent implements OnInit {
   public file: File;
   public title: string = 'RADICACION';
   public subtitle: string = 'REGISTROS';
-  public headerFields: any[] = ['FACTURA', 'FECHA FACTURA', 'ENTIDAD', 'FECHA RADICADO', 'ESTADO', 'TOTAL EPS', 'AMBITO', 'SEDE', 'PERIODO RADICADO'];
+  public headerFields: any[] = ['FACTURA', 'FECHA FACTURA', 'ENTIDAD', 'FECHA RADICADO', 'ESTADO', 'TOTAL EPS', 'AMBITO', 'SEDE', 'PERIODO RADICADO','AÑO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[2]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -68,6 +68,10 @@ export class TcRadicationComponent implements OnInit {
         title: this.headerFields[8],
         type: 'string',
       },
+      year: {
+        title: this.headerFields[9],
+        type: 'string',
+      }
     },
   };
 

@@ -6,7 +6,7 @@ import { AuthStatusService } from '../../../business-controller/auth-status.serv
 @Component({
     template: `
     <div class="d-flex justify-content-center">
-      <a nbTooltip="Admisiones" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/billing-pad/billing-pad-admissions/' + value.data.id">
+      <a nbTooltip="Pacientes" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/billing-pad/billing-pad-patient/' + value.data.id">
         <nb-icon icon="options-2-outline"></nb-icon>
       </a>
     </div>

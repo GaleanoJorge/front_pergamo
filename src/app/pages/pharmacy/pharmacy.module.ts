@@ -57,7 +57,6 @@ import { PharmacyInventorySuppliesComponent } from './pharmacy-inventory-supplie
 import { FormPharmacyInventorySuppliesComponent } from './pharmacy-inventory-supplies/form-pharmacy-inventory-supplies/form-pharmacy-inventory-supplies.component';
 import { FormPharmaInvSupPersonComponent } from './pharmacy-inventory-supplies/form-pharma-inv-sup-person/form-pharma-inv-sup-person.component';
 import { PharmacyLotComponent } from './pharmacy-lot/pharmacy-lot.component';
-import { FormPharmacyLotComponent } from './pharmacy-lot/form-pharmacy-lot/form-pharmacy-lot.component';
 import { ProdLotPackageComponent } from './pharmacy-lot/prod-lot-package/prod-lot-package.component';
 import { AmountComponent } from './pharmacy-lot/prod-lot-package/amount.component';
 import { SelectPharmacyLotComponent } from './pharmacy-lot/prod-lot-package/select-prod-lot.component';
@@ -106,6 +105,12 @@ import { FormPharmacyInvAdjustComponent } from './pharmacy-inventory-adjustment/
 import { ActionsInvAdjustComponent } from './pharmacy-inventory-adjustment/actionsInvAdjust.component';
 import { PharmacyInventoryAdjustmentComponent } from './pharmacy-inventory-adjustment/pharmacy-inventory-adjustment.component';
 import { ActionSemaphoComponent } from './pharmacy-request-patient/prod-shipping-patient-package/action-semapho.component';
+import { PharmacyBulkLoadComponent } from './pharmacy-bulk-load/pharmacy-bulk-load.component';
+import { SelectProdPharmacyLoadComponent } from './pharmacy-bulk-load/prod-pharmacy-load-package/select-prod-pharmacy-load.component';
+import { ProdPharmacyLoadPackageComponent } from './pharmacy-bulk-load/prod-pharmacy-load-package/prod-pharmacy-load-package.component';
+import { AmountPharmacyLoadComponent } from './pharmacy-bulk-load/prod-pharmacy-load-package/amount-pharmacy-load.component';
+import { FormPharmacyBulkLoadComponent } from './pharmacy-bulk-load/form-pharmacy-bulk-load/form-pharmacy-bulk-load.component';
+import { HistoryPharmacyStockComponent } from './history-pharmacy-stock/history-pharmacy-stock.component';
 
 @NgModule({
   imports: [
@@ -178,7 +183,6 @@ import { ActionSemaphoComponent } from './pharmacy-request-patient/prod-shipping
     PharmacyInventoryAdjustmentComponent,
 
     PharmacyLotComponent,
-    FormPharmacyLotComponent,
     ProdLotPackageComponent,
     SelectPharmacyLotComponent,
     AmountComponent,
@@ -186,7 +190,12 @@ import { ActionSemaphoComponent } from './pharmacy-request-patient/prod-shipping
     DateComponent,
     AmountUnitComponent,
     PharmaLotStockTabComponent,
-
+    PharmacyBulkLoadComponent,
+    SelectProdPharmacyLoadComponent,
+    ProdPharmacyLoadPackageComponent,
+    AmountPharmacyLoadComponent,
+    FormPharmacyBulkLoadComponent,
+    HistoryPharmacyStockComponent,
     PharmacyProductRequestComponent,
     FormPharmacyProductRequestComponent,
     FormPharmacyProductSuppliesComponent,
@@ -271,9 +280,8 @@ import { ActionSemaphoComponent } from './pharmacy-request-patient/prod-shipping
     FormPharmacyInvAdjustComponent,
     ActionsInvAdjustComponent,
     PharmacyInventoryAdjustmentComponent,
-    
+
     PharmacyLotComponent,
-    FormPharmacyLotComponent,
     ProdLotPackageComponent,
     SelectPharmacyLotComponent,
     AmountComponent,
@@ -287,7 +295,12 @@ import { ActionSemaphoComponent } from './pharmacy-request-patient/prod-shipping
     PharmacyProductSuppliesComponent,
     ProductRequestComponent,
     PharmaLotStockTabComponent,
-
+    PharmacyBulkLoadComponent,
+    SelectProdPharmacyLoadComponent,
+    ProdPharmacyLoadPackageComponent,
+    AmountPharmacyLoadComponent,
+    FormPharmacyBulkLoadComponent,
+    HistoryPharmacyStockComponent,
     ProdShippingPackageComponent,
     SelectProductShippingComponent,
     AmountShippingComponent,

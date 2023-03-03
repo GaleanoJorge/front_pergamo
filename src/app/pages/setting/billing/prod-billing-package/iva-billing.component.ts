@@ -4,8 +4,10 @@ import { ViewCell } from 'ng2-smart-table';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-      <input nbInput fullWidth id="iva" iva [value]="value.iva"
-      (change)="value.onchange($event, value.data)" [disabled]="value.enabled" />
+  <nb-toggle formControlName="iva" iva
+  (change)="value.onchange($event, value.data)" >
+          </nb-toggle>
+          
   </div>
   `,
   styleUrls: ['./prod-billing-package.component.scss'],

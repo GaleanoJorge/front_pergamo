@@ -5,13 +5,13 @@
     <nb-tabset fullWidth (changeTab)="reloadForm($event)">
       <nb-tab tabTitle="INGRESO INVENTARIO">
         <div *ngIf="this.showdiv == 1">
-          <ngx-form-pharmacy-lot></ngx-form-pharmacy-lot>
+          <ngx-pharmacy-lot></ngx-pharmacy-lot>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="HISTORICO">
         <div *ngIf="this.showdiv == 2">
-          <ngx-pharmacy-lot></ngx-pharmacy-lot>
+          <ngx-history-pharmacy-stock></ngx-history-pharmacy-stock>
         </div>
       </nb-tab>
     </nb-tabset>

@@ -13,4 +13,5 @@ export class TcRadication extends MainClass {
   ambit: string;
   campus: string;
   filing_period: string;
+  year: string;
 }
