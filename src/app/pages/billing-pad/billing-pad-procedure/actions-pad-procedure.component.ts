@@ -81,6 +81,14 @@ export class ActionsPadProcedureComponent implements ViewCell {
                 response = 3;
                 this.tooltip = 'Por facturar';
             }
+        } else if (data.medical_diary_days != null) {
+            if (data.billing_pad_status == 'FACTURADA') {
+                response = 2;
+                this.tooltip = 'Facturado';
+            } else {
+                response = 3;
+                this.tooltip = 'Por facturar';
+            }
         } else {
             if (data.pendientes) {
                 if (data.billing_pad_status == 'FACTURADA') {

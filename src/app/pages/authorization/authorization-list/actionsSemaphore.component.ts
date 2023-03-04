@@ -38,7 +38,7 @@ export class ActionsSemaphoreComponent implements ViewCell {
   ngOnInit() {
 
     // console.log('algo')
-    if (!this.rowData.assigned_management_plan && !this.rowData.product_com_id && !this.rowData.fixed_add && (!this.rowData.location_id || !this.rowData.open_date)) {
+    if (!this.rowData.assigned_management_plan && !this.rowData.product_com_id && !this.rowData.fixed_add && this.rowData.auth_package.length > 0 && (!this.rowData.location_id || !this.rowData.open_date)) {
       this.color = this.colors.amarillo;
       this.tooltip = "Paquete";
     } else if (!this.rowData.assigned_management_plan && !this.rowData.product_com_id && this.rowData.fixed_add && (!this.rowData.location_id || !this.rowData.open_date)) {
@@ -68,6 +68,9 @@ export class ActionsSemaphoreComponent implements ViewCell {
         this.tooltip = "Ejecutado";
       }
     } else if (this.rowData.location_id && this.rowData.open_date) {
+      this.color = this.colors.verde;
+      this.tooltip = "Ejecutado";
+    } else {
       this.color = this.colors.verde;
       this.tooltip = "Ejecutado";
     }

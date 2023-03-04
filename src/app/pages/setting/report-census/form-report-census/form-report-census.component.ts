@@ -128,8 +128,8 @@ export class FormReportCensusComponent implements OnInit {
       },).then((x) => {
         if (x.length > 0) {
           this.toastService.success('', 'Reporte Censo Hospitalario Generado Exitosamente');
-          this.ReportCensusS.exportAsExcelFile(x, 'reporte_censo_hospitalario_del_[' + 
-          this.today + '][');
+          this.ReportCensusS.exportAsExcelFile(x, 'reporte_censo_hospitalario_del_[' +
+            this.today + '][');
         } else {
           this.toastService.warning('', 'Sin Camas en esta Sede');
         }
@@ -139,6 +139,17 @@ export class FormReportCensusComponent implements OnInit {
     } else {
       this.toastService.warning('', 'Ingresa Sede');
     }
+  }
+
+  exportAsXLSXGeneral(): void {
+    this.isSubmitted = true;
+    this.ReportCensusS.exportCensusExcelGeneral().then(x => {
+      this.toastService.success('', 'Reporte Censo Hospitalario Generado Exitosamente');
+      this.ReportCensusS.exportAsExcelFile(x, 'reporte_censo_hospitalario_general_del_[' +
+        this.today + '][');
+    }).catch(x => {
+      this.isSubmitted = false;
+    });
   }
 
   onDatechange1($event) {
