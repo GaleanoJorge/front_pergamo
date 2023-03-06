@@ -53,6 +53,7 @@ export class ManagementPlanComponent implements OnInit {
     /*06*/'Incumplidas', 
     /*07*/'Medicamento',
     /*08*/'Fecha creación',
+    /*09*/'ID',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[1]}, ${this.headerFields[2]}, ${this.headerFields[3]}, ${this.headerFields[4]}`;
   public icon: string = 'nb-star';
@@ -123,6 +124,10 @@ export class ManagementPlanComponent implements OnInit {
           };
         },
         renderComponent: ActionsComponent,
+      },
+      id: {
+        title: this.headerFields[9],
+        type: 'string',
       },
       admissions: {
         title: this.headerFields[4],
