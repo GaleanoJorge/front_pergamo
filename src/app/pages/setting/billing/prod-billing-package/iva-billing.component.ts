@@ -5,7 +5,7 @@ import { ViewCell } from 'ng2-smart-table';
   template: `
   <div class="d-flex justify-content-center">
   <nb-toggle formControlName="iva" iva
-  (change)="value.onchange($event, value.data)" >
+  (change)="value.onchange($event, value.data)"[disabled]="value.enabled" >
           </nb-toggle>
           
   </div>
