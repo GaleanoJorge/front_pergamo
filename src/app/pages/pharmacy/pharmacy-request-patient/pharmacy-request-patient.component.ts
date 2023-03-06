@@ -33,6 +33,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
     /*06*/'FECHA DE SOLICITUD',
     /*07*/'SEDE',
     /*08*/'PABELLÓN',
+    /*08*/'ID PLAN DE MANEJO',
   ];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[1]},${this.headerFields[2]},${this.headerFields[3]},${this.headerFields[4]}`;
   public icon: string = 'nb-star';
@@ -68,6 +69,17 @@ export class PharmacyRequestPatientComponent implements OnInit {
       id: {
         title: this.headerFields[0],
         type: 'string',
+      },
+      management_plan: {
+        title: this.headerFields[9],
+        type: 'string',
+        valuePrepareFunction: (value, row) => {
+          if (row.management_plan_id != null) {
+            return row.management_plan_id;
+          } else {
+            return "";
+          }
+        }
       },
       user_request_pad: {
         title: this.headerFields[1],
@@ -184,7 +196,7 @@ export class PharmacyRequestPatientComponent implements OnInit {
     } else {
       this.pharmacy = pharmacy;
       this.table.changeEntity('pharmacy_product_request?status=PATIENT' + '&own_pharmacy_stock_id=' + pharmacy, 'pharmacy_product_request');
-      let aaa = (this.pharmacy_stock.find(item => {return item.pharmacy_stock_id==this.pharmacy}).pharmacy.name);
+      let aaa = (this.pharmacy_stock.find(item => { return item.pharmacy_stock_id == this.pharmacy }).pharmacy.name);
       this.title = 'SOLICITUDES DE MEDICAMENTOS A: ' + aaa;
     }
     // this.RefreshData();
