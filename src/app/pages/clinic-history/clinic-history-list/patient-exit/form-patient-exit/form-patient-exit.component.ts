@@ -22,6 +22,7 @@ export class FormPatientExitComponent implements OnInit {
   @Input() title: string;
   @Input() record_id: any = null;
   @Input() data: any = null;
+  @Input() admission: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -208,44 +209,23 @@ export class FormPatientExitComponent implements OnInit {
           reason_exit_id: this.reason_exit_id,
           type_record_id: 10,
           ch_record_id: this.record_id,
+          route: this.admission.location[this.admission.location.length -1].admission_route_id,
+          admission_id: this.admission.id,
 
+          record: this.record_id,
+          status: 'CERRADO',
+          user: this.authService.GetUser().id,
+          role: this.currentRole,
+          user_id: this.own_user.id,
+
+          medical_date: new Date(),
+          user_medical_id: this.authService.GetUser().id,
         }).then(x => {
           this.toastService.success('', x.message);
-          this.chRecord.Update({
-            id: this.record_id,
-            status: 'CERRADO',
-            user: this.authService.GetUser().id,
-            role: this.currentRole,
-            user_id: this.own_user.id,
-          }).then(z => {
-            this.admissionS.Update({
-              id: z.data.ch_record.admissions_id,
-              medical_date: new Date(),
-              user_medical_id: this.authService.GetUser().id,
-            }).then(y => {
-              this.location.back();
-              this.toastService.success('', y.message);
-
-              if (this.saved) {
-                this.saved();
-              }
-            }).catch(y => {
-              this.isSubmitted = false;
-              this.loading = false;
-            });
-
-            this.location.back();
-            if (this.saved) {
-              this.saved();
-            }
-          }).catch(z => {
-            this.isSubmitted = false;
-            this.loading = false;
-          });
-          this.router.navigateByUrl('/pages/pad/list');
-
           this.messageEvent.emit(true);
           this.form.setValue({ patient_family_education: '', recommendations_evo_id: '', description: '', });
+          this.location.back();
+
           if (this.saved) {
             this.saved();
           }
@@ -260,6 +240,7 @@ export class FormPatientExitComponent implements OnInit {
           //     }
         })
           .catch((x) => {
+            this.showToast(x,10000);
             this.isSubmitted = false;
             this.loading = false;
           });
@@ -270,6 +251,14 @@ export class FormPatientExitComponent implements OnInit {
     }
     
   }
+
+
+  showToast(x,duration) {
+    this.toastService.warning(
+        x.message,
+        '',
+        { duration });
+}
 
   onChanges() {
     this.form.get('exit_status').valueChanges.subscribe(val => {

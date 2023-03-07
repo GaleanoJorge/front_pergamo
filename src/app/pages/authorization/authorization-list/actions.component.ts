@@ -20,6 +20,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
           !this.rowData.assigned_management_plan_id &&
           (!this.rowData.location_id || !this.rowData.open_date) &&
           !this.rowData.fixed_add &&
+          this.rowData.auth_package.length > 0 &&
           !this.rowData.medical_diary_days
         "
         nbTooltip="editar paquete"
@@ -36,6 +37,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
           !this.rowData.assigned_management_plan_id &&
           (!this.rowData.location_id || !this.rowData.open_date) &&
           !this.rowData.fixed_add &&
+          this.rowData.auth_package.length > 0 &&
           !this.rowData.medical_diary_days
         "
         nbTooltip="Ver contenido de paquete"
@@ -52,6 +54,7 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
           !this.rowData.assigned_management_plan_id &&
           (!this.rowData.location_id || !this.rowData.open_date) &&
           !this.rowData.fixed_add &&
+          this.rowData.auth_package.length > 0 &&
           !this.rowData.medical_diary_days
         "
         nbTooltip="eliminar"

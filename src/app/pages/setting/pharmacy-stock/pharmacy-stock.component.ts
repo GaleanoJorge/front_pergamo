@@ -119,7 +119,7 @@ export class PharmacyStockComponent implements OnInit {
       closeOnBackdropClick: false,
       context: {
         title: 'CREAR USUARIOS PARA FARMACIA O BODEGA',
-        data,
+        data: data,
         saved: this.RefreshData.bind(this),
       },
     });

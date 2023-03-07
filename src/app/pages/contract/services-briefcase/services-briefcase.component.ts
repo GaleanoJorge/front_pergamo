@@ -24,6 +24,7 @@ import { Location } from '@angular/common';
 export class ServicesBriefcaseComponent implements OnInit {
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
   public messageError = null;
+  public form: FormGroup;
 
 
   public InscriptionForm: FormGroup;
@@ -41,12 +42,14 @@ export class ServicesBriefcaseComponent implements OnInit {
   public campus;
 
   public manual_price: any[] = [];
-  public manual: any[] = [];
+  public manual: any;
   public manual2;
   public type_briefcase: any[] = [];
   public briefcase_id: number;
   public briefcase: any[];
   public result;
+  public filteredProcedureOptions$: any[] = [];
+  public filteredProcedureOptionsApplied: any[] = [];
 
 
 
@@ -197,6 +200,10 @@ export class ServicesBriefcaseComponent implements OnInit {
       factor: ['', Validators.compose([Validators.required])],
     });
 
+    this.form = this.formBuilder.group({
+      procedure_id: [],
+    });
+
 
     this.routes = [
       {
@@ -214,7 +221,8 @@ export class ServicesBriefcaseComponent implements OnInit {
     ];
 
     this.ManualS.GetCollection().then(x => {
-      this.manual = x;
+      this.filteredProcedureOptions$ = x;
+      this.filteredProcedureOptionsApplied = x;
     });
 
     await this.BriefcaseS.GetCollection().then(x => {
@@ -223,7 +231,19 @@ export class ServicesBriefcaseComponent implements OnInit {
     this.result = this.briefcase.find(briefcase => briefcase.id == this.route.snapshot.params.id);
     this.title = 'Asociación de procedimientos a portafolio : ' + this.result.name;
 
+    this.form.controls.procedure_id.valueChanges.subscribe(value => {
+      this.filterProcedures(value);
+    })
+
+
   }
+
+  private filterProcedures(value) {
+
+    this.filteredProcedureOptionsApplied =  value=='' ? this.filteredProcedureOptions$: this.filteredProcedureOptions$.filter((procedure) => (procedure.name).includes(value.toUpperCase()));
+
+  }
+
 
 
   GetDataSelect(select: any[]) {
@@ -302,6 +322,7 @@ export class ServicesBriefcaseComponent implements OnInit {
       this.selectedOptions = [];
     }
   }
+
 
   back() {
     this.location.back();

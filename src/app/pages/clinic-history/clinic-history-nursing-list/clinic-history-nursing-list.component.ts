@@ -238,6 +238,7 @@ export class ClinicHistoryNursingListComponent implements OnInit {
       formData.append('role', this.currentRole);
       formData.append('user_id', this.own_user.id);
       formData.append('firm_file', this.signatureImage);
+      formData.append('route', this.admission.location[this.admission.location.length -1].admission_route_id);
       
       try {
         

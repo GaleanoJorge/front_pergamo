@@ -21,7 +21,7 @@ export class TcBillingComponent implements OnInit {
   public title: string = 'FACTURACIÓN';
   public subtitle: string = 'REGISTROS';
   public headerFields: any[] = ['CONSECUTIVO', 'FECHA', 'REALIZADA POR', 'VALOR',
-    'ENTIDAD', 'SUCURSAL', 'PROCEDIMIETOS', 'DOCTOR', 'DETALLES', 'PERIODO', 'CONSECUTIVO2', 'AMBITO', 'SEDE'];
+    'ENTIDAD', 'SUCURSAL', 'PROCEDIMIETOS', 'DOCTOR', 'DETALLES', 'PERIODO', 'CONSECUTIVO2', 'AMBITO', 'SEDE', 'AÑO'];
   public messageToltip: string = `Búsqueda por: ${this.headerFields[0]}, ${this.headerFields[4]}, ${this.headerFields[5]}`;
   public icon: string = 'nb-star';
   public data = [];
@@ -83,6 +83,10 @@ export class TcBillingComponent implements OnInit {
       },
       campus: {
         title: this.headerFields[12],
+        type: 'string',
+      },
+      year: {
+        title: this.headerFields[13],
         type: 'string',
       }
     },

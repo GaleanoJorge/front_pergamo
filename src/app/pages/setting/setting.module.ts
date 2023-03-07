@@ -422,6 +422,13 @@ import { FormPharmacyAdjustmentComponent } from './pharmacy-adjustment/form-phar
 import { PharmacyAdjustmentComponent } from './pharmacy-adjustment/pharmacy-adjustment.component';
 import { ReportCensusComponent } from './report-census/report-census.component';
 import { FormReportCensusComponent } from './report-census/form-report-census/form-report-census.component';
+import { TcAssistantComponent } from './tc-assistant/tc-assistant.component';
+import { TcAttendedComponent } from './tc-attended/tc-attended.component';
+import { TcBaseAdhesionComponent } from './tc-base-adhesion/tc-base-adhesion.component';
+import { TcServiceLevelComponent } from './tc-service-level/tc-service-level.component';
+import { TcQuitComponent } from './tc-quit/tc-quit.component';
+import { TcPareBaseComponent } from './tc-pare-base/tc-pare-base.component';
+
 import { ReportExternalQueryComponent } from './report-external-query/report-external-query.component';
 import { FormReportExternalQueryComponent } from './report-external-query/form-report-external-query/form-report-external-query.component';
 
@@ -742,6 +749,12 @@ import { FormReportExternalQueryComponent } from './report-external-query/form-r
     FormPharmacyAdjustmentComponent,
     TcBillingComponent,
     TcRadicationComponent,
+    TcBaseAdhesionComponent,
+    TcAssistantComponent,
+    TcAttendedComponent,
+    TcQuitComponent,
+    TcPareBaseComponent,
+    TcServiceLevelComponent,    
     TcHumanTalentComponent,
     TcCollectionComponent,
 
