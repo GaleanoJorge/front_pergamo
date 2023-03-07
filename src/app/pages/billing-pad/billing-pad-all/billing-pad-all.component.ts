@@ -187,7 +187,7 @@ export class BillingPadAllComponent implements OnInit {
 
 
   async ngOnInit() {
-    this.entity = 'billing_pad/getAllBillings/0';
+    
 
     var permisos = JSON.parse(localStorage.getItem('permissions'));
     permisos.forEach(x => {
@@ -211,6 +211,11 @@ export class BillingPadAllComponent implements OnInit {
       finish_date: [c, []],
     });
 
+    this.entity = 'billing_pad/getAllBillings/0' + '?' +
+    'start_date=' + this.form.controls.start_date.value + 
+    '&finish_date=' + this.form.controls.finish_date.value + 
+    '&company_id=' + this.form.controls.company_id.value;
+
     this.form.get('company_id').valueChanges.subscribe(val => {
       this.changeEntity();
     });
@@ -223,11 +228,10 @@ export class BillingPadAllComponent implements OnInit {
   }
 
   changeEntity() {
-    this.table.changeEntity(this.entity + '?' +
-      'start_date=' + this.form.controls.start_date.value + 
-      '&finish_date=' + this.form.controls.finish_date.value + 
-      '&company_id=' + this.form.controls.company_id.value + 
-      '', 'billing_pad')
+    this.table.changeEntity('billing_pad/getAllBillings/0' + '?' +
+    'start_date=' + this.form.controls.start_date.value + 
+    '&finish_date=' + this.form.controls.finish_date.value + 
+    '&company_id=' + this.form.controls.company_id.value, 'billing_pad')
   }
 
   RefreshData() {

@@ -20,11 +20,11 @@ import { DateFormatPipe } from '../../../pipe/date-format.pipe';
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <a *ngIf="(value.currentRole.id == 8 || value.currentRole.id == 9) && (firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
+    <a *ngIf="(value.currentRole.id == 8 || value.currentRole.id == 9) && this.value.data.execution_date == '0000-00-00 00:00:00' && (firsthour > hournow && endhour < hournow && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
       <nb-icon icon="folder-add-outline"></nb-icon>
     </a>
 
-    <a *ngIf="(value.currentRole.id == 8 || value.currentRole.id == 9) && ( today >= start && today <= finish && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
+    <a *ngIf="(value.currentRole.id == 8 || value.currentRole.id == 9) && this.value.data.execution_date == '0000-00-00 00:00:00' && ( today >= start && today <= finish && value.data.management_plan.type_of_attention_id==17)" nbTooltip="Registro en Historia Clinica Enfermeria" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost [routerLink]="'/pages/clinic-history/ch-record-list/' + rowData.management_plan.admissions_id + '/' + value.data.id + '/' + rowData.management_plan.type_of_attention_id">
       <nb-icon icon="folder-add-outline"></nb-icon>
     </a>
 
