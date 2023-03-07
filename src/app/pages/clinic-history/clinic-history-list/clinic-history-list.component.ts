@@ -173,7 +173,7 @@ export class ClinicHistoryListComponent implements OnInit {
     formData.append('role', this.currentRole);
     formData.append('user_id', this.own_user.id);
     formData.append('is_failed', this.is_failed);
-    formData.append('firm_file', this.signatureImage);
+    formData.append('firm_file', this.signatureImage);  
 
     try {
       let response;

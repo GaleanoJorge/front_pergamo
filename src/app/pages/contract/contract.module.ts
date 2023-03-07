@@ -20,7 +20,7 @@ import {
   NbTooltipModule,
   NbPopoverModule,
   NbRadioModule,
-  NbDatepickerModule, NbSpinnerModule,
+  NbDatepickerModule, NbSpinnerModule,NbAutocompleteModule
 } from '@nebular/theme';
 import {ServicesBriefcaseComponent} from './services-briefcase/services-briefcase.component';
 import {ThemeModule} from '../../@theme/theme.module';
@@ -73,7 +73,7 @@ import { ActionsFileComponent } from './file-contract/actions.component';
     NbDatepickerModule,
     NbSpinnerModule,
     NbPopoverModule,
-
+    NbAutocompleteModule
   ],
   declarations: [
     PolicyComponent,

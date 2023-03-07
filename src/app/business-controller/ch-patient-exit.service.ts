@@ -41,7 +41,7 @@ export class ChPatientExitService {
         return Promise.resolve(servObj);
       })
       .catch(x => {
-        throw x.message;
+        throw x;
       });
   }
 
