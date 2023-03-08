@@ -8,7 +8,7 @@ import { FormChangeLaboratoryStatus } from '../form-change-laboratory-status/for
 @Component({
   template: `
     <div class="d-flex justify-content-center">
-      <button *ngIf="value.data.laboratory_status_id == 1" ngxCheckPerms="edit" nbTooltip="Tomar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.openDialog()">
+      <button *ngIf="value.data.laboratory_status_id == 1" ngxCheckPerms="update" nbTooltip="Tomar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.openDialog()">
         <nb-icon icon="clipboard-outline"></nb-icon>
       </button>
       <button *ngIf="value.data.laboratory_status_id == 2 && value.currentRole.role_type_id == 1" nbTooltip="Enviar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.openDialog()">
@@ -17,7 +17,7 @@ import { FormChangeLaboratoryStatus } from '../form-change-laboratory-status/for
       <button *ngIf="value.data.laboratory_status_id == 3 && value.currentRole.role_type_id == 1" nbTooltip="Recibir" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.openDialog()">
         <nb-icon icon="edit-2-outline"></nb-icon>
       </button>
-      <button *ngIf="value.data.laboratory_status_id == 4 && value.currentRole == 3" nbTooltip="Interpretar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.openDialog()">
+      <button *ngIf="value.data.laboratory_status_id == 4 && value.currentRole.id == 3" nbTooltip="Interpretar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.openDialog()">
         <nb-icon icon="eye-outline"></nb-icon>
       </button>
     </div>
