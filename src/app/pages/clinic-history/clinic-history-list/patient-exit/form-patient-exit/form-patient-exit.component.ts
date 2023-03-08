@@ -88,7 +88,7 @@ export class FormPatientExitComponent implements OnInit {
     if (!this.data) {
       this.data = {
         exit_status: '',
-        legal_medicine_transfer: '',
+        legal_medicine_transfer: 0,
         date_time: '',
         death_diagnosis_id: '',
         medical_signature: '',
@@ -293,7 +293,7 @@ export class FormPatientExitComponent implements OnInit {
         this.show = false;
         this.show2 = true;
         this.form.get('date_time').setValidators(Validators.required);
-        this.form.get('legal_medicine_transfer').setValidators(Validators.required);
+        this.form.get('legal_medicine_transfer');
         this.form.get('death_diagnosis_id').setValidators(Validators.required);
         this.form.get('medical_signature').setValidators(Validators.required);
         this.form.get('death_certificate_number').setValidators(Validators.required);
