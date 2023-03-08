@@ -168,7 +168,7 @@ export class ServicesBriefcaseComponent implements OnInit {
           if(value==null){
             return "Todos";
           }else{
-          return row.patient.firstname + ' ' + row.patient.lastname;
+          return value;
           }
         },
       },
