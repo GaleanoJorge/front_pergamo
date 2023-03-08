@@ -33,12 +33,12 @@
           </div>
 
           <div class="col-md-12">
-            <label for="briefcase_oxigen_id" class="form-text text-muted font-weight-bold">Diagnóstico:</label>
+            <label for="briefcase_oxigen_id" class="form-text text-muted font-weight-bold">Servicio del portafolio:</label>
             <input fullWidth nbInput list="codes" (change)="saveCode($event.target.value)" id="briefcase_oxigen_id"
               formControlName="briefcase_oxigen_id" briefcase_oxigen_id type="text" required
               status="{{ isSubmitted && form.controls.briefcase_oxigen_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <datalist id="codes">
-              <option *ngFor="let item of briefcase_oxigen" [value]="item.manual_price.product.description">{{item.manual_price.product.description}}
+              <option *ngFor="let item of briefcase_oxigen" [value]="item.manual_price.name">{{item.manual_price.name}}
               </option>
             </datalist>
           </div>
