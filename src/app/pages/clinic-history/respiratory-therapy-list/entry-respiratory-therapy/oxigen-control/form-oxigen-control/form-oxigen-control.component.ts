@@ -130,7 +130,7 @@ export class FormOxigenControlComponent implements OnInit {
 
   saveCode(e): void {
     if (this.briefcase_oxigen) {
-      var localidentify = this.briefcase_oxigen.find((item) => item.name == e);
+      var localidentify = this.briefcase_oxigen.find((item) => item.manual_price.name == e);
 
       if (localidentify) {
         this.briefcase_oxigen_id = localidentify.id;
