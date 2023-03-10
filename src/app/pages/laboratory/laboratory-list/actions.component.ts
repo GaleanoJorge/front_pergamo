@@ -22,7 +22,7 @@ import { FormChangeLaboratoryStatus } from '../form-change-laboratory-status/for
       <button *ngIf="value.data.laboratory_status_id == 4 && value.currentRole.id == 3" nbTooltip="Interpretar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.openDialog()">
         <nb-icon icon="eye-outline"></nb-icon>
       </button>
-      <button *ngIf="value.data.laboratory_status_id == 1" nbTooltip="Cancelar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.cancelLaboratory()">
+      <button *ngIf="value.data.laboratory_status_id == 1 && value.currentRole.id == 3" nbTooltip="Cancelar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="this.cancelLaboratory()">
         <nb-icon icon="close-outline"></nb-icon>
       </button>
     </div>
