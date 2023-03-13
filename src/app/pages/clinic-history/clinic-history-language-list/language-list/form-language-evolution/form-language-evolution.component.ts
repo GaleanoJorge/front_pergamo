@@ -26,11 +26,11 @@ export class FormLanguageEvolutionComponent implements OnInit {
   public saved: any = null;
   public loading: boolean = false;
   public disabled: boolean = false;
+  public showDiagnos: boolean = false;
   public showTable;
 
   public admissions_id;
   public check1;
-  public cifdiagnosistl: any[] = [];
   public saveEntry: any = 0;
   //public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
@@ -62,10 +62,6 @@ export class FormLanguageEvolutionComponent implements OnInit {
         text:'',
       };
     }
-   
-    this.CifDiagnosisTlS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.cifdiagnosistl = x;
-    });
 
     this.form = this.formBuilder.group({
     

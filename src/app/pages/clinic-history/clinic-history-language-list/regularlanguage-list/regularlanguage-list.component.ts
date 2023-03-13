@@ -34,7 +34,6 @@ export class RegularLanguageListComponent implements OnInit {
   public routes = [];
   public user_id;
   public own_user;
-  public cifdiagnosistl: any[];
   public physical: any[];
   public chvitsigns: any[];
   public chdiagnosis: any[];
@@ -45,8 +44,6 @@ export class RegularLanguageListComponent implements OnInit {
   public saved: any = null;
   public has_input: any = null; // ya existe registro de ingreso
   public input_done: boolean = false; // ya se registró algo en el ingreso
- 
-
 
   public record_id;
   public int = 0;
@@ -100,10 +97,6 @@ export class RegularLanguageListComponent implements OnInit {
         ch_diagnosis_id: '',
       };
     }
-
-    await this.CifDiagnosisTlS.GetCollection({ ch_record_id: this.record_id }).then(x => {
-      this.cifdiagnosistl = x;
-    });
 
     this.form = this.formBuilder.group({
       // ch_entry_review_system_id: [this.data.ch_entry_review_system_id, Validators.compose([Validators.required])],//el que es ciclico

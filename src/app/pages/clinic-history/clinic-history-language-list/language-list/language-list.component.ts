@@ -32,7 +32,6 @@ export class LanguageListComponent implements OnInit {
   public title;
   public routes = [];
   public user_id;
-  public cifdiagnosistl: any[];
   public physical: any[];
   public chvitsigns: any[];
   public chdiagnosis: any[];

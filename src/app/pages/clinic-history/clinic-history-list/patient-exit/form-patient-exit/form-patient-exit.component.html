@@ -34,11 +34,8 @@
 
         <div class="col col-lg-3">
           <label class="form-text text-muted font-weight-bold">Traslado a Medicina Legal</label>
-          <nb-radio-group formControlName="legal_medicine_transfer" legal_medicine_transfer id="legal_medicine_transfer"
-            class="d-flex text center" name="legal_medicine_transfer"
-            status="{{ isSubmitted && form.controls.legal_medicine_transfer.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
-            <nb-radio value="1">Si</nb-radio>
-          </nb-radio-group>
+          <nb-toggle formControlName="legal_medicine_transfer" legal_medicine_transfer>
+          </nb-toggle>
         </div>
       </div>
 

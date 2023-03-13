@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="save()">
-  <div>
+  <div *ngIf="!(type_record_id == 3 && this.disabled == false)">
   
-  <div class="row justify-content-md-center">
+  <div class="row justify-content-md-center" >
     <div class="col-md-8">
       <label for="text" class="form-text text-muted font-weight-bold ">Diagnostico CIF:</label>
       <textarea id="text" nbInput fullWidth formControlName="text" text onpaste="return false" rows="4"
