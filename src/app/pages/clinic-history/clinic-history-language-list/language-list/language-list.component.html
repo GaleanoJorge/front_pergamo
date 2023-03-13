@@ -33,7 +33,7 @@
           <nb-step [stepControl]="nameForm" label="Evolución">
             <div class="row" *ngIf="this.show3">
               <div class="col-md-12">
-                <ngx-form-language-evolution [record_id]="record_id" (messageEvent)="inputMessage($event)" [user]="user" [has_input]="has_input"></ngx-form-language-evolution> 
+                <ngx-form-language-evolution [record_id]="record_id" (messageEvent)="inputMessage($event)" [user]="user" [type_record_id]="type_record_id" [has_input]="has_input" [data]="data"></ngx-form-language-evolution> 
                 
               </div>
             </div>

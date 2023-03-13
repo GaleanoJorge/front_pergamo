@@ -13,6 +13,7 @@ import { ChRecordService } from '../../../../../../../business-controller/ch_rec
 export class FormLanguageEvoDiagnosisComponent implements OnInit, OnChanges {
   @Input() title: string;
   @Input() data: any = null;
+  @Input() type_record_id: any = null;
   @Output() messageEvent = new EventEmitter<any>();
 
   public form: FormGroup;
@@ -42,7 +43,7 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit, OnChanges {
       text: [this.data[0] ? this.data[0].text : this.data.text , Validators.compose([Validators.required]),],
     });
     
-    if (!this.data.text) {   
+    if (!this.data.text && this.data.text != "") {   
       this.form.controls.text.disable();
       this.disabled = true;
     } else { 
@@ -64,13 +65,13 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit, OnChanges {
       text: [this.data[0] ? this.data[0].text : this.data.text , Validators.compose([Validators.required]),],
     });
 
-    if (!this.data.text) {   
+    if (!this.data.text && this.data.text != "") {   
       this.form.controls.text.disable();
       this.disabled = true;
     } else { 
       this.form.controls.text.enable();
       this.disabled = false;
-    }//Miguel estuvo aquí
+    }
   }
 
   async save() {
@@ -84,7 +85,7 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit, OnChanges {
         await this.CifDiagnosisTlS.Update({
             id: this.data.id,
             text: this.form.controls.text.value,
-            type_record_id: 1,
+            type_record_id: this.type_record_id,
             ch_record_id: this.record_id,
 
           }).then((x) => {
@@ -99,7 +100,7 @@ export class FormLanguageEvoDiagnosisComponent implements OnInit, OnChanges {
       } else {
         await this.CifDiagnosisTlS.Save({
             text: this.form.controls.text.value,
-            type_record_id: 1,
+            type_record_id: this.type_record_id,
             ch_record_id: this.record_id,
           }).then((x) => {
             this.toastService.success('', x.message);

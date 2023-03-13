@@ -16,14 +16,14 @@
 
       <nb-tab tabTitle="INGRESO">
         <div *ngIf="this.show1">
-          <ngx-language-list [record_id]="this.record_id" [user]="user" (messageEvent)="inputMessage($event)" [admission]="admission" [type_record_id]="1">
+          <ngx-language-list [record_id]="this.record_id" [data]="this.cifdiagnosistl" [user]="user" (messageEvent)="inputMessage($event)" [admission]="admission" [type_record_id]="1">
           </ngx-language-list>
         </div>
       </nb-tab>
 
       <nb-tab tabTitle="REGULAR">
         <div *ngIf="this.show2">
-          <ngx-regularlanguage-list [record_id]="this.record_id"  [user]="user" [admission]="admission" [type_record_id]="3"></ngx-regularlanguage-list>
+          <ngx-regularlanguage-list [record_id]="this.record_id" [data]="this.cifdiagnosistl"  [user]="user" [admission]="admission" [type_record_id]="3"></ngx-regularlanguage-list>
         </div>
       </nb-tab>
 

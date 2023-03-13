@@ -12,6 +12,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ConfirmDialogCHComponent } from '../clinic-history-list/confirm-dialog/confirm-dialog.component';
 
 import { DateFormatPipe } from '../../../pipe/date-format.pipe';
+import { CifDiagnosisTlService } from '../../../business-controller/cif-diagnosis-tl.service';
 
 @Component({
   selector: 'ngx-clinic-history-language-list',
@@ -56,6 +57,8 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
   public input_done: boolean = false; // ya se registró algo en el ingreso
   public show1 = false;
   public show2 = false;
+  public cifdiagnosistl: any[];
+
 
   toggleLinearMode() {
     this.linearMode = !this.linearMode;
@@ -74,6 +77,7 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
     private location: Location,
     private authService: AuthService,
     public datePipe: DateFormatPipe,
+    public CifDiagnosisTlS: CifDiagnosisTlService,
 
   ) {
     this.routes = [
@@ -113,6 +117,11 @@ export class ClinicHistoryLanguageListComponent implements OnInit {
       this.user = x[0]['admissions']['patients'];
       this.title = 'Admisiones de paciente: ' + this.user.firstname + ' ' + this.user.lastname;
     });
+
+    this.CifDiagnosisTlS.GetCollection({ ch_record_id: this.record_id }).then(x => {
+      this.cifdiagnosistl = x;
+    });
+
   }
 
   public back(): void {
