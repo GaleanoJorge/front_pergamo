@@ -158,6 +158,7 @@ export class FormDrugApplicationComponent implements OnInit {
                   .billing_stock.product_id
               : null,
             quantity: this.form.controls.quantity.value,
+            applicated: this.applicated,
           })
           .then((x) => {
             this.toastService.success('', x.message);
