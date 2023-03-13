@@ -9,18 +9,22 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
 @Component({
   template: `
   <div class="d-flex justify-content-center">
-    <button *ngIf="value.role_type == 1 && !(value.data.status == 'APROBADO' || value.data.status == 'RECHAZADO')" nbTooltip="Aprobar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton
+    <button *ngIf="this.value.data.account_receivable.status_bill_id == 1 && value.role_type == 1 && !(value.data.status == 'APROBADO' || value.data.status == 'RECHAZADO')" nbTooltip="Aprobar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton
         ghost (click)="ConfirmAction(aprobar)">
         <nb-icon icon="checkmark-outline"></nb-icon>
     </button>
 
-    <button *ngIf="value.role_type == 1 && !(value.data.status == 'APROBADO' || value.data.status == 'RECHAZADO')" nbTooltip="Rechazar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton
+    <button *ngIf="this.value.data.account_receivable.status_bill_id == 1 && value.role_type == 1 && !(value.data.status == 'APROBADO' || value.data.status == 'RECHAZADO')" nbTooltip="Rechazar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton
         ghost (click)="ConfirmAction(rechazar)">
         <nb-icon icon="close-outline"></nb-icon>
     </button>
     <button nbTooltip="Ver Registro Historia Clinica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost
         (click)="viewHC()">
         <nb-icon icon="file-add"></nb-icon>
+    </button>
+    <button *ngIf="this.value.data.account_receivable.status_bill_id == 1" nbTooltip="Recalcular valor" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost
+        (click)="ConfirmAction(recalcular)">
+        <nb-icon icon="repeat-outline"></nb-icon>
     </button>
   </div>
 
@@ -68,6 +72,26 @@ import { ChRecordService } from '../../../business-controller/ch_record.service'
                 </div>
                 <div class="div-send">
                     <button type="submit" (click)="ChangeAccountReceivable(0)" nbButton status="success">Aprobar</button>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+  </ng-template>
+  
+
+
+  <ng-template #recalcular>
+    <div class="container-fluid">
+        <nb-card style="width: 430px;">
+            <nb-card-header>Recalcular Valor Del Servicio</nb-card-header>
+            <nb-card-body>
+                <div>
+                    <div class="col-md-12">
+                        <label for="observation" class="form-text text-muted font-weight-bold">¿Desea recalcular el valor de este servicio?</label>
+                    </div>
+                </div>
+                <div class="div-send">
+                    <button type="submit" (click)="Recalculate()" nbButton status="success">Aprobar</button>
                 </div>
             </nb-card-body>
         </nb-card>
@@ -144,6 +168,23 @@ export class ActionsBillComponent implements ViewCell {
     }
 
 
+  }
+
+  Recalculate() {
+    this.billUserActivityS.Recalculate({
+      id: this.value.data.id
+    }).then(x => {
+      this.dialog.close();
+      this.toastService.success('', x.message);
+      this.value.refresh();
+      if (this.saved) {
+        this.saved();
+      }
+    }).catch(x => {
+      this.toastService.warning('', x);
+      this.isSubmitted = false;
+      this.loading = false;
+    });
   }
 
   async save(status2: string) {

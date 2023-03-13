@@ -63,6 +63,22 @@ export class BillUserActivityService {
       });
   }
 
+  Recalculate(bill_user_activity: any): Promise<ServiceObject> {
+    let servObj = new ServiceObject('bill_user_activity/RecalculateTariff', bill_user_activity.id);
+    servObj.data = bill_user_activity;
+    return this.webAPI.PutAction(servObj)
+      .then(x => {
+        servObj = <ServiceObject>x;
+        if (!servObj.status)
+          throw new Error(servObj.message);
+
+        return Promise.resolve(servObj);
+      })
+      .catch(x => {
+        throw x.message;
+      });
+  }
+
   Delete(id): Promise<ServiceObject> {
     let servObj = new ServiceObject('bill_user_activity', id);
     return this.webAPI.DeleteAction(servObj)
