@@ -14,7 +14,7 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
     <button nbTooltip="Formula médica" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="viewFormulation()" >
       <nb-icon icon="file-add"></nb-icon>
     </button>
-    <button *ngIf="!this.value.data.suspended" nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
+    <button *ngIf="!this.value.data.suspended && this.value.data.ch_record_id == this.value.ch_record_id && (this.value.data.pharmacy_product_request ? this.value.data.pharmacy_product_request.status == 'PATIENT' : true)" nbTooltip="Eliminar" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="value.delete(value.data)">
         <nb-icon icon="trash-2-outline"></nb-icon>
     </button>
     <button *ngIf="!this.value.data.suspended && (this.value.data.product_generic || this.value.data.product_supplies)" nbTooltip="Duplicar Formulación" nbTooltipPlacement="top" nbTooltipStatus="primary" nbButton ghost (click)="showFormulations(formulations)">
