@@ -10,7 +10,7 @@
                   status="danger" (click)="ShowPreBilling(confirm)">Facturar</button>
               <button nbButton class="mr-1"
                   status="warning" (click)="SelectAll(true)">seleccionar todo</button>
-              <button nbButton  class="mr-1" status="danger"
+              <button nbButton  class="mr-1" status="danger" disabled="{{ loading2 }}"
               (click)="generatePdf()">PDF</button>
             </div>
 

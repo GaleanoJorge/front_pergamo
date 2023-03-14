@@ -25,6 +25,7 @@ export class BillingPadPatientsComponent implements OnInit {
   public title: string = 'PACIENTES';
   public isSubmitted = false;
   public loading: boolean = false;
+  public loading2: boolean = false;
   public category_id: number = null;
   public messageError: string = null;
   public subtitle: string = 'Gestión';
@@ -262,15 +263,18 @@ export class BillingPadPatientsComponent implements OnInit {
   }
 
   async generatePdf() {
+    this.loading2 = true;
     await this.getAdmissions(); 
     this.BillingPadS.GeneratePdfMu({
       id: 0,
       billing_type: 'PREFACTURA',
       admissions: JSON.stringify(this.admissions),
     }).then(x => {
+      this.loading2 = false;
       this.toastS.success('Archivo generado con exito', 'Exito');
       window.open(x['url'], '_blank');
     }).catch(x => {
+      this.loading2 = false;
       this.toastS.danger('Error al generar archivo: ' + x, 'Error');
     });
   }
