@@ -203,7 +203,7 @@ export class BillingPadAllComponent implements OnInit {
     });
 
     var b = new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + ('01');
-    var c = new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getFullYear() + '-' + (+((new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getMonth() + 1)) >= 10 ? (new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getMonth() + 1) : ('0'+(new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getMonth() + 1))) + '-' + ('01');
+    var c = new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + (new Date(new Date().getFullYear(), new Date().getMonth()+1, 0).getDate());
 
     this.form = this.formBuilder.group({
       company_id: ['', []],

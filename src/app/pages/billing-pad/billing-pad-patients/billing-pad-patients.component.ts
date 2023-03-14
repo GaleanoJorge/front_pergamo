@@ -144,7 +144,7 @@ export class BillingPadPatientsComponent implements OnInit {
     this.campus_id = +localStorage.getItem('campus');
     
     var b = new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + ('01');
-    var c = new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getFullYear() + '-' + (+((new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getMonth() + 1)) >= 10 ? (new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getMonth() + 1) : ('0'+(new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getMonth() + 1))) + '-' + ('01');
+    var c = new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + (new Date(new Date().getFullYear(), new Date().getMonth()+1, 0).getDate());
 
     this.form = this.formBuilder.group({
       regime_id: [1, []],
@@ -244,7 +244,7 @@ export class BillingPadPatientsComponent implements OnInit {
 
           let a =  new Date(e.entry_date)
           let b =  new Date(this.form.controls.start_date.value + ' 00:00:00')
-          let c =  new Date(this.form.controls.finish_date.value + ' 00:00:00')
+          let c =  new Date(this.form.controls.finish_date.value + ' 23:59:59')
 
           let start_date_validator = this.form.controls.start_date.value != '' ? 
            a >= b  : true ;
