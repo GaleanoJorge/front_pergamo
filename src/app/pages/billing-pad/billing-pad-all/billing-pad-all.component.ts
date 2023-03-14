@@ -77,6 +77,7 @@ export class BillingPadAllComponent implements OnInit {
             'resend': this.resend.bind(this),
             'cancel': this.DeleteConfirmCompany.bind(this),
             'cancel_pgp': this.DeleteConfirmCompanyPgp.bind(this),
+            'cancel_mu': this.DeleteConfirmCompanyMu.bind(this),
             // 'delete': this.DeleteConfirmBillingAdmission.bind(this),
           };
         },
@@ -313,6 +314,30 @@ export class BillingPadAllComponent implements OnInit {
 
   cancelBillingPgp(data) {
     return this.BillingPadS.CancelBillingPgp({
+      id: data.id,
+      user_id : this.authService.GetUser().id,
+    }).then(x => {
+      this.RefreshData();
+      return Promise.resolve(x.message);
+    }).catch(x => {
+      throw ('Error al cancelar la factura: ' + x);
+    });
+  }
+
+  DeleteConfirmCompanyMu(data) {
+    this.deleteConfirmService.open(ConfirmDialogComponent, {
+      context: {
+        title: 'Cancelar factura',
+        textConfirm: 'Cancelar',
+        name: data.billing_pad_prefix.name + data.consecutive,
+        data: data,
+        delete: this.CancelBillingMu.bind(this),
+      },
+    });
+  }
+
+  CancelBillingMu(data) {
+    return this.BillingPadS.CancelBillingMu({
       id: data.id,
       user_id : this.authService.GetUser().id,
     }).then(x => {
