@@ -244,7 +244,7 @@ export class BillingPadPatientsComponent implements OnInit {
 
           let a =  new Date(e.entry_date)
           let b =  new Date(this.form.controls.start_date.value + ' 00:00:00')
-          let c =  new Date(this.form.controls.finish_date.value + ' 23:59:59')
+          let c =  new Date(this.form.controls.finish_date.value + ' 00:00:00')
 
           let start_date_validator = this.form.controls.start_date.value != '' ? 
            a >= b  : true ;
