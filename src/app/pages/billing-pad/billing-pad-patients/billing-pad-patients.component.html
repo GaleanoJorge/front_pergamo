@@ -13,6 +13,21 @@
               <button nbButton  class="mr-1" status="danger"
               (click)="generatePdf()">PDF</button>
             </div>
+
+            <form [formGroup]="form">
+              <div class="actions">
+    
+                <div class="col-12 col-sm-12 col-md-6">
+                  <label for="regime" class="form-text text-muted font-weight-bold">Filtrar por Régimen:</label>
+                  <nb-select  formControlName="regime_id" id="regime_id" fullWidth>
+                    <nb-option selected="{{ item.id == data.regime_id }}" *ngFor="let item of regime" [value]="item.id">
+                      {{ (item.name).toUpperCase() }}</nb-option>
+                  </nb-select>
+                </div>
+
+              </div>
+    
+            </form>
           </div>
         </ngx-base-table>
   </div>

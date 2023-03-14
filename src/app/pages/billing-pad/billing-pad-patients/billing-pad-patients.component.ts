@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
 import { NbDialogService, NbToastrService } from '@nebular/theme';
 import { BaseTableComponent } from '../../components/base-table/base-table.component';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActionsBillingPadPatientsComponent } from './actions-billing-pad-patients.component';
 import { FormShowBillingPadComponent } from '../billing-admission/form-show-billing-pad/form-show-billing-pad.component';
 import { ActivatedRoute } from '@angular/router';
@@ -46,6 +46,12 @@ export class BillingPadPatientsComponent implements OnInit {
   public admissions: any[] = [];
   public selectedOptions: any[] = [];
   public selectedOptions2: any[] = [];
+  public regime: any[] = [
+    { id: 1, name: 'TODOS' },
+    { id: 2, name: 'CONTRIBUTIVO' },
+    { id: 3, name: 'SUBSIDIADO' },
+    { id: 4, name: 'OTROS' },
+  ];
 
   public settings = {
     pager: {
@@ -113,6 +119,7 @@ export class BillingPadPatientsComponent implements OnInit {
   ];
 
   constructor(
+    private formBuilder: FormBuilder,
     private dialogFormService: NbDialogService,
     private activatedRoute: ActivatedRoute,
     private toastS: NbToastrService,
@@ -134,8 +141,21 @@ export class BillingPadPatientsComponent implements OnInit {
   async ngOnInit() {
     this.briefcase_id = this.activatedRoute.snapshot.params.briefcase_id;
     this.campus_id = +localStorage.getItem('campus');
+
+    this.form = this.formBuilder.group({
+      regime_id: [1, Validators.required],
+    });
+
+    this.form.get('regime_id').valueChanges.subscribe(val => {
+      this.changeEntity();
+    });
   }
 
+  changeEntity() {
+    this.table.changeEntity('billing_pad/getEnabledPatients/0?pgp=' + this.is_pgp + 
+    '&billing_pad_pgp_id=' + this.billing_pad_pgp_id + '&briefcase_id=' + this.briefcase_id + 
+    '&regime_id=' + this.form.controls.regime_id.value + '', 'billing_pad');
+  }
 
   RefreshData() {
     this.table.refresh();
@@ -198,7 +218,10 @@ export class BillingPadPatientsComponent implements OnInit {
     this.selectedOptions.forEach(element => {
       if (element.admissions.length > 0) {
         element.admissions.forEach(e => {
-          if (e.briefcase_id == this.briefcase_id) {
+          let validator = this.form.controls.regime_id.value == 2 ? e.regime_id == 1 || e.regime_id == 2 || e.regime_id == 3 : 
+          this.form.controls.regime_id.value == 3 ? e.regime_id == 4 : 
+          this.form.controls.regime_id.value == 4 ? e.regime_id > 4 : true ;
+          if (e.briefcase_id == this.briefcase_id && validator) {
             this.admissions.push(e.id);
           }
         });
