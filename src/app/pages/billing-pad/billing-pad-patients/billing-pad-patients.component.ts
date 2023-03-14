@@ -142,12 +142,29 @@ export class BillingPadPatientsComponent implements OnInit {
   async ngOnInit() {
     this.briefcase_id = this.activatedRoute.snapshot.params.briefcase_id;
     this.campus_id = +localStorage.getItem('campus');
+    
+    var b = new Date().getFullYear() + '-' + (+((new Date().getMonth() + 1)) >= 10 ? (new Date().getMonth() + 1) : ('0'+(new Date().getMonth() + 1))) + '-' + ('01');
+    var c = new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getFullYear() + '-' + (+((new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getMonth() + 1)) >= 10 ? (new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getMonth() + 1) : ('0'+(new Date(new Date(b).setMonth(new Date().getMonth() + 1)).getMonth() + 1))) + '-' + ('01');
 
     this.form = this.formBuilder.group({
-      regime_id: [1, Validators.required],
+      regime_id: [1, []],
+      start_date: [b, []],
+      finish_date: [c, []],
     });
 
+    this.entity = 'billing_pad/getEnabledPatients/0?pgp=' + this.is_pgp + 
+    '&billing_pad_pgp_id=' + this.billing_pad_pgp_id + '&briefcase_id=' + this.briefcase_id + 
+    '&regime_id=' + this.form.controls.regime_id.value +
+    '&start_date=' + this.form.controls.start_date.value + 
+    '&finish_date=' + this.form.controls.finish_date.value;
+
     this.form.get('regime_id').valueChanges.subscribe(val => {
+      this.changeEntity();
+    });
+    this.form.get('start_date').valueChanges.subscribe(val => {
+      this.changeEntity();
+    });
+    this.form.get('finish_date').valueChanges.subscribe(val => {
       this.changeEntity();
     });
   }
@@ -155,7 +172,9 @@ export class BillingPadPatientsComponent implements OnInit {
   changeEntity() {
     this.table.changeEntity('billing_pad/getEnabledPatients/0?pgp=' + this.is_pgp + 
     '&billing_pad_pgp_id=' + this.billing_pad_pgp_id + '&briefcase_id=' + this.briefcase_id + 
-    '&regime_id=' + this.form.controls.regime_id.value + '', 'billing_pad');
+    '&regime_id=' + this.form.controls.regime_id.value +
+    '&start_date=' + this.form.controls.start_date.value + 
+    '&finish_date=' + this.form.controls.finish_date.value, 'billing_pad');
   }
 
   RefreshData() {
@@ -219,10 +238,26 @@ export class BillingPadPatientsComponent implements OnInit {
     this.selectedOptions.forEach(element => {
       if (element.admissions.length > 0) {
         element.admissions.forEach(e => {
-          let validator = this.form.controls.regime_id.value == 2 ? e.regime_id == 1 || e.regime_id == 2 || e.regime_id == 3 : 
-          this.form.controls.regime_id.value == 3 ? e.regime_id == 4 : 
-          this.form.controls.regime_id.value == 4 ? e.regime_id > 4 : true ;
-          if (e.briefcase_id == this.briefcase_id && validator) {
+          let regimen_validator = this.form.controls.regime_id.value == 2 ? e.regime_id == 1 || e.regime_id == 2 || e.regime_id == 3 : 
+            this.form.controls.regime_id.value == 3 ? e.regime_id == 4 : 
+            this.form.controls.regime_id.value == 4 ? e.regime_id > 4 : true ;
+
+          let a =  new Date(e.entry_date)
+          let b =  new Date(this.form.controls.start_date.value + ' 00:00:00')
+          let c =  new Date(this.form.controls.finish_date.value + ' 23:59:59')
+
+          let start_date_validator = this.form.controls.start_date.value != '' ? 
+           a >= b  : true ;
+
+          let finish_date_validator = this.form.controls.finish_date.value != '' ? 
+           a <= c  : true ;
+
+          if (
+            e.briefcase_id == this.briefcase_id && 
+            regimen_validator && 
+            start_date_validator && 
+            finish_date_validator
+            ) {
             this.admissions.push(e.id);
           }
         });
