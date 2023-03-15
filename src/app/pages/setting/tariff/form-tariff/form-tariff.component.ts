@@ -284,7 +284,7 @@ export class FormTariffComponent implements OnInit {
             this.saved();
           }
         }).catch(x => {
-          this.toastService.danger(x, 'Error');
+          this.showToast(10000, x);
           this.isSubmitted = false;
           this.loading = false;
         });
@@ -309,11 +309,18 @@ export class FormTariffComponent implements OnInit {
             this.saved();
           }
         }).catch(x => {
-          this.toastService.danger(x, 'Error');
+          this.showToast(10000, x);
           this.isSubmitted = false;
           this.loading = false;
         });
       }
     }
+  }
+
+  showToast(duration, m) {
+    this.toastService.warning(
+      m,
+      'AVISO',
+        { duration });
   }
 }
