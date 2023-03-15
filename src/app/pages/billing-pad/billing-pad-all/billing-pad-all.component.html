@@ -13,16 +13,27 @@
             <!-- </div> -->
           </div>
           <div class="actions">
+
+            <div class="col-12 col-sm-12 col-md-6">
+              <label for="regime" class="form-text text-muted font-weight-bold">Filtrar por tipo de factura:</label>
+              <nb-select  formControlName="billing_type" id="billing_type" fullWidth>
+                <nb-option selected="{{ item.id == data.billing_type }}" *ngFor="let item of billing_type" [value]="item.id">
+                  {{ (item.name).toUpperCase() }}</nb-option>
+              </nb-select>
+            </div>
+
             <div class="col-md-6">
               <label for="start_date" class="form-text text-muted font-weight-bold">Fecha de inicio:</label>
               <input type="date" nbInput fullWidth id="start_date" formControlName="start_date" start_date
                 status="{{ isSubmitted && form.controls.start_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
             </div>
+
             <div class="col-md-6">
               <label for="finish_date" class="form-text text-muted font-weight-bold">Fecha de final:</label>
               <input type="date" nbInput fullWidth id="finish_date" formControlName="finish_date" finish_date
                 status="{{ isSubmitted && form.controls.finish_date.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}" />
             </div>
+
           </div>
         </form>
       </div>

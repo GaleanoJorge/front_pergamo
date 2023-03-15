@@ -45,6 +45,12 @@ export class BillingPadAllComponent implements OnInit {
   public entity;
   public role_permisos = [];
   public company: any[] = [];
+  public billing_type: any[] = [
+    { id: 0, name: 'TODOS' },
+    { id: 1, name: 'UNITARA' },
+    { id: 2, name: 'PGP' },
+    { id: 3, name: 'MULTIUSUARIO' },
+  ];
 
 
   @ViewChild(BaseTableComponent) table: BaseTableComponent;
@@ -208,6 +214,7 @@ export class BillingPadAllComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       company_id: ['', []],
+      billing_type: [0, []],
       start_date: [b, []],
       finish_date: [c, []],
     });
@@ -215,6 +222,7 @@ export class BillingPadAllComponent implements OnInit {
     this.entity = 'billing_pad/getAllBillings/0' + '?' +
     'start_date=' + this.form.controls.start_date.value + 
     '&finish_date=' + this.form.controls.finish_date.value + 
+    '&billing_type=' + this.form.controls.billing_type.value + 
     '&company_id=' + this.form.controls.company_id.value;
 
     this.form.get('company_id').valueChanges.subscribe(val => {
@@ -226,12 +234,16 @@ export class BillingPadAllComponent implements OnInit {
     this.form.get('finish_date').valueChanges.subscribe(val => {
       this.changeEntity();
     });
+    this.form.get('billing_type').valueChanges.subscribe(val => {
+      this.changeEntity();
+    });
   }
 
   changeEntity() {
     this.table.changeEntity('billing_pad/getAllBillings/0' + '?' +
     'start_date=' + this.form.controls.start_date.value + 
     '&finish_date=' + this.form.controls.finish_date.value + 
+    '&billing_type=' + this.form.controls.billing_type.value + 
     '&company_id=' + this.form.controls.company_id.value, 'billing_pad')
   }
 
