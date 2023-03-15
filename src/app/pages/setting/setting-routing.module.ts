@@ -165,6 +165,8 @@ import { TcAssistantComponent } from './tc-assistant/tc-assistant.component';
 import { TcServiceLevelComponent } from './tc-service-level/tc-service-level.component';
 import { TcBaseAdhesionComponent } from './tc-base-adhesion/tc-base-adhesion.component';
 import { TcPareBaseComponent } from './tc-pare-base/tc-pare-base.component';
+import { TcHumanTalent } from '../../models/tc-human-talent';
+import { TcHumanTalent2Component } from './tc-human-talent-2/tc-human-talent-2.component';
 
 const routes: Routes = [{
   path: '',
@@ -927,6 +929,11 @@ const routes: Routes = [{
     {
       path: 'tc-base-adhesion',
       component: TcBaseAdhesionComponent,
+    }
+    ,
+    {
+      path: 'tc-human-talent-2',
+      component: TcHumanTalent2Component,
     }
   ],
 }];
