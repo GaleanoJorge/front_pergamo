@@ -50,11 +50,11 @@
         <label for="ch_external_cause" class="form-text text-muted font-weight-bold">CAUSA
           EXTERNA:</label>
         <div *ngIf="!has_input">
-          <nb-select [selected]="this.data.ch_external_cause_id" formControlName="ch_external_cause_id"
-            id="ch_external_cause_id" fullWidth [disabled]="this.has_input"
+          <nb-select formControlName="ch_external_cause_id"
+            id="ch_external_cause_id" fullWidth
             status="{{ isSubmitted && form.controls.ch_external_cause_id.errors ? 'danger' : isSubmitted ? 'success' : 'basic' }}">
             <nb-option value="">Seleccione...</nb-option>
-            <nb-option selected="{{ item.id == data.ch_external_cause_id }}" *ngFor="let item of ch_external_cause"
+            <nb-option *ngFor="let item of ch_external_cause"
               [value]="item.id">
               {{ item.name }}</nb-option>
           </nb-select>
