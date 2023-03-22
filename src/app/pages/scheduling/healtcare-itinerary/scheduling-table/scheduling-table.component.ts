@@ -42,20 +42,21 @@ export class SchedulingTableComponent implements OnInit {
   public title = 'Facturación';
   public subtitle = '';
   public headerFields: any[] = [
-    'Estado',
-    'Tipo de documento',
-    'Documento',
-    'Nombre',
-    'Profesional',
-    'Consultorio',
-    'Procedimiento',
-    'Inicio',
-    'Finalización',
-    'Piso',
-    'Pabellon',
-    'Motivo de cancelación',
-    'Observación de cancelación',
-    'Usuario cancelación'
+    /*00*/'Estado',
+    /*01*/'Tipo de documento',
+    /*02*/'Documento',
+    /*03*/'Nombre',
+    /*04*/'Profesional',
+    /*05*/'Consultorio',
+    /*06*/'Procedimiento',
+    /*07*/'Inicio',
+    /*08*/'Finalización',
+    /*09*/'Piso',
+    /*10*/'Pabellon',
+    /*11*/'Motivo de cancelación',
+    /*12*/'Observación de cancelación',
+    /*13*/'Usuario cancelación',
+    /*14*/'Evolución',
   ];
   public routes = [];
   public row;
@@ -253,6 +254,17 @@ export class SchedulingTableComponent implements OnInit {
             return value;
           } else {
             return 'N/A';
+          }
+        },
+      },
+      ch_record: {
+        title: this.headerFields[14],
+        type: 'string',
+        valuePrepareFunction(value, row) {
+          if(row.ch_record.length > 0){
+            return 'Con Evolución';
+          } else {
+            return 'Sin Evolución';
           }
         },
       },
