@@ -428,6 +428,7 @@ import { TcBaseAdhesionComponent } from './tc-base-adhesion/tc-base-adhesion.com
 import { TcServiceLevelComponent } from './tc-service-level/tc-service-level.component';
 import { TcQuitComponent } from './tc-quit/tc-quit.component';
 import { TcPareBaseComponent } from './tc-pare-base/tc-pare-base.component';
+import { TcHumanTalent2Component } from './tc-human-talent-2/tc-human-talent-2.component';
 
 import { ReportExternalQueryComponent } from './report-external-query/report-external-query.component';
 import { FormReportExternalQueryComponent } from './report-external-query/form-report-external-query/form-report-external-query.component';
@@ -754,7 +755,8 @@ import { FormReportExternalQueryComponent } from './report-external-query/form-r
     TcAttendedComponent,
     TcQuitComponent,
     TcPareBaseComponent,
-    TcServiceLevelComponent,    
+    TcServiceLevelComponent,
+    TcHumanTalent2Component,    
     TcHumanTalentComponent,
     TcCollectionComponent,
 
